@@ -7,26 +7,14 @@ import { Button } from "@/components/ui/button";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const BANNER_SETTINGS_KEY = "portfolioBannerSettings";
-
-type BannerSettings = {
-    profileImage: string;
-    resumeFile: string;
-    githubProfile: string;
-    dashboardUrl: string;
-};
-
-const defaultBannerSettings: BannerSettings = {
+// Easy to edit banner configuration
+const bannerConfig = {
     profileImage: "/profilePicture.jpg",
     resumeFile: "/resume.pdf",
     githubProfile: "https://github.com/knaeeim",
-    dashboardUrl: "/dashboard",
 };
 
 const PortfolioBanner = () => {
-    const [bannerSettings, setBannerSettings] =
-        React.useState<BannerSettings>(defaultBannerSettings);
-
     useEffect(() => {
         AOS.init({
             duration: 500,
@@ -34,21 +22,6 @@ const PortfolioBanner = () => {
             once: false,
             offset: 100,
         });
-    }, []);
-
-    React.useEffect(() => {
-        const storedSettings = localStorage.getItem(BANNER_SETTINGS_KEY);
-        if (!storedSettings) return;
-
-        try {
-            const parsedSettings = JSON.parse(storedSettings) as Partial<BannerSettings>;
-            setBannerSettings((prevSettings) => ({
-                ...prevSettings,
-                ...parsedSettings,
-            }));
-        } catch {
-            setBannerSettings(defaultBannerSettings);
-        }
     }, []);
 
     return (
@@ -121,21 +94,24 @@ const PortfolioBanner = () => {
                                         <span>Instructor @ BD Calling Academy</span>
                                     </p>
                                     <div className="pt-2">
+                                        <span className="text-primary font-semibold">
+                                            Execution Summary:
+                                        </span>
                                         <p className="text-muted-foreground line-clamp-2 md:line-clamp-none">
-                                            {"// Passionate about building scalable web apps and solved 600+ problems on LeetCode & Codeforces."}
+                                            {"Passionate about building scalable web apps and solved 600+ problems on LeetCode & Codeforces."}
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="mt-6 flex flex-wrap items-center gap-3">
                                     <Button asChild size="sm">
-                                        <a href={bannerSettings.resumeFile} download>
+                                        <a href={bannerConfig.resumeFile} download>
                                             Download Resume
                                         </a>
                                     </Button>
                                     <Button asChild size="sm" variant="outline">
                                         <a
-                                            href={bannerSettings.githubProfile}
+                                            href={bannerConfig.githubProfile}
                                             target="_blank"
                                             rel="noreferrer noopener">
                                             <Github className="mr-2 size-4" />
@@ -147,7 +123,7 @@ const PortfolioBanner = () => {
                                 {/* Animated Blinking Cursor */}
                                 <div className="flex gap-3 mt-6">
                                     <span className="text-primary font-bold">➜</span>
-                                    <div className="w-2.5 h-5 bg-primary animate-pulse" />
+                                    <div className="w-1 h-5 bg-primary rounded-2xl animate-pulse" />
                                 </div>
                             </div>
                         </div>
@@ -163,7 +139,7 @@ const PortfolioBanner = () => {
                         {/* Main Image Container */}
                         <div className="relative w-75 h-75 sm:w-70 sm:h-80 md:w-80 md:h-72 lg:w-100 lg:h-100 rounded-full overflow-hidden border-4 border-background shadow-2xl z-10">
                             <Image
-                                src={bannerSettings.profileImage}
+                                src={bannerConfig.profileImage}
                                 alt="Profile"
                                 fill
                                 sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 288px, 320px"
