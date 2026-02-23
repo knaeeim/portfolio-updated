@@ -35,19 +35,21 @@ const ExperienceSection = () => {
 
     return (
         <section id="experience" className="py-24 bg-background overflow-hidden">
-            <div className="container mx-auto px-6 max-w-6xl">
+            <div className="container mx-auto px-6">
                 {/* Header */}
-                <div className="flex flex-col items-center text-center mb-20" data-aos="fade-up">
-                    <div className="p-3 bg-primary/10 rounded-2xl text-primary mb-4">
+                <div className="flex items-center gap-4 mb-20" data-aos="fade-up">
+                    <div className="p-3 bg-primary/10 rounded-2xl text-primary">
                         <Briefcase size={32} />
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-                        Professional Experience
-                    </h2>
-                    <p className="mt-4 text-muted-foreground max-w-xl">
-                        A timeline of my professional growth, mentorship, and technical
-                        contributions.
-                    </p>
+                    <div>
+                        <h2 className="text-4xl font-bold tracking-tight">
+                            Professional Experience
+                        </h2>
+                        <p className="text-muted-foreground">
+                            A timeline of my professional growth, mentorship, and technical
+                            contributions.
+                        </p>
+                    </div>
                 </div>
 
                 <div className="relative">

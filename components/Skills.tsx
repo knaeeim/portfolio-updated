@@ -64,14 +64,19 @@ const SkillsSection = () => {
     return (
         <section id="skills" className="py-24 bg-background">
             <div className="container mx-auto px-6">
-                <div className="mb-16 text-center" data-aos="fade-up">
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-                        Technical Arsenal
-                    </h2>
-                    <p className="text-muted-foreground max-w-2xl mx-auto">
-                        A specialized collection of technologies and methodologies I use to
-                        bring digital ideas to life.
-                    </p>
+                <div className="flex items-center gap-4 mb-20" data-aos="fade-up">
+                    <div className="p-3 bg-primary/10 rounded-2xl text-primary">
+                        <Code2 size={32} />
+                    </div>
+                    <div>
+                        <h2 className="text-4xl font-bold tracking-tight">
+                            Technical Arsenal
+                        </h2>
+                        <p className="text-muted-foreground">
+                            A specialized collection of technologies and methodologies I use to
+                            bring digital ideas to life.
+                        </p>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
