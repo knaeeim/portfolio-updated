@@ -117,7 +117,7 @@ const ContactSection = () => {
                                         <input
                                             type="text"
                                             name="name"
-                                            placeholder="Enter name"
+                                            placeholder="Enter Your Name"
                                             required
                                             className="w-full px-5 py-2 rounded-2xl bg-muted/30 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-muted-foreground/50"
                                         />
@@ -129,7 +129,7 @@ const ContactSection = () => {
                                         <input
                                             type="email"
                                             name="email"
-                                            placeholder="Enter email"
+                                            placeholder="Enter Your Email"
                                             required
                                             className="w-full px-5 py-2 rounded-2xl bg-muted/30 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-muted-foreground/50"
                                         />
