@@ -31,9 +31,15 @@ const programmingSteps = [
     {
         title: "Professional Growth",
         date: "Sep 2025 — Nov 2025",
-        desc: "Instructor at BD Calling Academy & learning Prisma/PostgreSQL.",
+        desc: "Instructor at BD Calling Academy. Taught 100+ students, fostering a passion for coding.",
         icon: Layers3,
     },
+    {
+        title : "Next Chapter",
+        date : "2026 & Beyond",
+        desc : "Eager to apply my skills in real-world projects and continue learning.",
+        icon : User,
+    }
 ];
 
 const personalTraits = [

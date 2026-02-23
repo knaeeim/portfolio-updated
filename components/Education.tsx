@@ -45,7 +45,7 @@ const EducationSection = () => {
                                         </span>
                                         <div className="flex items-center gap-1.5 text-muted-foreground text-sm font-mono">
                                             <Calendar size={14} />
-                                            <span>2023 — Present</span>
+                                            <span>2025 — Present</span>
                                         </div>
                                     </div>
 
