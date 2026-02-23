@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Mail, Github, Linkedin, Send, MapPin, Sparkles } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { toast } from "sonner";
 
 const ContactSection = () => {
     useEffect(() => {
@@ -15,23 +16,25 @@ const ContactSection = () => {
         });
     }, []);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
-        // Get form data
         const formData = new FormData(e.currentTarget);
-        const name = formData.get("name");
-        const email = formData.get("email");
-        const message = formData.get("message");
+        const payload = Object.fromEntries(formData);
 
-        // Here you can add your form submission logic
-        console.log("Form submitted:", { name, email, message });
-        
-        // Show success message or send to API
-        alert("Message sent successfully! (Add your email service integration here)");
-        
-        // Reset form
-        e.currentTarget.reset();
+        try {
+            const res = await fetch("/api/send", {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: { "Content-Type": "application/json" },
+            });
+
+            if (res.ok) {
+                toast.success("Email sent Successfully!");
+                e.currentTarget.reset();
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+        }
     };
 
     return (
@@ -40,7 +43,7 @@ const ContactSection = () => {
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
                     {/* LEFT SIDE: Info (5 Columns) */}
-                    <div className="lg:col-span-5 space-y-8" data-aos="fade-right">
+                    <div className="lg:col-span-5 space-y-8" data-aos="fade-up">
                         <div>
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium mb-4">
                                 <Sparkles size={14} />
@@ -51,9 +54,9 @@ const ContactSection = () => {
                                 <span className="text-primary">next big idea</span>.
                             </h2>
                             <p className="text-muted-foreground leading-relaxed">
-                                I&apos;m currently looking for new opportunities. Whether you have a
-                                question or just want to say hi, I&apos;ll try my best to get back
-                                to you!
+                                I&apos;m currently looking for new opportunities. Whether you
+                                have a question or just want to say hi, I&apos;ll try my best
+                                to get back to you!
                             </p>
                         </div>
 
@@ -100,7 +103,7 @@ const ContactSection = () => {
                     </div>
 
                     {/* RIGHT SIDE: Contact Form (7 Columns) */}
-                    <div className="lg:col-span-7 relative" data-aos="fade-left">
+                    <div className="lg:col-span-7 relative" data-aos="fade-up">
                         {/* Subtle glow effect behind form */}
                         <div className="absolute -inset-2 bg-linear-to-r from-primary/10 to-transparent rounded-[2rem] blur-2xl opacity-50" />
 
@@ -146,7 +149,9 @@ const ContactSection = () => {
                                     />
                                 </div>
 
-                                <button type="submit" className="w-full py-5 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/20 active:scale-[0.98]">
+                                <button
+                                    type="submit"
+                                    className="w-full py-5 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/20 active:scale-[0.98]">
                                     <Send size={18} />
                                     <span>Send Message</span>
                                 </button>

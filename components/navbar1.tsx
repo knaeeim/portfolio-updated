@@ -70,7 +70,7 @@ const Navbar1 = ({
         { title: "Education", url: "#education" },
     ],
     auth = {
-        contact: { title: "Contact Us", url: "#contact" },
+        contact: { title: "Contact Me", url: "#contact" },
     },
     className,
 }: Navbar1Props) => {
