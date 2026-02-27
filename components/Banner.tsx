@@ -98,7 +98,9 @@ const PortfolioBanner = () => {
                                             Execution Summary:
                                         </span>
                                         <p className="text-muted-foreground line-clamp-2 md:line-clamp-none">
-                                            {"Passionate about building scalable web apps and solved 600+ problems on LeetCode & Codeforces."}
+                                            {
+                                                "Passionate about building scalable web apps and solved 600+ problems on LeetCode & Codeforces."
+                                            }
                                         </p>
                                     </div>
                                 </div>
@@ -131,7 +133,9 @@ const PortfolioBanner = () => {
                 </div>
 
                 {/* RIGHT SIDE: Profile Picture (5 Columns on Large) */}
-                <div className="lg:col-span-5 order-1 lg:order-2 flex justify-center" data-aos="fade-left">
+                <div
+                    className="lg:col-span-5 order-1 lg:order-2 flex justify-center"
+                    data-aos="fade-left">
                     <div className="relative">
                         {/* Decorative Rings */}
                         <div className="absolute inset-0 rounded-full border border-dashed border-primary/40 animate-[spin_20s_linear_infinite] scale-115" />

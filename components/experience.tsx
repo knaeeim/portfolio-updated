@@ -10,7 +10,7 @@ const experiences = [
         company: "BdCalling Academy",
         role: "Web Instructor",
         stack: "(MERN Stack & Next.js)",
-        duration: "Sep 2025 — Nov 2025",
+        duration: "Aug 2025 — Oct 2025",
         location: "Dhaka, Bangladesh",
         icon: Presentation,
         tech: ["React", "Next.js", "Node.js", "Tailwind"],
@@ -75,12 +75,12 @@ const ExperienceSection = () => {
                                     {/* Date/Location Side (Alternates) */}
                                     <div
                                         className={`hidden md:flex w-1/2 ${isEven ? "pr-12 justify-end text-right" : "pl-12 order-last justify-start text-left"}`}>
-                                        <div className="space-y-2">
+                                        <div className="space-y-3">
                                             <span className="inline-block text-sm font-mono text-primary font-bold bg-primary/5 px-4 py-1.5 rounded-full border border-primary/20">
                                                 {exp.duration}
                                             </span>
                                             <div
-                                                className={`flex items-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-semibold ${isEven ? "justify-end" : "justify-start"}`}>
+                                                className={`flex items-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-semibold justify-center`}>
                                                 <MapPin size={12} />
                                                 <span>{exp.location}</span>
                                             </div>

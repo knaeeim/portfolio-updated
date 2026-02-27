@@ -5,6 +5,7 @@ import { Mail, Github, Linkedin, Send, MapPin, Sparkles } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { toast } from "sonner";
+import Link from "next/link";
 
 const ContactSection = () => {
     useEffect(() => {
@@ -89,16 +90,18 @@ const ContactSection = () => {
 
                         {/* Social Links with hover states */}
                         <div className="flex items-center gap-3 pt-2">
-                            <a
-                                href="#"
+                            <Link
+                                href="https://github.com/knaeeim"
+                                target="_blank"
                                 className="p-4 rounded-2xl border border-border bg-card hover:border-primary hover:text-primary transition-all duration-300">
                                 <Github size={20} />
-                            </a>
-                            <a
-                                href="#"
+                            </Link>
+                            <Link
+                                href="https://www.linkedin.com/in/kmnaeeim"
+                                target="_blank"
                                 className="p-4 rounded-2xl border border-border bg-card hover:border-primary hover:text-primary transition-all duration-300">
                                 <Linkedin size={20} />
-                            </a>
+                            </Link>
                         </div>
                     </div>
 

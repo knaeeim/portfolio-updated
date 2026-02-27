@@ -6,14 +6,12 @@ import { cn } from "@/lib/utils";
 
 import {
     Accordion,
-    AccordionContent,
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
     NavigationMenu,
-    NavigationMenuContent,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
@@ -57,10 +55,10 @@ interface Navbar1Props {
 
 const Navbar1 = ({
     logo = {
-        url: "",
+        url: "#home",
         src: "/logo.png",
         alt: "logo",
-        title: "Khairul Bashar Naeeim",
+        title: "KBN",
     },
     menu = [
         { title: "Home", url: "#home" },
@@ -78,7 +76,7 @@ const Navbar1 = ({
         <section
             className={cn(
                 "sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 px-6 sm:px-0",
-                className
+                className,
             )}>
             <div className="container mx-auto py-3">
                 {/* Desktop Menu */}
@@ -90,7 +88,7 @@ const Navbar1 = ({
                                 width={100}
                                 height={200}
                                 src={logo.src}
-                                className="max-h-8 dark:invert"
+                                className="max-h-8 dark:invert object-cover object-center"
                                 alt={logo.alt}
                             />
                             <span className="text-lg font-semibold tracking-tighter">
@@ -124,7 +122,7 @@ const Navbar1 = ({
                                 width={100}
                                 height={100}
                                 src={logo.src}
-                                className="max-h-8 dark:invert"
+                                className="max-h-8 dark:invert object-cover object-center"
                                 alt={logo.alt}
                             />
                         </a>
@@ -142,7 +140,7 @@ const Navbar1 = ({
                                                 width={100}
                                                 height={100}
                                                 src={logo.src}
-                                                className="max-h-8 dark:invert"
+                                                className="max-h-8 dark:invert object-cover object-center"
                                                 alt={logo.alt}
                                             />
                                         </a>
@@ -161,7 +159,9 @@ const Navbar1 = ({
                                             <ModeToggle />
                                         </Button>
                                         <Button asChild>
-                                            <a href={auth.contact.url}>{auth.contact.title}</a>
+                                            <a href={auth.contact.url}>
+                                                {auth.contact.title}
+                                            </a>
                                         </Button>
                                     </div>
                                 </div>
@@ -179,13 +179,6 @@ const renderMenuItem = (item: MenuItem) => {
         return (
             <NavigationMenuItem key={item.title}>
                 <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-                <NavigationMenuContent className="bg-popover text-popover-foreground">
-                    {item.items.map((subItem) => (
-                        <NavigationMenuLink asChild key={subItem.title} className="w-80">
-                            <SubMenuLink item={subItem} />
-                        </NavigationMenuLink>
-                    ))}
-                </NavigationMenuContent>
             </NavigationMenuItem>
         );
     }
@@ -208,11 +201,6 @@ const renderMobileMenuItem = (item: MenuItem) => {
                 <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">
                     {item.title}
                 </AccordionTrigger>
-                <AccordionContent className="mt-2">
-                    {item.items.map((subItem) => (
-                        <SubMenuLink key={subItem.title} item={subItem} />
-                    ))}
-                </AccordionContent>
             </AccordionItem>
         );
     }
@@ -220,24 +208,6 @@ const renderMobileMenuItem = (item: MenuItem) => {
     return (
         <a key={item.title} href={item.url} className="text-md font-semibold">
             {item.title}
-        </a>
-    );
-};
-
-const SubMenuLink = ({ item }: { item: MenuItem }) => {
-    return (
-        <a
-            className="flex min-w-80 flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-accent-foreground"
-            href={item.url}>
-            <div className="text-foreground">{item.icon}</div>
-            <div>
-                <div className="text-sm font-semibold">{item.title}</div>
-                {item.description && (
-                    <p className="text-sm leading-snug text-muted-foreground">
-                        {item.description}
-                    </p>
-                )}
-            </div>
         </a>
     );
 };
