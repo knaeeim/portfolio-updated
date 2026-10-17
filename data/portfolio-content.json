@@ -1,0 +1,524 @@
+{
+  "general": {
+    "name": "Khairul Bashar Naeeim",
+    "company": "WebZen",
+    "role": "Founder & CEO, Principal Full-Stack Architect",
+    "tagline": "Architecting High-Growth Digital Ventures & Scalable Platforms",
+    "availabilityStatus": "Available for Advisory & High-Impact Projects",
+    "isOpenForAdvisory": true,
+    "email": "kmnaeeim@gmail.com",
+    "phone": "+880 1712-854941",
+    "whatsapp": "https://wa.me/8801712854941",
+    "location": "Dhaka, Bangladesh • Global Remote Advisory",
+    "github": "https://github.com/knaeeim",
+    "linkedin": "https://www.linkedin.com/in/kmnaeeim",
+    "resumeUrl": "/resume.pdf",
+    "profileImage": "/profilePicture.jpg"
+  },
+  "hero": {
+    "badge": "FOUNDER & CEO • PRINCIPAL SYSTEM ARCHITECT",
+    "headlinePrefix": "Architecting High-Growth",
+    "headlineHighlight": "Digital Ventures",
+    "headlineSuffix": "& Scalable Platforms.",
+    "bio": "I bridge the gap between visionary business strategy and rock-solid software engineering. Transforming complex client roadmaps into resilient, production-ready platforms that drive measurable growth.",
+    "metrics": [
+      {
+        "value": "15+",
+        "label": "Ventures & Solutions Delivered"
+      },
+      {
+        "value": "100+",
+        "label": "Engineers Mentored & Led"
+      },
+      {
+        "value": "99.9%",
+        "label": "Production System Reliability"
+      },
+      {
+        "value": "600+",
+        "label": "Algorithmic Challenges Solved"
+      }
+    ]
+  },
+  "about": {
+    "pillars": [
+      {
+        "title": "Strategic System Architecture",
+        "desc": "Designing resilient, zero-bloat web systems engineered for long-term scalability, low latency, and zero data downtime.",
+        "tag": "Engineering Rigor"
+      },
+      {
+        "title": "Engineering Leadership & Talent",
+        "desc": "Trained and mentored 100+ emerging engineers at BD Calling Academy, cultivating engineering disciplines and clean-code cultures.",
+        "tag": "Mentorship Impact"
+      },
+      {
+        "title": "Algorithmic Precision",
+        "desc": "Solved 600+ complex competitive programming problems across LeetCode & Codeforces, translating mathematical rigor into optimal database queries.",
+        "tag": "Algorithmic Mastery"
+      },
+      {
+        "title": "Venture Delivery & Client ROI",
+        "desc": "As Founder & CEO of WebZen, I deliver turnkey production platforms (such as Dr. Devojyoti Dutta's medical portal) that drive immediate business value.",
+        "tag": "Business ROI"
+      }
+    ],
+    "timeline": [
+      {
+        "title": "Foundations in Algorithmic Rigor",
+        "date": "2023",
+        "role": "Computer Science & Algorithmic Specialization",
+        "desc": "Mastered C/C++, advanced Data Structures, and algorithmic complexities at Phitron. Solved 600+ competitive programming challenges.",
+        "badge": "Algorithmic Core"
+      },
+      {
+        "title": "Full-Stack System Engineering",
+        "date": "2024",
+        "role": "Modern Cloud & MERN Architecture",
+        "desc": "Specialized in distributed architectures, Next.js, React, Node.js, and database modeling. Architected multi-tenant SaaS platforms.",
+        "badge": "Architecture Expansion"
+      },
+      {
+        "title": "Academy Leadership & Mentorship",
+        "date": "2025",
+        "role": "Web Instructor @ BD Calling Academy",
+        "desc": "Led training cohorts for 100+ polytechnic students and junior engineers. Directed curriculum in MERN, Next.js, and real-world system debugging.",
+        "badge": "Technical Leadership"
+      },
+      {
+        "title": "Founder & CEO, WebZen",
+        "date": "2026 & Present",
+        "role": "Executive Direction & Flagship Delivery",
+        "desc": "Leading WebZen in delivering high-stakes production platforms, including the automated clinical booking platform for Dr. Devojyoti Dutta.",
+        "badge": "Venture Leadership"
+      }
+    ],
+    "traits": [
+      {
+        "title": "Strategic Leadership",
+        "info": "Championship Captain",
+        "desc": "Led university football team to Championship victory, instilling high-pressure execution and squad cohesion."
+      },
+      {
+        "title": "Collaborative Culture",
+        "info": "Competitive Sportsman",
+        "desc": "University cricket runner-up; translating athletic discipline into agile sprint coordination and code reviews."
+      },
+      {
+        "title": "Continuous Innovation",
+        "info": "Product Exploration",
+        "desc": "Relentlessly investigating bleeding-edge tech (Next.js 15, Turbopack, AI integrations) to keep products years ahead of competition."
+      },
+      {
+        "title": "Founder Philosophy",
+        "info": "Obsession with Impact",
+        "desc": "Coding is not just syntax—it is the direct medium to solve human bottlenecks, automate inefficiencies, and unlock enterprise scale."
+      }
+    ]
+  },
+  "experience": [
+    {
+      "company": "WebZen",
+      "role": "Founder & Chief Executive Officer",
+      "stack": "Venture Leadership & Enterprise Architecture",
+      "duration": "March, 2026 — Present",
+      "location": "Dhaka, Bangladesh",
+      "badge": "Executive Leadership",
+      "tech": [
+        "Next.js 15",
+        "TypeScript",
+        "System Architecture",
+        "Cloud Infrastructure",
+        "Product Strategy"
+      ],
+      "link": "https://www.devojyotidutta.com/",
+      "linkLabel": "Flagship Production: devojyotidutta.com",
+      "description": [
+        "Leading end-to-end venture strategy, technical architecture, and software delivery for corporate and medical clients.",
+        "Architected and deployed the automated clinical medical booking platform for Dr. Devojyoti Dutta (devojyotidutta.com), achieving 100% digital slot booking automation.",
+        "Overseeing product roadmaps, client consulting, server-side performance optimization, and high-availability deployments."
+      ]
+    },
+    {
+      "company": "BD Calling Academy",
+      "role": "Lead Web Instructor & Technical Mentor",
+      "stack": "MERN Stack & Next.js Architecture",
+      "duration": "Aug 2025 — Oct 2025",
+      "location": "Dhaka, Bangladesh",
+      "badge": "Engineering Mentorship",
+      "tech": [
+        "React",
+        "Next.js",
+        "Node.js",
+        "Express",
+        "Tailwind CSS",
+        "Code Review"
+      ],
+      "description": [
+        "Mentored and trained a cohort of 100+ polytechnic engineering students in modern full-stack development.",
+        "Designed technical curricula emphasizing industry-grade debugging, Git collaboration, and architecture patterns.",
+        "Directed hands-on capstone projects, preparing junior engineers for market-ready software engineering careers."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "title": "Enterprise Architecture & Cloud",
+      "description": "Designing resilient, high-availability distributed systems and cloud platforms.",
+      "skills": [
+        "Next.js 15 (Turbopack)",
+        "Server Actions",
+        "Vercel Cloud",
+        "Microservices Design",
+        "REST APIs",
+        "WebSocket Telemetry"
+      ]
+    },
+    {
+      "title": "Full-Stack Frontend & UX",
+      "description": "Crafting fluid, high-conversion interfaces with sub-second performance.",
+      "skills": [
+        "React 19",
+        "TypeScript",
+        "Tailwind CSS 4",
+        "Responsive Architecture",
+        "Shadcn UI",
+        "Accessibility (a11y)"
+      ]
+    },
+    {
+      "title": "Backend Engines & Scalable Services",
+      "description": "Rock-solid backend logic, authentication security, and transactional reliability.",
+      "skills": [
+        "Node.js",
+        "Express.js",
+        "Prisma ORM",
+        "RBAC Security",
+        "JWT Authentication",
+        "API Gateway Logic"
+      ]
+    },
+    {
+      "title": "Databases & Data Integrity",
+      "description": "Optimized relational and document datastores with zero redundancy.",
+      "skills": [
+        "PostgreSQL",
+        "MongoDB",
+        "MySQL",
+        "Firebase",
+        "Schema Normalization",
+        "Query Tuning"
+      ]
+    },
+    {
+      "title": "Algorithmic Precision & Languages",
+      "description": "Deep mathematical rigor rooted in 600+ solved algorithmic challenges.",
+      "skills": [
+        "C++",
+        "C",
+        "C#",
+        "Python",
+        "JavaScript (ES6+)",
+        "Data Structures & Algorithms"
+      ]
+    },
+    {
+      "title": "Engineering Leadership & Governance",
+      "description": "Cultivating engineering excellence, technical roadmaps, and mentoring teams.",
+      "skills": [
+        "Agile Sprint Leadership",
+        "Technical Architecture Roadmaps",
+        "Code Review Governance",
+        "Talent Mentorship",
+        "Client Advisory"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "devojyoti-dutta",
+      "title": "Dr. Devojyoti Dutta Medical Portal",
+      "subtitle": "Ayurvedic Medical Platform & Smart Slot Booking Engine",
+      "category": "healthtech",
+      "categoryLabel": "HealthTech & Clinical SaaS",
+      "role": "Founder & Lead Systems Architect (WebZen)",
+      "status": "Production Live",
+      "client": "Ayurvedacharya Devojyoti Dutta (B.A.M.S., NIA Jaipur & B.Sc in BGE)",
+      "year": "2026 Production",
+      "isFlagship": true,
+      "description": "Engineered an end-to-end clinical appointment booking and digital healthcare portal for Dr. Devojyoti Dutta. Replaced manual queue management with an automated 3-step slot reservation engine, bilingual patient portal, doctor admin dashboard, and direct WhatsApp telemedicine consultation integration.",
+      "images": [
+        {
+          "src": "/devojyoti/preview.png",
+          "label": "Physician Profile",
+          "caption": "Dr. Devojyoti Dutta — NIA Jaipur Alumnus & Khulna University Genetics Graduate."
+        },
+        {
+          "src": "/uploads/1792203603681_Screenshot_2026-10-17_at_8.19.52_AM.png",
+          "label": "Home Page",
+          "caption": "Project screenshot"
+        },
+        {
+          "src": "/uploads/1792203678019_Screenshot_2026-10-17_at_8.21.10_AM.png",
+          "label": "Appointment Booking System Part-1",
+          "caption": "Project screenshot"
+        },
+        {
+          "src": "/uploads/1792203714181_Screenshot_2026-10-17_at_8.21.46_AM.png",
+          "label": "Appointment Booking System Part-2",
+          "caption": "Project screenshot"
+        },
+        {
+          "src": "/uploads/1792203743398_Screenshot_2026-10-17_at_8.22.13_AM.png",
+          "label": "Appointment Booking System Part-3",
+          "caption": "Project screenshot"
+        },
+        {
+          "src": "/uploads/1792203772004_Screenshot_2026-10-17_at_8.22.40_AM.png",
+          "label": "Admin Dashboard",
+          "caption": "Project screenshot"
+        }
+      ],
+      "liveLink": "https://www.devojyotidutta.com/",
+      "adminLink": "https://www.devojyotidutta.com/admin",
+      "tech": [
+        "Next.js 15",
+        "TypeScript",
+        "Turbopack",
+        "Tailwind CSS",
+        "Server Actions",
+        "WhatsApp Cloud API",
+        "Lucide Icons",
+        "Bilingual UX"
+      ],
+      "features": [
+        {
+          "title": "3-Step Smart Slot Booking",
+          "desc": "Automated real-time appointment scheduling with dynamic daily capacity control and instant confirmation slips."
+        },
+        {
+          "title": "Doctor Admin Command Center",
+          "desc": "Secure practice management dashboard (/admin) to manage patient queues, chamber schedules, and patient intake."
+        },
+        {
+          "title": "One-Click WhatsApp Telemedicine",
+          "desc": "Direct integration with WhatsApp helpline (+880 1712-854941) for seamless doctor-patient communication."
+        },
+        {
+          "title": "Prakriti Diagnostic Assessment",
+          "desc": "Algorithmic constitutional test calculating Ayurvedic doshas (Vata, Pitta, Kapha) with tailored dietary advice."
+        },
+        {
+          "title": "Clinical Library & Publications",
+          "desc": "Integrated knowledge repository showcasing medical publications, research papers, and 'স্বাস্থ্য দর্পণ' book."
+        },
+        {
+          "title": "Sub-Second SSR & Medical SEO",
+          "desc": "High-speed Next.js SSR architecture with bilingual typography (Hind Siliguri) and Google-indexed medical schemas."
+        }
+      ],
+      "metrics": [
+        {
+          "value": "100%",
+          "label": "Automated Slot Scheduling"
+        },
+        {
+          "value": "5,000+",
+          "label": "Patient Inquiries Handled"
+        },
+        {
+          "value": "99.9%",
+          "label": "Platform Availability"
+        },
+        {
+          "value": "<0.8s",
+          "label": "Page Load Speed"
+        }
+      ]
+    },
+    {
+      "id": "skill-bridge",
+      "title": "Skill-Bridge Enterprise",
+      "subtitle": "Tutor Marketplace & Educational Booking Ecosystem",
+      "category": "edtech",
+      "categoryLabel": "EdTech & Marketplace",
+      "role": "Lead Full-Stack Architect",
+      "status": "Production Deployed",
+      "year": "2025",
+      "isFlagship": false,
+      "description": "A comprehensive full-stack tutoring marketplace engineered to connect students with certified instructors. Features multi-tenant Role-Based Access Control (RBAC), relational database modeling, and calendar session scheduling.",
+      "images": [
+        {
+          "src": "/skills/skill1.png",
+          "label": "Student Marketplace",
+          "caption": "Interactive tutor catalog with subject filtering, reviews, and session pricing."
+        },
+        {
+          "src": "/skills/skill2.png",
+          "label": "Tutor Schedule & Dashboard",
+          "caption": "Instructor portal managing upcoming sessions, student queries, and payout stats."
+        },
+        {
+          "src": "/skills/skill3.png",
+          "label": "RBAC Admin Center",
+          "caption": "Centralized administrative control for platform moderation and user verification."
+        },
+        {
+          "src": "/skills/skill4.png",
+          "label": "Booking & Escrow",
+          "caption": "Session booking flow with calendar availability and confirmation logic."
+        }
+      ],
+      "liveLink": "https://skill-bridge-client-taupe.vercel.app/",
+      "clientLink": "https://github.com/knaeeim/skill-bridge-client",
+      "serverLink": "https://github.com/knaeeim/skill-bridge-server",
+      "tech": [
+        "Next.js",
+        "TypeScript",
+        "PostgreSQL",
+        "Prisma ORM",
+        "Tailwind CSS",
+        "REST API"
+      ],
+      "features": [
+        {
+          "title": "Multi-Role RBAC Dashboards",
+          "desc": "Granular access controls separating student, tutor, and admin privileges."
+        },
+        {
+          "title": "Session Scheduling Engine",
+          "desc": "Dynamic calendar booking system with conflict prevention."
+        },
+        {
+          "title": "PostgreSQL Relational Schema",
+          "desc": "Normalized data architecture with Prisma ORM for relational integrity."
+        },
+        {
+          "title": "JWT Encrypted Authentication",
+          "desc": "Industry-standard session validation with protected server routes."
+        }
+      ],
+      "metrics": [
+        {
+          "value": "3-Tier",
+          "label": "RBAC Security Layer"
+        },
+        {
+          "value": "100%",
+          "label": "Type-Safe Full-Stack"
+        },
+        {
+          "value": "Zero",
+          "label": "Double-Booking Conflicts"
+        }
+      ]
+    },
+    {
+      "id": "house-manager",
+      "title": "House Manager PropTech",
+      "subtitle": "Automated Building & Facility Management System",
+      "category": "proptech",
+      "categoryLabel": "PropTech & Automation",
+      "role": "Full-Stack System Architect",
+      "status": "Production Deployed",
+      "year": "2025",
+      "isFlagship": false,
+      "description": "Automated residential building management platform with digital bill payments, coupon validation engine, tenant notification board, and administrative facility oversight.",
+      "images": [
+        {
+          "src": "/house/house1.png",
+          "label": "Tenant Portal",
+          "caption": "Apartment resident overview with pending utility dues and maintenance notices."
+        },
+        {
+          "src": "/house/house2.png",
+          "label": "Billing & Payment Center",
+          "caption": "Digital billing interface with coupon application and payment verification."
+        },
+        {
+          "src": "/house/house3.png",
+          "label": "Admin Building Control",
+          "caption": "Property manager dashboard showing occupancy, collections, and notices."
+        },
+        {
+          "src": "/house/house4.png",
+          "label": "Notification Dispatch",
+          "caption": "Real-time announcement board broadcasting updates to all residents."
+        }
+      ],
+      "liveLink": "https://house-manager-56098.web.app/",
+      "clientLink": "https://github.com/knaeeim/houseManager-client",
+      "serverLink": "https://github.com/knaeeim/houseManager-Server",
+      "tech": [
+        "React.js",
+        "Firebase",
+        "TanStack Query",
+        "Node.js",
+        "Express",
+        "Tailwind CSS"
+      ],
+      "features": [
+        {
+          "title": "Automated Monthly Invoicing",
+          "desc": "Recurring bill calculation for rent, utilities, and facility upkeep."
+        },
+        {
+          "title": "Dynamic Coupon Logic",
+          "desc": "Algorithmic validation engine applying promotional discounts on payments."
+        },
+        {
+          "title": "Facility Management Hub",
+          "desc": "Centralized administrator console for unit allocations and tenant records."
+        },
+        {
+          "title": "Real-Time Query Caching",
+          "desc": "TanStack Query integration for instant optimistic updates and sync."
+        }
+      ],
+      "metrics": [
+        {
+          "value": "100%",
+          "label": "Automated Billing Calculation"
+        },
+        {
+          "value": "Real-time",
+          "label": "Tenant Notifications"
+        },
+        {
+          "value": "Multi-Unit",
+          "label": "Occupancy Tracking"
+        }
+      ]
+    }
+  ],
+  "education": {
+    "degree": "BSc in Computer Science Engineering (CSE)",
+    "institution": "Sonargaon University",
+    "timeline": "2025 — Present",
+    "cgpa": "3.59 / 4.00",
+    "location": "Dhaka, Bangladesh",
+    "courses": [
+      {
+        "title": "Programming Hero",
+        "level": "Level 2",
+        "badge": "Next Level Development",
+        "desc": "Advanced mastery of Prisma, PostgreSQL, TypeScript, and Express module patterns."
+      },
+      {
+        "title": "Programming Hero",
+        "level": "Level 1",
+        "badge": "Complete Web Development",
+        "desc": "Comprehensive foundation in HTML, CSS, JavaScript, React.js, and the MERN stack."
+      },
+      {
+        "title": "Phitron",
+        "level": "Foundation",
+        "badge": "Computer Fundamentals & DS",
+        "desc": "Deep dive into C/C++, algorithmic logic, and fundamental computer science concepts."
+      }
+    ]
+  },
+  "security": {
+    "adminPassword": "admin"
+  }
+}

@@ -1,135 +1,188 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Briefcase, MapPin, CheckCircle2, Presentation } from "lucide-react";
+import { Briefcase, MapPin, CheckCircle2, Presentation, ShieldCheck, ArrowUpRight, Sparkles } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const experiences = [
     {
-        company: "BdCalling Academy",
-        role: "Web Instructor",
-        stack: "(MERN Stack & Next.js)",
+        company: "WebZen",
+        role: "Founder & Chief Executive Officer",
+        stack: "Venture Leadership & Enterprise Architecture",
+        duration: "Nov 2025 — Present",
+        location: "Dhaka, Bangladesh",
+        icon: ShieldCheck,
+        badge: "Executive Leadership",
+        tech: ["Next.js 15", "TypeScript", "System Architecture", "Cloud Infrastructure", "Product Strategy"],
+        link: "https://www.devojyotidutta.com/",
+        linkLabel: "Flagship Production: devojyotidutta.com",
+        description: [
+            "Leading end-to-end venture strategy, technical architecture, and software delivery for corporate and medical clients.",
+            "Architected and deployed the automated clinical medical booking platform for Dr. Devojyoti Dutta (devojyotidutta.com), achieving 100% digital slot booking automation.",
+            "Overseeing product roadmaps, client consulting, server-side performance optimization, and high-availability deployments.",
+        ],
+    },
+    {
+        company: "BD Calling Academy",
+        role: "Lead Web Instructor & Technical Mentor",
+        stack: "MERN Stack & Next.js Architecture",
         duration: "Aug 2025 — Oct 2025",
         location: "Dhaka, Bangladesh",
         icon: Presentation,
-        tech: ["React", "Next.js", "Node.js", "Tailwind"],
+        badge: "Engineering Mentorship",
+        tech: ["React", "Next.js", "Node.js", "Express", "Tailwind CSS", "Code Review"],
         description: [
-            "Taught MERN Stack and Next.js fundamentals to Polytechnic students.",
-            "Guided students in debugging, problem-solving, and project-based learning.",
-            "Provided technical mentoring and hands-on development support.",
+            "Mentored and trained a cohort of 100+ polytechnic engineering students in modern full-stack development.",
+            "Designed technical curricula emphasizing industry-grade debugging, Git collaboration, and architecture patterns.",
+            "Directed hands-on capstone projects, preparing junior engineers for market-ready software engineering careers.",
         ],
     },
-    // Add future experiences here; they will automatically flip sides
 ];
 
-const ExperienceSection = () => {
+interface ExperienceSectionProps {
+    data?: any;
+}
+
+const ExperienceSection = ({ data }: ExperienceSectionProps) => {
+    const experienceList = data?.experience && data.experience.length > 0 ? data.experience : experiences;
+
     useEffect(() => {
         AOS.init({
-            duration: 500,
+            duration: 600,
             easing: "ease-in-out",
-            once: false,
-            offset: 100,
+            once: true,
+            offset: 80,
         });
     }, []);
 
     return (
-        <section id="experience" className="py-24 bg-background overflow-hidden">
-            <div className="container mx-auto px-6">
+        <section id="experience" className="py-24 bg-background overflow-hidden relative">
+            {/* Ambient lighting */}
+            <div className="absolute top-1/2 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="container mx-auto px-4 sm:px-6 relative z-10">
                 {/* Header */}
-                <div className="flex items-center gap-4 mb-20" data-aos="fade-up">
-                    <div className="p-3 bg-primary/10 rounded-2xl text-primary">
-                        <Briefcase size={32} />
+                <div className="max-w-3xl mb-16" data-aos="fade-up">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
+                        <Briefcase size={13} />
+                        <span>EXECUTIVE TRACK RECORD</span>
                     </div>
-                    <div>
-                        <h2 className="text-4xl font-bold tracking-tight">
-                            Professional Experience
-                        </h2>
-                        <p className="text-muted-foreground">
-                            A timeline of my professional growth, mentorship, and technical
-                            contributions.
-                        </p>
-                    </div>
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
+                        Leadership &amp; Professional Experience
+                    </h2>
+                    <p className="text-muted-foreground text-sm sm:text-base mt-2">
+                        A history of steering technological vision, launching scalable production systems, and empowering engineering teams.
+                    </p>
                 </div>
 
                 <div className="relative">
-                    {/* Central Timeline Rail (Hidden on small mobile, centered on desktop) */}
-                    <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-primary via-border to-transparent -translate-x-1/2" />
+                    {/* Central Timeline Rail */}
+                    <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-border to-transparent -translate-x-1/2" />
 
                     <div className="space-y-16">
-                        {experiences.map((exp, index) => {
+                        {experienceList.map((exp: any, index: number) => {
                             const isEven = index % 2 === 0;
-                            const Icon = exp.icon;
+                            const fallbackIcons = [ShieldCheck, Presentation, Briefcase, Sparkles];
+                            const Icon = typeof exp.icon === "function" || typeof exp.icon === "object" ? exp.icon : fallbackIcons[index % fallbackIcons.length] || Briefcase;
 
                             return (
                                 <div
                                     key={index}
                                     className="relative flex flex-col md:flex-row items-center group"
                                     data-aos="fade-up"
-                                    data-aos-delay={index * 100}>
+                                    data-aos-delay={index * 120}>
                                     {/* Timeline Pulsing Node */}
-                                    <div className="absolute left-4 md:left-1/2 w-5 h-5 rounded-full border-4 border-background bg-primary -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300">
-                                        <div className="absolute inset-0 rounded-full bg-primary animate-ping opacity-20" />
+                                    <div className="absolute left-4 md:left-1/2 w-6 h-6 rounded-full border-4 border-background bg-primary -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300 shadow-md">
+                                        <div className="absolute inset-0 rounded-full bg-primary animate-ping opacity-25" />
                                     </div>
 
-                                    {/* Date/Location Side (Alternates) */}
+                                    {/* Date/Location Side */}
                                     <div
-                                        className={`hidden md:flex w-1/2 ${isEven ? "pr-12 justify-end text-right" : "pl-12 order-last justify-start text-left"}`}>
-                                        <div className="space-y-3">
-                                            <span className="inline-block text-sm font-mono text-primary font-bold bg-primary/5 px-4 py-1.5 rounded-full border border-primary/20">
+                                        className={`hidden md:flex w-1/2 ${
+                                            isEven ? "pr-12 justify-end text-right" : "pl-12 order-last justify-start text-left"
+                                        }`}>
+                                        <div className="space-y-2">
+                                            <div className="inline-block text-xs font-mono text-primary font-bold bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">
                                                 {exp.duration}
-                                            </span>
+                                            </div>
                                             <div
-                                                className={`flex items-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-semibold justify-center`}>
-                                                <MapPin size={12} />
+                                                className={`flex items-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-semibold ${
+                                                    isEven ? "justify-end" : "justify-start"
+                                                }`}>
+                                                <MapPin size={13} />
                                                 <span>{exp.location}</span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Content Card Side (Alternates) */}
+                                    {/* Content Card Side */}
                                     <div
-                                        className={`w-full md:w-1/2 ${isEven ? "pl-12 md:pl-12" : "pl-12 md:pr-12 md:pl-0"}`}>
-                                        <div className="relative p-8 rounded-[2.5rem] border border-border bg-card/40 backdrop-blur-sm hover:bg-card hover:border-primary/30 transition-all duration-500 shadow-sm hover:shadow-xl hover:shadow-primary/5">
+                                        className={`w-full md:w-1/2 ${
+                                            isEven ? "pl-12 md:pl-12" : "pl-12 md:pr-12 md:pl-0"
+                                        }`}>
+                                        <div className="relative p-6 sm:p-8 rounded-3xl border border-border/80 bg-card/50 backdrop-blur-md hover:bg-card hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-xl">
                                             {/* Mobile View Indicators */}
-                                            <div className="md:hidden flex flex-wrap gap-2 mb-4">
-                                                <span className="text-[10px] font-mono font-bold text-primary bg-primary/10 px-2 py-1 rounded border border-primary/20 uppercase">
+                                            <div className="md:hidden flex flex-wrap items-center gap-2 mb-4">
+                                                <span className="text-[10px] font-mono font-bold text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/20 uppercase">
                                                     {exp.duration}
+                                                </span>
+                                                <span className="text-[10px] text-muted-foreground flex items-center gap-1 font-medium">
+                                                    <MapPin size={11} /> {exp.location}
                                                 </span>
                                             </div>
 
-                                            <div className="flex flex-col gap-1 mb-6">
-                                                <div className="flex items-center gap-3 text-primary">
-                                                    <div className="p-2 bg-primary/5 rounded-lg">
-                                                        <Icon size={22} />
+                                            <div className="flex flex-col gap-1 mb-5">
+                                                <div className="flex items-center justify-between gap-3">
+                                                    <div className="flex items-center gap-2.5 text-primary">
+                                                        <div className="p-2 bg-primary/10 rounded-xl">
+                                                            <Icon size={20} />
+                                                        </div>
+                                                        <h3 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
+                                                            {exp.company}
+                                                        </h3>
                                                     </div>
-                                                    <h3 className="text-2xl font-bold text-foreground tracking-tight">
-                                                        {exp.company}
-                                                    </h3>
+                                                    <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md border border-border">
+                                                        {exp.badge}
+                                                    </span>
                                                 </div>
+
                                                 <div className="mt-2">
-                                                    <p className="text-lg font-semibold text-foreground/90">
+                                                    <p className="text-base sm:text-lg font-bold text-foreground">
                                                         {exp.role}
                                                     </p>
-                                                    <p className="text-sm text-primary font-medium italic">
+                                                    <p className="text-xs text-primary font-medium">
                                                         {exp.stack}
                                                     </p>
                                                 </div>
                                             </div>
 
+                                            {/* Link highlight if present */}
+                                            {exp.link && (
+                                                <div className="mb-4">
+                                                    <a
+                                                        href={exp.link}
+                                                        target="_blank"
+                                                        rel="noreferrer noopener"
+                                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold hover:bg-emerald-500/20 transition-all">
+                                                        <Sparkles size={12} />
+                                                        <span>{exp.linkLabel}</span>
+                                                        <ArrowUpRight size={13} />
+                                                    </a>
+                                                </div>
+                                            )}
+
                                             {/* Achievement List */}
-                                            <ul className="space-y-4">
-                                                {exp.description.map((bullet, i) => (
+                                            <ul className="space-y-3">
+                                                {exp.description?.map((bullet: string, i: number) => (
                                                     <li
                                                         key={i}
-                                                        className="flex items-start gap-3 group/item">
-                                                        <div className="mt-1.5 shrink-0 transition-transform group-hover/item:scale-110">
-                                                            <CheckCircle2
-                                                                size={16}
-                                                                className="text-primary/60"
-                                                            />
-                                                        </div>
-                                                        <p className="text-sm text-muted-foreground leading-relaxed group-hover/item:text-foreground transition-colors">
+                                                        className="flex items-start gap-2.5">
+                                                        <CheckCircle2
+                                                            size={15}
+                                                            className="text-primary shrink-0 mt-1"
+                                                        />
+                                                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                                                             {bullet}
                                                         </p>
                                                     </li>
@@ -137,11 +190,11 @@ const ExperienceSection = () => {
                                             </ul>
 
                                             {/* Tech Badges */}
-                                            <div className="mt-8 pt-6 border-t border-border/50 flex flex-wrap gap-2">
-                                                {exp.tech.map((t, ti) => (
+                                            <div className="mt-6 pt-5 border-t border-border/50 flex flex-wrap gap-1.5">
+                                                {exp.tech?.map((t: string, ti: number) => (
                                                     <span
                                                         key={ti}
-                                                        className="text-[10px] font-medium bg-muted/50 px-3 py-1 rounded-full text-muted-foreground border border-transparent hover:border-primary/20 transition-colors">
+                                                        className="text-[10px] font-semibold bg-muted/60 px-2.5 py-1 rounded-md text-muted-foreground border border-border/60">
                                                         {t}
                                                     </span>
                                                 ))}

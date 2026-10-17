@@ -15,8 +15,31 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Khairul Bashar Naeeim - Software Engineer",
-    description: "Khairul Bashar Naeeim",
+    title: "Khairul Bashar Naeeim | Founder & CEO, Principal Full-Stack Architect",
+    description:
+        "Official executive portfolio of Khairul Bashar Naeeim — Founder & CEO at WebZen, Principal Full-Stack Architect & Product Strategist. Engineering scalable digital ventures, enterprise web platforms, and clinical systems.",
+    keywords: [
+        "Khairul Bashar Naeeim",
+        "Founder & CEO",
+        "WebZen",
+        "Principal Full-Stack Architect",
+        "Next.js 15 Specialist",
+        "Web Application Architect",
+        "Dr Devojyoti Dutta Portal",
+        "Enterprise Software",
+        "Tech Executive Bangladesh",
+    ],
+    authors: [{ name: "Khairul Bashar Naeeim", url: "https://github.com/knaeeim" }],
+    creator: "Khairul Bashar Naeeim",
+    openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: "https://knaeeim.dev",
+        title: "Khairul Bashar Naeeim | Founder & CEO, Principal Full-Stack Architect",
+        description:
+            "Engineering scalable digital ventures, enterprise web platforms, and visionary software solutions.",
+        siteName: "Khairul Bashar Naeeim Portfolio",
+    },
 };
 
 export default function RootLayout({

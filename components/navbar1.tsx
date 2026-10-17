@@ -1,22 +1,9 @@
 "use client";
 
-import { Menu } from "lucide-react";
-
+import React from "react";
+import { Menu, LayoutDashboard, ArrowUpRight, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-import {
-    Accordion,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import {
     Sheet,
     SheetContent,
@@ -25,191 +12,136 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { ModeToggle } from "./Theme-Switcher";
-import Image from "next/image";
-
-interface MenuItem {
-    title: string;
-    url: string;
-    description?: string;
-    icon?: React.ReactNode;
-    items?: MenuItem[];
-}
+import Link from "next/link";
 
 interface Navbar1Props {
     className?: string;
-    logo?: {
-        url: string;
-        src: string;
-        alt: string;
-        title: string;
-        className?: string;
-    };
-    menu?: MenuItem[];
-    auth?: {
-        contact: {
-            title: string;
-            url: string;
-        };
-    };
+    companyName?: string;
+    userName?: string;
 }
 
-const Navbar1 = ({
-    logo = {
-        url: "#home",
-        src: "/logo.png",
-        alt: "logo",
-        title: "KBN",
-    },
-    menu = [
-        { title: "Home", url: "#home" },
-        { title: "About Me", url: "#about" },
-        { title: "Key Technologies & Languages", url: "#skills" },
-        { title: "Projects", url: "#projects" },
-        { title: "Education", url: "#education" },
-    ],
-    auth = {
-        contact: { title: "Contact Me", url: "#contact" },
-    },
+const navLinks = [
+    { title: "Overview", url: "#home" },
+    { title: "About", url: "#about" },
+    { title: "Leadership", url: "#experience" },
+    { title: "Projects", url: "#projects" },
+    { title: "Arsenal", url: "#skills" },
+    { title: "Education", url: "#education" },
+    { title: "Contact", url: "#contact" },
+];
+
+export const Navbar1 = ({
     className,
+    companyName = "WebZen",
+    userName = "Khairul Bashar Naeeim",
 }: Navbar1Props) => {
     return (
-        <section
+        <header
             className={cn(
-                "sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 px-6 sm:px-0",
+                "sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60 transition-all",
                 className,
             )}>
-            <div className="container mx-auto py-3">
-                {/* Desktop Menu */}
-                <nav className="hidden items-center justify-between lg:flex">
-                    <div className="flex items-center gap-6">
-                        {/* Logo */}
-                        <a href={logo.url} className="flex items-center gap-2">
-                            <Image
-                                width={100}
-                                height={200}
-                                src={logo.src}
-                                className="max-h-8 dark:invert object-cover object-center"
-                                alt={logo.alt}
-                            />
-                            <span className="text-lg font-semibold tracking-tighter">
-                                {logo.title}
-                            </span>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+                {/* Brand Logo - Sleek & Guaranteed No Wrapping */}
+                <a href="#home" className="flex items-center gap-3 shrink-0 group">
+                    <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-primary via-primary/90 to-blue-600 text-primary-foreground font-black text-xs shadow-md shadow-primary/20 group-hover:scale-105 transition-transform">
+                        <span>WZ</span>
+                        <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-background" />
+                    </div>
+                    <div className="flex flex-col whitespace-nowrap">
+                        <span className="text-sm font-bold tracking-tight text-foreground group-hover:text-primary transition-colors leading-none">
+                            {userName}
+                        </span>
+                        <span className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1.5 mt-1 leading-none">
+                            <span>Founder &amp; CEO</span>
+                            <span className="w-1 h-1 rounded-full bg-primary/40" />
+                            <span className="text-primary font-bold">{companyName}</span>
+                        </span>
+                    </div>
+                </a>
+
+                {/* Desktop Concise Navigation Links */}
+                <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+                    {navLinks.map((item) => (
+                        <a
+                            key={item.title}
+                            href={item.url}
+                            className="px-3 py-1.5 rounded-lg text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all">
+                            {item.title}
                         </a>
-                        <div className="flex items-center">
-                            <NavigationMenu>
-                                <NavigationMenuList>
-                                    {menu.map((item) => renderMenuItem(item))}
-                                </NavigationMenuList>
-                            </NavigationMenu>
-                        </div>
-                    </div>
-                    <div className="flex gap-2">
-                        <Button asChild variant="outline">
-                            <ModeToggle />
-                        </Button>
-                        <Button asChild size="sm">
-                            <a href={auth.contact.url}>{auth.contact.title}</a>
-                        </Button>
-                    </div>
+                    ))}
                 </nav>
 
-                {/* Mobile Menu */}
-                <div className="block lg:hidden">
-                    <div className="flex items-center justify-between">
-                        {/* Logo */}
-                        <a href={logo.url} className="flex items-center gap-2">
-                            <Image
-                                width={100}
-                                height={100}
-                                src={logo.src}
-                                className="max-h-8 dark:invert object-cover object-center"
-                                alt={logo.alt}
-                            />
+                {/* Right Action Cluster */}
+                <div className="flex items-center gap-2.5 shrink-0">
+                    {/* Live Availability Pill - Clean Single Line */}
+                    <div className="hidden xl:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold whitespace-nowrap">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                        <span>Available for Projects</span>
+                    </div>
+
+
+
+                    {/* Theme Toggle */}
+                    <ModeToggle />
+
+                    {/* Direct Contact CTA */}
+                    <Button
+                        asChild
+                        size="sm"
+                        className="rounded-xl font-bold px-4 h-9 shadow-sm hover:shadow-md transition-all whitespace-nowrap">
+                        <a href="#contact">
+                            <span>Schedule Call</span>
                         </a>
+                    </Button>
+
+                    {/* Mobile Menu Hamburger */}
+                    <div className="block lg:hidden">
                         <Sheet>
                             <SheetTrigger asChild>
-                                <Button variant="outline" size="icon">
+                                <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl">
                                     <Menu className="size-4" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent className="overflow-y-auto">
-                                <SheetHeader>
-                                    <SheetTitle>
-                                        <a href={logo.url} className="flex items-center gap-2">
-                                            <Image
-                                                width={100}
-                                                height={100}
-                                                src={logo.src}
-                                                className="max-h-8 dark:invert object-cover object-center"
-                                                alt={logo.alt}
-                                            />
-                                        </a>
-                                    </SheetTitle>
-                                </SheetHeader>
-                                <div className="flex flex-col gap-6 p-4">
-                                    <Accordion
-                                        type="single"
-                                        collapsible
-                                        className="flex w-full flex-col gap-4">
-                                        {menu.map((item) => renderMobileMenuItem(item))}
-                                    </Accordion>
+                            <SheetContent side="right" className="w-72 p-6 flex flex-col justify-between">
+                                <div>
+                                    <SheetHeader className="text-left mb-6">
+                                        <SheetTitle className="flex items-center gap-2.5">
+                                            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground font-black text-xs">
+                                                WZ
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-sm font-bold">{userName}</span>
+                                                <span className="text-xs text-muted-foreground font-normal">
+                                                    Founder &amp; CEO, {companyName}
+                                                </span>
+                                            </div>
+                                        </SheetTitle>
+                                    </SheetHeader>
 
-                                    <div className="flex flex-col gap-3">
-                                        <Button asChild variant="outline">
-                                            <ModeToggle />
-                                        </Button>
-                                        <Button asChild>
-                                            <a href={auth.contact.url}>
-                                                {auth.contact.title}
+                                    <div className="flex flex-col space-y-2">
+                                        {navLinks.map((item) => (
+                                            <a
+                                                key={item.title}
+                                                href={item.url}
+                                                className="px-3 py-2 rounded-xl text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                                                {item.title}
                                             </a>
-                                        </Button>
+                                        ))}
                                     </div>
+                                </div>
+
+
+                                <div className="pt-4 border-t border-border/60">
+                                    <Button asChild className="w-full rounded-xl font-bold">
+                                        <a href="#contact">Schedule Consultation</a>
+                                    </Button>
                                 </div>
                             </SheetContent>
                         </Sheet>
                     </div>
                 </div>
             </div>
-        </section>
+        </header>
     );
 };
-
-const renderMenuItem = (item: MenuItem) => {
-    if (item.items) {
-        return (
-            <NavigationMenuItem key={item.title}>
-                <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-            </NavigationMenuItem>
-        );
-    }
-
-    return (
-        <NavigationMenuItem key={item.title}>
-            <NavigationMenuLink
-                href={item.url}
-                className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground">
-                {item.title}
-            </NavigationMenuLink>
-        </NavigationMenuItem>
-    );
-};
-
-const renderMobileMenuItem = (item: MenuItem) => {
-    if (item.items) {
-        return (
-            <AccordionItem key={item.title} value={item.title} className="border-b-0">
-                <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">
-                    {item.title}
-                </AccordionTrigger>
-            </AccordionItem>
-        );
-    }
-
-    return (
-        <a key={item.title} href={item.url} className="text-md font-semibold">
-            {item.title}
-        </a>
-    );
-};
-
-export { Navbar1 };

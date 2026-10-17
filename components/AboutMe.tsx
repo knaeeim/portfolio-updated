@@ -6,124 +6,230 @@ import {
     Globe,
     Layers3,
     Trophy,
-    Plane,
     Terminal,
     User,
     Heart,
+    Compass,
+    Target,
+    Users,
+    Briefcase,
+    ShieldCheck,
+    Lightbulb,
+    Zap,
+    TrendingUp,
 } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Button } from "./ui/button";
 
-const programmingSteps = [
+const strategicPillars = [
     {
-        title: "The Foundation",
-        date: "Oct 2023",
-        desc: "Mastered C/C++ & Data Structures at Phitron. Solved 600+ problems.",
+        title: "Strategic System Architecture",
+        desc: "Designing resilient, zero-bloat web systems engineered for long-term scalability, low latency, and zero data downtime.",
         icon: Cpu,
+        tag: "Engineering Rigor",
+        color: "text-blue-500 bg-blue-500/10 border-blue-500/20",
     },
     {
-        title: "Web Transformation",
-        date: "2024",
-        desc: "Self-taught MERN stack. Focused on React and interactive UI/UX.",
-        icon: Globe,
+        title: "Engineering Leadership & Talent",
+        desc: "Trained and mentored 100+ emerging engineers at BD Calling Academy, cultivating engineering disciplines and clean-code cultures.",
+        icon: Users,
+        tag: "Mentorship Impact",
+        color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
     },
     {
-        title: "Professional Growth",
-        date: "Sep 2025 — Nov 2025",
-        desc: "Instructor at BD Calling Academy. Taught 100+ students, fostering a passion for coding.",
-        icon: Layers3,
+        title: "Algorithmic Precision",
+        desc: "Solved 600+ complex competitive programming problems across LeetCode & Codeforces, translating mathematical rigor into optimal database queries.",
+        icon: Target,
+        tag: "Algorithmic Mastery",
+        color: "text-amber-500 bg-amber-500/10 border-amber-500/20",
     },
     {
-        title : "Next Chapter",
-        date : "2026 & Beyond",
-        desc : "Eager to apply my skills in real-world projects and continue learning.",
-        icon : User,
-    }
+        title: "Venture Delivery & Client ROI",
+        desc: "As Founder & CEO of WebZen, I deliver turnkey production platforms (such as Dr. Devojyoti Dutta's medical portal) that drive immediate business value.",
+        icon: TrendingUp,
+        tag: "Business ROI",
+        color: "text-cyan-500 bg-cyan-500/10 border-cyan-500/20",
+    },
 ];
 
-const personalTraits = [
+const leadershipTimeline = [
     {
-        title: "Leadership",
-        info: "Football Captain",
-        desc: "Led university team to Championship glory.",
+        title: "Foundations in Algorithmic Rigor",
+        date: "2023",
+        role: "Computer Science & Algorithmic Specialization",
+        desc: "Mastered C/C++, advanced Data Structures, and algorithmic complexities at Phitron. Solved 600+ competitive programming challenges.",
+        icon: Terminal,
+        badge: "Algorithmic Core",
+    },
+    {
+        title: "Full-Stack System Engineering",
+        date: "2024",
+        role: "Modern Cloud & MERN Architecture",
+        desc: "Specialized in distributed architectures, Next.js, React, Node.js, and database modeling. Architected multi-tenant SaaS platforms.",
+        icon: Globe,
+        badge: "Architecture Expansion",
+    },
+    {
+        title: "Academy Leadership & Mentorship",
+        date: "2025",
+        role: "Web Instructor @ BD Calling Academy",
+        desc: "Led training cohorts for 100+ polytechnic students and junior engineers. Directed curriculum in MERN, Next.js, and real-world system debugging.",
+        icon: Layers3,
+        badge: "Technical Leadership",
+    },
+    {
+        title: "Founder & CEO, WebZen",
+        date: "2026 & Present",
+        role: "Executive Direction & Flagship Delivery",
+        desc: "Leading WebZen in delivering high-stakes production platforms, including the automated clinical booking platform for Dr. Devojyoti Dutta.",
+        icon: Briefcase,
+        badge: "Venture Leadership",
+    },
+];
+
+const executiveTraits = [
+    {
+        title: "Strategic Leadership",
+        info: "Championship Captain",
+        desc: "Led university football team to Championship victory, instilling high-pressure execution and squad cohesion.",
         icon: Trophy,
         color: "bg-blue-500/10 text-blue-500",
     },
     {
-        title: "Team Player",
-        info: "Cricket Runner-Up",
-        desc: "Member of university cricket team that finished as Runners-Up.",
-        icon: Trophy,
+        title: "Collaborative Culture",
+        info: "Competitive Sportsman",
+        desc: "University cricket runner-up; translating athletic discipline into agile sprint coordination and code reviews.",
+        icon: ShieldCheck,
         color: "bg-amber-500/10 text-amber-500",
     },
     {
-        title: "Adventure",
-        info: "Travel & Food",
-        desc: "Exploring cultures and new flavors keeps me creative.",
-        icon: Plane,
+        title: "Continuous Innovation",
+        info: "Product Exploration",
+        desc: "Relentlessly investigating bleeding-edge tech (Next.js 15, Turbopack, AI integrations) to keep products years ahead of competition.",
+        icon: Lightbulb,
         color: "bg-emerald-500/10 text-emerald-500",
     },
     {
-        title: "Philosophy",
-        info: "Why I Code",
-        desc: "Turning abstract ideas into tangible products is my fuel.",
+        title: "Founder Philosophy",
+        info: "Obsession with Impact",
+        desc: "Coding is not just syntax—it is the direct medium to solve human bottlenecks, automate inefficiencies, and unlock enterprise scale.",
         icon: Heart,
         color: "bg-pink-500/10 text-pink-500",
     },
 ];
 
-const AboutMe = () => {
+interface AboutMeProps {
+    data?: any;
+}
+
+const AboutMe = ({ data }: AboutMeProps) => {
     useEffect(() => {
         AOS.init({
-            duration: 500,
+            duration: 600,
             easing: "ease-in-out",
-            once: false,
-            offset: 100,
+            once: true,
+            offset: 80,
         });
     }, []);
 
     return (
-        <section id="about" className="py-24 bg-background">
-            <div className="container mx-auto px-4 md:px-6">
-                {/* SECTION 1: PROGRAMMING JOURNEY */}
+        <section id="about" className="py-24 bg-background relative overflow-hidden">
+            {/* Subtle ambient lighting */}
+            <div className="absolute top-1/2 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="container mx-auto px-4 sm:px-6 relative z-10">
+                {/* SECTION 1: EXECUTIVE PILLARS */}
                 <div className="mb-24">
-                    <div className="flex items-center gap-3 mb-12" data-aos="fade-up">
-                        <div className="p-2 bg-primary/10 rounded-lg text-primary">
-                            <Terminal size={24} />
+                    <div className="max-w-3xl mb-14" data-aos="fade-up">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
+                            <Compass size={13} />
+                            <span>STRATEGIC VISION &amp; EXECUTIVE PILLARS</span>
                         </div>
-                        <div>
-                            <h2 className="text-3xl font-bold tracking-tight">
-                                Programming Journey
-                            </h2>
-                            <p className="text-muted-foreground">
-                                My technical evolution and milestones.
-                            </p>
-                        </div>
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
+                            The Mindset of a Tech Founder &amp; Architect
+                        </h2>
+                        <p className="text-muted-foreground text-sm sm:text-base mt-3 leading-relaxed">
+                            I approach software not merely as code, but as the primary engine for business scalability, client delight, and operational leverage.
+                        </p>
                     </div>
 
-                    <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-linear-to-b before:from-transparent before:via-border before:to-transparent">
-                        {programmingSteps.map((step, index) => (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {strategicPillars.map((pillar, idx) => (
+                            <div
+                                key={idx}
+                                className="group p-7 rounded-3xl border border-border/80 bg-card/50 backdrop-blur-md hover:bg-card hover:border-primary/30 transition-all duration-500 shadow-sm hover:shadow-xl flex flex-col justify-between"
+                                data-aos="fade-up"
+                                data-aos-delay={idx * 100}>
+                                <div className="space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <div
+                                            className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${pillar.color} group-hover:scale-110 transition-transform`}>
+                                            <pillar.icon size={22} />
+                                        </div>
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-full border border-border">
+                                            {pillar.tag}
+                                        </span>
+                                    </div>
+                                    <h3 className="text-lg font-bold text-foreground tracking-tight leading-snug">
+                                        {pillar.title}
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                                        {pillar.desc}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* SECTION 2: EXECUTIVE TRAJECTORY (TIMELINE) */}
+                <div className="mb-24">
+                    <div className="max-w-3xl mb-14" data-aos="fade-up">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
+                            <Zap size={13} />
+                            <span>STRATEGIC MILESTONES</span>
+                        </div>
+                        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+                            Trajectory of Technical Leadership
+                        </h2>
+                        <p className="text-muted-foreground text-sm sm:text-base mt-2">
+                            From algorithmic problem solving to leading software ventures and educating industry developers.
+                        </p>
+                    </div>
+
+                    <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
+                        {leadershipTimeline.map((step, index) => (
                             <div
                                 key={index}
                                 className="sm:relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
                                 data-aos="fade-up"
-                                data-aos-delay={index * 100}>
-                                {/* Dot */}
-                                <div className="flex items-center justify-center w-10 h-10 rounded-full border border-border bg-background group-hover:border-primary transition-colors duration-500 absolute left-0 md:left-1/2 md:-translate-x-1/2 z-10">
+                                data-aos-delay={index * 120}>
+                                {/* Node dot */}
+                                <div className="flex items-center justify-center w-11 h-11 rounded-full border-2 border-border bg-background group-hover:border-primary group-hover:scale-110 transition-all duration-500 absolute left-0 md:left-1/2 md:-translate-x-1/2 z-10 shadow-md">
                                     <step.icon
                                         size={18}
-                                        className="text-muted-foreground group-hover:text-primary"
+                                        className="text-muted-foreground group-hover:text-primary transition-colors"
                                     />
                                 </div>
 
                                 {/* Content Card */}
-                                <div className="w-[calc(100%-4rem)] ml-14 md:ml-0 md:w-[45%] p-6 rounded-2xl border border-border bg-card shadow-sm hover:shadow-md transition-all ">
-                                    <Button variant="outline" size={"xs"} className="text-xs font-mono text-primary font-bold uppercase tracking-wider mb-3">
-                                        {step.date}
-                                    </Button>
-                                    <h3 className="text-xl font-bold mt-1">{step.title}</h3>
-                                    <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                                <div className="w-[calc(100%-4rem)] ml-14 md:ml-0 md:w-[45%] p-6 sm:p-7 rounded-3xl border border-border/80 bg-card/60 backdrop-blur-md shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-500">
+                                    <div className="flex items-center justify-between gap-2 mb-3">
+                                        <span className="text-xs font-mono font-bold text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                                            {step.date}
+                                        </span>
+                                        <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">
+                                            {step.badge}
+                                        </span>
+                                    </div>
+                                    <h3 className="text-xl font-bold text-foreground tracking-tight">
+                                        {step.title}
+                                    </h3>
+                                    <div className="text-xs font-semibold text-primary mt-1">
+                                        {step.role}
+                                    </div>
+                                    <p className="text-muted-foreground mt-2.5 text-xs sm:text-sm leading-relaxed">
                                         {step.desc}
                                     </p>
                                 </div>
@@ -132,45 +238,41 @@ const AboutMe = () => {
                     </div>
                 </div>
 
-                {/* SECTION 2: OVERALL ME */}
+                {/* SECTION 3: LEADERSHIP ATTRIBUTES */}
                 <div>
-                    <div className="flex items-center gap-3 mb-12" data-aos="fade-up">
-                        <div className="p-2 bg-primary/10 rounded-lg text-primary">
-                            <User size={24} />
+                    <div className="max-w-3xl mb-12" data-aos="fade-up">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
+                            <User size={13} />
+                            <span>EXECUTIVE ATTRIBUTES</span>
                         </div>
-                        <div>
-                            <h2 className="text-3xl font-bold tracking-tight">
-                                Beyond the Code
-                            </h2>
-                            <p className="text-muted-foreground">
-                                The interests and experiences that shape who I am.
-                            </p>
-                        </div>
+                        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+                            Character, Discipline &amp; Culture
+                        </h2>
+                        <p className="text-muted-foreground text-sm sm:text-base mt-2">
+                            The values that drive team cohesion, high standards, and visionary product delivery.
+                        </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                        {personalTraits.map((trait, index) => (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {executiveTraits.map((trait, index) => (
                             <div
                                 key={index}
-                                className="p-6 md:p-8 rounded-3xl border border-border bg-card/50 hover:bg-card transition-all group overflow-hidden relative"
+                                className="p-7 rounded-3xl border border-border/80 bg-card/40 backdrop-blur-md hover:bg-card hover:border-primary/20 transition-all duration-500 group"
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}>
                                 <div
-                                    className={`inline-flex p-3 rounded-2xl mb-6 ${trait.color} group-hover:scale-110 transition-transform`}>
-                                    <trait.icon size={24} />
+                                    className={`inline-flex p-3 rounded-2xl mb-5 ${trait.color} group-hover:scale-110 transition-transform duration-300`}>
+                                    <trait.icon size={22} />
                                 </div>
-                                <span className="block text-xs font-semibold text-muted-foreground uppercase mb-2 tracking-widest">
+                                <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-1">
                                     {trait.info}
-                                </span>
-                                <h3 className="text-2xl font-bold mb-3">{trait.title}</h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed">
+                                </div>
+                                <h3 className="text-lg font-bold text-foreground mb-2">
+                                    {trait.title}
+                                </h3>
+                                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                                     {trait.desc}
                                 </p>
-
-                                {/* Visual Flair: A subtle background number */}
-                                <span className="absolute -bottom-4 -right-2 text-8xl font-black opacity-[0.03] select-none uppercase -z-10">
-                                    {trait.title[0]}
-                                </span>
                             </div>
                         ))}
                     </div>
