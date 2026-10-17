@@ -271,7 +271,7 @@ const FlagshipShowcase = ({ project }: { project: ProjectItem }) => {
     const [lightboxOpen, setLightboxOpen] = useState(false);
 
     return (
-        <div className="relative rounded-2xl sm:rounded-4xl border-2 border-emerald-500/30 bg-gradient-to-b from-card via-card to-emerald-950/10 shadow-2xl overflow-hidden p-4 sm:p-8 lg:p-10 mb-16 backdrop-blur-xl">
+        <div className="relative rounded-2xl sm:rounded-4xl border-2 border-emerald-500/30 bg-gradient-to-b from-card via-card to-emerald-950/10 shadow-2xl overflow-hidden p-4 sm:p-8 lg:p-10 mb-8 sm:mb-12 lg:mb-16 backdrop-blur-xl">
             {/* Ambient luxury glow */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
@@ -728,13 +728,13 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
     const standardProjects = filteredProjects.filter((p) => !p.isFlagship || activeFilter === "healthtech");
 
     return (
-        <section id="projects" className="py-24 bg-background relative overflow-hidden">
+        <section id="projects" className="py-12 sm:py-20 lg:py-24 bg-background relative overflow-hidden">
             {/* Ambient lighting behind projects section */}
             <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[25rem] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="container mx-auto px-4 sm:px-6 relative z-10">
                 {/* Section Header */}
-                <div className="max-w-3xl mb-12" data-aos="fade-up">
+                <div className="max-w-3xl mb-6 sm:mb-10 lg:mb-12" data-aos="fade-up">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
                         <Sparkles size={13} />
                         <span>FLAGSHIP VENTURES &amp; ARCHITECTURAL ACHIEVEMENTS</span>
@@ -748,7 +748,7 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                 </div>
 
                 {/* Filter Navigation */}
-                <div className="flex flex-wrap items-center gap-2 mb-12" data-aos="fade-up">
+                <div className="flex flex-wrap items-center gap-2 mb-6 sm:mb-10 lg:mb-12" data-aos="fade-up">
                     <button
                         type="button"
                         onClick={() => setActiveFilter("all")}

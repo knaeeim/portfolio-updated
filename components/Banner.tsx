@@ -102,7 +102,7 @@ const PortfolioBanner = ({ data }: BannerProps) => {
     return (
         <section
             id="home"
-            className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-background py-16 md:py-24">
+            className="relative w-full min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center overflow-hidden bg-background py-10 sm:py-16 md:py-24">
             {/* Subtle Executive Tech Grid Background */}
             <div
                 className="absolute inset-0 z-0 opacity-[0.035] dark:opacity-[0.08] pointer-events-none"
@@ -117,9 +117,9 @@ const PortfolioBanner = ({ data }: BannerProps) => {
             <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-1/4 right-1/4 translate-x-1/3 translate-y-1/3 w-[30rem] h-[30rem] bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center z-10">
+            <div className="container mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center z-10">
                 {/* LEFT SIDE: Executive Value Proposition (7 Columns) */}
-                <div className="lg:col-span-7 space-y-7" data-aos="fade-right">
+                <div className="lg:col-span-7 space-y-5 sm:space-y-7" data-aos="fade-right">
                     {/* Status Badge */}
                     <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary backdrop-blur-md">
                         <span className="relative flex h-2 w-2">

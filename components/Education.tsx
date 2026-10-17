@@ -49,14 +49,14 @@ const EducationSection = ({ data }: EducationSectionProps) => {
     }, []);
 
     return (
-        <section id="education" className="py-24 bg-background relative overflow-hidden">
+        <section id="education" className="py-12 sm:py-20 lg:py-24 bg-background relative overflow-hidden">
             {/* Ambient lighting */}
             <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container mx-auto px-4 sm:px-6 relative z-10">
                 {/* 1. ACADEMIC DEGREE */}
-                <div className="mb-20">
-                    <div className="flex items-center gap-3 mb-10" data-aos="fade-up">
+                <div className="mb-10 sm:mb-16 lg:mb-20">
+                    <div className="flex items-center gap-3 mb-6 sm:mb-10" data-aos="fade-up">
                         <div className="p-2.5 bg-primary/10 rounded-xl text-primary">
                             <GraduationCap size={28} />
                         </div>
@@ -122,7 +122,7 @@ const EducationSection = ({ data }: EducationSectionProps) => {
 
                 {/* 2. ONLINE COURSES SECTION */}
                 <div>
-                    <div className="flex items-center gap-3 mb-10" data-aos="fade-up">
+                    <div className="flex items-center gap-3 mb-6 sm:mb-10" data-aos="fade-up">
                         <div className="p-2.5 bg-primary/10 rounded-xl text-primary">
                             <Monitor size={28} />
                         </div>

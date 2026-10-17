@@ -64,7 +64,7 @@ const ContactSection = ({ data }: ContactSectionProps) => {
     };
 
     return (
-        <section id="contact" className="py-20 md:py-28 bg-background relative overflow-hidden">
+        <section id="contact" className="py-12 sm:py-20 md:py-28 bg-background relative overflow-hidden">
             {/* Ambient lighting */}
             <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
@@ -263,7 +263,7 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                 </div>
 
                 {/* Footer copyright bar */}
-                <div className="mt-20 pt-8 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+                <div className="mt-10 sm:mt-16 lg:mt-20 pt-6 sm:pt-8 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
                     <div className="flex items-center gap-2">
                         <span className="font-bold text-foreground">Khairul Bashar Naeeim</span>
                         <span>•</span>

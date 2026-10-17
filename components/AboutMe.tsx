@@ -134,14 +134,14 @@ const AboutMe = ({ data }: AboutMeProps) => {
     }, []);
 
     return (
-        <section id="about" className="py-24 bg-background relative overflow-hidden">
+        <section id="about" className="py-12 sm:py-20 lg:py-24 bg-background relative overflow-hidden">
             {/* Subtle ambient lighting */}
             <div className="absolute top-1/2 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="container mx-auto px-4 sm:px-6 relative z-10">
                 {/* SECTION 1: EXECUTIVE PILLARS */}
-                <div className="mb-24">
-                    <div className="max-w-3xl mb-14" data-aos="fade-up">
+                <div className="mb-12 sm:mb-20 lg:mb-24">
+                    <div className="max-w-3xl mb-8 sm:mb-12 lg:mb-14" data-aos="fade-up">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
                             <Compass size={13} />
                             <span>STRATEGIC VISION &amp; EXECUTIVE PILLARS</span>
@@ -184,8 +184,8 @@ const AboutMe = ({ data }: AboutMeProps) => {
                 </div>
 
                 {/* SECTION 2: EXECUTIVE TRAJECTORY (TIMELINE) */}
-                <div className="mb-24">
-                    <div className="max-w-3xl mb-14" data-aos="fade-up">
+                <div className="mb-12 sm:mb-20 lg:mb-24">
+                    <div className="max-w-3xl mb-8 sm:mb-12 lg:mb-14" data-aos="fade-up">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
                             <Zap size={13} />
                             <span>STRATEGIC MILESTONES</span>
@@ -240,7 +240,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
 
                 {/* SECTION 3: LEADERSHIP ATTRIBUTES */}
                 <div>
-                    <div className="max-w-3xl mb-12" data-aos="fade-up">
+                    <div className="max-w-3xl mb-8 sm:mb-10 lg:mb-12" data-aos="fade-up">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
                             <User size={13} />
                             <span>EXECUTIVE ATTRIBUTES</span>
