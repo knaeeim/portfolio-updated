@@ -71,7 +71,7 @@ const EducationSection = ({ data }: EducationSectionProps) => {
                     </div>
 
                     <div className="group relative" data-aos="fade-up" data-aos-delay="100">
-                        <div className="relative p-6 md:p-8 rounded-3xl border border-border bg-card shadow-sm hover:border-primary/30 transition-all duration-500">
+                        <div className="relative p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-border bg-card shadow-sm hover:border-primary/30 transition-all duration-500">
                             <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                                 <div className="space-y-4">
                                     <div className="flex flex-wrap items-center gap-3">
@@ -148,7 +148,7 @@ const EducationSection = ({ data }: EducationSectionProps) => {
                             return (
                                 <div
                                     key={idx}
-                                    className={`group p-8 rounded-3xl border border-border bg-card/50 hover:bg-card ${c.border} transition-all duration-300`}
+                                    className={`group p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-border bg-card/50 hover:bg-card ${c.border} transition-all duration-300`}
                                     data-aos="fade-up"
                                     data-aos-delay={(idx + 1) * 100}>
                                     <div className="flex justify-between items-start mb-6">

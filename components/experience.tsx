@@ -119,12 +119,12 @@ const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                     {/* Content Card Side */}
                                     <div
                                         className={`w-full md:w-1/2 ${
-                                            isEven ? "pl-12 md:pl-12" : "pl-12 md:pr-12 md:pl-0"
+                                            isEven ? "pl-9 sm:pl-12 md:pl-12" : "pl-9 sm:pl-12 md:pr-12 md:pl-0"
                                         }`}>
-                                        <div className="relative p-6 sm:p-8 rounded-3xl border border-border/80 bg-card/50 backdrop-blur-md hover:bg-card hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-xl">
+                                        <div className="relative p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-border/80 bg-card/50 backdrop-blur-md hover:bg-card hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-xl">
                                             {/* Mobile View Indicators */}
-                                            <div className="md:hidden flex flex-wrap items-center gap-2 mb-4">
-                                                <span className="text-[10px] font-mono font-bold text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/20 uppercase">
+                                            <div className="md:hidden flex flex-wrap items-center gap-2 mb-3">
+                                                <span className="text-[10px] font-mono font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20 uppercase">
                                                     {exp.duration}
                                                 </span>
                                                 <span className="text-[10px] text-muted-foreground flex items-center gap-1 font-medium">
@@ -132,17 +132,17 @@ const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                                 </span>
                                             </div>
 
-                                            <div className="flex flex-col gap-1 mb-5">
-                                                <div className="flex items-center justify-between gap-3">
-                                                    <div className="flex items-center gap-2.5 text-primary">
-                                                        <div className="p-2 bg-primary/10 rounded-xl">
-                                                            <Icon size={20} />
+                                            <div className="flex flex-col gap-1 mb-4">
+                                                <div className="flex flex-wrap items-center justify-between gap-2">
+                                                    <div className="flex items-center gap-2 sm:gap-2.5 text-primary">
+                                                        <div className="p-1.5 sm:p-2 bg-primary/10 rounded-xl">
+                                                            <Icon size={18} />
                                                         </div>
-                                                        <h3 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
+                                                        <h3 className="text-lg sm:text-2xl font-bold text-foreground tracking-tight">
                                                             {exp.company}
                                                         </h3>
                                                     </div>
-                                                    <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md border border-border">
+                                                    <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground bg-muted/60 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md border border-border">
                                                         {exp.badge}
                                                     </span>
                                                 </div>

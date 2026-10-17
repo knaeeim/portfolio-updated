@@ -85,11 +85,11 @@ export const Navbar1 = ({
                     {/* Theme Toggle */}
                     <ModeToggle />
 
-                    {/* Direct Contact CTA */}
+                    {/* Direct Contact CTA - Visible on sm and up */}
                     <Button
                         asChild
                         size="sm"
-                        className="rounded-xl font-bold px-4 h-9 shadow-sm hover:shadow-md transition-all whitespace-nowrap">
+                        className="hidden sm:inline-flex rounded-xl font-bold px-4 h-9 shadow-sm hover:shadow-md transition-all whitespace-nowrap">
                         <a href="#contact">
                             <span>Schedule Call</span>
                         </a>

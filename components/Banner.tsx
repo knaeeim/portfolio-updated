@@ -254,11 +254,11 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                     </div>
 
                     {/* CTAs */}
-                    <div className="flex flex-wrap items-center gap-4 pt-1">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-1">
                         <Button
                             asChild
                             size="lg"
-                            className="rounded-xl px-7 font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-0.5">
+                            className="w-full sm:w-auto rounded-xl px-7 font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-0.5">
                             <a href="#projects">
                                 Explore Flagship Ventures
                                 <ChevronRight className="ml-1 size-4" />
@@ -268,7 +268,7 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                             asChild
                             size="lg"
                             variant="outline"
-                            className="rounded-xl px-6 font-semibold hover:-translate-y-0.5 transition-all">
+                            className="w-full sm:w-auto rounded-xl px-6 font-semibold hover:-translate-y-0.5 transition-all">
                             <a href={resumeFile} download>
                                 <Download className="mr-2 size-4" />
                                 Executive CV
@@ -278,7 +278,7 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                             asChild
                             size="lg"
                             variant="ghost"
-                            className="rounded-xl px-5 text-muted-foreground hover:text-foreground">
+                            className="w-full sm:w-auto rounded-xl px-5 text-muted-foreground hover:text-foreground">
                             <a href="#contact">
                                 Schedule Call
                             </a>
@@ -286,13 +286,13 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                     </div>
 
                     {/* Metric Counter Ribbon */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-border/60">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-6 border-t border-border/60">
                         {metrics.map((item: any, idx: number) => (
                             <div key={idx} className="space-y-0.5">
-                                <div className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
+                                <div className="text-xl sm:text-3xl font-extrabold text-foreground tracking-tight">
                                     {item.value}
                                 </div>
-                                <div className="text-xs text-muted-foreground font-medium leading-snug">
+                                <div className="text-[11px] sm:text-xs text-muted-foreground font-medium leading-snug">
                                     {item.label}
                                 </div>
                             </div>
@@ -302,35 +302,35 @@ const PortfolioBanner = ({ data }: BannerProps) => {
 
                 {/* RIGHT SIDE: CEO Portrait & Floating Live Badges (5 Columns) */}
                 <div
-                    className="lg:col-span-5 flex justify-center items-center relative"
+                    className="lg:col-span-5 flex justify-center items-center relative self-center"
                     data-aos="fade-left">
-                    <div className="relative w-full max-w-sm sm:max-w-md">
+                    <div className="relative w-full max-w-xs sm:max-w-md mx-auto">
                         {/* Decorative Gradient Glow Rings */}
                         <div className="absolute -inset-4 bg-gradient-to-tr from-primary/30 via-blue-500/20 to-cyan-500/30 rounded-3xl blur-2xl opacity-60 animate-pulse-glow" />
 
                         {/* Portrait Frame */}
-                        <div className="relative rounded-3xl p-3 bg-gradient-to-b from-border/80 via-card to-border/40 border border-border shadow-2xl overflow-hidden backdrop-blur-md group">
+                        <div className="relative rounded-3xl p-2.5 sm:p-3 bg-gradient-to-b from-border/80 via-card to-border/40 border border-border shadow-2xl overflow-hidden backdrop-blur-md group">
                             <div className="relative aspect-4/5 w-full rounded-2xl overflow-hidden bg-muted">
                                 <Image
                                     src={profileImage}
                                     alt={name}
                                     fill
                                     priority
-                                    sizes="(max-width: 640px) 300px, (max-width: 1024px) 400px, 480px"
+                                    sizes="(max-width: 640px) 280px, (max-width: 1024px) 400px, 480px"
                                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
 
                                 {/* Name plate on portrait bottom */}
-                                <div className="absolute bottom-0 inset-x-0 p-5 space-y-1">
+                                <div className="absolute bottom-0 inset-x-0 p-3.5 sm:p-5 space-y-1">
                                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm">
                                         <Sparkles size={11} />
                                         Founder &amp; CEO
                                     </div>
-                                    <h3 className="text-xl font-bold text-foreground leading-tight">
+                                    <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight">
                                         {name}
                                     </h3>
-                                    <p className="text-xs text-muted-foreground font-medium">
+                                    <p className="text-[11px] sm:text-xs text-muted-foreground font-medium">
                                         Lead Systems Architect • {company}
                                     </p>
                                 </div>
@@ -342,8 +342,8 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                             href="https://www.devojyotidutta.com/"
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="absolute -top-6 -left-4 sm:-left-8 p-3 rounded-2xl bg-card/95 border border-border shadow-xl backdrop-blur-md flex items-center gap-3 animate-float-slow hover:border-primary/40 transition-all z-20 group">
-                            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-base shrink-0 group-hover:scale-110 transition-transform">
+                            className="absolute -top-4 sm:-top-6 left-0 sm:-left-8 p-2.5 sm:p-3 rounded-2xl bg-card/95 border border-border shadow-xl backdrop-blur-md flex items-center gap-2.5 sm:gap-3 animate-float-slow hover:border-primary/40 transition-all z-20 group max-w-[85%] sm:max-w-none">
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-sm sm:text-base shrink-0 group-hover:scale-110 transition-transform">
                                 🌿
                             </div>
                             <div>
@@ -358,9 +358,9 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                         </a>
 
                         {/* Floating Live Badge 2: Architecture & Mentorship */}
-                        <div className="absolute -bottom-6 -right-4 sm:-right-8 p-3.5 rounded-2xl bg-card/95 border border-border shadow-xl backdrop-blur-md flex items-center gap-3 z-20">
-                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold text-base shrink-0">
-                                <Users size={18} />
+                        <div className="absolute -bottom-4 sm:-bottom-6 right-0 sm:-right-8 p-2.5 sm:p-3.5 rounded-2xl bg-card/95 border border-border shadow-xl backdrop-blur-md flex items-center gap-2.5 sm:gap-3 z-20 max-w-[85%] sm:max-w-none">
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold text-sm sm:text-base shrink-0">
+                                <Users size={16} />
                             </div>
                             <div>
                                 <div className="text-xs font-bold text-foreground">

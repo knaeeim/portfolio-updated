@@ -271,29 +271,29 @@ const FlagshipShowcase = ({ project }: { project: ProjectItem }) => {
     const [lightboxOpen, setLightboxOpen] = useState(false);
 
     return (
-        <div className="relative rounded-3xl sm:rounded-4xl border-2 border-emerald-500/30 bg-gradient-to-b from-card via-card to-emerald-950/10 shadow-2xl overflow-hidden p-6 sm:p-8 lg:p-10 mb-16 backdrop-blur-xl">
+        <div className="relative rounded-2xl sm:rounded-4xl border-2 border-emerald-500/30 bg-gradient-to-b from-card via-card to-emerald-950/10 shadow-2xl overflow-hidden p-4 sm:p-8 lg:p-10 mb-16 backdrop-blur-xl">
             {/* Ambient luxury glow */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
             {/* Top Status & Role Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-8 border-b border-border/80">
-                <div className="flex flex-wrap items-center gap-3">
-                    <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-bold tracking-wide">
+            <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-5 sm:pb-6 mb-6 sm:mb-8 border-b border-border/80">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <span className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[11px] sm:text-xs font-bold tracking-wide">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                         </span>
-                        FLAGSHIP PRODUCTION VENTURE
+                        FLAGSHIP VENTURE
                     </span>
-                    <span className="text-muted-foreground">•</span>
+                    <span className="hidden sm:inline text-muted-foreground">•</span>
                     <span className="text-xs font-bold text-foreground">
                         {project.role}
                     </span>
                 </div>
 
-                <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-medium text-muted-foreground bg-muted/60 px-3 py-1 rounded-lg border border-border">
+                <div className="flex items-center gap-2 max-w-full">
+                    <span className="text-[11px] sm:text-xs font-mono font-medium text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-lg border border-border max-w-full break-words">
                         Client: {project.client}
                     </span>
                 </div>

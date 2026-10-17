@@ -158,7 +158,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
                         {strategicPillars.map((pillar, idx) => (
                             <div
                                 key={idx}
-                                className="group p-7 rounded-3xl border border-border/80 bg-card/50 backdrop-blur-md hover:bg-card hover:border-primary/30 transition-all duration-500 shadow-sm hover:shadow-xl flex flex-col justify-between"
+                                className="group p-5 sm:p-7 rounded-2xl sm:rounded-3xl border border-border/80 bg-card/50 backdrop-blur-md hover:bg-card hover:border-primary/30 transition-all duration-500 shadow-sm hover:shadow-xl flex flex-col justify-between"
                                 data-aos="fade-up"
                                 data-aos-delay={idx * 100}>
                                 <div className="space-y-4">
@@ -214,7 +214,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
                                 </div>
 
                                 {/* Content Card */}
-                                <div className="w-[calc(100%-4rem)] ml-14 md:ml-0 md:w-[45%] p-6 sm:p-7 rounded-3xl border border-border/80 bg-card/60 backdrop-blur-md shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-500">
+                                <div className="w-[calc(100%-3.5rem)] ml-12 md:ml-0 md:w-[45%] p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-border/80 bg-card/60 backdrop-blur-md shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-500">
                                     <div className="flex items-center justify-between gap-2 mb-3">
                                         <span className="text-xs font-mono font-bold text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
                                             {step.date}
@@ -257,7 +257,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
                         {executiveTraits.map((trait, index) => (
                             <div
                                 key={index}
-                                className="p-7 rounded-3xl border border-border/80 bg-card/40 backdrop-blur-md hover:bg-card hover:border-primary/20 transition-all duration-500 group"
+                                className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl border border-border/80 bg-card/40 backdrop-blur-md hover:bg-card hover:border-primary/20 transition-all duration-500 group"
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}>
                                 <div

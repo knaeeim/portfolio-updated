@@ -75,15 +75,15 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                     
                     {/* LEFT COLUMN: Executive Proposition & Contact Channels (5 Cols) */}
                     <div className="lg:col-span-5 relative flex" data-aos="fade-right">
-                        <div className="w-full relative rounded-3xl border border-border/80 bg-card/85 backdrop-blur-xl shadow-xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                        <div className="w-full relative rounded-2xl sm:rounded-3xl border border-border/80 bg-card/85 backdrop-blur-xl shadow-xl p-5 sm:p-8 flex flex-col justify-between space-y-6">
                             {/* Top: Header Info */}
                             <div className="space-y-3">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 text-xs font-bold">
-                                    <span className="relative flex h-2 w-2">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 text-[10px] sm:text-xs font-bold max-w-full">
+                                    <span className="relative flex h-2 w-2 shrink-0">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                                         <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                                     </span>
-                                    <span>OPEN FOR ADVISORY &amp; ENTERPRISE VENTURES</span>
+                                    <span className="truncate">OPEN FOR ADVISORY &amp; VENTURES</span>
                                 </div>
 
                                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground leading-[1.2]">
@@ -186,7 +186,7 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                         {/* Ambient glow background */}
                         <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 rounded-3xl blur-xl opacity-50 pointer-events-none" />
 
-                        <div className="w-full relative rounded-3xl border border-border/80 bg-card/85 backdrop-blur-xl shadow-xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                        <div className="w-full relative rounded-2xl sm:rounded-3xl border border-border/80 bg-card/85 backdrop-blur-xl shadow-xl p-5 sm:p-8 flex flex-col justify-between space-y-6">
                             {/* Form Header */}
                             <div className="space-y-1.5 pb-2 border-b border-border/50">
                                 <div className="flex items-center justify-between">

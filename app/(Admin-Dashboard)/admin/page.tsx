@@ -487,6 +487,7 @@ export default function AdminDashboardPage() {
                         Studio Sections
                     </div>
 
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-col gap-1.5">
                     {[
                         { id: "overview", label: "Dashboard Overview", icon: LayoutDashboard },
                         { id: "general", label: "General & Branding", icon: User },
@@ -505,18 +506,18 @@ export default function AdminDashboardPage() {
                                 key={tab.id}
                                 type="button"
                                 onClick={() => setActiveTab(tab.id as SectionTab)}
-                                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                                className={`w-full flex items-center justify-between px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                                     isActive
                                         ? "bg-primary text-primary-foreground shadow-md shadow-primary/10"
                                         : "text-muted-foreground hover:text-foreground hover:bg-card/70"
                                 }`}>
-                                <div className="flex items-center gap-2.5">
-                                    <Icon size={16} />
-                                    <span>{tab.label}</span>
+                                <div className="flex items-center gap-2 sm:gap-2.5 truncate">
+                                    <Icon size={15} className="shrink-0" />
+                                    <span className="truncate">{tab.label}</span>
                                 </div>
                                 {tab.badge !== undefined && (
                                     <span
-                                        className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                                        className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold shrink-0 ${
                                             isActive
                                                 ? "bg-white/20 text-white"
                                                 : "bg-muted text-muted-foreground"
@@ -527,8 +528,9 @@ export default function AdminDashboardPage() {
                             </button>
                         );
                     })}
+                    </div>
 
-                    <div className="pt-6 px-3">
+                    <div className="hidden md:block pt-6 px-3">
                         <div className="p-4 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm space-y-2">
                             <div className="flex items-center gap-2 text-xs font-bold text-foreground">
                                 <Shield size={14} className="text-emerald-500" />
