@@ -19,22 +19,30 @@ export async function POST(request: Request) {
         const filename = `${Date.now()}_${safeName}`;
         const uploadDir = path.join(process.cwd(), "public", "uploads");
 
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
+        let publicUrl = "";
+
+        // Attempt local disk write (works in local development)
+        try {
+            if (!fs.existsSync(uploadDir)) {
+                fs.mkdirSync(uploadDir, { recursive: true });
+            }
+            const filePath = path.join(uploadDir, filename);
+            fs.writeFileSync(filePath, buffer);
+            publicUrl = `/uploads/${filename}`;
+        } catch (fsErr: any) {
+            // EROFS on Vercel / serverless: fallback to base64 Data URL so upload never fails
+            const mimeType = file.type || "image/png";
+            publicUrl = `data:${mimeType};base64,${buffer.toString("base64")}`;
         }
 
-        const filePath = path.join(uploadDir, filename);
-        fs.writeFileSync(filePath, buffer);
-
-        const publicUrl = `/uploads/${filename}`;
         return NextResponse.json({
             message: "File uploaded successfully",
             url: publicUrl,
             filename: filename,
             size: file.size,
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error("Upload handler error:", error);
-        return NextResponse.json({ error: "Failed to upload file" }, { status: 500 });
+        return NextResponse.json({ error: error?.message || "Failed to upload file" }, { status: 500 });
     }
 }

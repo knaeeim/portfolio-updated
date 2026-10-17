@@ -34,6 +34,9 @@ import {
     Key,
     LogOut,
     AlertCircle,
+    Download,
+    Copy,
+    GitBranch,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -70,12 +73,19 @@ export default function AdminDashboardPage() {
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
     const [isChangingPassword, setIsChangingPassword] = useState(false);
 
+    // GitHub GitOps Auto-Deploy State
+    const [githubToken, setGithubToken] = useState("");
+
     // Selected project for editing
     const [selectedProjectIndex, setSelectedProjectIndex] = useState<number>(0);
 
     // Verify session on mount
     useEffect(() => {
         const sessionToken = sessionStorage.getItem("wz_admin_session");
+        const savedGithubToken = localStorage.getItem("wz_github_token");
+        if (savedGithubToken) {
+            setGithubToken(savedGithubToken);
+        }
         if (sessionToken) {
             setIsAuthenticated(true);
             fetchData();
@@ -182,20 +192,60 @@ export default function AdminDashboardPage() {
         }
     };
 
+    const handleExportJson = () => {
+        if (!data) return;
+        const cleanData = { ...data };
+        delete cleanData.security;
+        delete cleanData._githubToken;
+        const blob = new Blob([JSON.stringify(cleanData, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "portfolio-content.json";
+        a.click();
+        URL.revokeObjectURL(url);
+        toast.success("Downloaded portfolio-content.json successfully!");
+    };
+
+    const handleCopyJson = () => {
+        if (!data) return;
+        const cleanData = { ...data };
+        delete cleanData.security;
+        delete cleanData._githubToken;
+        navigator.clipboard.writeText(JSON.stringify(cleanData, null, 2));
+        toast.success("Portfolio JSON copied to clipboard!");
+    };
+
     const handleSave = async () => {
         if (!data) return;
         try {
             setIsSaving(true);
+            const tokenToUse = githubToken.trim() || (typeof window !== "undefined" ? localStorage.getItem("wz_github_token") || "" : "");
+
             const res = await fetch("/api/portfolio", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(tokenToUse ? { "x-github-token": tokenToUse } : {}),
+                },
+                body: JSON.stringify({
+                    ...data,
+                    _githubToken: tokenToUse,
+                }),
             });
 
+            const resJson = await res.json().catch(() => null);
+
             if (res.ok) {
-                toast.success("Portfolio successfully saved and published!");
+                if (resJson?.syncedToGitHub) {
+                    toast.success("Successfully committed to GitHub! Vercel is deploying your changes live.");
+                } else if (resJson?.isReadOnly) {
+                    toast.success("Saved to runtime! (Serverless read-only mode). Download JSON or add a GitHub Token to commit to Git.");
+                } else {
+                    toast.success(resJson?.message || "Portfolio successfully saved and published!");
+                }
             } else {
-                toast.error("Failed to save changes.");
+                toast.error(resJson?.error || "Failed to save changes.");
             }
         } catch (error) {
             console.error("Save error:", error);
@@ -458,6 +508,16 @@ export default function AdminDashboardPage() {
                             <span className="hidden sm:inline">View Live Site</span>
                             <ExternalLink size={12} className="opacity-70" />
                         </a>
+                    </Button>
+                    <Button
+                        type="button"
+                        onClick={handleExportJson}
+                        variant="outline"
+                        size="sm"
+                        className="rounded-xl text-xs font-semibold gap-1.5"
+                        title="Download portfolio-content.json backup">
+                        <Download size={14} />
+                        <span className="hidden md:inline">Export JSON</span>
                     </Button>
                     <Button
                         onClick={handleSave}
@@ -1593,6 +1653,72 @@ export default function AdminDashboardPage() {
                                         </Button>
                                     </div>
                                 </form>
+                            </div>
+
+                            {/* GitHub GitOps Auto-Deploy (Live Vercel Persistence) */}
+                            <div className="p-6 rounded-2xl border border-border/80 bg-card/80 backdrop-blur-sm space-y-4">
+                                <div className="flex items-center gap-2">
+                                    <GitBranch size={18} className="text-primary" />
+                                    <h3 className="text-base font-bold text-foreground">GitHub GitOps Auto-Deploy (For Live Vercel)</h3>
+                                </div>
+                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                    On Vercel, serverless filesystems are read-only. To permanently commit edits made in this studio, save a GitHub Personal Access Token (PAT) with repo write access. Whenever you click <strong>Save Changes</strong>, it will automatically commit directly to <code className="text-primary font-mono font-bold">knaeeim/portfolio-updated</code> and trigger a live Vercel deploy!
+                                </p>
+                                <div className="space-y-2 max-w-lg">
+                                    <label className="text-xs font-bold text-muted-foreground">
+                                        GitHub Personal Access Token (PAT)
+                                    </label>
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="password"
+                                            value={githubToken}
+                                            onChange={(e) => setGithubToken(e.target.value)}
+                                            placeholder="ghp_... or github_pat_..."
+                                            className="flex-1 px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border focus:border-primary focus:ring-1 focus:ring-primary text-sm font-mono outline-none"
+                                        />
+                                        <Button
+                                            type="button"
+                                            onClick={() => {
+                                                localStorage.setItem("wz_github_token", githubToken.trim());
+                                                toast.success("GitHub token saved in your browser!");
+                                            }}
+                                            className="rounded-xl text-xs font-bold px-4">
+                                            Save Token
+                                        </Button>
+                                    </div>
+                                    <p className="text-[10px] text-muted-foreground">
+                                        Stored securely in your private browser storage. Alternatively, set <code className="text-primary font-mono">GITHUB_TOKEN</code> in your Vercel Project Environment Variables.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Data Export & Backup Tools Card */}
+                            <div className="p-6 rounded-2xl border border-border/80 bg-card/80 backdrop-blur-sm space-y-4">
+                                <div className="flex items-center gap-2">
+                                    <Download size={18} className="text-primary" />
+                                    <h3 className="text-base font-bold text-foreground">Data Export &amp; Offline Backup</h3>
+                                </div>
+                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                    Download your current portfolio data as a complete JSON file anytime, or copy it directly to your clipboard.
+                                </p>
+                                <div className="flex flex-wrap items-center gap-3 pt-1">
+                                    <Button
+                                        type="button"
+                                        onClick={handleExportJson}
+                                        variant="outline"
+                                        className="rounded-xl text-xs font-bold gap-2">
+                                        <Download size={14} />
+                                        <span>Download portfolio-content.json</span>
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        onClick={handleCopyJson}
+                                        variant="outline"
+                                        className="rounded-xl text-xs font-bold gap-2">
+                                        <Copy size={14} />
+                                        <span>Copy JSON to Clipboard</span>
+                                    </Button>
+                                </div>
                             </div>
 
                             {/* Sign Out Card */}

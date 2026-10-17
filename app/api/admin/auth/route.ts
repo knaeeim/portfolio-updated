@@ -3,7 +3,10 @@ import fs from "fs";
 import path from "path";
 
 const SECRET_PATH = path.join(process.cwd(), "data", "admin-security.json");
+const TMP_SECRET_PATH = path.join("/tmp", "admin-security.json");
 const DEFAULT_PASSWORDS = ["admin", "admin123", "webzen2026"];
+
+let inMemoryPassword: string | null = null;
 
 function getStoredPassword(): string {
     // 1. Environment variable priority (production / local .env.local)
@@ -11,7 +14,27 @@ function getStoredPassword(): string {
         return process.env.ADMIN_PASSWORD.trim();
     }
 
-    // 2. Local gitignored file priority
+    // 2. In-memory runtime priority
+    if (inMemoryPassword) {
+        return inMemoryPassword;
+    }
+
+    // 3. /tmp fallback priority
+    try {
+        if (fs.existsSync(TMP_SECRET_PATH)) {
+            const raw = fs.readFileSync(TMP_SECRET_PATH, "utf-8");
+            const data = JSON.parse(raw);
+            if (data?.adminPassword) {
+                const pass = data.adminPassword.trim();
+                inMemoryPassword = pass;
+                return pass;
+            }
+        }
+    } catch {
+        // continue
+    }
+
+    // 4. Local gitignored file priority
     try {
         if (fs.existsSync(SECRET_PATH)) {
             const raw = fs.readFileSync(SECRET_PATH, "utf-8");
@@ -24,11 +47,14 @@ function getStoredPassword(): string {
         console.error("Error reading admin secret file:", err);
     }
 
-    // 3. Fallback default
+    // 5. Fallback default
     return "admin";
 }
 
 function saveStoredPassword(newPassword: string): boolean {
+    const trimmed = newPassword.trim();
+    inMemoryPassword = trimmed;
+
     try {
         const dir = path.dirname(SECRET_PATH);
         if (!fs.existsSync(dir)) {
@@ -38,7 +64,7 @@ function saveStoredPassword(newPassword: string): boolean {
             SECRET_PATH,
             JSON.stringify(
                 {
-                    adminPassword: newPassword.trim(),
+                    adminPassword: trimmed,
                     updatedAt: new Date().toISOString(),
                 },
                 null,
@@ -48,8 +74,25 @@ function saveStoredPassword(newPassword: string): boolean {
         );
         return true;
     } catch (err) {
-        console.error("Error saving admin secret file:", err);
-        return false;
+        // Fallback for Vercel / read-only filesystem
+        try {
+            fs.writeFileSync(
+                TMP_SECRET_PATH,
+                JSON.stringify(
+                    {
+                        adminPassword: trimmed,
+                        updatedAt: new Date().toISOString(),
+                    },
+                    null,
+                    2
+                ),
+                "utf-8"
+            );
+            return true;
+        } catch (tmpErr) {
+            console.error("Error saving to /tmp secret:", tmpErr);
+            return true; // inMemoryPassword is already set, so runtime succeeds
+        }
     }
 }
 

@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import { getPortfolioData, savePortfolioData } from "@/lib/portfolio-data";
-import fs from "fs";
-import path from "path";
 
 export async function GET() {
     try {
@@ -22,13 +20,39 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Payload missing" }, { status: 400 });
         }
 
-        const success = savePortfolioData(payload);
-        if (!success) {
-            return NextResponse.json({ error: "Failed to persist portfolio data" }, { status: 500 });
+        // Support githubToken passed in header or payload
+        const headerToken = request.headers.get("x-github-token");
+        const bodyToken = payload._githubToken;
+        const githubToken = headerToken || bodyToken;
+
+        const result = await savePortfolioData(payload, githubToken);
+        if (!result.success) {
+            return NextResponse.json(
+                { error: result.error || "Failed to persist portfolio data" },
+                { status: 500 }
+            );
         }
 
-        return NextResponse.json({ message: "Portfolio successfully updated", data: payload });
-    } catch (error) {
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+        let userMessage = "Portfolio successfully updated and saved!";
+        if (result.syncedToGitHub) {
+            userMessage = "Portfolio saved and committed to GitHub! Vercel is now deploying your changes live.";
+        } else if (result.isReadOnly) {
+            userMessage = "Saved to runtime memory! (On Vercel, serverless files are read-only. For permanent Git sync, add a GitHub token or download the JSON).";
+        }
+
+        return NextResponse.json({
+            message: userMessage,
+            data: payload,
+            persistedLocally: result.persistedLocally,
+            isReadOnly: result.isReadOnly,
+            syncedToGitHub: result.syncedToGitHub,
+            gitHubError: result.gitHubError,
+        });
+    } catch (error: any) {
+        console.error("POST /api/portfolio error:", error);
+        return NextResponse.json(
+            { error: error?.message || "Internal server error" },
+            { status: 500 }
+        );
     }
 }
