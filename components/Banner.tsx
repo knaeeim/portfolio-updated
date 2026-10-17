@@ -61,7 +61,7 @@ const PortfolioBanner = ({ data }: BannerProps) => {
     const company = general.company || defaultBannerConfig.company;
     const name = general.name || defaultBannerConfig.name;
     const role = general.role || defaultBannerConfig.role;
-    const profileImage = general.profileImage || defaultBannerConfig.profileImage;
+    const profileImage = hero.profileImage || general.profileImage || defaultBannerConfig.profileImage;
     const resumeFile = general.resumeUrl || defaultBannerConfig.resumeFile;
     const bio = hero.bio || "I bridge the gap between visionary business strategy and rock-solid software engineering. Transforming complex client roadmaps into resilient, production-ready platforms that drive measurable growth.";
     const metrics = hero.metrics || defaultExecutiveMetrics;

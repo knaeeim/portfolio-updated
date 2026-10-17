@@ -1,7 +1,57 @@
 import { NextResponse } from "next/server";
-import { getPortfolioData, savePortfolioData } from "@/lib/portfolio-data";
+import fs from "fs";
+import path from "path";
 
+const SECRET_PATH = path.join(process.cwd(), "data", "admin-security.json");
 const DEFAULT_PASSWORDS = ["admin", "admin123", "webzen2026"];
+
+function getStoredPassword(): string {
+    // 1. Environment variable priority (production / local .env.local)
+    if (process.env.ADMIN_PASSWORD) {
+        return process.env.ADMIN_PASSWORD.trim();
+    }
+
+    // 2. Local gitignored file priority
+    try {
+        if (fs.existsSync(SECRET_PATH)) {
+            const raw = fs.readFileSync(SECRET_PATH, "utf-8");
+            const data = JSON.parse(raw);
+            if (data?.adminPassword) {
+                return data.adminPassword.trim();
+            }
+        }
+    } catch (err) {
+        console.error("Error reading admin secret file:", err);
+    }
+
+    // 3. Fallback default
+    return "admin";
+}
+
+function saveStoredPassword(newPassword: string): boolean {
+    try {
+        const dir = path.dirname(SECRET_PATH);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        fs.writeFileSync(
+            SECRET_PATH,
+            JSON.stringify(
+                {
+                    adminPassword: newPassword.trim(),
+                    updatedAt: new Date().toISOString(),
+                },
+                null,
+                2
+            ),
+            "utf-8"
+        );
+        return true;
+    } catch (err) {
+        console.error("Error saving admin secret file:", err);
+        return false;
+    }
+}
 
 export async function POST(request: Request) {
     try {
@@ -11,14 +61,12 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Password is required" }, { status: 400 });
         }
 
-        const data = getPortfolioData() || {};
-        const storedPassword = data.security?.adminPassword;
+        const validMasterPassword = getStoredPassword();
 
-        // Check if password matches stored password, env variable, or defaults
+        // Check if entered password matches master password or default fallbacks
         const isValid =
-            (storedPassword && password === storedPassword) ||
-            (process.env.ADMIN_PASSWORD && password === process.env.ADMIN_PASSWORD) ||
-            (!storedPassword && DEFAULT_PASSWORDS.includes(password.trim().toLowerCase()));
+            password === validMasterPassword ||
+            (validMasterPassword === "admin" && DEFAULT_PASSWORDS.includes(password.trim().toLowerCase()));
 
         if (!isValid) {
             return NextResponse.json(
@@ -28,7 +76,7 @@ export async function POST(request: Request) {
         }
 
         // Return secure session token
-        const token = Buffer.from(`webzen_admin_${Date.now()}_${password}`).toString("base64");
+        const token = Buffer.from(`webzen_admin_${Date.now()}_auth`).toString("base64");
 
         return NextResponse.json({
             success: true,
@@ -52,13 +100,12 @@ export async function PUT(request: Request) {
             );
         }
 
-        const data = getPortfolioData() || {};
-        const storedPassword = data.security?.adminPassword;
+        const validMasterPassword = getStoredPassword();
 
         // Verify current password
         const isCurrentValid =
-            (storedPassword && currentPassword === storedPassword) ||
-            (!storedPassword && DEFAULT_PASSWORDS.includes(currentPassword?.trim().toLowerCase()));
+            currentPassword === validMasterPassword ||
+            (validMasterPassword === "admin" && DEFAULT_PASSWORDS.includes(currentPassword?.trim().toLowerCase()));
 
         if (!isCurrentValid) {
             return NextResponse.json(
@@ -67,20 +114,15 @@ export async function PUT(request: Request) {
             );
         }
 
-        // Update stored password
-        if (!data.security) {
-            data.security = {};
-        }
-        data.security.adminPassword = newPassword.trim();
-
-        const saved = savePortfolioData(data);
+        // Update stored password into gitignored file
+        const saved = saveStoredPassword(newPassword);
         if (!saved) {
             return NextResponse.json({ error: "Failed to persist new password" }, { status: 500 });
         }
 
         return NextResponse.json({
             success: true,
-            message: "Administrator password updated successfully",
+            message: "Administrator password updated securely",
         });
     } catch (error) {
         console.error("Change password error:", error);

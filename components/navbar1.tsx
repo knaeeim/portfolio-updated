@@ -44,8 +44,8 @@ export const Navbar1 = ({
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
                 {/* Brand Logo - Sleek & Guaranteed No Wrapping */}
                 <a href="#home" className="flex items-center gap-3 shrink-0 group">
-                    <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-primary via-primary/90 to-blue-600 text-primary-foreground font-black text-xs shadow-md shadow-primary/20 group-hover:scale-105 transition-transform">
-                        <span>WZ</span>
+                    <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-primary via-primary/90 to-blue-600 text-primary-foreground font-black text-[11px] tracking-tight shadow-md shadow-primary/20 group-hover:scale-105 transition-transform">
+                        <span>KBN</span>
                         <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-background" />
                     </div>
                     <div className="flex flex-col whitespace-nowrap">
@@ -107,8 +107,8 @@ export const Navbar1 = ({
                                 <div>
                                     <SheetHeader className="text-left mb-6">
                                         <SheetTitle className="flex items-center gap-2.5">
-                                            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground font-black text-xs">
-                                                WZ
+                                            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground font-black text-[11px] tracking-tight">
+                                                KBN
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-sm font-bold">{userName}</span>

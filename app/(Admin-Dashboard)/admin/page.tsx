@@ -268,6 +268,50 @@ export default function AdminDashboardPage() {
         }
     };
 
+    // Handle Hero Section Portrait / CEO Image Upload
+    const handleHeroImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        try {
+            setUploadingFor("hero-image");
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const res = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (res.ok) {
+                const resJson = await res.json();
+                const newImgUrl = resJson.url;
+
+                setData((prev: any) => ({
+                    ...prev,
+                    general: {
+                        ...prev.general,
+                        profileImage: newImgUrl,
+                    },
+                    hero: {
+                        ...prev.hero,
+                        profileImage: newImgUrl,
+                    },
+                }));
+
+                toast.success("Hero image uploaded! Click 'Save Changes' to publish live.");
+            } else {
+                toast.error("Failed to upload hero image.");
+            }
+        } catch (error) {
+            console.error("Upload error:", error);
+            toast.error("Upload failed.");
+        } finally {
+            setUploadingFor(null);
+            e.target.value = "";
+        }
+    };
+
     if (isCheckingAuth) {
         return (
             <div className="min-h-screen bg-background flex flex-col items-center justify-center space-y-4">
@@ -391,8 +435,8 @@ export default function AdminDashboardPage() {
                         <ArrowLeft size={18} />
                     </Link>
                     <div className="flex items-center gap-2.5">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground font-black text-xs">
-                            WZ
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground font-black text-[11px] tracking-tight">
+                            KBN
                         </div>
                         <div>
                             <div className="flex items-center gap-2">
@@ -572,6 +616,55 @@ export default function AdminDashboardPage() {
                                 </p>
                             </div>
 
+                            {/* Executive Profile Photo Card */}
+                            <div className="p-4 rounded-2xl bg-muted/30 border border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div className="flex items-center gap-4">
+                                    <div className="relative w-16 h-20 rounded-xl overflow-hidden border border-border shadow-xs bg-muted shrink-0">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img
+                                            src={data.general?.profileImage || data.hero?.profileImage || "/profilePicture.jpg"}
+                                            alt="Executive Profile"
+                                            className="w-full h-full object-cover object-top"
+                                        />
+                                    </div>
+                                    <div>
+                                        <div className="text-xs font-bold text-foreground">Executive Profile &amp; Hero Portrait</div>
+                                        <p className="text-[11px] text-muted-foreground">Used across the Hero Banner and executive plates.</p>
+                                        <span className="text-[10px] font-mono text-muted-foreground/70 truncate block max-w-[240px]">
+                                            {data.general?.profileImage || data.hero?.profileImage || "/profilePicture.jpg"}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <label className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold shadow-xs hover:shadow-md cursor-pointer transition-all">
+                                        {uploadingFor === "hero-image" ? (
+                                            <>
+                                                <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                                <span>Uploading...</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Upload size={13} />
+                                                <span>Change Photo</span>
+                                            </>
+                                        )}
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            disabled={uploadingFor === "hero-image"}
+                                            onChange={handleHeroImageUpload}
+                                            className="hidden"
+                                        />
+                                    </label>
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveTab("hero")}
+                                        className="px-3 py-2 rounded-xl border border-border text-xs font-semibold hover:bg-muted text-muted-foreground">
+                                        Advanced View
+                                    </button>
+                                </div>
+                            </div>
+
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div className="space-y-1.5">
                                     <label className="text-xs font-bold text-muted-foreground">Full Name</label>
@@ -673,8 +766,101 @@ export default function AdminDashboardPage() {
                             <div>
                                 <h2 className="text-xl font-bold">Hero Section &amp; Metrics</h2>
                                 <p className="text-xs text-muted-foreground mt-0.5">
-                                    Customize the hero banner copy and the 4 impact metric numbers.
+                                    Customize the hero banner copy, executive portrait photo, and the 4 impact metric numbers.
                                 </p>
+                            </div>
+
+                            {/* Hero CEO Portrait Image Upload Section */}
+                            <div className="p-5 rounded-2xl bg-muted/30 border border-border space-y-4">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div className="flex items-center gap-2.5">
+                                        <div className="p-2 rounded-xl bg-primary/10 text-primary">
+                                            <ImageIcon size={18} />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-sm font-bold text-foreground">Hero Section Portrait / CEO Image</h3>
+                                            <p className="text-[11px] text-muted-foreground">The prominent portrait photo displayed on the hero banner.</p>
+                                        </div>
+                                    </div>
+                                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground truncate max-w-xs">
+                                        {data.hero?.profileImage || data.general?.profileImage || "/profilePicture.jpg"}
+                                    </span>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row items-center gap-5 pt-1">
+                                    {/* Live Image Preview */}
+                                    <div className="relative w-28 h-36 rounded-2xl overflow-hidden border-2 border-border shadow-md bg-muted shrink-0 group">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img
+                                            src={data.hero?.profileImage || data.general?.profileImage || "/profilePicture.jpg"}
+                                            alt="Hero Portrait Preview"
+                                            className="w-full h-full object-cover object-top"
+                                        />
+                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[10px] text-white font-bold text-center px-1">
+                                            Active Portrait
+                                        </div>
+                                    </div>
+
+                                    {/* Upload Controls */}
+                                    <div className="flex-1 w-full space-y-3">
+                                        <div className="space-y-1.5">
+                                            <label className="text-[11px] font-bold text-muted-foreground">Image URL or Local Path</label>
+                                            <div className="flex gap-2">
+                                                <input
+                                                    type="text"
+                                                    value={data.hero?.profileImage || data.general?.profileImage || ""}
+                                                    onChange={(e) => {
+                                                        const val = e.target.value;
+                                                        setData((prev: any) => ({
+                                                            ...prev,
+                                                            general: { ...prev.general, profileImage: val },
+                                                            hero: { ...prev.hero, profileImage: val },
+                                                        }));
+                                                    }}
+                                                    placeholder="e.g. /profilePicture.jpg or uploaded URL"
+                                                    className="flex-1 px-3.5 py-2 rounded-xl bg-background border border-border text-xs focus:border-primary outline-none font-mono"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setData((prev: any) => ({
+                                                            ...prev,
+                                                            general: { ...prev.general, profileImage: "/profilePicture.jpg" },
+                                                            hero: { ...prev.hero, profileImage: "/profilePicture.jpg" },
+                                                        }));
+                                                        toast.info("Reset to default profile picture.");
+                                                    }}
+                                                    className="px-3 py-2 rounded-xl border border-border text-xs font-semibold hover:bg-muted text-muted-foreground cursor-pointer">
+                                                    Reset Default
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            <label className="relative inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-bold shadow-md shadow-primary/20 hover:shadow-lg transition-all cursor-pointer">
+                                                {uploadingFor === "hero-image" ? (
+                                                    <>
+                                                        <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                                        <span>Uploading Image...</span>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Upload size={14} />
+                                                        <span>Upload New Portrait Photo</span>
+                                                    </>
+                                                )}
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    disabled={uploadingFor === "hero-image"}
+                                                    onChange={handleHeroImageUpload}
+                                                    className="hidden"
+                                                />
+                                            </label>
+                                            <span className="text-[11px] text-muted-foreground">Supports JPG, PNG, WEBP (Saved to /public/uploads)</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="space-y-4">
