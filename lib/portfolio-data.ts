@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { getMongoDb, isMongoConfigured } from "./mongodb";
 
 const DATA_PATH = path.join(process.cwd(), "data", "portfolio-content.json");
 const TMP_PATH = path.join("/tmp", "portfolio-content.json");
@@ -7,31 +8,68 @@ const TMP_PATH = path.join("/tmp", "portfolio-content.json");
 // In-memory cache across serverless warm invocations
 let inMemoryCache: any = null;
 
-export function getPortfolioData() {
-    // 1. In-memory priority
-    if (inMemoryCache) {
-        return inMemoryCache;
-    }
-
-    // 2. /tmp priority (for Vercel serverless where DATA_PATH is read-only)
+function getLocalFilePortfolioData(): any {
     try {
         if (fs.existsSync(TMP_PATH)) {
             const rawTmp = fs.readFileSync(TMP_PATH, "utf-8");
-            inMemoryCache = JSON.parse(rawTmp);
-            return inMemoryCache;
+            return JSON.parse(rawTmp);
         }
     } catch {
-        // Fall through to DATA_PATH
+        // continue
     }
 
-    // 3. Main filesystem file
     try {
         if (fs.existsSync(DATA_PATH)) {
             const raw = fs.readFileSync(DATA_PATH, "utf-8");
             return JSON.parse(raw);
         }
     } catch (err) {
-        console.error("Error reading portfolio data:", err);
+        console.error("Error reading local portfolio data:", err);
+    }
+
+    return null;
+}
+
+export async function getPortfolioData(): Promise<any> {
+    // 1. If MongoDB is configured, fetch live cloud data
+    if (isMongoConfigured()) {
+        try {
+            const db = await getMongoDb();
+            if (db) {
+                const doc = await db.collection("content").findOne({ _id: "portfolio_main" as any });
+                if (doc) {
+                    const { _id, updatedAt, ...cleanDoc } = doc as any;
+                    inMemoryCache = cleanDoc;
+                    return cleanDoc;
+                }
+
+                // If document does not exist yet, seed initial data from local JSON into MongoDB
+                const initialData = getLocalFilePortfolioData();
+                if (initialData) {
+                    await db.collection("content").insertOne({
+                        _id: "portfolio_main" as any,
+                        ...initialData,
+                        updatedAt: new Date(),
+                    });
+                    inMemoryCache = initialData;
+                    return initialData;
+                }
+            }
+        } catch (mongoErr) {
+            console.error("MongoDB fetch error, falling back to cache/local:", mongoErr);
+        }
+    }
+
+    // 2. In-memory priority
+    if (inMemoryCache) {
+        return inMemoryCache;
+    }
+
+    // 3. Fallback to local files
+    const local = getLocalFilePortfolioData();
+    if (local) {
+        inMemoryCache = local;
+        return local;
     }
 
     return null;
@@ -97,6 +135,7 @@ export async function savePortfolioData(
     githubToken?: string
 ): Promise<{
     success: boolean;
+    savedToMongo: boolean;
     persistedLocally: boolean;
     isReadOnly: boolean;
     syncedToGitHub: boolean;
@@ -108,14 +147,38 @@ export async function savePortfolioData(
         const cleanData = { ...data };
         delete cleanData.security;
         delete cleanData._githubToken;
+        delete cleanData._id;
 
         const jsonString = JSON.stringify(cleanData, null, 2);
         inMemoryCache = cleanData;
 
+        let savedToMongo = false;
         let persistedLocally = false;
         let isReadOnly = false;
 
-        // Attempt 1: Write to local git repo (works locally in development)
+        // Attempt 1: If MongoDB is configured, save directly to MongoDB Atlas
+        if (isMongoConfigured()) {
+            try {
+                const db = await getMongoDb();
+                if (db) {
+                    await db.collection("content").updateOne(
+                        { _id: "portfolio_main" as any },
+                        {
+                            $set: {
+                                ...cleanData,
+                                updatedAt: new Date(),
+                            },
+                        },
+                        { upsert: true }
+                    );
+                    savedToMongo = true;
+                }
+            } catch (mongoSaveErr) {
+                console.error("Failed to save to MongoDB:", mongoSaveErr);
+            }
+        }
+
+        // Attempt 2: Write to local disk if filesystem is writable (local development)
         try {
             const dir = path.dirname(DATA_PATH);
             if (!fs.existsSync(dir)) {
@@ -133,7 +196,7 @@ export async function savePortfolioData(
             }
         }
 
-        // Attempt 2: If GitHub Token provided (env or param), sync to GitHub to trigger Vercel deploy
+        // Attempt 3: If GitHub Token provided, commit to GitHub as well
         const activeToken = githubToken?.trim() || process.env.GITHUB_TOKEN?.trim();
         let syncedToGitHub = false;
         let gitHubError: string | undefined;
@@ -148,6 +211,7 @@ export async function savePortfolioData(
 
         return {
             success: true,
+            savedToMongo,
             persistedLocally,
             isReadOnly,
             syncedToGitHub,
@@ -157,6 +221,7 @@ export async function savePortfolioData(
         console.error("Critical error in savePortfolioData:", err);
         return {
             success: false,
+            savedToMongo: false,
             persistedLocally: false,
             isReadOnly: false,
             syncedToGitHub: false,

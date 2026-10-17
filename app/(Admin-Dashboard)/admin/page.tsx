@@ -37,6 +37,7 @@ import {
     Download,
     Copy,
     GitBranch,
+    Database,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -237,10 +238,12 @@ export default function AdminDashboardPage() {
             const resJson = await res.json().catch(() => null);
 
             if (res.ok) {
-                if (resJson?.syncedToGitHub) {
+                if (resJson?.savedToMongo) {
+                    toast.success("Saved to MongoDB Atlas! Live site is instantly updated.");
+                } else if (resJson?.syncedToGitHub) {
                     toast.success("Successfully committed to GitHub! Vercel is deploying your changes live.");
                 } else if (resJson?.isReadOnly) {
-                    toast.success("Saved to runtime! (Serverless read-only mode). Download JSON or add a GitHub Token to commit to Git.");
+                    toast.success("Saved to runtime! (Add MONGODB_URI in Vercel for instant permanent cloud persistence).");
                 } else {
                     toast.success(resJson?.message || "Portfolio successfully saved and published!");
                 }
@@ -1653,6 +1656,34 @@ export default function AdminDashboardPage() {
                                         </Button>
                                     </div>
                                 </form>
+                            </div>
+
+                            {/* MongoDB Atlas Live Database (Recommended for 100% Instant Updates) */}
+                            <div className="p-6 rounded-2xl border border-primary/30 bg-primary/5 backdrop-blur-sm space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <Database size={20} className="text-primary" />
+                                        <h3 className="text-base font-bold text-foreground">MongoDB Atlas Cloud Database</h3>
+                                    </div>
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold border border-emerald-500/20">
+                                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                                        <span>Instant Live Persistence</span>
+                                    </span>
+                                </div>
+                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                    MongoDB Atlas দিয়ে আপনি ব্যাকএন্ডে (এই স্টুডিওতে) যেকোনো তথ্য পরিবর্তন করে <strong>Save Changes</strong> দিলেই সাথে সাথে কোনো কমান্ড বা গিট পুশ ছাড়াই লাইভ সাইট ১ সেকেন্ডে আপডেট হয়ে যাবে।
+                                </p>
+                                <div className="bg-background/80 p-4 rounded-xl border border-border text-xs space-y-2">
+                                    <div className="font-bold text-foreground flex items-center gap-2">
+                                        <CheckCircle2 size={15} className="text-primary" />
+                                        <span>সেটআপ করার সহজ ৩ ধাপ (১ মিনিট লাগবে):</span>
+                                    </div>
+                                    <ol className="list-decimal list-inside space-y-1 text-muted-foreground text-[11px] leading-relaxed">
+                                        <li><a href="https://www.mongodb.com/cloud/atlas/register" target="_blank" rel="noreferrer" className="text-primary underline font-semibold">mongodb.com/cloud/atlas</a> এ গিয়ে একটি ফ্রি M0 ক্লাস্টার তৈরি করুন।</li>
+                                        <li><strong>Database Access</strong> এ একটি ইউজার ও পাসওয়ার্ড তৈরি করুন এবং <strong>Network Access</strong> এ <code>0.0.0.0/0</code> (Allow Access from Anywhere) দিন।</li>
+                                        <li><strong>Connect</strong> এ ক্লিক করে <strong>Drivers</strong> সিলেক্ট করে কানেকশন স্ট্রিংটি কপি করুন (যেমন: <code>mongodb+srv://...</code>) এবং Vercel Dashboard &gt; Settings &gt; <strong>Environment Variables</strong> এ <code>MONGODB_URI</code> নামে সেভ করুন।</li>
+                                    </ol>
+                                </div>
                             </div>
 
                             {/* GitHub GitOps Auto-Deploy (Live Vercel Persistence) */}

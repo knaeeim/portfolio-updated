@@ -13,7 +13,7 @@ import React from "react";
 export const dynamic = "force-dynamic";
 
 const CommonLayoutHomePage = async () => {
-    const portfolioData = getPortfolioData();
+    const portfolioData = await getPortfolioData();
 
     const companyName = portfolioData?.general?.company || "WebZen";
     const userName = portfolioData?.general?.name || "Khairul Bashar Naeeim";

@@ -3,7 +3,7 @@ import { getPortfolioData, savePortfolioData } from "@/lib/portfolio-data";
 
 export async function GET() {
     try {
-        const data = getPortfolioData();
+        const data = await getPortfolioData();
         if (!data) {
             return NextResponse.json({ error: "No portfolio data found" }, { status: 404 });
         }
@@ -34,10 +34,12 @@ export async function POST(request: Request) {
         }
 
         let userMessage = "Portfolio successfully updated and saved!";
-        if (result.syncedToGitHub) {
+        if (result.savedToMongo) {
+            userMessage = "Portfolio saved to MongoDB Atlas! Live site is instantly updated without any rebuild.";
+        } else if (result.syncedToGitHub) {
             userMessage = "Portfolio saved and committed to GitHub! Vercel is now deploying your changes live.";
         } else if (result.isReadOnly) {
-            userMessage = "Saved to runtime memory! (On Vercel, serverless files are read-only. For permanent Git sync, add a GitHub token or download the JSON).";
+            userMessage = "Saved to runtime memory! (Add MONGODB_URI to Vercel for instant cloud persistence).";
         }
 
         return NextResponse.json({

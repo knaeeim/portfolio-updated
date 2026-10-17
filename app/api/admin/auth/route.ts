@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { getMongoDb, isMongoConfigured } from "@/lib/mongodb";
 
 const SECRET_PATH = path.join(process.cwd(), "data", "admin-security.json");
 const TMP_SECRET_PATH = path.join("/tmp", "admin-security.json");
@@ -8,7 +9,7 @@ const DEFAULT_PASSWORDS = ["admin", "admin123", "webzen2026"];
 
 let inMemoryPassword: string | null = null;
 
-function getStoredPassword(): string {
+async function getStoredPassword(): Promise<string> {
     // 1. Environment variable priority (production / local .env.local)
     if (process.env.ADMIN_PASSWORD) {
         return process.env.ADMIN_PASSWORD.trim();
@@ -19,7 +20,24 @@ function getStoredPassword(): string {
         return inMemoryPassword;
     }
 
-    // 3. /tmp fallback priority
+    // 3. MongoDB priority if configured
+    if (isMongoConfigured()) {
+        try {
+            const db = await getMongoDb();
+            if (db) {
+                const doc = await db.collection("auth").findOne({ _id: "admin_password" as any });
+                if (doc?.adminPassword) {
+                    const pass = (doc.adminPassword as string).trim();
+                    inMemoryPassword = pass;
+                    return pass;
+                }
+            }
+        } catch (mongoErr) {
+            console.error("MongoDB auth read error:", mongoErr);
+        }
+    }
+
+    // 4. /tmp fallback priority
     try {
         if (fs.existsSync(TMP_SECRET_PATH)) {
             const raw = fs.readFileSync(TMP_SECRET_PATH, "utf-8");
@@ -34,7 +52,7 @@ function getStoredPassword(): string {
         // continue
     }
 
-    // 4. Local gitignored file priority
+    // 5. Local gitignored file priority
     try {
         if (fs.existsSync(SECRET_PATH)) {
             const raw = fs.readFileSync(SECRET_PATH, "utf-8");
@@ -47,14 +65,36 @@ function getStoredPassword(): string {
         console.error("Error reading admin secret file:", err);
     }
 
-    // 5. Fallback default
+    // 6. Fallback default
     return "admin";
 }
 
-function saveStoredPassword(newPassword: string): boolean {
+async function saveStoredPassword(newPassword: string): Promise<boolean> {
     const trimmed = newPassword.trim();
     inMemoryPassword = trimmed;
 
+    // 1. If MongoDB configured, save to cloud
+    if (isMongoConfigured()) {
+        try {
+            const db = await getMongoDb();
+            if (db) {
+                await db.collection("auth").updateOne(
+                    { _id: "admin_password" as any },
+                    {
+                        $set: {
+                            adminPassword: trimmed,
+                            updatedAt: new Date(),
+                        },
+                    },
+                    { upsert: true }
+                );
+            }
+        } catch (mongoErr) {
+            console.error("MongoDB auth write error:", mongoErr);
+        }
+    }
+
+    // 2. Local disk write
     try {
         const dir = path.dirname(SECRET_PATH);
         if (!fs.existsSync(dir)) {
@@ -104,7 +144,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Password is required" }, { status: 400 });
         }
 
-        const validMasterPassword = getStoredPassword();
+        const validMasterPassword = await getStoredPassword();
 
         // Check if entered password matches master password or default fallbacks
         const isValid =
@@ -143,7 +183,7 @@ export async function PUT(request: Request) {
             );
         }
 
-        const validMasterPassword = getStoredPassword();
+        const validMasterPassword = await getStoredPassword();
 
         // Verify current password
         const isCurrentValid =
@@ -157,8 +197,8 @@ export async function PUT(request: Request) {
             );
         }
 
-        // Update stored password into gitignored file
-        const saved = saveStoredPassword(newPassword);
+        // Update stored password into cloud/file
+        const saved = await saveStoredPassword(newPassword);
         if (!saved) {
             return NextResponse.json({ error: "Failed to persist new password" }, { status: 500 });
         }
