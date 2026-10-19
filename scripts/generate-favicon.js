@@ -1,0 +1,102 @@
+const sharp = require('sharp');
+const fs = require('fs');
+const path = require('path');
+
+// 512x512 Master SVG Vector Icon with mathematical geometric precision
+const svgIcon = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF5A1F"/>
+      <stop offset="100%" stop-color="#E64A11"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141413"/>
+      <stop offset="100%" stop-color="#080807"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Rounded Squircle Badge -->
+  <rect x="24" y="24" width="464" height="464" rx="108" fill="url(#bgGrad)"/>
+  <rect x="24" y="24" width="464" height="464" rx="108" fill="none" stroke="#2A2A27" stroke-width="10"/>
+
+  <!-- Subtle Swiss Grid Coordinate Lines (Exposed Hairlines) -->
+  <line x1="24" y1="256" x2="488" y2="256" stroke="#ffffff" stroke-width="1" opacity="0.06"/>
+  <line x1="256" y1="24" x2="256" y2="488" stroke="#ffffff" stroke-width="1" opacity="0.06"/>
+
+  <!-- Active Telemetry Status Beacon (Top Right with Clean Negative Space) -->
+  <circle cx="422" cy="90" r="22" fill="#10B981" filter="url(#shadow)"/>
+  <circle cx="422" cy="90" r="32" fill="none" stroke="#10B981" stroke-width="3" opacity="0.35"/>
+
+  <!-- Architectural Geometric Monogram 'N' (Centered & Monolithic) -->
+  <!-- Left Column: (112, 116) to (178, 396) -->
+  <!-- Diagonal: (112, 116) to (388, 396) -->
+  <!-- Right Column: (322, 116) to (388, 396) -->
+  <!-- Total N width = 388 - 112 = 276px. Center = 250px. Perfectly balanced! -->
+  <g filter="url(#shadow)">
+    <path d="
+      M 112,116 
+      L 178,116 
+      L 322,324 
+      L 322,116 
+      L 388,116 
+      L 388,396 
+      L 322,396 
+      L 178,188 
+      L 178,396 
+      L 112,396 
+      Z
+    " fill="url(#brandGrad)" />
+  </g>
+</svg>
+`.trim();
+
+async function generate() {
+  const root = path.resolve(__dirname, '..');
+  const svgBuffer = Buffer.from(svgIcon);
+
+  // 1. Write public/favicon.svg
+  fs.writeFileSync(path.join(root, 'public', 'favicon.svg'), svgIcon);
+  console.log('Created public/favicon.svg');
+
+  // 2. Generate 512x512 app/icon.png (Next.js App Router default)
+  await sharp(svgBuffer)
+    .resize(512, 512)
+    .png()
+    .toFile(path.join(root, 'app', 'icon.png'));
+  console.log('Created app/icon.png (512x512)');
+
+  // 3. Generate 180x180 public/apple-touch-icon.png
+  await sharp(svgBuffer)
+    .resize(180, 180)
+    .png()
+    .toFile(path.join(root, 'public', 'apple-touch-icon.png'));
+  console.log('Created public/apple-touch-icon.png (180x180)');
+
+  // 4. Generate 192x192 and 512x512 for PWA / manifests
+  await sharp(svgBuffer)
+    .resize(192, 192)
+    .png()
+    .toFile(path.join(root, 'public', 'icon-192.png'));
+  console.log('Created public/icon-192.png');
+
+  await sharp(svgBuffer)
+    .resize(512, 512)
+    .png()
+    .toFile(path.join(root, 'public', 'icon-512.png'));
+  console.log('Created public/icon-512.png');
+
+  // 5. Generate 32x32 and 16x16 PNG for favicon.ico
+  const png32 = await sharp(svgBuffer).resize(32, 32).png().toBuffer();
+  fs.writeFileSync(path.join(root, 'app', 'favicon.ico'), png32);
+  fs.writeFileSync(path.join(root, 'public', 'favicon.ico'), png32);
+  console.log('Created app/favicon.ico and public/favicon.ico');
+}
+
+generate().catch(err => {
+  console.error(err);
+  process.exit(1);
+});

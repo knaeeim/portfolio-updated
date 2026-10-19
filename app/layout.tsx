@@ -40,6 +40,16 @@ export const metadata: Metadata = {
             "Engineering scalable digital ventures, enterprise web platforms, and visionary software solutions.",
         siteName: "Khairul Bashar Naeeim Portfolio",
     },
+    icons: {
+        icon: [
+            { url: "/favicon.ico", sizes: "32x32" },
+            { url: "/icon.png", type: "image/png", sizes: "512x512" },
+            { url: "/favicon.svg", type: "image/svg+xml" },
+        ],
+        apple: [
+            { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+        ],
+    },
 };
 
 export default function RootLayout({
