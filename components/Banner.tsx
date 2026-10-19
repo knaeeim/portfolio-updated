@@ -294,33 +294,33 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                 <div
                     className="lg:col-span-5 flex justify-center items-center relative self-center"
                     data-aos="fade-left">
-                    <div className="relative w-full max-w-[270px] sm:max-w-[340px] lg:max-w-[380px] mx-auto">
+                    <div className="relative w-full max-w-[310px] sm:max-w-[390px] lg:max-w-[440px] xl:max-w-[475px] mx-auto">
                         {/* Decorative Gradient Glow Rings */}
-                        <div className="absolute -inset-3 bg-gradient-to-tr from-primary/25 via-blue-500/15 to-cyan-500/25 rounded-3xl blur-2xl opacity-60 pointer-events-none" />
+                        <div className="absolute -inset-4 bg-gradient-to-tr from-primary/25 via-blue-500/15 to-cyan-500/25 rounded-3xl blur-2xl opacity-60 pointer-events-none" />
 
                         {/* Portrait Frame */}
-                        <div className="relative rounded-3xl p-2 sm:p-2.5 bg-gradient-to-b from-border/80 via-card to-border/40 border border-border shadow-2xl overflow-hidden backdrop-blur-md group">
+                        <div className="relative rounded-3xl p-2.5 sm:p-3 bg-gradient-to-b from-border/80 via-card to-border/40 border border-border shadow-2xl overflow-hidden backdrop-blur-md group">
                             <div className="relative aspect-4/5 w-full rounded-2xl overflow-hidden bg-muted">
                                 <Image
                                     src={profileImage}
                                     alt={name}
                                     fill
                                     priority
-                                    sizes="(max-width: 640px) 270px, (max-width: 1024px) 340px, 380px"
+                                    sizes="(max-width: 640px) 310px, (max-width: 1024px) 390px, 475px"
                                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
 
                                 {/* Name plate on portrait bottom */}
-                                <div className="absolute bottom-0 inset-x-0 p-3.5 sm:p-4 space-y-1">
+                                <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 space-y-1">
                                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm">
                                         <Sparkles size={11} />
                                         Founder &amp; CEO
                                     </div>
-                                    <h3 className="text-base sm:text-lg font-bold text-foreground leading-tight">
+                                    <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight">
                                         {name}
                                     </h3>
-                                    <p className="text-[11px] text-muted-foreground font-medium">
+                                    <p className="text-xs text-muted-foreground font-medium">
                                         Lead Systems Architect • {company}
                                     </p>
                                 </div>
@@ -332,31 +332,31 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                             href="https://www.devojyotidutta.com/"
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="absolute -top-3 -left-3 sm:-left-5 p-2 sm:p-2.5 rounded-2xl bg-card/90 border border-border/80 dark:border-white/10 shadow-xl backdrop-blur-2xl flex items-center gap-2 sm:gap-2.5 hover:border-primary/50 transition-all z-20 group">
-                            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 group-hover:scale-110 transition-transform">
+                            className="absolute -top-3.5 -left-3 sm:-left-6 p-2.5 sm:p-3 rounded-2xl bg-card/90 border border-border/80 dark:border-white/10 shadow-xl backdrop-blur-2xl flex items-center gap-2.5 sm:gap-3 hover:border-primary/50 transition-all z-20 group">
+                            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-sm shrink-0 group-hover:scale-110 transition-transform">
                                 🌿
                             </div>
                             <div>
-                                <div className="text-[11px] font-bold text-foreground flex items-center gap-1">
+                                <div className="text-xs font-bold text-foreground flex items-center gap-1">
                                     <span>devojyotidutta.com</span>
-                                    <ArrowUpRight size={11} className="text-muted-foreground group-hover:text-primary transition-colors" />
+                                    <ArrowUpRight size={12} className="text-muted-foreground group-hover:text-primary transition-colors" />
                                 </div>
-                                <div className="text-[9px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                                <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
                                     Flagship Production Live
                                 </div>
                             </div>
                         </a>
 
                         {/* Floating Live Badge 2: Architecture & Mentorship */}
-                        <div className="absolute -bottom-3 -right-3 sm:-right-5 p-2 sm:p-2.5 rounded-2xl bg-card/90 border border-border/80 dark:border-white/10 shadow-xl backdrop-blur-2xl flex items-center gap-2 sm:gap-2.5 z-20">
-                            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold text-xs sm:text-sm shrink-0">
-                                <Users size={14} />
+                        <div className="absolute -bottom-3.5 -right-3 sm:-right-6 p-2.5 sm:p-3 rounded-2xl bg-card/90 border border-border/80 dark:border-white/10 shadow-xl backdrop-blur-2xl flex items-center gap-2.5 sm:gap-3 z-20">
+                            <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold text-sm shrink-0">
+                                <Users size={15} />
                             </div>
                             <div>
-                                <div className="text-[11px] font-bold text-foreground">
+                                <div className="text-xs font-bold text-foreground">
                                     100+ Engineers Mentored
                                 </div>
-                                <div className="text-[9px] text-muted-foreground font-medium">
+                                <div className="text-[10px] text-muted-foreground font-medium">
                                     BD Calling Academy
                                 </div>
                             </div>
