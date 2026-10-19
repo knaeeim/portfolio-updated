@@ -85,7 +85,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             <main className="flex-1">
                 {/* Top Sticky Breadcrumb Bar */}
                 <div className="border-b border-border/60 bg-background/80 backdrop-blur-md sticky top-16 z-30">
-                    <div className="container mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
                         <Link
                             href="/#projects"
                             className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors group">
@@ -121,7 +121,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                     <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
                     <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-                    <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-5xl space-y-8">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
                         {/* Status & Category Pills */}
                         <div className="flex flex-wrap items-center gap-2.5">
                             <span className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary">
@@ -249,7 +249,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 {/* Key Metrics Grid */}
                 {project.metrics && project.metrics.length > 0 && (
                     <section className="py-8 sm:py-10 border-y border-border/60 bg-muted/20">
-                        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+                        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {project.metrics.map((m: any, idx: number) => (
                                     <div
@@ -271,7 +271,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 {/* Interactive Multi-Screen Showcase */}
                 {project.images && project.images.length > 0 && (
                     <section className="py-12 sm:py-16">
-                        <div className="container mx-auto px-4 sm:px-6 max-w-5xl space-y-6">
+                        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
                             <div className="space-y-1">
                                 <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-primary">
                                     <Sparkles size={13} />
@@ -293,7 +293,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 {/* Core Architectural Features & Engineering Deliverables */}
                 {project.features && project.features.length > 0 && (
                     <section className="py-12 sm:py-16 bg-muted/15 border-t border-border/60">
-                        <div className="container mx-auto px-4 sm:px-6 max-w-5xl space-y-8">
+                        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                             <div className="space-y-1">
                                 <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                                     <Layers size={13} />
@@ -333,7 +333,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 {/* Technology Stack & Tooling */}
                 {project.tech && project.tech.length > 0 && (
                     <section className="py-12 sm:py-16 border-t border-border/60">
-                        <div className="container mx-auto px-4 sm:px-6 max-w-5xl space-y-6">
+                        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
                             <div className="space-y-1">
                                 <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                                     <span>Infrastructure &amp; Stack</span>
@@ -358,7 +358,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
                 {/* Bottom Venture Call to Action */}
                 <section className="py-14 sm:py-20 border-t border-border/60 bg-gradient-to-b from-card/40 to-background">
-                    <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center space-y-5">
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary">
                             <Building2 size={13} />
                             <span>Venture Advisory with {companyName}</span>

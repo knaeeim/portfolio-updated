@@ -146,7 +146,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
             {/* Subtle ambient lighting */}
             <div className="absolute top-1/2 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="container mx-auto px-4 sm:px-6 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* SECTION 1: EXECUTIVE PILLARS */}
                 <div className="mb-8 sm:mb-12 md:mb-14">
                     <div className="max-w-3xl mb-6 sm:mb-8" data-aos="fade-up">

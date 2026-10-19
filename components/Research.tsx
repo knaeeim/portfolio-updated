@@ -150,7 +150,7 @@ export const ResearchSection = ({ data }: ResearchProps) => {
             <div className="absolute top-1/4 -left-20 w-96 h-96 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
             <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/10 dark:bg-primary/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
 
-            <div className="container mx-auto px-4 sm:px-6 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Executive Section Header - Crisp & Concise */}
                 <div className="max-w-3xl mb-6 sm:mb-8" data-aos="fade-up">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-[11px] font-bold text-cyan-600 dark:text-cyan-400 backdrop-blur-md mb-2.5">

@@ -53,7 +53,7 @@ const EducationSection = ({ data }: EducationSectionProps) => {
             {/* Ambient lighting */}
             <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="container mx-auto px-4 sm:px-6 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* 1. ACADEMIC DEGREE */}
                 <div className="mb-8 sm:mb-10 md:mb-12">
                     <div className="flex items-center gap-3 mb-4 sm:mb-6" data-aos="fade-up">

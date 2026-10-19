@@ -61,7 +61,7 @@ const ExperienceSection = ({ data }: ExperienceSectionProps) => {
             {/* Ambient lighting */}
             <div className="absolute top-1/2 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="container mx-auto px-4 sm:px-6 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header */}
                 <div className="max-w-3xl mb-6 sm:mb-8" data-aos="fade-up">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
