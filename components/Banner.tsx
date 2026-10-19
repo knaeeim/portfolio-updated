@@ -18,8 +18,9 @@ export const TerminalHero = ({ data }: BannerProps) => {
     const general = data?.general || {};
     const name = general.name || "Khairul Bashar Naeeim";
     const profileImage =
-        general.profileImage ||
-        "/uploads/1792206573237_file_00000000437081fa9153c7692bcee042.png";
+        (general.profileImage && !general.profileImage.includes("1792206573237"))
+            ? general.profileImage
+            : "/images/hero-cutout.png";
     const whatsappUrl =
         general.whatsapp ||
         "https://wa.me/8801712854941?text=Hi%20Naeeim,%20I'd%20like%20to%20discuss%20a%20project.";
@@ -75,12 +76,12 @@ export const TerminalHero = ({ data }: BannerProps) => {
                 </motion.div>
 
                 {/* Container for Midground and Foreground */}
-                <div className="w-full relative z-20 flex flex-col lg:flex-row items-center justify-between min-h-[500px] lg:min-h-[580px]">
+                <div className="w-full relative z-20 flex flex-col lg:flex-row items-center justify-between min-h-[520px] lg:min-h-[640px] pt-10 sm:pt-14 lg:pt-16 pb-4">
                     
                     {/* ======================================================== */}
                     {/* LAYER 1 (z-10): Burnt Orange Solid Geometric Block       */}
                     {/* ======================================================== */}
-                    <div className="relative w-full max-w-[320px] sm:max-w-[420px] lg:max-w-[460px] aspect-4/5 sm:aspect-square flex-shrink-0">
+                    <div className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[500px] h-[360px] sm:h-[420px] lg:h-[470px] xl:h-[500px] flex-shrink-0">
                         
                         <motion.div
                             style={l1}
@@ -110,6 +111,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
 
                         {/* ======================================================== */}
                         {/* LAYER 2 (z-20): Cutout Portrait Overlapping Block Right  */}
+                        {/* Enlarged heroic stature breaking out above orange block */}
                         {/* ======================================================== */}
                         <motion.div
                             style={l2}
@@ -120,14 +122,14 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                 delay: 0.25,
                                 ease: [0.22, 1, 0.36, 1],
                             }}
-                            className="absolute -right-6 sm:-right-16 lg:-right-24 bottom-0 w-[240px] sm:w-[320px] lg:w-[380px] h-[340px] sm:h-[440px] lg:h-[500px] z-20 pointer-events-none">
-                            <div className="relative w-full h-full filter contrast-110 drop-shadow-[0_20px_40px_rgba(0,0,0,0.85)]">
+                            className="absolute -right-8 sm:-right-16 md:-right-20 lg:-right-24 xl:-right-28 bottom-0 w-[300px] sm:w-[410px] md:w-[460px] lg:w-[490px] xl:w-[540px] h-[410px] sm:h-[520px] md:h-[580px] lg:h-[620px] xl:h-[670px] z-20 pointer-events-none">
+                            <div className="relative w-full h-full filter contrast-110 drop-shadow-[0_25px_50px_rgba(0,0,0,0.95)]">
                                 <Image
                                     src={profileImage}
                                     alt={name}
                                     fill
                                     priority
-                                    sizes="(max-width: 640px) 260px, (max-width: 1024px) 340px, 420px"
+                                    sizes="(max-width: 640px) 320px, (max-width: 1024px) 460px, 540px"
                                     className="object-contain object-bottom"
                                 />
                             </div>
@@ -147,7 +149,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                             delay: 0.45,
                             ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="w-full lg:w-auto mt-8 lg:mt-0 lg:-ml-28 xl:-ml-36 z-30 space-y-6">
+                        className="w-full lg:w-auto mt-8 lg:mt-0 lg:-ml-20 xl:-ml-28 z-30 space-y-6">
                         
                         {/* 3-Row Stacked Ultra-Heavy Typography */}
                         <div className="space-y-1 sm:space-y-2">
