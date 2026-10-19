@@ -63,28 +63,37 @@ export const ResearchSection = ({ data }: ResearchProps) => {
             id="research"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="w-full bg-pitch-black text-white relative overflow-hidden border-b border-[#222220] py-12 sm:py-16 select-none">
+            className="w-full bg-pitch-black text-foreground relative overflow-hidden border-b poster-border py-12 sm:py-16 select-none">
             
             {/* Top Perimeter Bar */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-b border-white/5">
+            <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6 }}
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
-                    <span>05. AI &amp; COMPUTER VISION</span>
+                    <span className="text-neutral-900 dark:text-white font-semibold">05. AI &amp; COMPUTER VISION</span>
                 </div>
-                <div className="hidden sm:block text-neutral-500">
+                <div className="hidden sm:block text-neutral-500 dark:text-neutral-400">
                     DEEP LEARNING INITIATIVE
                 </div>
                 <div className="flex items-center gap-2">
                     <span>98.7% PRECISION</span>
                     <FloatingPixel color="orange" className="hidden sm:block" />
                 </div>
-            </div>
+            </motion.div>
 
             {/* Giant Background Watermark Text (Layer 0) */}
             <motion.div
                 style={l0}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 1 }}
                 className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-                <span className="watermark-text text-[24vw] text-[#121212] whitespace-nowrap">
+                <span className="watermark-text text-[24vw] whitespace-nowrap">
                     VISION // 05
                 </span>
             </motion.div>
@@ -93,15 +102,20 @@ export const ResearchSection = ({ data }: ResearchProps) => {
             <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 z-20 relative space-y-10">
                 
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
+                <motion.div
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 dark:border-white/5 pb-6">
                     <div className="space-y-2 max-w-2xl">
-                        <span className="font-light text-neutral-300 text-xs sm:text-sm tracking-wide block uppercase font-mono">
+                        <span className="font-light text-neutral-500 dark:text-neutral-400 text-xs sm:text-sm tracking-wide block uppercase font-mono">
                             // MEDICAL COMPUTER VISION INITIATIVE
                         </span>
-                        <h2 className="editorial-display text-4xl sm:text-6xl text-white">
+                        <h2 className="editorial-display text-4xl sm:text-6xl text-neutral-900 dark:text-white">
                             BRAIN TUMOR <span className="text-[#E64A11]">SEGMENTATION</span>
                         </h2>
-                        <p className="font-light text-neutral-300 text-xs sm:text-sm">
+                        <p className="font-light text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm">
                             {research.abstract || defaultResearch.abstract}
                         </p>
                     </div>
@@ -110,24 +124,29 @@ export const ResearchSection = ({ data }: ResearchProps) => {
                         href={research.paperUrl || defaultResearch.paperUrl}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="px-4 py-2 bg-neutral-900 border border-neutral-700 text-white font-mono text-xs font-bold uppercase rounded-xs hover:border-[#E64A11] transition-colors inline-flex items-center gap-2 self-start md:self-auto">
+                        className="px-4 py-2 bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white font-mono text-xs font-bold uppercase rounded-xs hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-colors inline-flex items-center gap-2 self-start md:self-auto shadow-sm dark:shadow-none">
                         <span>RESEARCH REPO</span>
                         <ArrowUpRight size={13} className="text-[#E64A11]" />
                     </a>
-                </div>
+                </motion.div>
 
                 {/* 4 Quantitative Benchmark Metrics */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs">
                     {(research.metrics || defaultResearch.metrics).map((item: any, idx: number) => (
-                        <div
+                        <motion.div
                             key={idx}
-                            className="p-5 rounded-xs border border-neutral-800 bg-[#0E0E0E]/90 space-y-1">
-                            <div className="text-[10px] text-neutral-400 font-bold">{item.label}</div>
+                            initial={{ opacity: 0, scale: 0.94 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                            whileHover={{ y: -4 }}
+                            className="p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E]/90 shadow-sm dark:shadow-none space-y-1 transition-all">
+                            <div className="text-[10px] text-neutral-500 dark:text-neutral-400 font-bold">{item.label}</div>
                             <div className="editorial-display text-3xl sm:text-4xl text-[#E64A11] pt-1">
                                 {item.value}
                             </div>
                             <div className="text-[10px] text-neutral-500 font-light">{item.subtext}</div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
 
@@ -135,16 +154,21 @@ export const ResearchSection = ({ data }: ResearchProps) => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
                     {(research.architecturePhases || defaultResearch.architecturePhases).map(
                         (phase: any, idx: number) => (
-                            <div
+                            <motion.div
                                 key={idx}
-                                className="p-5 rounded-xs border border-neutral-800 bg-neutral-900/60 space-y-2 hover:border-[#E64A11] transition-colors">
+                                initial={{ opacity: 0, y: 25 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.15 }}
+                                transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                                whileHover={{ y: -4 }}
+                                className="p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60 shadow-sm dark:shadow-none space-y-2 hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-all">
                                 <span className="text-[#E64A11] font-bold text-[10px] block">
                                     {phase.phase}
                                 </span>
-                                <p className="font-light text-neutral-300 text-xs leading-relaxed font-sans">
+                                <p className="font-light text-neutral-600 dark:text-neutral-300 text-xs leading-relaxed font-sans">
                                     {phase.desc}
                                 </p>
-                            </div>
+                            </motion.div>
                         )
                     )}
                 </div>

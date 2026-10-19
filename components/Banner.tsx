@@ -30,15 +30,19 @@ export const TerminalHero = ({ data }: BannerProps) => {
             id="home"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="w-full min-h-[92vh] lg:min-h-[96vh] bg-pitch-black text-white relative overflow-hidden flex flex-col justify-between border-b border-[#222220] select-none">
+            className="w-full min-h-[92vh] lg:min-h-[96vh] bg-pitch-black text-neutral-900 dark:text-white relative overflow-hidden flex flex-col justify-between border-b poster-border select-none">
             
             {/* Top Perimeter Bar (3-Column Spread) */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 sm:pt-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-300 z-40 border-b border-white/5 pb-4">
+            <motion.div
+                initial={{ opacity: 0, y: -15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 sm:pt-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-300 z-40 border-b poster-perimeter-border pb-4">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11] animate-pulse" />
-                    <span>ARCHITECTURE</span>
+                    <span className="text-neutral-900 dark:text-white font-semibold">ARCHITECTURE</span>
                 </div>
-                <div className="hidden sm:block text-neutral-400">
+                <div className="hidden sm:block text-neutral-500 dark:text-neutral-400">
                     FULL-STACK
                 </div>
                 <div className="relative flex items-center gap-2">
@@ -48,7 +52,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                         className="absolute -bottom-5 right-0 hidden md:block"
                     />
                 </div>
-            </div>
+            </motion.div>
 
             {/* Main Stage: Layered Z-Index Depth Poster */}
             <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 flex-1 flex items-center relative">
@@ -58,11 +62,11 @@ export const TerminalHero = ({ data }: BannerProps) => {
                 {/* ======================================================== */}
                 <motion.div
                     style={l0}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
                     className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-                    <span className="watermark-text text-[22vw] sm:text-[20vw] lg:text-[18vw] text-[#121212] whitespace-nowrap -tracking-[0.06em]">
+                    <span className="watermark-text text-[22vw] sm:text-[20vw] lg:text-[18vw] whitespace-nowrap -tracking-[0.06em]">
                         NAEEIM // 01
                     </span>
                 </motion.div>
@@ -115,10 +119,10 @@ export const TerminalHero = ({ data }: BannerProps) => {
                         {/* ======================================================== */}
                         <motion.div
                             style={l2}
-                            initial={{ y: 60, opacity: 0 }}
+                            initial={{ y: 80, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{
-                                duration: 0.9,
+                                duration: 0.95,
                                 delay: 0.25,
                                 ease: [0.22, 1, 0.36, 1],
                             }}
@@ -142,53 +146,67 @@ export const TerminalHero = ({ data }: BannerProps) => {
                     {/* ======================================================== */}
                     <motion.div
                         style={l3}
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                            duration: 0.8,
-                            delay: 0.45,
-                            ease: [0.22, 1, 0.36, 1],
-                        }}
                         className="w-full lg:w-auto mt-8 lg:mt-0 lg:-ml-20 xl:-ml-28 z-30 space-y-6">
                         
-                        {/* 3-Row Stacked Ultra-Heavy Typography */}
+                        {/* 3-Row Stacked Ultra-Heavy Typography with masked kinetic reveal */}
                         <div className="space-y-1 sm:space-y-2">
                             <div className="overflow-hidden">
-                                <h1 className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-white">
+                                <motion.h1
+                                    initial={{ y: "110%", opacity: 0 }}
+                                    animate={{ y: "0%", opacity: 1 }}
+                                    transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                    className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-neutral-900 dark:text-white">
                                     NAEEIM
-                                </h1>
+                                </motion.h1>
                             </div>
                             <div className="overflow-hidden">
-                                <div className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-white">
+                                <motion.div
+                                    initial={{ y: "110%", opacity: 0 }}
+                                    animate={{ y: "0%", opacity: 1 }}
+                                    transition={{ duration: 0.75, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                    className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-neutral-900 dark:text-white">
                                     SOFTWARE
-                                </div>
+                                </motion.div>
                             </div>
                             <div className="overflow-hidden flex items-center gap-3 sm:gap-5 flex-wrap">
-                                <div className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-[#E64A11]">
+                                <motion.div
+                                    initial={{ y: "110%", opacity: 0 }}
+                                    animate={{ y: "0%", opacity: 1 }}
+                                    transition={{ duration: 0.75, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                                    className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-[#E64A11]">
                                     ARCHITECT
-                                </div>
-                                <CircularChevronBtn href="#projects" size="lg" />
+                                </motion.div>
+                                <motion.div
+                                    initial={{ scale: 0, rotate: -45 }}
+                                    animate={{ scale: 1, rotate: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.65, type: "spring", stiffness: 260 }}>
+                                    <CircularChevronBtn href="#projects" size="lg" />
+                                </motion.div>
                             </div>
                         </div>
 
                         {/* Text-Light Bio & Action Anchors */}
-                        <div className="space-y-4 max-w-lg pt-2">
-                            <p className="font-light text-neutral-300 text-sm sm:text-base leading-relaxed">
-                                Founder &amp; CEO at <strong className="text-white font-medium">WebZen Bangladesh</strong>. 
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.65, ease: "easeOut" }}
+                            className="space-y-4 max-w-lg pt-2">
+                            <p className="font-light text-neutral-600 dark:text-neutral-300 text-sm sm:text-base leading-relaxed">
+                                Founder &amp; CEO at <strong className="text-neutral-900 dark:text-white font-medium">WebZen Bangladesh</strong>. 
                                 Shipping mission-critical web applications, clinical zero-queue portals, and high-uptime platforms.
                             </p>
 
                             <div className="flex flex-wrap items-center gap-3 pt-1 font-mono text-xs">
                                 <a
                                     href="#projects"
-                                    className="px-4 py-2 bg-white text-black font-bold uppercase tracking-wider rounded hover:bg-[#E64A11] hover:text-white transition-colors inline-flex items-center gap-2">
+                                    className="px-4 py-2 bg-neutral-900 text-white dark:bg-white dark:text-black font-bold uppercase tracking-wider rounded hover:bg-[#E64A11] dark:hover:bg-[#E64A11] hover:text-white transition-colors inline-flex items-center gap-2">
                                     <span>EXPLORE DOSSIERS</span>
                                     <ArrowUpRight size={13} />
                                 </a>
                                 <a
                                     href="/resume.pdf"
                                     download
-                                    className="px-4 py-2 border border-neutral-700 bg-neutral-900/60 text-neutral-200 font-semibold uppercase tracking-wider rounded hover:border-white transition-colors inline-flex items-center gap-2">
+                                    className="px-4 py-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900/60 text-neutral-800 dark:text-neutral-200 font-semibold uppercase tracking-wider rounded hover:border-neutral-900 dark:hover:border-white transition-colors inline-flex items-center gap-2">
                                     <FileText size={13} className="text-[#E64A11]" />
                                     <span>EXECUTIVE CV</span>
                                 </a>
@@ -196,12 +214,12 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                     href={whatsappUrl}
                                     target="_blank"
                                     rel="noreferrer noopener"
-                                    className="px-3.5 py-2 text-neutral-400 hover:text-[#E64A11] transition-colors inline-flex items-center gap-1.5">
+                                    className="px-3.5 py-2 text-neutral-600 dark:text-neutral-400 hover:text-[#E64A11] dark:hover:text-[#E64A11] transition-colors inline-flex items-center gap-1.5">
                                     <MessageCircle size={14} />
                                     <span>WHATSAPP CHAT ↗</span>
                                 </a>
                             </div>
-                        </div>
+                        </motion.div>
 
                     </motion.div>
 
@@ -210,17 +228,21 @@ export const TerminalHero = ({ data }: BannerProps) => {
             </div>
 
             {/* Bottom Perimeter Bar */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 sm:pb-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-t border-white/5 pt-4">
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 sm:pb-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-t poster-perimeter-border pt-4">
                 <div className="flex items-center gap-2">
-                    <span className="text-white">@NAEEIM.SITE_</span>
+                    <span className="text-neutral-900 dark:text-white font-semibold">@NAEEIM.SITE_</span>
                 </div>
-                <div className="hidden sm:block text-neutral-500">
+                <div className="hidden sm:block text-neutral-500 dark:text-neutral-500">
                     DHAKA, BD // UTC+6
                 </div>
                 <div className="text-[#E64A11] font-semibold">
                     @600_PROBLEMS_SOLVED
                 </div>
-            </div>
+            </motion.div>
 
         </section>
     );

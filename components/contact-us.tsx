@@ -14,6 +14,7 @@ import {
     Send,
     Download,
     ArrowUpRight,
+    Code2,
 } from "lucide-react";
 import { toast } from "sonner";
 import { usePosterParallax } from "@/components/poster/usePosterParallax";
@@ -99,28 +100,37 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
             id="contact"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="w-full bg-pitch-black text-white relative overflow-hidden flex flex-col justify-between border-t border-[#222220] py-12 sm:py-16 select-none">
+            className="w-full bg-pitch-black text-foreground relative overflow-hidden flex flex-col justify-between border-t poster-border py-12 sm:py-16 select-none">
             
             {/* Top Perimeter Bar */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-b border-white/5">
+            <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6 }}
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11] animate-pulse" />
-                    <span>05. TRANSMISSION</span>
+                    <span className="text-neutral-900 dark:text-white font-semibold">05. TRANSMISSION</span>
                 </div>
-                <div className="hidden sm:block text-neutral-500">
+                <div className="hidden sm:block text-neutral-500 dark:text-neutral-400">
                     DIRECT CHANNELS
                 </div>
                 <div className="flex items-center gap-2">
                     <span>DHAKA, BD // UTC+6</span>
                     <FloatingPixel color="orange" className="hidden sm:block" />
                 </div>
-            </div>
+            </motion.div>
 
             {/* Giant Background Watermark Text (Layer 0) */}
             <motion.div
                 style={l0}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 1 }}
                 className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-                <span className="watermark-text text-[26vw] text-[#121212] whitespace-nowrap">
+                <span className="watermark-text text-[26vw] whitespace-nowrap">
                     CONTACT // 05
                 </span>
             </motion.div>
@@ -129,7 +139,12 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
             <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-10 z-20 relative space-y-12">
                 
                 {/* Central CTA Poster Block */}
-                <div className="relative rounded-sm burnt-stripes p-8 sm:p-14 lg:p-20 shadow-2xl border border-[#E64A11]/60 space-y-8 overflow-hidden">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative rounded-sm burnt-stripes p-8 sm:p-14 lg:p-20 shadow-2xl border border-[#E64A11]/60 space-y-8 overflow-hidden">
                     
                     <div className="space-y-4 max-w-4xl">
                         <span className="font-light text-neutral-200 text-sm sm:text-base tracking-wide block uppercase font-mono">
@@ -169,7 +184,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                             href={whatsappDirectUrl}
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="p-3.5 rounded-xs bg-black text-white hover:bg-white hover:text-black transition-colors flex items-center justify-between group">
+                            className="p-3.5 rounded-xs bg-black text-white hover:bg-white hover:text-black transition-colors flex items-center justify-between group shadow">
                             <div className="flex items-center gap-2.5">
                                 <MessageCircle size={16} className="text-[#E64A11]" />
                                 <span className="font-bold">WhatsApp</span>
@@ -178,7 +193,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                         </a>
 
                         {/* 2. Copy Email */}
-                        <div className="p-3.5 rounded-xs bg-black text-white flex items-center justify-between">
+                        <div className="p-3.5 rounded-xs bg-black text-white flex items-center justify-between shadow">
                             <div className="flex items-center gap-2.5 truncate mr-2">
                                 <Mail size={16} className="text-[#E64A11] shrink-0" />
                                 <span className="font-bold truncate">{email}</span>
@@ -194,7 +209,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                         {/* 3. Phone */}
                         <a
                             href={`tel:${phone.replace(/\s+/g, "")}`}
-                            className="p-3.5 rounded-xs bg-black text-white hover:bg-white hover:text-black transition-colors flex items-center justify-between group">
+                            className="p-3.5 rounded-xs bg-black text-white hover:bg-white hover:text-black transition-colors flex items-center justify-between group shadow">
                             <div className="flex items-center gap-2.5">
                                 <Phone size={16} className="text-[#E64A11]" />
                                 <span className="font-bold">Direct Call</span>
@@ -206,7 +221,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                         <a
                             href="/resume.pdf"
                             download
-                            className="p-3.5 rounded-xs bg-black text-white hover:bg-white hover:text-black transition-colors flex items-center justify-between group">
+                            className="p-3.5 rounded-xs bg-black text-white hover:bg-white hover:text-black transition-colors flex items-center justify-between group shadow">
                             <div className="flex items-center gap-2.5">
                                 <FileText size={16} className="text-[#E64A11]" />
                                 <span className="font-bold">Executive CV</span>
@@ -216,7 +231,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
 
                     </div>
 
-                </div>
+                </motion.div>
 
                 {/* Morphing Quick-Dispatch Form Area */}
                 <AnimatePresence>
@@ -225,17 +240,17 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 20 }}
-                            transition={{ duration: 0.35 }}
-                            className="rounded-sm border border-neutral-800 bg-[#0E0E0E] p-6 sm:p-8 space-y-6">
+                            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                            className="rounded-sm border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E] shadow-xl dark:shadow-2xl p-6 sm:p-8 space-y-6">
                             
-                            <div className="flex items-center justify-between border-b border-white/5 pb-3 font-mono text-xs">
+                            <div className="flex items-center justify-between border-b border-neutral-200 dark:border-white/5 pb-3 font-mono text-xs">
                                 <span className="text-[#E64A11] font-bold uppercase tracking-wider">
                                     // DIRECT TRANSMISSION TO NAEEIM
                                 </span>
                                 <button
                                     type="button"
                                     onClick={() => setIsFormOpen(false)}
-                                    className="text-neutral-400 hover:text-white">
+                                    className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer">
                                     [ CLOSE ]
                                 </button>
                             </div>
@@ -244,7 +259,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                                 
                                 {/* Topic selector */}
                                 <div className="flex items-center gap-2 flex-wrap">
-                                    <span className="text-neutral-400 text-[10px]">TOPIC:</span>
+                                    <span className="text-neutral-500 dark:text-neutral-400 text-[10px]">TOPIC:</span>
                                     {quickTopics.map((topic) => (
                                         <button
                                             key={topic.label}
@@ -256,7 +271,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                                             className={`px-3 py-1 rounded-xs transition-colors cursor-pointer ${
                                                 selectedTopic === topic.label
                                                     ? "bg-[#E64A11] text-white font-bold"
-                                                    : "bg-white/5 border border-white/10 text-neutral-300 hover:text-white"
+                                                    : "bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white"
                                             }`}>
                                             {topic.label}
                                         </button>
@@ -269,7 +284,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                                         value={nameInput}
                                         onChange={(e) => setNameInput(e.target.value)}
                                         placeholder="Your Name"
-                                        className="w-full px-3 py-2.5 rounded-xs bg-black border border-white/10 text-white placeholder:text-neutral-500 outline-none focus:border-[#E64A11]"
+                                        className="w-full px-3 py-2.5 rounded-xs bg-neutral-50 dark:bg-black border border-neutral-300 dark:border-white/10 text-neutral-900 dark:text-white placeholder:text-neutral-500 outline-none focus:border-[#E64A11]"
                                     />
                                     <input
                                         required
@@ -277,7 +292,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                                         value={emailInput}
                                         onChange={(e) => setEmailInput(e.target.value)}
                                         placeholder="Your Email or WhatsApp *"
-                                        className="w-full px-3 py-2.5 rounded-xs bg-black border border-white/10 text-white placeholder:text-neutral-500 outline-none focus:border-[#E64A11]"
+                                        className="w-full px-3 py-2.5 rounded-xs bg-neutral-50 dark:bg-black border border-neutral-300 dark:border-white/10 text-neutral-900 dark:text-white placeholder:text-neutral-500 outline-none focus:border-[#E64A11]"
                                     />
                                 </div>
 
@@ -287,17 +302,17 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                                     value={messageText}
                                     onChange={(e) => setMessageText(e.target.value)}
                                     placeholder="Your note or project requirements..."
-                                    className="w-full px-3 py-2.5 rounded-xs bg-black border border-white/10 text-white placeholder:text-neutral-500 outline-none focus:border-[#E64A11] resize-none"
+                                    className="w-full px-3 py-2.5 rounded-xs bg-neutral-50 dark:bg-black border border-neutral-300 dark:border-white/10 text-neutral-900 dark:text-white placeholder:text-neutral-500 outline-none focus:border-[#E64A11] resize-none"
                                 />
 
                                 <div className="flex items-center justify-between pt-1">
-                                    <span className="text-[10px] text-neutral-400">
+                                    <span className="text-[10px] text-neutral-500 dark:text-neutral-400">
                                         Replies typically within 24 hours
                                     </span>
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="px-5 py-2.5 bg-[#E64A11] text-white font-bold rounded-xs hover:bg-[#FF5100] transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50">
+                                        className="px-5 py-2.5 bg-[#E64A11] text-white font-bold rounded-xs hover:bg-[#FF5100] transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50 shadow">
                                         <Send size={13} />
                                         <span>{isSubmitting ? "TRANSMITTING..." : "DISPATCH"}</span>
                                     </button>
@@ -310,14 +325,14 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                 </AnimatePresence>
 
                 {/* Profiles & External Links Bar */}
-                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5 font-mono text-xs">
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-neutral-200 dark:border-white/5 font-mono text-xs">
                     <div className="flex items-center gap-4">
                         <span className="text-neutral-500 text-[10px] uppercase">PROFILES:</span>
                         <a
                             href={linkedin}
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="text-neutral-300 hover:text-white flex items-center gap-1">
+                            className="text-neutral-600 dark:text-neutral-300 hover:text-[#E64A11] dark:hover:text-white flex items-center gap-1 transition-colors">
                             <Linkedin size={13} />
                             <span>LinkedIn</span>
                         </a>
@@ -325,7 +340,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                             href={github}
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="text-neutral-300 hover:text-white flex items-center gap-1">
+                            className="text-neutral-600 dark:text-neutral-300 hover:text-[#E64A11] dark:hover:text-white flex items-center gap-1 transition-colors">
                             <Github size={13} />
                             <span>GitHub</span>
                         </a>
@@ -333,12 +348,13 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                             href="https://codeforces.com/profile/knaeeim"
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="text-neutral-300 hover:text-white flex items-center gap-1">
+                            className="text-neutral-600 dark:text-neutral-300 hover:text-[#E64A11] dark:hover:text-white flex items-center gap-1 transition-colors">
+                            <Code2 size={13} />
                             <span>Codeforces</span>
                         </a>
                     </div>
 
-                    <a href="#home" className="text-neutral-400 hover:text-white transition-colors">
+                    <a href="#home" className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors">
                         Back to Top ↑
                     </a>
                 </div>
@@ -346,11 +362,16 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
             </div>
 
             {/* Bottom Perimeter Bar */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 z-40 border-t border-white/5">
+            <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6 }}
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-t poster-perimeter-border">
                 <div>© {new Date().getFullYear()} KHAIRUL BASHAR NAEEIM</div>
                 <div>DHAKA // UTC+6</div>
-                <div className="text-neutral-400">@NAEEIM_DEV</div>
-            </div>
+                <div className="text-neutral-700 dark:text-neutral-400 font-semibold">@NAEEIM_DEV</div>
+            </motion.div>
 
         </footer>
     );

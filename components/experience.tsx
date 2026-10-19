@@ -82,28 +82,37 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
             id="problem-solving"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="w-full bg-pitch-black text-white relative overflow-hidden border-b border-[#222220] py-12 sm:py-16 select-none">
+            className="w-full bg-pitch-black text-foreground relative overflow-hidden border-b poster-border py-12 sm:py-16 select-none">
             
             {/* Top Perimeter Bar */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-b border-white/5">
+            <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6 }}
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
-                    <span>04. PROOF OF WORK</span>
+                    <span className="text-neutral-900 dark:text-white font-semibold">04. PROOF OF WORK</span>
                 </div>
-                <div className="hidden sm:block text-neutral-500">
+                <div className="hidden sm:block text-neutral-500 dark:text-neutral-400">
                     ALGORITHMIC RIGOR &amp; MENTORSHIP
                 </div>
                 <div className="flex items-center gap-2">
                     <span>600+ SOLVED • 100+ MENTORED</span>
                     <FloatingPixel color="orange" className="hidden sm:block" />
                 </div>
-            </div>
+            </motion.div>
 
             {/* Giant Background Watermark Text (Layer 0) */}
             <motion.div
                 style={l0}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 1 }}
                 className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-                <span className="watermark-text text-[26vw] text-[#121212] whitespace-nowrap">
+                <span className="watermark-text text-[26vw] whitespace-nowrap">
                     PROOF // 04
                 </span>
             </motion.div>
@@ -112,7 +121,12 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
             <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-10 z-20 relative space-y-12">
                 
                 {/* SECTION 4A: BURNT ORANGE BACKDROP (600+ CP SOLVED) */}
-                <div className="relative rounded-sm burnt-stripes p-8 sm:p-12 lg:p-16 shadow-2xl border border-[#E64A11]/60 space-y-8 overflow-hidden">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative rounded-sm burnt-stripes p-8 sm:p-12 lg:p-16 shadow-2xl border border-[#E64A11]/60 space-y-8 overflow-hidden">
                     
                     {/* Watermark inside block */}
                     <div className="absolute top-6 right-6 font-mono text-[10px] text-black/50 tracking-widest uppercase font-bold">
@@ -171,7 +185,7 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                 href="https://codeforces.com/profile/knaeeim"
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1">
+                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1 shadow">
                                 <span>CODEFORCES</span>
                                 <ArrowUpRight size={12} />
                             </a>
@@ -179,7 +193,7 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                 href="https://leetcode.com/u/knaeeim/"
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1">
+                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1 shadow">
                                 <span>LEETCODE</span>
                                 <ArrowUpRight size={12} />
                             </a>
@@ -187,68 +201,77 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                 href="https://www.codechef.com/users/knaeeim"
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1">
+                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1 shadow">
                                 <span>CODECHEF</span>
                                 <ArrowUpRight size={12} />
                             </a>
                         </div>
                     </div>
 
-                </div>
+                </motion.div>
 
-                {/* SECTION 4B: DARK EDITORIAL BACKDROP (100+ STUDENTS MENTORED) */}
-                <div
+                {/* SECTION 4B: EDITORIAL BACKDROP (100+ STUDENTS MENTORED) */}
+                <motion.div
                     id="mentorship"
-                    className="relative rounded-sm bg-[#0E0E0E] p-8 sm:p-12 lg:p-16 border border-neutral-800 shadow-2xl space-y-8">
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative rounded-sm bg-white dark:bg-[#0E0E0E] p-8 sm:p-12 lg:p-16 border border-neutral-200 dark:border-neutral-800 shadow-xl dark:shadow-2xl space-y-8">
                     
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 dark:border-white/5 pb-6">
                         <div className="space-y-2">
-                            <span className="font-light text-neutral-400 text-xs sm:text-sm tracking-wide block uppercase font-mono">
+                            <span className="font-light text-neutral-500 dark:text-neutral-400 text-xs sm:text-sm tracking-wide block uppercase font-mono">
                                 // TALENT MENTORSHIP &amp; ACADEMY
                             </span>
                             <div className="flex items-baseline gap-4 flex-wrap">
-                                <div className="editorial-display text-5xl sm:text-7xl lg:text-8xl text-white">
+                                <div className="editorial-display text-5xl sm:text-7xl lg:text-8xl text-neutral-900 dark:text-white">
                                     100+
                                 </div>
                                 <div className="editorial-display text-2xl sm:text-4xl text-[#E64A11]">
                                     ENGINEERS MENTORED
                                 </div>
                             </div>
-                            <p className="font-light text-neutral-300 text-xs sm:text-sm max-w-xl">
+                            <p className="font-light text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm max-w-xl">
                                 Lead Web Instructor @ BD Calling Academy. Directed polytechnic cohorts 
                                 in production JavaScript, Next.js architecture, and collaborative Git practices.
                             </p>
                         </div>
 
-                        <div className="flex items-center gap-3 text-xs font-mono px-3 py-1.5 rounded-xs bg-white/5 border border-white/10 text-neutral-300">
-                            <span className="text-white font-bold">12 PRODUCTION CAPSTONES</span>
+                        <div className="flex items-center gap-3 text-xs font-mono px-3 py-1.5 rounded-xs bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-neutral-300">
+                            <span className="text-neutral-900 dark:text-white font-bold">12 PRODUCTION CAPSTONES</span>
                         </div>
                     </div>
 
                     {/* 4 Industrial Curriculum Modules Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
                         {mentorshipModules.map((mod, idx) => (
-                            <div
+                            <motion.div
                                 key={idx}
-                                className="p-5 rounded-xs border border-neutral-800 bg-neutral-900/60 space-y-3 hover:border-[#E64A11] transition-colors">
-                                <div className="flex items-center justify-between text-[10px] text-neutral-400">
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.15 }}
+                                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                                whileHover={{ y: -4 }}
+                                className="p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60 shadow-sm dark:shadow-none space-y-3 hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-all">
+                                <div className="flex items-center justify-between text-[10px] text-neutral-500 dark:text-neutral-400">
                                     <span className="text-[#E64A11] font-bold">{mod.moduleNumber}</span>
                                     <span>{mod.duration}</span>
                                 </div>
-                                <div className="font-bold text-white text-sm">
+                                <div className="font-bold text-neutral-900 dark:text-white text-sm">
                                     {mod.title}
                                 </div>
-                                <p className="font-light text-neutral-300 text-xs leading-relaxed">
+                                <p className="font-light text-neutral-600 dark:text-neutral-300 text-xs leading-relaxed">
                                     {mod.syllabus}
                                 </p>
-                                <div className="text-[10px] text-[#E64A11] pt-1 border-t border-white/5 font-semibold">
+                                <div className="text-[10px] text-[#E64A11] pt-1 border-t border-neutral-200 dark:border-white/5 font-semibold">
                                     ● {mod.capstoneOutcome}
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
 
-                </div>
+                </motion.div>
 
             </div>
 

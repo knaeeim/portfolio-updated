@@ -50,7 +50,7 @@ export const CircularChevronBtn = ({
                 href={href}
                 className={`inline-flex items-center gap-3 group cursor-pointer ${className}`}>
                 {label && (
-                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-300 group-hover:text-[#E64A11] transition-colors">
+                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-600 dark:text-neutral-300 group-hover:text-[#E64A11] transition-colors">
                         {label}
                     </span>
                 )}
@@ -65,7 +65,7 @@ export const CircularChevronBtn = ({
             onClick={onClick}
             className={`inline-flex items-center gap-3 group cursor-pointer ${className}`}>
             {label && (
-                <span className="text-xs font-mono uppercase tracking-widest text-neutral-300 group-hover:text-[#E64A11] transition-colors">
+                <span className="text-xs font-mono uppercase tracking-widest text-neutral-600 dark:text-neutral-300 group-hover:text-[#E64A11] transition-colors">
                     {label}
                 </span>
             )}

@@ -218,28 +218,37 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
             id="projects"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="w-full bg-pitch-black text-white relative overflow-hidden border-b border-[#222220] py-12 sm:py-16 select-none">
+            className="w-full bg-pitch-black text-foreground relative overflow-hidden border-b poster-border py-12 sm:py-16 select-none">
             
             {/* Top Perimeter Bar */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-b border-white/5">
+            <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6 }}
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
-                    <span>03. SELECTED WORKS</span>
+                    <span className="text-neutral-900 dark:text-white font-semibold">03. SELECTED WORKS</span>
                 </div>
-                <div className="hidden sm:block text-neutral-500">
+                <div className="hidden sm:block text-neutral-500 dark:text-neutral-400">
                     MAGAZINE SPREAD SHOWCASE
                 </div>
                 <div className="flex items-center gap-2">
                     <span>{displayProjects.length} REPOSITORIES</span>
                     <FloatingPixel color="orange" className="hidden sm:block" />
                 </div>
-            </div>
+            </motion.div>
 
             {/* Giant Background Watermark Text (Layer 0) */}
             <motion.div
                 style={l0}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 1 }}
                 className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-                <span className="watermark-text text-[26vw] text-[#121212] whitespace-nowrap">
+                <span className="watermark-text text-[26vw] whitespace-nowrap">
                     WORKS // 03
                 </span>
             </motion.div>
@@ -254,24 +263,28 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                     const activeImg = project.images[activeImgIdx] || project.images[0];
 
                     return (
-                        <div
+                        <motion.div
                             key={project.id}
-                            className="border-b border-neutral-800 pb-16 last:border-b-0 space-y-8 group">
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.15 }}
+                            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                            className="border-b border-neutral-200 dark:border-neutral-800 pb-16 last:border-b-0 space-y-8 group">
                             
                             {/* Project Spread Perimeter Header */}
-                            <div className="flex items-center justify-between text-xs font-mono border-b border-white/5 pb-3">
+                            <div className="flex items-center justify-between text-xs font-mono border-b border-neutral-200 dark:border-white/5 pb-3">
                                 <div className="flex items-center gap-3">
                                     <span className="text-[#E64A11] font-black tracking-widest text-base">
                                         {project.dossierNumber}
                                     </span>
-                                    <span className="text-neutral-400 uppercase tracking-wider text-[11px]">
+                                    <span className="text-neutral-500 dark:text-neutral-400 uppercase tracking-wider text-[11px]">
                                         // {project.category}
                                     </span>
                                 </div>
-                                <div className="flex items-center gap-4 text-neutral-400">
+                                <div className="flex items-center gap-4 text-neutral-500 dark:text-neutral-400">
                                     <span>{project.role}</span>
                                     <span>•</span>
-                                    <span className="text-white">{project.year}</span>
+                                    <span className="text-neutral-900 dark:text-white font-semibold">{project.year}</span>
                                 </div>
                             </div>
 
@@ -310,7 +323,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                 <div className="lg:col-span-8 relative space-y-4 lg:-ml-12 xl:-ml-16 z-20">
                                     
                                     {/* Breakout Screen Viewer */}
-                                    <div className="relative aspect-16/9 sm:aspect-21/9 rounded-sm border border-neutral-800 bg-[#0A0A09] overflow-hidden shadow-2xl group/screen">
+                                    <div className="relative aspect-16/9 sm:aspect-21/9 rounded-sm border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-[#0A0A09] overflow-hidden shadow-2xl group/screen">
                                         <Image
                                             src={activeImg.src}
                                             alt={project.title}
@@ -351,10 +364,10 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                     {/* Overlapping Heavy Title + ( > ) Drawer Trigger */}
                                     <div className="flex flex-wrap items-end justify-between gap-4 pt-2">
                                         <div className="space-y-1">
-                                            <h3 className="editorial-display text-3xl sm:text-5xl lg:text-6xl text-white">
+                                            <h3 className="editorial-display text-3xl sm:text-5xl lg:text-6xl text-neutral-900 dark:text-white">
                                                 {project.title}
                                             </h3>
-                                            <p className="font-light text-neutral-300 text-xs sm:text-sm max-w-xl">
+                                            <p className="font-light text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm max-w-xl">
                                                 {project.description}
                                             </p>
                                         </div>
@@ -365,7 +378,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                                     href={project.liveUrl}
                                                     target="_blank"
                                                     rel="noreferrer noopener"
-                                                    className="px-3 py-1.5 rounded-xs border border-neutral-700 bg-neutral-900/80 text-xs font-mono text-neutral-200 hover:text-white hover:border-[#E64A11] transition-all inline-flex items-center gap-1.5">
+                                                    className="px-3 py-1.5 rounded-xs border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900/80 text-xs font-mono text-neutral-800 dark:text-neutral-200 hover:text-[#E64A11] dark:hover:text-white hover:border-[#E64A11] transition-all inline-flex items-center gap-1.5">
                                                     <span>LIVE</span>
                                                     <ExternalLink size={12} />
                                                 </a>
@@ -388,10 +401,10 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: "auto" }}
                                         exit={{ opacity: 0, height: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="rounded-sm border border-[#E64A11]/40 bg-[#0A0A09] p-6 space-y-6 font-mono text-xs overflow-hidden">
+                                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                                        className="rounded-sm border border-[#E64A11]/50 bg-neutral-50 dark:bg-[#0A0A09] p-6 space-y-6 font-mono text-xs overflow-hidden shadow-xl">
                                         
-                                        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                                        <div className="flex items-center justify-between border-b border-neutral-200 dark:border-white/10 pb-3">
                                             <div className="flex items-center gap-2 text-[#E64A11] font-bold">
                                                 <Shield size={14} />
                                                 <span>SYSTEM ARCHITECTURE &amp; SIMULATOR // {project.dossierNumber}</span>
@@ -399,19 +412,19 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                             <button
                                                 type="button"
                                                 onClick={() => toggleDrawer(project.id)}
-                                                className="text-neutral-400 hover:text-white inline-flex items-center gap-1">
+                                                className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white inline-flex items-center gap-1 cursor-pointer">
                                                 <span>CLOSE DRAWER</span>
                                                 <ChevronUp size={14} />
                                             </button>
                                         </div>
 
                                         {/* Bottleneck & Resolution Callout */}
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-xs bg-white/5 border border-white/10">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-xs bg-white dark:bg-white/5 border border-neutral-200 dark:border-white/10 shadow-sm dark:shadow-none">
                                             <div>
-                                                <span className="text-[10px] text-neutral-400 uppercase font-bold block">
+                                                <span className="text-[10px] text-neutral-500 dark:text-neutral-400 uppercase font-bold block">
                                                     BOTTLENECK:
                                                 </span>
-                                                <p className="text-neutral-300 mt-1">
+                                                <p className="text-neutral-700 dark:text-neutral-300 mt-1">
                                                     {project.hardestProblem.challenge}
                                                 </p>
                                             </div>
@@ -419,7 +432,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                                 <span className="text-[10px] text-[#E64A11] uppercase font-bold block">
                                                     ARCHITECTURAL FIX:
                                                 </span>
-                                                <p className="text-white mt-1">
+                                                <p className="text-neutral-900 dark:text-white mt-1 font-medium">
                                                     {project.hardestProblem.resolution}
                                                 </p>
                                             </div>
@@ -431,7 +444,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                                 <button
                                                     type="button"
                                                     onClick={() => runApiSimulator(project.id)}
-                                                    className="px-3 py-1.5 rounded-xs bg-[#E64A11] text-white font-bold inline-flex items-center gap-2 hover:bg-[#FF5100] transition-colors cursor-pointer">
+                                                    className="px-3 py-1.5 rounded-xs bg-[#E64A11] text-white font-bold inline-flex items-center gap-2 hover:bg-[#FF5100] transition-colors cursor-pointer shadow">
                                                     <Play size={12} />
                                                     <span>[ Run Simulated API Call ]</span>
                                                     <span className="text-[10px] opacity-80">
@@ -439,19 +452,19 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                                     </span>
                                                 </button>
 
-                                                <span className="text-[11px] text-neutral-400">
+                                                <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-mono">
                                                     LATENCY: {isRunning ? "TESTING..." : project.apiSimulator.simulatedLatency}
                                                 </span>
                                             </div>
 
-                                            <div className="p-4 rounded-xs bg-black border border-white/10 overflow-x-auto">
+                                            <div className="p-4 rounded-xs bg-neutral-900 dark:bg-black border border-neutral-800 dark:border-white/10 overflow-x-auto shadow-inner">
                                                 {isRunning ? (
                                                     <div className="py-4 text-center text-neutral-400 flex items-center justify-center gap-2">
                                                         <span className="w-2 h-2 rounded-full bg-[#E64A11] animate-ping" />
                                                         <span>STREAMING RESPONSE...</span>
                                                     </div>
                                                 ) : (
-                                                    <pre className="text-neutral-200 text-[11px] leading-relaxed">
+                                                    <pre className="text-emerald-400 dark:text-emerald-300 text-[11px] leading-relaxed">
                                                         {JSON.stringify(project.apiSimulator.responsePayload, null, 2)}
                                                     </pre>
                                                 )}
@@ -471,7 +484,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                 )}
                             </AnimatePresence>
 
-                        </div>
+                        </motion.div>
                     );
                 })}
 
