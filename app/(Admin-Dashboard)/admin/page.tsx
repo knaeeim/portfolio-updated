@@ -38,6 +38,9 @@ import {
     Copy,
     GitBranch,
     Database,
+    Microscope,
+    Brain,
+    FlaskConical,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -47,6 +50,7 @@ type SectionTab =
     | "general"
     | "hero"
     | "projects"
+    | "research"
     | "experience"
     | "skills"
     | "about"
@@ -79,6 +83,9 @@ export default function AdminDashboardPage() {
 
     // Selected project for editing
     const [selectedProjectIndex, setSelectedProjectIndex] = useState<number>(0);
+
+    // Research Tab New Tech Input State
+    const [newResearchTech, setNewResearchTech] = useState<string>("");
 
     // Verify session on mount
     useEffect(() => {
@@ -556,6 +563,7 @@ export default function AdminDashboardPage() {
                         { id: "general", label: "General & Branding", icon: User },
                         { id: "hero", label: "Hero & Banner", icon: Sparkles },
                         { id: "projects", label: "Projects & Images", icon: FolderKanban, badge: data.projects?.length },
+                        { id: "research", label: "Research & AI", icon: Microscope, badge: data.research ? "Active" : undefined },
                         { id: "experience", label: "Leadership & Exp", icon: Briefcase, badge: data.experience?.length },
                         { id: "skills", label: "Technical Arsenal", icon: Layers },
                         { id: "about", label: "Vision & Pillars", icon: Sliders },
@@ -665,6 +673,21 @@ export default function AdminDashboardPage() {
                                     <h3 className="text-base font-bold">Edit Company &amp; Executive Info</h3>
                                     <p className="text-xs text-muted-foreground">
                                         Update your company name (WebZen), contact phone/WhatsApp, and credentials.
+                                    </p>
+                                </div>
+
+                                <div
+                                    onClick={() => setActiveTab("research")}
+                                    className="p-6 rounded-2xl bg-card border border-border/80 hover:border-violet-500/40 transition-all cursor-pointer space-y-2 group sm:col-span-2">
+                                    <div className="flex items-center justify-between">
+                                        <div className="p-2.5 rounded-xl bg-violet-500/10 text-violet-500">
+                                            <Microscope size={20} />
+                                        </div>
+                                        <ChevronRight size={18} className="text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                                    </div>
+                                    <h3 className="text-base font-bold">Manage Research Profile (Hybrid-CNN-ViT)</h3>
+                                    <p className="text-xs text-muted-foreground">
+                                        Update Brain Tumor MRI dataset metrics (98.7% accuracy), research abstract, pipeline architecture phases, and publication status.
                                     </p>
                                 </div>
                             </div>
@@ -1335,6 +1358,345 @@ export default function AdminDashboardPage() {
                                     </div>
                                 </div>
                             )}
+                        </div>
+                    )}
+
+                    {/* 4.5. RESEARCH & DEEP TECH PROFILE TAB */}
+                    {activeTab === "research" && (
+                        <div className="p-6 sm:p-8 rounded-3xl bg-card border border-border space-y-8 animate-in fade-in duration-300">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/60 pb-6">
+                                <div>
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-semibold mb-2">
+                                        <Microscope size={14} />
+                                        <span>Deep Tech &amp; AI Research Profile</span>
+                                    </div>
+                                    <h2 className="text-2xl font-bold tracking-tight">Machine Learning &amp; Computer Vision Research</h2>
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                        Configure your Hybrid-CNN-ViT model specifications, Brain Tumor MRI dataset details, and diagnostic benchmark metrics.
+                                    </p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                                        Active Profile
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Section Header & Subtitle */}
+                            <div className="space-y-4">
+                                <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Core Research Metadata</h3>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="space-y-1.5 sm:col-span-2">
+                                        <label className="text-xs font-bold text-muted-foreground">Research Title / Paper Headline</label>
+                                        <input
+                                            type="text"
+                                            value={data.research?.title || ""}
+                                            onChange={(e) => setData({ ...data, research: { ...data.research, title: e.target.value } })}
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm font-semibold focus:outline-none focus:border-primary"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-1.5 sm:col-span-2">
+                                        <label className="text-xs font-bold text-muted-foreground">Subtitle / Architecture Focus</label>
+                                        <input
+                                            type="text"
+                                            value={data.research?.subtitle || ""}
+                                            onChange={(e) => setData({ ...data, research: { ...data.research, subtitle: e.target.value } })}
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:outline-none focus:border-primary"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-muted-foreground">Section Pill Badge</label>
+                                        <input
+                                            type="text"
+                                            value={data.research?.badge || ""}
+                                            onChange={(e) => setData({ ...data, research: { ...data.research, badge: e.target.value } })}
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:outline-none focus:border-primary"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-muted-foreground">Research Status / Publication Stage</label>
+                                        <input
+                                            type="text"
+                                            value={data.research?.status || ""}
+                                            onChange={(e) => setData({ ...data, research: { ...data.research, status: e.target.value } })}
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:outline-none focus:border-primary"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-muted-foreground">Lead Researcher Name</label>
+                                        <input
+                                            type="text"
+                                            value={data.research?.leadResearcher || ""}
+                                            onChange={(e) => setData({ ...data, research: { ...data.research, leadResearcher: e.target.value } })}
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:outline-none focus:border-primary"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-muted-foreground">Academic Institution / Department</label>
+                                        <input
+                                            type="text"
+                                            value={data.research?.institution || ""}
+                                            onChange={(e) => setData({ ...data, research: { ...data.research, institution: e.target.value } })}
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:outline-none focus:border-primary"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-1.5 sm:col-span-2">
+                                        <label className="text-xs font-bold text-muted-foreground">Paper / Code Repository URL</label>
+                                        <input
+                                            type="text"
+                                            value={data.research?.paperUrl || ""}
+                                            onChange={(e) => setData({ ...data, research: { ...data.research, paperUrl: e.target.value } })}
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:outline-none focus:border-primary font-mono text-xs"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Medical Dataset & Pathology */}
+                            <div className="space-y-4 pt-4 border-t border-border/60">
+                                <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Medical Dataset &amp; Pathology Targets</h3>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="space-y-1.5 sm:col-span-2">
+                                        <label className="text-xs font-bold text-muted-foreground">MRI Dataset Benchmark</label>
+                                        <input
+                                            type="text"
+                                            value={data.research?.dataset || ""}
+                                            onChange={(e) => setData({ ...data, research: { ...data.research, dataset: e.target.value } })}
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:outline-none focus:border-primary"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-1.5 sm:col-span-2">
+                                        <label className="text-xs font-bold text-muted-foreground">Target Tumors &amp; Classification Classes</label>
+                                        <input
+                                            type="text"
+                                            value={data.research?.targetTumors || ""}
+                                            onChange={(e) => setData({ ...data, research: { ...data.research, targetTumors: e.target.value } })}
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:outline-none focus:border-primary"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-1.5 sm:col-span-2">
+                                        <label className="text-xs font-bold text-muted-foreground">Abstract &amp; Problem Statement</label>
+                                        <textarea
+                                            rows={4}
+                                            value={data.research?.abstract || ""}
+                                            onChange={(e) => setData({ ...data, research: { ...data.research, abstract: e.target.value } })}
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:outline-none focus:border-primary leading-relaxed"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Diagnostic Benchmark Metrics */}
+                            <div className="space-y-4 pt-4 border-t border-border/60">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Quantitative Benchmark Metrics</h3>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const metrics = [...(data.research?.metrics || [])];
+                                            metrics.push({ label: "New Metric", value: "98.5%", subtext: "Holdout benchmark" });
+                                            setData({ ...data, research: { ...data.research, metrics } });
+                                        }}
+                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                                        <Plus size={14} /> Add Metric
+                                    </button>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                    {(data.research?.metrics || []).map((m: any, mIdx: number) => (
+                                        <div key={mIdx} className="p-3.5 rounded-xl bg-muted/30 border border-border space-y-2 relative group">
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const metrics = data.research.metrics.filter((_: any, i: number) => i !== mIdx);
+                                                    setData({ ...data, research: { ...data.research, metrics } });
+                                                }}
+                                                className="absolute top-2 right-2 text-muted-foreground hover:text-red-500 opacity-60 group-hover:opacity-100 transition-opacity">
+                                                <Trash2 size={13} />
+                                            </button>
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-bold uppercase text-muted-foreground">Metric Label</label>
+                                                <input
+                                                    type="text"
+                                                    value={m.label || ""}
+                                                    onChange={(e) => {
+                                                        const metrics = [...data.research.metrics];
+                                                        metrics[mIdx].label = e.target.value;
+                                                        setData({ ...data, research: { ...data.research, metrics } });
+                                                    }}
+                                                    className="w-full px-2 py-1 rounded bg-background border border-border text-xs font-medium"
+                                                />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-bold uppercase text-muted-foreground">Value (e.g. 98.7%)</label>
+                                                <input
+                                                    type="text"
+                                                    value={m.value || ""}
+                                                    onChange={(e) => {
+                                                        const metrics = [...data.research.metrics];
+                                                        metrics[mIdx].value = e.target.value;
+                                                        setData({ ...data, research: { ...data.research, metrics } });
+                                                    }}
+                                                    className="w-full px-2 py-1 rounded bg-background border border-border text-sm font-bold text-primary"
+                                                />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-bold uppercase text-muted-foreground">Subtext</label>
+                                                <input
+                                                    type="text"
+                                                    value={m.subtext || ""}
+                                                    onChange={(e) => {
+                                                        const metrics = [...data.research.metrics];
+                                                        metrics[mIdx].subtext = e.target.value;
+                                                        setData({ ...data, research: { ...data.research, metrics } });
+                                                    }}
+                                                    className="w-full px-2 py-1 rounded bg-background border border-border text-[11px] text-muted-foreground"
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Architecture Pipeline Steps */}
+                            <div className="space-y-4 pt-4 border-t border-border/60">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Architecture Pipeline Phases</h3>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const steps = [...(data.research?.architectureSteps || [])];
+                                            steps.push({
+                                                step: `Phase ${steps.length + 1}: Pipeline Stage`,
+                                                description: "Describe the phase logic, network layer, or data transformation.",
+                                                icon: "Layers"
+                                            });
+                                            setData({ ...data, research: { ...data.research, architectureSteps: steps } });
+                                        }}
+                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                                        <Plus size={14} /> Add Phase
+                                    </button>
+                                </div>
+
+                                <div className="space-y-3">
+                                    {(data.research?.architectureSteps || []).map((step: any, sIdx: number) => (
+                                        <div key={sIdx} className="p-4 rounded-xl bg-muted/30 border border-border space-y-2 relative group">
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const steps = data.research.architectureSteps.filter((_: any, i: number) => i !== sIdx);
+                                                    setData({ ...data, research: { ...data.research, architectureSteps: steps } });
+                                                }}
+                                                className="absolute top-3 right-3 text-muted-foreground hover:text-red-500 opacity-60 group-hover:opacity-100 transition-opacity">
+                                                <Trash2 size={14} />
+                                            </button>
+                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                <div className="space-y-1 sm:col-span-2">
+                                                    <label className="text-xs font-bold text-muted-foreground">Phase Title</label>
+                                                    <input
+                                                        type="text"
+                                                        value={step.step || ""}
+                                                        onChange={(e) => {
+                                                            const steps = [...data.research.architectureSteps];
+                                                            steps[sIdx].step = e.target.value;
+                                                            setData({ ...data, research: { ...data.research, architectureSteps: steps } });
+                                                        }}
+                                                        className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-bold"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-xs font-bold text-muted-foreground">Icon Identifier</label>
+                                                    <input
+                                                        type="text"
+                                                        value={step.icon || "Layers"}
+                                                        onChange={(e) => {
+                                                            const steps = [...data.research.architectureSteps];
+                                                            steps[sIdx].icon = e.target.value;
+                                                            setData({ ...data, research: { ...data.research, architectureSteps: steps } });
+                                                        }}
+                                                        className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-mono"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-xs font-bold text-muted-foreground">Phase Description &amp; Mechanics</label>
+                                                <textarea
+                                                    rows={2}
+                                                    value={step.description || ""}
+                                                    onChange={(e) => {
+                                                        const steps = [...data.research.architectureSteps];
+                                                        steps[sIdx].description = e.target.value;
+                                                        setData({ ...data, research: { ...data.research, architectureSteps: steps } });
+                                                    }}
+                                                    className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs leading-relaxed"
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Research Tech Stack */}
+                            <div className="space-y-4 pt-4 border-t border-border/60">
+                                <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Frameworks &amp; Deep Learning Stack</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {(data.research?.techStack || []).map((tech: string, tIdx: number) => (
+                                        <span
+                                            key={tIdx}
+                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-muted/60 border border-border text-xs font-medium">
+                                            <span>{tech}</span>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const techStack = data.research.techStack.filter((_: any, i: number) => i !== tIdx);
+                                                    setData({ ...data, research: { ...data.research, techStack } });
+                                                }}
+                                                className="text-muted-foreground hover:text-red-500">
+                                                <Trash2 size={11} />
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
+                                <div className="flex items-center gap-2 max-w-md">
+                                    <input
+                                        type="text"
+                                        placeholder="Add tag (e.g. PyTorch, CUDA, Grad-CAM)"
+                                        value={newResearchTech}
+                                        onChange={(e) => setNewResearchTech(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                if (newResearchTech.trim()) {
+                                                    const current = data.research?.techStack || [];
+                                                    setData({ ...data, research: { ...data.research, techStack: [...current, newResearchTech.trim()] } });
+                                                    setNewResearchTech("");
+                                                }
+                                            }
+                                        }}
+                                        className="flex-1 px-3 py-1.5 rounded-lg bg-muted/40 border border-border text-xs"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            if (newResearchTech.trim()) {
+                                                const current = data.research?.techStack || [];
+                                                setData({ ...data, research: { ...data.research, techStack: [...current, newResearchTech.trim()] } });
+                                                setNewResearchTech("");
+                                            }
+                                        }}
+                                        className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-bold hover:bg-primary/90">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     )}
 

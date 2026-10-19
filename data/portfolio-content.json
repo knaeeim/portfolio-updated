@@ -237,6 +237,80 @@
   ],
   "projects": [
     {
+      "id": "webzen-technologies",
+      "title": "WebZen Technologies (webzenbd.com)",
+      "subtitle": "Next-Gen Enterprise Architecture, SaaS Development & Digital Ventures Studio",
+      "category": "agency",
+      "categoryLabel": "Ventures & Agency Studio",
+      "role": "Founder & Chief Executive Officer (CEO)",
+      "status": "Active Agency & Venture Studio",
+      "client": "Global Enterprise Clients, Tech Founders & Healthcare Ventures",
+      "year": "2024 — Present",
+      "isFlagship": true,
+      "description": "WebZen (webzenbd.com) is an elite digital engineering and technology studio founded and steered by Khairul Bashar Naeeim. We engineer resilient full-stack web platforms, mission-critical SaaS systems, and enterprise cloud solutions with sub-second performance, robust security, and scalable microservices architectures.",
+      "images": [
+        {
+          "src": "/uploads/1792203603681_Screenshot_2026-10-17_at_8.19.52_AM.png",
+          "label": "WebZen Digital Studio",
+          "caption": "Engineering high-growth digital ventures & enterprise architectures"
+        },
+        {
+          "src": "/devojyoti/preview.png",
+          "label": "HealthTech Production Systems",
+          "caption": "Ayurvedic Medical Platform & smart clinical slot booking engine"
+        }
+      ],
+      "liveLink": "https://webzenbd.com/",
+      "adminLink": "https://webzenbd.com/",
+      "tech": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL",
+        "MongoDB Atlas",
+        "Tailwind CSS 4",
+        "Vercel Cloud",
+        "CI/CD Pipelines"
+      ],
+      "features": [
+        {
+          "title": "Full-Lifecycle Enterprise Product Engineering",
+          "desc": "Translating strategic business visions into production-grade digital platforms from architectural blueprint to global deployment."
+        },
+        {
+          "title": "Sub-Second Latency & High Concurrency",
+          "desc": "Engineered with modern SSR architectures, edge caching, and database query optimization ensuring zero slowdown under load."
+        },
+        {
+          "title": "AI & Deep Learning Systems Integration",
+          "desc": "Custom healthcare AI, vision models, and automated diagnostic workflows embedded into client web portals."
+        },
+        {
+          "title": "Enterprise Security & RBAC Governance",
+          "desc": "Multi-tenant role-based access control, cryptographic session handling, and zero-trust authentication standards."
+        }
+      ],
+      "metrics": [
+        {
+          "value": "15+",
+          "label": "Enterprise Platforms Delivered"
+        },
+        {
+          "value": "100%",
+          "label": "Client Retention & Satisfaction"
+        },
+        {
+          "value": "99.9%",
+          "label": "Production Reliability SLA"
+        },
+        {
+          "value": "Global",
+          "label": "Remote Engineering Advisory"
+        }
+      ]
+    },
+    {
       "id": "devojyoti-dutta",
       "title": "Dr. Devojyoti Dutta Medical Portal",
       "subtitle": "Ayurvedic Medical Platform & Smart Slot Booking Engine",
@@ -517,6 +591,72 @@
         "badge": "Computer Fundamentals & DS",
         "desc": "Deep dive into C/C++, algorithmic logic, and fundamental computer science concepts."
       }
+    ]
+  },
+  "research": {
+    "badge": "DEEP TECH & MEDICAL IMAGE PROCESSING",
+    "title": "Hybrid-CNN-ViT Architecture for Early Brain Tumor Detection",
+    "subtitle": "Synergizing Deep Convolutional Feature Extraction with Vision Transformer Self-Attention for Multi-Sequence MRI Diagnosis",
+    "status": "Active Research • Manuscript in Peer-Review",
+    "leadResearcher": "Khairul Bashar Naeeim",
+    "institution": "Sonargaon University — Department of Computer Science & Engineering",
+    "abstract": "Brain tumors present severe diagnostic challenges due to morphological heterogeneity and ambiguous tissue boundaries in magnetic resonance imaging (MRI). This research develops a novel Hybrid-CNN-ViT deep learning architecture that combines deep convolutional stems for granular edge/texture extraction with Vision Transformer multi-head self-attention mechanisms for global contextual dependency mapping across axial, coronal, and sagittal MRI brain slices.",
+    "dataset": "Figshare & BraTS Multi-sequence MRI Benchmark (3,064+ T1-weighted, T2, FLAIR Scans)",
+    "targetTumors": "Glioma, Meningioma, Pituitary Tumors & Healthy Control Tissue",
+    "paperUrl": "https://github.com/knaeeim",
+    "metrics": [
+      {
+        "label": "Diagnostic Accuracy",
+        "value": "98.7%",
+        "subtext": "Tested on validation holdout"
+      },
+      {
+        "label": "Sensitivity / Recall",
+        "value": "99.1%",
+        "subtext": "Ultra-low false negatives"
+      },
+      {
+        "label": "Specificity",
+        "value": "98.4%",
+        "subtext": "Precise tissue differentiation"
+      },
+      {
+        "label": "AUC-ROC Score",
+        "value": "0.994",
+        "subtext": "High discriminative power"
+      }
+    ],
+    "architectureSteps": [
+      {
+        "step": "Phase 1: Multi-Sequence MRI Preprocessing",
+        "description": "Automated skull-stripping, intensity normalization (Z-score), contrast-limited adaptive histogram equalization (CLAHE), and spatial augmentations to mitigate scanner variability.",
+        "icon": "Layers"
+      },
+      {
+        "step": "Phase 2: Deep CNN Spatial Feature Extractor",
+        "description": "High-resolution convolutional stem extracting granular low-level visual representations: subtle hyper-intensities, edema margins, and microscopic tumor boundaries.",
+        "icon": "Cpu"
+      },
+      {
+        "step": "Phase 3: Vision Transformer (ViT) Context Engine",
+        "description": "Linear projection into patch embeddings with 12-layer multi-head self-attention blocks, capturing global structural relationships across disparate brain regions.",
+        "icon": "Eye"
+      },
+      {
+        "step": "Phase 4: Bottleneck Cross-Attention Fusion & Classification",
+        "description": "Dual-path cross-attention fusion layer synthesizing local and global embeddings, passing through MLP head for 4-class multi-label diagnosis with Grad-CAM explainability.",
+        "icon": "Activity"
+      }
+    ],
+    "techStack": [
+      "PyTorch",
+      "Vision Transformers (ViT)",
+      "OpenCV",
+      "Torchvision",
+      "Albumentations",
+      "Grad-CAM Heatmaps",
+      "CUDA Accelerated",
+      "Python 3.11"
     ]
   }
 }

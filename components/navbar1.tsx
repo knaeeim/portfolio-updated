@@ -25,6 +25,7 @@ const navLinks = [
     { title: "About", url: "#about" },
     { title: "Leadership", url: "#experience" },
     { title: "Projects", url: "#projects" },
+    { title: "Research", url: "#research" },
     { title: "Arsenal", url: "#skills" },
     { title: "Education", url: "#education" },
     { title: "Contact", url: "#contact" },
@@ -38,7 +39,7 @@ export const Navbar1 = ({
     return (
         <header
             className={cn(
-                "sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60 transition-all",
+                "sticky top-0 z-50 w-full border-b border-border/40 bg-background/60 backdrop-blur-2xl supports-backdrop-filter:bg-background/40 shadow-sm transition-all",
                 className,
             )}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">

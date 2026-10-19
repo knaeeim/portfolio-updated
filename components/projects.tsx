@@ -24,6 +24,7 @@ import {
     Building2,
     GraduationCap,
     HeartPulse,
+    Briefcase,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AOS from "aos";
@@ -33,7 +34,7 @@ interface ProjectItem {
     id: string;
     title: string;
     subtitle: string;
-    category: "healthtech" | "edtech" | "proptech";
+    category: "healthtech" | "edtech" | "proptech" | "agency" | string;
     categoryLabel: string;
     role: string;
     status: string;
@@ -305,8 +306,8 @@ const FlagshipShowcase = ({ project }: { project: ProjectItem }) => {
                     {/* Main Active Screen Display */}
                     <div className="relative aspect-16/10 w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-border/80 bg-muted/40 shadow-xl group">
                         <Image
-                            src={project.images[selectedImgIndex].src}
-                            alt={project.images[selectedImgIndex].label}
+                            src={project.images[selectedImgIndex]?.src || project.images[0]?.src || "/placeholder.jpg"}
+                            alt={project.images[selectedImgIndex]?.label || project.title}
                             fill
                             priority
                             className="object-cover object-top transition-transform duration-700 group-hover:scale-102"
@@ -326,14 +327,14 @@ const FlagshipShowcase = ({ project }: { project: ProjectItem }) => {
                         <div className="absolute bottom-0 inset-x-0 p-5 text-white space-y-1">
                             <div className="flex items-center justify-between">
                                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-                                    Screen {selectedImgIndex + 1} of {project.images.length}: {project.images[selectedImgIndex].label}
+                                    Screen {selectedImgIndex + 1} of {project.images.length}: {project.images[selectedImgIndex]?.label || project.title}
                                 </span>
                                 <span className="text-[11px] text-white/70 font-mono">
                                     Live Production Preview
                                 </span>
                             </div>
                             <p className="text-xs sm:text-sm text-white/90 line-clamp-2">
-                                {project.images[selectedImgIndex].caption}
+                                {project.images[selectedImgIndex]?.caption || ""}
                             </p>
                         </div>
                     </div>
@@ -705,7 +706,7 @@ interface ProjectsSectionProps {
 }
 
 const ProjectsSection = ({ data }: ProjectsSectionProps) => {
-    const [activeFilter, setActiveFilter] = useState<"all" | "healthtech" | "edtech" | "proptech">("all");
+    const [activeFilter, setActiveFilter] = useState<"all" | "agency" | "healthtech" | "edtech" | "proptech">("all");
 
     const currentProjects: ProjectItem[] = (data?.projects && data.projects.length > 0)
         ? data.projects
@@ -725,16 +726,15 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
     });
 
     const flagship = currentProjects.find((p) => p.isFlagship) || currentProjects[0];
-    const standardProjects = filteredProjects.filter((p) => !p.isFlagship || activeFilter === "healthtech");
 
     return (
-        <section id="projects" className="py-12 sm:py-20 lg:py-24 bg-background relative overflow-hidden">
+        <section id="projects" className="py-8 sm:py-12 md:py-16 bg-background relative overflow-hidden">
             {/* Ambient lighting behind projects section */}
             <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[25rem] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="container mx-auto px-4 sm:px-6 relative z-10">
                 {/* Section Header */}
-                <div className="max-w-3xl mb-6 sm:mb-10 lg:mb-12" data-aos="fade-up">
+                <div className="max-w-3xl mb-6 sm:mb-8" data-aos="fade-up">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
                         <Sparkles size={13} />
                         <span>FLAGSHIP VENTURES &amp; ARCHITECTURAL ACHIEVEMENTS</span>
@@ -742,13 +742,13 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
                         Selected Production Platforms &amp; Client Case Studies
                     </h2>
-                    <p className="text-muted-foreground text-sm sm:text-base mt-3 leading-relaxed">
-                        A curated portfolio of high-impact web platforms, HealthTech systems, and enterprise marketplaces engineered from initial ideation to production scale.
+                    <p className="text-muted-foreground text-sm sm:text-base mt-2 leading-relaxed">
+                        A curated portfolio of high-impact web platforms, enterprise agency ventures (WebZen), and HealthTech systems engineered to production scale.
                     </p>
                 </div>
 
                 {/* Filter Navigation */}
-                <div className="flex flex-wrap items-center gap-2 mb-6 sm:mb-10 lg:mb-12" data-aos="fade-up">
+                <div className="flex flex-wrap items-center gap-2 mb-6 sm:mb-8" data-aos="fade-up">
                     <button
                         type="button"
                         onClick={() => setActiveFilter("all")}
@@ -761,6 +761,17 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                     </button>
                     <button
                         type="button"
+                        onClick={() => setActiveFilter("agency")}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                            activeFilter === "agency"
+                                ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                                : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
+                        }`}>
+                        <Briefcase size={13} />
+                        WebZen Studio
+                    </button>
+                    <button
+                        type="button"
                         onClick={() => setActiveFilter("healthtech")}
                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                             activeFilter === "healthtech"
@@ -768,7 +779,7 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                 : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
                         }`}>
                         <HeartPulse size={13} />
-                        HealthTech &amp; Clinical (1)
+                        HealthTech &amp; Clinical
                     </button>
                     <button
                         type="button"
@@ -779,7 +790,7 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                 : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
                         }`}>
                         <GraduationCap size={13} />
-                        EdTech Marketplaces (1)
+                        EdTech Marketplaces
                     </button>
                     <button
                         type="button"
@@ -790,32 +801,30 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                 : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
                         }`}>
                         <Building2 size={13} />
-                        PropTech Systems (1)
+                        PropTech Systems
                     </button>
                 </div>
 
-                {/* Flagship Feature (Shows on 'all' and 'healthtech') */}
-                {(activeFilter === "all" || activeFilter === "healthtech") && flagship && (
+                {/* Flagship Feature */}
+                {flagship && (activeFilter === "all" || activeFilter === flagship.category) && (
                     <div data-aos="fade-up">
                         <FlagshipShowcase project={flagship} />
                     </div>
                 )}
 
                 {/* Grid for Other Ventures */}
-                {activeFilter !== "healthtech" && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-                        {filteredProjects
-                            .filter((p) => !p.isFlagship)
-                            .map((project, idx) => (
-                                <div
-                                    key={project.id}
-                                    data-aos="fade-up"
-                                    data-aos-delay={idx * 150}>
-                                    <StandardProjectCard project={project} />
-                                </div>
-                            ))}
-                    </div>
-                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                    {filteredProjects
+                        .filter((p) => p.id !== flagship?.id || activeFilter !== "all")
+                        .map((project, idx) => (
+                            <div
+                                key={project.id}
+                                data-aos="fade-up"
+                                data-aos-delay={idx * 120}>
+                                <StandardProjectCard project={project} />
+                            </div>
+                        ))}
+                </div>
             </div>
         </section>
     );

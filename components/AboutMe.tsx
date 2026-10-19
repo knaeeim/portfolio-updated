@@ -134,14 +134,14 @@ const AboutMe = ({ data }: AboutMeProps) => {
     }, []);
 
     return (
-        <section id="about" className="py-12 sm:py-20 lg:py-24 bg-background relative overflow-hidden">
+        <section id="about" className="py-8 sm:py-12 md:py-16 bg-background relative overflow-hidden">
             {/* Subtle ambient lighting */}
             <div className="absolute top-1/2 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="container mx-auto px-4 sm:px-6 relative z-10">
                 {/* SECTION 1: EXECUTIVE PILLARS */}
-                <div className="mb-12 sm:mb-20 lg:mb-24">
-                    <div className="max-w-3xl mb-8 sm:mb-12 lg:mb-14" data-aos="fade-up">
+                <div className="mb-8 sm:mb-12 md:mb-14">
+                    <div className="max-w-3xl mb-6 sm:mb-8" data-aos="fade-up">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
                             <Compass size={13} />
                             <span>STRATEGIC VISION &amp; EXECUTIVE PILLARS</span>
@@ -154,11 +154,11 @@ const AboutMe = ({ data }: AboutMeProps) => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                         {strategicPillars.map((pillar, idx) => (
                             <div
                                 key={idx}
-                                className="group p-5 sm:p-7 rounded-2xl sm:rounded-3xl border border-border/80 bg-card/50 backdrop-blur-md hover:bg-card hover:border-primary/30 transition-all duration-500 shadow-sm hover:shadow-xl flex flex-col justify-between"
+                                className="group p-5 sm:p-6 rounded-2xl border border-white/10 dark:border-white/5 bg-card/60 backdrop-blur-xl hover:bg-card/90 hover:border-primary/40 transition-all duration-300 shadow-lg hover:shadow-2xl flex flex-col justify-between"
                                 data-aos="fade-up"
                                 data-aos-delay={idx * 100}>
                                 <div className="space-y-4">
@@ -184,8 +184,8 @@ const AboutMe = ({ data }: AboutMeProps) => {
                 </div>
 
                 {/* SECTION 2: EXECUTIVE TRAJECTORY (TIMELINE) */}
-                <div className="mb-12 sm:mb-20 lg:mb-24">
-                    <div className="max-w-3xl mb-8 sm:mb-12 lg:mb-14" data-aos="fade-up">
+                <div className="mb-8 sm:mb-12 md:mb-14">
+                    <div className="max-w-3xl mb-6 sm:mb-8" data-aos="fade-up">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
                             <Zap size={13} />
                             <span>STRATEGIC MILESTONES</span>
@@ -198,7 +198,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
                         </p>
                     </div>
 
-                    <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
+                    <div className="relative space-y-6 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
                         {leadershipTimeline.map((step, index) => (
                             <div
                                 key={index}
@@ -206,16 +206,16 @@ const AboutMe = ({ data }: AboutMeProps) => {
                                 data-aos="fade-up"
                                 data-aos-delay={index * 120}>
                                 {/* Node dot */}
-                                <div className="flex items-center justify-center w-11 h-11 rounded-full border-2 border-border bg-background group-hover:border-primary group-hover:scale-110 transition-all duration-500 absolute left-0 md:left-1/2 md:-translate-x-1/2 z-10 shadow-md">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-border bg-background group-hover:border-primary group-hover:scale-110 transition-all duration-300 absolute left-0 md:left-1/2 md:-translate-x-1/2 z-10 shadow-md">
                                     <step.icon
-                                        size={18}
+                                        size={16}
                                         className="text-muted-foreground group-hover:text-primary transition-colors"
                                     />
                                 </div>
 
                                 {/* Content Card */}
-                                <div className="w-[calc(100%-3.5rem)] ml-12 md:ml-0 md:w-[45%] p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-border/80 bg-card/60 backdrop-blur-md shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-500">
-                                    <div className="flex items-center justify-between gap-2 mb-3">
+                                <div className="w-[calc(100%-3.5rem)] ml-12 md:ml-0 md:w-[45%] p-4 sm:p-6 rounded-2xl border border-white/10 dark:border-white/5 bg-card/65 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-300">
+                                    <div className="flex items-center justify-between gap-2 mb-2">
                                         <span className="text-xs font-mono font-bold text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
                                             {step.date}
                                         </span>
@@ -223,13 +223,13 @@ const AboutMe = ({ data }: AboutMeProps) => {
                                             {step.badge}
                                         </span>
                                     </div>
-                                    <h3 className="text-xl font-bold text-foreground tracking-tight">
+                                    <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight">
                                         {step.title}
                                     </h3>
                                     <div className="text-xs font-semibold text-primary mt-1">
                                         {step.role}
                                     </div>
-                                    <p className="text-muted-foreground mt-2.5 text-xs sm:text-sm leading-relaxed">
+                                    <p className="text-muted-foreground mt-2 text-xs sm:text-sm leading-relaxed">
                                         {step.desc}
                                     </p>
                                 </div>
@@ -240,7 +240,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
 
                 {/* SECTION 3: LEADERSHIP ATTRIBUTES */}
                 <div>
-                    <div className="max-w-3xl mb-8 sm:mb-10 lg:mb-12" data-aos="fade-up">
+                    <div className="max-w-3xl mb-6 sm:mb-8" data-aos="fade-up">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
                             <User size={13} />
                             <span>EXECUTIVE ATTRIBUTES</span>
@@ -253,11 +253,11 @@ const AboutMe = ({ data }: AboutMeProps) => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                         {executiveTraits.map((trait, index) => (
                             <div
                                 key={index}
-                                className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl border border-border/80 bg-card/40 backdrop-blur-md hover:bg-card hover:border-primary/20 transition-all duration-500 group"
+                                className="p-5 sm:p-6 rounded-2xl border border-white/10 dark:border-white/5 bg-card/60 backdrop-blur-xl hover:bg-card/90 hover:border-primary/30 transition-all duration-300 shadow-lg hover:shadow-xl group"
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}>
                                 <div

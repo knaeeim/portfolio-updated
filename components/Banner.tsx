@@ -102,7 +102,7 @@ const PortfolioBanner = ({ data }: BannerProps) => {
     return (
         <section
             id="home"
-            className="relative w-full min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center overflow-hidden bg-background py-10 sm:py-16 md:py-24">
+            className="relative w-full min-h-[80vh] sm:min-h-[85vh] flex items-center justify-center overflow-hidden bg-background py-8 sm:py-12 md:py-16">
             {/* Subtle Executive Tech Grid Background */}
             <div
                 className="absolute inset-0 z-0 opacity-[0.035] dark:opacity-[0.08] pointer-events-none"
@@ -342,7 +342,7 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                             href="https://www.devojyotidutta.com/"
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="absolute -top-4 sm:-top-6 left-0 sm:-left-8 p-2.5 sm:p-3 rounded-2xl bg-card/95 border border-border shadow-xl backdrop-blur-md flex items-center gap-2.5 sm:gap-3 animate-float-slow hover:border-primary/40 transition-all z-20 group max-w-[85%] sm:max-w-none">
+                            className="absolute -top-4 sm:-top-6 left-0 sm:-left-8 p-2.5 sm:p-3 rounded-2xl bg-card/80 border border-white/10 dark:border-white/5 shadow-2xl backdrop-blur-2xl flex items-center gap-2.5 sm:gap-3 animate-float-slow hover:border-primary/40 transition-all z-20 group max-w-[85%] sm:max-w-none">
                             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-sm sm:text-base shrink-0 group-hover:scale-110 transition-transform">
                                 🌿
                             </div>
@@ -358,7 +358,7 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                         </a>
 
                         {/* Floating Live Badge 2: Architecture & Mentorship */}
-                        <div className="absolute -bottom-4 sm:-bottom-6 right-0 sm:-right-8 p-2.5 sm:p-3.5 rounded-2xl bg-card/95 border border-border shadow-xl backdrop-blur-md flex items-center gap-2.5 sm:gap-3 z-20 max-w-[85%] sm:max-w-none">
+                        <div className="absolute -bottom-4 sm:-bottom-6 right-0 sm:-right-8 p-2.5 sm:p-3.5 rounded-2xl bg-card/80 border border-white/10 dark:border-white/5 shadow-2xl backdrop-blur-2xl flex items-center gap-2.5 sm:gap-3 z-20 max-w-[85%] sm:max-w-none">
                             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold text-sm sm:text-base shrink-0">
                                 <Users size={16} />
                             </div>

@@ -5,6 +5,7 @@ import EducationSection from "@/components/Education";
 import ExperienceSection from "@/components/experience";
 import { Navbar1 } from "@/components/navbar1";
 import ProjectsSection from "@/components/projects";
+import ResearchSection from "@/components/Research";
 import SkillSection from "@/components/Skills";
 import { getPortfolioData } from "@/lib/portfolio-data";
 import React from "react";
@@ -26,6 +27,7 @@ const CommonLayoutHomePage = async () => {
             <ExperienceSection data={portfolioData} />
             <SkillSection data={portfolioData} />
             <ProjectsSection data={portfolioData} />
+            <ResearchSection data={portfolioData} />
             <EducationSection data={portfolioData} />
             <ContactSection data={portfolioData} />
         </div>

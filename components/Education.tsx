@@ -49,29 +49,29 @@ const EducationSection = ({ data }: EducationSectionProps) => {
     }, []);
 
     return (
-        <section id="education" className="py-12 sm:py-20 lg:py-24 bg-background relative overflow-hidden">
+        <section id="education" className="py-8 sm:py-12 md:py-16 bg-background relative overflow-hidden">
             {/* Ambient lighting */}
             <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="container mx-auto px-4 sm:px-6 relative z-10">
                 {/* 1. ACADEMIC DEGREE */}
-                <div className="mb-10 sm:mb-16 lg:mb-20">
-                    <div className="flex items-center gap-3 mb-6 sm:mb-10" data-aos="fade-up">
+                <div className="mb-8 sm:mb-10 md:mb-12">
+                    <div className="flex items-center gap-3 mb-4 sm:mb-6" data-aos="fade-up">
                         <div className="p-2.5 bg-primary/10 rounded-xl text-primary">
                             <GraduationCap size={28} />
                         </div>
                         <div>
-                            <h2 className="text-3xl font-bold tracking-tight">
+                            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
                                 Academic Degree
                             </h2>
-                            <p className="text-muted-foreground text-sm">
+                            <p className="text-muted-foreground text-xs sm:text-sm">
                                 University education and core engineering.
                             </p>
                         </div>
                     </div>
 
                     <div className="group relative" data-aos="fade-up" data-aos-delay="100">
-                        <div className="relative p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-border bg-card shadow-sm hover:border-primary/30 transition-all duration-500">
+                        <div className="relative p-5 sm:p-7 rounded-2xl border border-white/10 dark:border-white/5 bg-card/65 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-300">
                             <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                                 <div className="space-y-4">
                                     <div className="flex flex-wrap items-center gap-3">
@@ -122,36 +122,36 @@ const EducationSection = ({ data }: EducationSectionProps) => {
 
                 {/* 2. ONLINE COURSES SECTION */}
                 <div>
-                    <div className="flex items-center gap-3 mb-6 sm:mb-10" data-aos="fade-up">
+                    <div className="flex items-center gap-3 mb-4 sm:mb-6" data-aos="fade-up">
                         <div className="p-2.5 bg-primary/10 rounded-xl text-primary">
                             <Monitor size={28} />
                         </div>
                         <div>
-                            <h2 className="text-3xl font-bold tracking-tight">
+                            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
                                 Online Specializations
                             </h2>
-                            <p className="text-muted-foreground text-sm">
+                            <p className="text-muted-foreground text-xs sm:text-sm">
                                 Professional development and tech specializations.
                             </p>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {courses.map((course: any, idx: number) => {
                             const colors = [
-                                { border: "hover:border-primary/30", badge: "text-primary bg-primary/10 border-primary/20" },
-                                { border: "hover:border-blue-500/30", badge: "text-blue-500 bg-blue-500/10 border-blue-500/20" },
-                                { border: "hover:border-emerald-500/30", badge: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" },
+                                { border: "hover:border-primary/40", badge: "text-primary bg-primary/10 border-primary/20" },
+                                { border: "hover:border-blue-500/40", badge: "text-blue-500 bg-blue-500/10 border-blue-500/20" },
+                                { border: "hover:border-emerald-500/40", badge: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" },
                             ];
                             const c = colors[idx % colors.length];
 
                             return (
                                 <div
                                     key={idx}
-                                    className={`group p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-border bg-card/50 hover:bg-card ${c.border} transition-all duration-300`}
+                                    className={`group p-5 sm:p-7 rounded-2xl border border-white/10 dark:border-white/5 bg-card/65 backdrop-blur-xl shadow-lg hover:shadow-2xl ${c.border} transition-all duration-300`}
                                     data-aos="fade-up"
                                     data-aos-delay={(idx + 1) * 100}>
-                                    <div className="flex justify-between items-start mb-6">
+                                    <div className="flex justify-between items-start mb-5">
                                         <div className="p-3 bg-primary/10 rounded-xl text-primary group-hover:rotate-12 transition-transform">
                                             <Award size={24} />
                                         </div>
@@ -159,11 +159,11 @@ const EducationSection = ({ data }: EducationSectionProps) => {
                                             {course.level}
                                         </span>
                                     </div>
-                                    <h4 className="text-xl font-bold mb-1 text-foreground">{course.title}</h4>
-                                    <p className="text-sm font-semibold text-foreground/70 mb-4 italic">
+                                    <h4 className="text-lg font-bold mb-1 text-foreground">{course.title}</h4>
+                                    <p className="text-xs font-semibold text-foreground/70 mb-3 italic">
                                         {course.badge}
                                     </p>
-                                    <p className="text-sm text-muted-foreground leading-relaxed">
+                                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                                         {course.desc}
                                     </p>
                                 </div>

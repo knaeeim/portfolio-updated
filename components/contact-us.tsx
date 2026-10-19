@@ -64,18 +64,18 @@ const ContactSection = ({ data }: ContactSectionProps) => {
     };
 
     return (
-        <section id="contact" className="py-12 sm:py-20 md:py-28 bg-background relative overflow-hidden">
+        <section id="contact" className="py-8 sm:py-12 md:py-16 bg-background relative overflow-hidden">
             {/* Ambient lighting */}
             <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* 2-Column Symmetrically Aligned Grid (Same Height, Equal Alignment) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch">
                     
                     {/* LEFT COLUMN: Executive Proposition & Contact Channels (5 Cols) */}
                     <div className="lg:col-span-5 relative flex" data-aos="fade-right">
-                        <div className="w-full relative rounded-2xl sm:rounded-3xl border border-border/80 bg-card/85 backdrop-blur-xl shadow-xl p-5 sm:p-8 flex flex-col justify-between space-y-6">
+                        <div className="w-full relative rounded-2xl border border-white/10 dark:border-white/5 bg-card/75 backdrop-blur-2xl shadow-2xl p-5 sm:p-7 flex flex-col justify-between space-y-6">
                             {/* Top: Header Info */}
                             <div className="space-y-3">
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 text-[10px] sm:text-xs font-bold max-w-full">
@@ -186,7 +186,7 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                         {/* Ambient glow background */}
                         <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 rounded-3xl blur-xl opacity-50 pointer-events-none" />
 
-                        <div className="w-full relative rounded-2xl sm:rounded-3xl border border-border/80 bg-card/85 backdrop-blur-xl shadow-xl p-5 sm:p-8 flex flex-col justify-between space-y-6">
+                        <div className="w-full relative rounded-2xl border border-white/10 dark:border-white/5 bg-card/75 backdrop-blur-2xl shadow-2xl p-5 sm:p-7 flex flex-col justify-between space-y-6">
                             {/* Form Header */}
                             <div className="space-y-1.5 pb-2 border-b border-border/50">
                                 <div className="flex items-center justify-between">

@@ -57,13 +57,13 @@ const ExperienceSection = ({ data }: ExperienceSectionProps) => {
     }, []);
 
     return (
-        <section id="experience" className="py-12 sm:py-20 lg:py-24 bg-background overflow-hidden relative">
+        <section id="experience" className="py-8 sm:py-12 md:py-16 bg-background overflow-hidden relative">
             {/* Ambient lighting */}
             <div className="absolute top-1/2 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="container mx-auto px-4 sm:px-6 relative z-10">
                 {/* Header */}
-                <div className="max-w-3xl mb-8 sm:mb-12 lg:mb-16" data-aos="fade-up">
+                <div className="max-w-3xl mb-6 sm:mb-8" data-aos="fade-up">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
                         <Briefcase size={13} />
                         <span>EXECUTIVE TRACK RECORD</span>
@@ -80,7 +80,7 @@ const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                     {/* Central Timeline Rail */}
                     <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-border to-transparent -translate-x-1/2" />
 
-                    <div className="space-y-8 sm:space-y-12 lg:space-y-16">
+                    <div className="space-y-6 sm:space-y-8">
                         {experienceList.map((exp: any, index: number) => {
                             const isEven = index % 2 === 0;
                             const fallbackIcons = [ShieldCheck, Presentation, Briefcase, Sparkles];
@@ -121,7 +121,7 @@ const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                         className={`w-full md:w-1/2 ${
                                             isEven ? "pl-9 sm:pl-12 md:pl-12" : "pl-9 sm:pl-12 md:pr-12 md:pl-0"
                                         }`}>
-                                        <div className="relative p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-border/80 bg-card/50 backdrop-blur-md hover:bg-card hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-xl">
+                                        <div className="relative p-5 sm:p-7 rounded-2xl border border-white/10 dark:border-white/5 bg-card/65 backdrop-blur-xl hover:bg-card/90 hover:border-primary/40 transition-all duration-300 shadow-lg hover:shadow-2xl">
                                             {/* Mobile View Indicators */}
                                             <div className="md:hidden flex flex-wrap items-center gap-2 mb-3">
                                                 <span className="text-[10px] font-mono font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20 uppercase">

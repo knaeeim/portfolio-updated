@@ -78,12 +78,12 @@ const SkillsSection = ({ data }: SkillsSectionProps) => {
     }, []);
 
     return (
-        <section id="skills" className="py-12 sm:py-20 lg:py-24 bg-background relative overflow-hidden">
+        <section id="skills" className="py-8 sm:py-12 md:py-16 bg-background relative overflow-hidden">
             {/* Ambient lighting */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[20rem] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="container mx-auto px-4 sm:px-6 relative z-10">
-                <div className="max-w-3xl mb-8 sm:mb-12 lg:mb-16" data-aos="fade-up">
+                <div className="max-w-3xl mb-6 sm:mb-8" data-aos="fade-up">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
                         <Code2 size={13} />
                         <span>EXECUTIVE CAPABILITIES</span>
@@ -96,7 +96,7 @@ const SkillsSection = ({ data }: SkillsSectionProps) => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
                     {categories.map((category: any, index: number) => {
                         const fallbackIcons = [Cloud, Server, DbIcon, Code2, LayoutTemplate, BrainCircuit];
                         const fallbackColors = [
@@ -115,7 +115,7 @@ const SkillsSection = ({ data }: SkillsSectionProps) => {
                         return (
                             <div
                                 key={index}
-                                className="group relative p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-border/80 bg-card/50 backdrop-blur-md hover:bg-card hover:border-primary/30 transition-all duration-500 shadow-sm hover:shadow-xl flex flex-col justify-between"
+                                className="group relative p-5 sm:p-6 rounded-2xl border border-white/10 dark:border-white/5 bg-card/65 backdrop-blur-xl hover:bg-card/90 hover:border-primary/40 transition-all duration-300 shadow-lg hover:shadow-2xl flex flex-col justify-between"
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}>
                                 <div>
