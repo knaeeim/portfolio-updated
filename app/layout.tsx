@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://www.naeeim.site"),
     title: "Khairul Bashar Naeeim | Founder & CEO, Principal Full-Stack Architect",
     description:
         "Official executive portfolio of Khairul Bashar Naeeim — Founder & CEO at WebZen, Principal Full-Stack Architect & Product Strategist. Engineering scalable digital ventures, enterprise web platforms, and clinical systems.",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
         "Founder & CEO",
         "WebZen",
         "Principal Full-Stack Architect",
-        "Next.js 15 Specialist",
+        "Next.js 16 Specialist",
         "Web Application Architect",
         "Dr Devojyoti Dutta Portal",
         "Enterprise Software",
@@ -34,11 +35,27 @@ export const metadata: Metadata = {
     openGraph: {
         type: "website",
         locale: "en_US",
-        url: "https://knaeeim.dev",
+        url: "https://www.naeeim.site",
         title: "Khairul Bashar Naeeim | Founder & CEO, Principal Full-Stack Architect",
         description:
             "Engineering scalable digital ventures, enterprise web platforms, and visionary software solutions.",
         siteName: "Khairul Bashar Naeeim Portfolio",
+        images: [
+            {
+                url: "/og-image.png",
+                width: 1200,
+                height: 630,
+                alt: "Khairul Bashar Naeeim — Software Architect & Founder",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Khairul Bashar Naeeim | Founder & CEO, Principal Full-Stack Architect",
+        description:
+            "Engineering scalable digital ventures, enterprise web platforms, and visionary software solutions.",
+        images: ["/og-image.png"],
+        creator: "@knaeeim",
     },
     icons: {
         icon: [
