@@ -40,15 +40,22 @@ export async function getPortfolioData(): Promise<any> {
                 if (doc) {
                     const { _id, updatedAt, ...cleanDoc } = doc as any;
                     const localData = getLocalFilePortfolioData();
+                    const mergedProjects = [...(cleanDoc?.projects || [])];
+                    if (localData?.projects) {
+                        for (const lp of localData.projects) {
+                            if (!mergedProjects.some((p: any) => p.id === lp.id)) {
+                                mergedProjects.push(lp);
+                            }
+                        }
+                    }
+
                     const mergedDoc = {
                         ...(localData || {}),
                         ...cleanDoc,
                         general: { ...(localData?.general || {}), ...(cleanDoc?.general || {}) },
                         hero: { ...(localData?.hero || {}), ...(cleanDoc?.hero || {}) },
                         research: { ...(localData?.research || {}), ...(cleanDoc?.research || {}) },
-                        projects: (cleanDoc?.projects && cleanDoc.projects.length > 0)
-                            ? cleanDoc.projects
-                            : localData?.projects || [],
+                        projects: mergedProjects.length > 0 ? mergedProjects : localData?.projects || [],
                     };
                     inMemoryCache = mergedDoc;
                     return mergedDoc;

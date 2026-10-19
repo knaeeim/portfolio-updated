@@ -115,7 +115,7 @@ const SkillsSection = ({ data }: SkillsSectionProps) => {
                         return (
                             <div
                                 key={index}
-                                className="group relative p-5 sm:p-6 rounded-2xl border border-white/10 dark:border-white/5 bg-card/65 backdrop-blur-xl hover:bg-card/90 hover:border-primary/40 transition-all duration-300 shadow-lg hover:shadow-2xl flex flex-col justify-between"
+                                className="group relative p-5 sm:p-6 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl hover:bg-card hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between"
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}>
                                 <div>

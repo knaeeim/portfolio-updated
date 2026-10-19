@@ -121,7 +121,7 @@ const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                         className={`w-full md:w-1/2 ${
                                             isEven ? "pl-9 sm:pl-12 md:pl-12" : "pl-9 sm:pl-12 md:pr-12 md:pl-0"
                                         }`}>
-                                        <div className="relative p-5 sm:p-7 rounded-2xl border border-white/10 dark:border-white/5 bg-card/65 backdrop-blur-xl hover:bg-card/90 hover:border-primary/40 transition-all duration-300 shadow-lg hover:shadow-2xl">
+                                        <div className="relative p-5 sm:p-7 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl hover:bg-card hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl">
                                             {/* Mobile View Indicators */}
                                             <div className="md:hidden flex flex-wrap items-center gap-2 mb-3">
                                                 <span className="text-[10px] font-mono font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20 uppercase">

@@ -12,6 +12,7 @@ import {
     GraduationCap,
     HeartPulse,
     Briefcase,
+    BookOpen,
     ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,7 @@ interface ProjectItem {
     id: string;
     title: string;
     subtitle: string;
-    category: "healthtech" | "edtech" | "proptech" | "agency" | string;
+    category: "healthtech" | "edtech" | "proptech" | "agency" | "academic" | string;
     categoryLabel: string;
     role: string;
     status: string;
@@ -187,6 +188,62 @@ const projectsData: ProjectItem[] = [
         ],
     },
     {
+        id: "imranh-me",
+        title: "Imran Hossain (imranh.me)",
+        subtitle: "Research Associate Portfolio, BIGD, BRAC University",
+        category: "academic",
+        categoryLabel: "Research Portfolio & Web",
+        role: "Lead Architect & Full-Stack Engineer (WebZen Bangladesh)",
+        status: "Production Live",
+        client: "Imran Hossain (Research Associate, BIGD, BRAC University)",
+        year: "2026 Production",
+        isFlagship: false,
+        description:
+            "Engineered an academic and economic research portfolio for Imran Hossain (BIGD, BRAC University). Built with Next.js 16 and Turbopack, featuring interactive canvas wave field dynamics ('Equilibrium Wave Field'), academic publication repositories, and SVG statistical visualizations.",
+        images: [
+            {
+                src: "/projects/imranh.jpg",
+                label: "Academic Research Profile & Hero",
+                caption: "Interactive academic platform showcasing development economics research, working papers, and interactive wave canvas.",
+            },
+        ],
+        liveLink: "https://imranh.me/",
+        clientLink: "https://github.com/imranecon",
+        tech: [
+            "Next.js 16",
+            "Turbopack",
+            "TypeScript",
+            "HTML5 Canvas",
+            "Tailwind CSS",
+            "Academic SEO",
+            "Vercel Cloud",
+        ],
+        features: [
+            {
+                title: "Equilibrium Wave Field Canvas",
+                desc: "Real-time interactive canvas wave physics with cursor shockwave propagation and particle modulation.",
+            },
+            {
+                title: "Academic Paper Repository",
+                desc: "Working papers, conference proceedings, and policy evaluation archives with interactive abstract drawers.",
+            },
+            {
+                title: "Interactive Statistical Visualizations",
+                desc: "Responsive SVG economic trend lines and econometric models rendered with sub-second performance.",
+            },
+            {
+                title: "High-Speed Academic SEO & SSR",
+                desc: "Pre-rendered Next.js SSR architecture with automated meta tags, OpenGraph schemas, and fast page loads.",
+            },
+        ],
+        metrics: [
+            { value: "Interactive", label: "Wave Field Physics" },
+            { value: "<0.6s", label: "Sub-Second Load" },
+            { value: "100%", label: "Type-Safe Architecture" },
+            { value: "Live", label: "imranh.me" },
+        ],
+    },
+    {
         id: "skill-bridge",
         title: "Skill-Bridge Enterprise",
         subtitle: "Tutor Marketplace & Educational Booking Ecosystem",
@@ -291,35 +348,36 @@ const CompactProjectCard = ({ project }: { project: ProjectItem }) => {
 
     return (
         <div
-            className={`group rounded-2xl sm:rounded-3xl border bg-card/75 backdrop-blur-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between ${
+            className={`group rounded-2xl border bg-card/85 backdrop-blur-xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between ${
                 isFlagship
-                    ? "border-primary/40 shadow-lg shadow-primary/5 hover:border-primary"
-                    : "border-border/80 hover:border-primary/40"
+                    ? "border-primary/50 shadow-md shadow-primary/5 hover:border-primary"
+                    : "border-border/80 dark:border-white/10 hover:border-primary/50"
             }`}>
-            {/* Visual Thumbnail Frame */}
-            <div className="relative aspect-16/10 w-full overflow-hidden bg-muted/30">
+            {/* Visual Thumbnail Frame - Sleek & Compact */}
+            <div className="relative aspect-16/10 w-full overflow-hidden bg-muted/40">
                 <Image
                     src={mainImg}
                     alt={project.title}
                     fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/15 to-transparent opacity-80" />
 
                 {/* Top Floating Badges */}
-                <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-2 z-10">
-                    <span className="px-2.5 py-1 rounded-full bg-background/90 backdrop-blur-md text-[10px] font-bold text-foreground border border-border/70 uppercase tracking-wider">
+                <div className="absolute top-2.5 inset-x-2.5 flex items-center justify-between gap-1.5 z-10">
+                    <span className="px-2 py-0.5 rounded-full bg-background/90 backdrop-blur-md text-[9px] font-bold text-foreground border border-border/70 uppercase tracking-wider truncate max-w-[130px]">
                         {project.categoryLabel || "Venture"}
                     </span>
 
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1">
                         {isFlagship && (
-                            <span className="px-2.5 py-1 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold shadow-sm">
+                            <span className="px-2 py-0.5 rounded-full bg-primary/90 text-primary-foreground text-[9px] font-bold shadow-xs">
                                 Flagship
                             </span>
                         )}
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 backdrop-blur-md text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold border border-emerald-500/30">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-500/15 backdrop-blur-md text-emerald-600 dark:text-emerald-400 text-[9px] font-semibold border border-emerald-500/30">
+                            <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
                             <span>Live</span>
                         </span>
                     </div>
@@ -327,74 +385,74 @@ const CompactProjectCard = ({ project }: { project: ProjectItem }) => {
 
                 {/* Screen Count Badge */}
                 {project.images && project.images.length > 1 && (
-                    <div className="absolute bottom-2.5 right-3 text-[10px] font-mono font-medium px-2 py-0.5 rounded-md bg-black/60 text-white backdrop-blur-md border border-white/10">
+                    <div className="absolute bottom-2 right-2 text-[9px] font-mono font-medium px-1.5 py-0.5 rounded-md bg-black/60 text-white backdrop-blur-md border border-white/10">
                         {project.images.length} screens
                     </div>
                 )}
             </div>
 
-            {/* Content Details */}
-            <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
-                <div className="space-y-2">
-                    <div className="flex items-center justify-between gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+            {/* Content Details - Compact & Focused */}
+            <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between space-y-3">
+                <div className="space-y-1.5">
+                    <div className="flex items-center justify-between gap-1">
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-primary truncate max-w-[170px]">
                             {project.role}
                         </span>
                         {project.year && (
-                            <span className="text-[10px] font-mono text-muted-foreground">
+                            <span className="text-[9px] font-mono text-muted-foreground shrink-0">
                                 {project.year}
                             </span>
                         )}
                     </div>
 
-                    <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight group-hover:text-primary transition-colors leading-snug">
+                    <h3 className="text-sm sm:text-[15px] font-bold text-foreground tracking-tight group-hover:text-primary transition-colors leading-snug line-clamp-1">
                         {project.title}
                     </h3>
 
-                    <p className="text-xs text-muted-foreground line-clamp-1 font-medium">
+                    <p className="text-[11px] text-muted-foreground line-clamp-1 font-medium">
                         {project.subtitle}
                     </p>
 
-                    <p className="text-xs text-foreground/80 line-clamp-2 leading-relaxed pt-1">
+                    <p className="text-[11px] text-foreground/80 line-clamp-2 leading-relaxed pt-0.5">
                         {project.description}
                     </p>
 
                     {/* Metric Highlight Pill */}
                     {topMetric && (
-                        <div className="pt-1.5">
-                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-primary/5 border border-primary/15 text-[11px]">
+                        <div className="pt-1">
+                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-primary/5 border border-primary/15 text-[10px]">
                                 <span className="font-bold text-primary">{topMetric.value}</span>
-                                <span className="text-muted-foreground">• {topMetric.label}</span>
+                                <span className="text-muted-foreground truncate max-w-[150px]">• {topMetric.label}</span>
                             </div>
                         </div>
                     )}
                 </div>
 
                 {/* Card Actions & Tech */}
-                <div className="space-y-3 pt-3 border-t border-border/50">
-                    <div className="flex flex-wrap gap-1.5">
-                        {project.tech.slice(0, 4).map((t) => (
+                <div className="space-y-2.5 pt-2.5 border-t border-border/50">
+                    <div className="flex flex-wrap gap-1">
+                        {project.tech.slice(0, 3).map((t) => (
                             <span
                                 key={t}
-                                className="px-2 py-0.5 rounded-md bg-muted/60 text-[10px] font-semibold text-muted-foreground border border-border/50">
+                                className="px-1.5 py-0.5 rounded-md bg-muted/60 text-[9px] font-semibold text-muted-foreground border border-border/50">
                                 {t}
                             </span>
                         ))}
-                        {project.tech.length > 4 && (
-                            <span className="text-[10px] text-muted-foreground self-center font-mono">
-                                +{project.tech.length - 4}
+                        {project.tech.length > 3 && (
+                            <span className="text-[9px] text-muted-foreground self-center font-mono">
+                                +{project.tech.length - 3}
                             </span>
                         )}
                     </div>
 
-                    <div className="flex items-center gap-2 pt-1">
+                    <div className="flex items-center gap-1.5 pt-0.5">
                         <Button
                             asChild
                             size="sm"
-                            className="flex-1 rounded-xl text-xs font-bold gap-1.5 h-9 bg-primary text-primary-foreground hover:bg-primary/90">
+                            className="flex-1 rounded-lg text-[11px] font-bold gap-1 h-8 bg-primary text-primary-foreground hover:bg-primary/90">
                             <Link href={`/projects/${project.id}`}>
-                                <span>Case Study &amp; Architecture</span>
-                                <ArrowRight size={13} />
+                                <span>Case Study</span>
+                                <ArrowRight size={11} />
                             </Link>
                         </Button>
 
@@ -403,10 +461,10 @@ const CompactProjectCard = ({ project }: { project: ProjectItem }) => {
                                 asChild
                                 size="sm"
                                 variant="outline"
-                                className="rounded-xl px-2.5 h-9 border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
+                                className="rounded-lg px-2 h-8 border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground shrink-0"
                                 title="Visit Live Production Site">
                                 <a href={project.liveLink} target="_blank" rel="noreferrer noopener">
-                                    <Globe size={14} />
+                                    <Globe size={13} />
                                 </a>
                             </Button>
                         )}
@@ -416,10 +474,10 @@ const CompactProjectCard = ({ project }: { project: ProjectItem }) => {
                                 asChild
                                 size="sm"
                                 variant="outline"
-                                className="rounded-xl px-2.5 h-9 border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
+                                className="rounded-lg px-2 h-8 border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground shrink-0"
                                 title="Admin / Doctor Portal">
                                 <a href={project.adminLink} target="_blank" rel="noreferrer noopener">
-                                    <Shield size={14} />
+                                    <Shield size={13} />
                                 </a>
                             </Button>
                         )}
@@ -435,7 +493,7 @@ interface ProjectsSectionProps {
 }
 
 const ProjectsSection = ({ data }: ProjectsSectionProps) => {
-    const [activeFilter, setActiveFilter] = useState<"all" | "agency" | "healthtech" | "edtech" | "proptech">("all");
+    const [activeFilter, setActiveFilter] = useState<"all" | "agency" | "healthtech" | "academic" | "edtech" | "proptech">("all");
 
     const currentProjects: ProjectItem[] =
         data?.projects && data.projects.length > 0 ? data.projects : projectsData;
@@ -478,7 +536,7 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                     <button
                         type="button"
                         onClick={() => setActiveFilter("all")}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                             activeFilter === "all"
                                 ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
                                 : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
@@ -488,56 +546,67 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                     <button
                         type="button"
                         onClick={() => setActiveFilter("agency")}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                             activeFilter === "agency"
                                 ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
                                 : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
                         }`}>
-                        <Briefcase size={13} />
+                        <Briefcase size={12} />
                         WebZen Bangladesh Studio
                     </button>
                     <button
                         type="button"
                         onClick={() => setActiveFilter("healthtech")}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                             activeFilter === "healthtech"
                                 ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
                                 : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
                         }`}>
-                        <HeartPulse size={13} />
+                        <HeartPulse size={12} />
                         HealthTech &amp; Clinical
                     </button>
                     <button
                         type="button"
+                        onClick={() => setActiveFilter("academic")}
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                            activeFilter === "academic"
+                                ? "bg-cyan-600 text-white shadow-md shadow-cyan-600/20"
+                                : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
+                        }`}>
+                        <BookOpen size={12} />
+                        Research &amp; Portfolios
+                    </button>
+                    <button
+                        type="button"
                         onClick={() => setActiveFilter("edtech")}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                             activeFilter === "edtech"
                                 ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
                                 : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
                         }`}>
-                        <GraduationCap size={13} />
+                        <GraduationCap size={12} />
                         EdTech Marketplaces
                     </button>
                     <button
                         type="button"
                         onClick={() => setActiveFilter("proptech")}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                             activeFilter === "proptech"
                                 ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
                                 : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
                         }`}>
-                        <Building2 size={13} />
+                        <Building2 size={12} />
                         PropTech Systems
                     </button>
                 </div>
 
-                {/* Grid for All Selected Ventures */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-7">
+                {/* Grid for All Selected Ventures - 4 CARDS PER ROW on Desktop */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-4.5">
                     {filteredProjects.map((project, idx) => (
                         <div
                             key={project.id}
                             data-aos="fade-up"
-                            data-aos-delay={idx * 100}>
+                            data-aos-delay={idx * 60}>
                             <CompactProjectCard project={project} />
                         </div>
                     ))}

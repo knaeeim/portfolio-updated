@@ -412,6 +412,73 @@
       ]
     },
     {
+      "id": "imranh-me",
+      "title": "Imran Hossain (imranh.me)",
+      "subtitle": "Research Associate Portfolio, BIGD, BRAC University",
+      "category": "academic",
+      "categoryLabel": "Research Portfolio & Interactive Web",
+      "role": "Lead Architect & Full-Stack Engineer (WebZen Bangladesh)",
+      "status": "Production Live",
+      "client": "Imran Hossain (Research Associate, BIGD, BRAC University)",
+      "year": "2026 Production",
+      "isFlagship": false,
+      "description": "Engineered an academic and economic research portfolio for Imran Hossain (BIGD, BRAC University). Built with Next.js 16 and Turbopack, featuring interactive canvas wave field dynamics ('Equilibrium Wave Field'), academic publication repositories, and SVG statistical visualizations.",
+      "images": [
+        {
+          "src": "/projects/imranh.jpg",
+          "label": "Academic Research Profile & Hero",
+          "caption": "Interactive academic platform showcasing development economics research, working papers, and interactive wave canvas."
+        }
+      ],
+      "liveLink": "https://imranh.me/",
+      "clientLink": "https://github.com/imranecon",
+      "tech": [
+        "Next.js 16",
+        "Turbopack",
+        "TypeScript",
+        "HTML5 Canvas",
+        "Tailwind CSS",
+        "Academic SEO",
+        "Vercel Cloud"
+      ],
+      "features": [
+        {
+          "title": "Equilibrium Wave Field Canvas",
+          "desc": "Real-time interactive canvas wave physics with cursor shockwave propagation and particle modulation."
+        },
+        {
+          "title": "Academic Paper Repository",
+          "desc": "Working papers, conference proceedings, and policy evaluation archives with interactive abstract drawers."
+        },
+        {
+          "title": "Interactive Statistical Visualizations",
+          "desc": "Responsive SVG economic trend lines and econometric models rendered with sub-second performance."
+        },
+        {
+          "title": "High-Speed Academic SEO & SSR",
+          "desc": "Pre-rendered Next.js SSR architecture with automated meta tags, OpenGraph schemas, and fast page loads."
+        }
+      ],
+      "metrics": [
+        {
+          "value": "Interactive",
+          "label": "Wave Field Physics"
+        },
+        {
+          "value": "<0.6s",
+          "label": "Sub-Second Load"
+        },
+        {
+          "value": "100%",
+          "label": "Type-Safe Architecture"
+        },
+        {
+          "value": "Live",
+          "label": "Production on imranh.me"
+        }
+      ]
+    },
+    {
       "id": "skill-bridge",
       "title": "Skill-Bridge Enterprise",
       "subtitle": "Tutor Marketplace & Educational Booking Ecosystem",

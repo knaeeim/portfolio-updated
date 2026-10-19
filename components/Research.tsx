@@ -167,7 +167,7 @@ export const ResearchSection = ({ data }: ResearchProps) => {
 
                 {/* Main Glassmorphic Research Hub Card */}
                 <div
-                    className="relative rounded-2xl sm:rounded-3xl border border-white/10 dark:border-white/5 bg-card/65 backdrop-blur-2xl shadow-2xl overflow-hidden p-5 sm:p-7 lg:p-9 space-y-6 sm:space-y-8"
+                    className="relative rounded-2xl sm:rounded-3xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-2xl shadow-xl overflow-hidden p-5 sm:p-7 lg:p-9 space-y-6 sm:space-y-8"
                     data-aos="fade-up">
                     
                     {/* Top Status & Meta Header */}
