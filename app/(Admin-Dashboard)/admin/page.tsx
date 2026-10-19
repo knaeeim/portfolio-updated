@@ -42,6 +42,13 @@ import {
     Brain,
     FlaskConical,
     FileText,
+    Code2,
+    Link2,
+    Compass,
+    Trophy,
+    Target,
+    TrendingUp,
+    X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -84,6 +91,8 @@ export default function AdminDashboardPage() {
 
     // Selected project for editing
     const [selectedProjectIndex, setSelectedProjectIndex] = useState<number>(0);
+    const [manualImageUrl, setManualImageUrl] = useState<string>("");
+    const [manualImageLabel, setManualImageLabel] = useState<string>("");
 
     // Research Tab New Tech Input State
     const [newResearchTech, setNewResearchTech] = useState<string>("");
@@ -280,6 +289,299 @@ export default function AdminDashboardPage() {
             ...prev,
             hero: { ...prev.hero, [field]: value },
         }));
+    };
+
+    // ==========================================
+    // BULLETPROOF CREATION & DELETION HANDLERS
+    // ==========================================
+
+    const handleAddNewProject = () => {
+        const id = `project-${Date.now().toString(36)}`;
+        const newProj = {
+            id,
+            title: "New Venture Project",
+            subtitle: "Full-Stack Web Platform & Enterprise Architecture",
+            category: "agency",
+            categoryLabel: "Ventures & Solutions",
+            role: `Founder & Lead Architect (${data?.general?.company || "WebZen Bangladesh"})`,
+            status: "Production Live",
+            client: "Corporate Client / High-Impact Venture",
+            year: `${new Date().getFullYear()} Production`,
+            isFlagship: false,
+            description: "High-level overview of the platform architecture, client requirements, and technical deliverables.",
+            images: [],
+            liveLink: "https://",
+            clientLink: "",
+            serverLink: "",
+            adminLink: "",
+            tech: ["Next.js", "TypeScript", "Tailwind CSS"],
+            features: [
+                { title: "High-Performance Architecture", desc: "Sub-second load times with optimized SSR and edge caching." },
+                { title: "Scalable Infrastructure", desc: "Designed for high concurrency and zero downtime." },
+            ],
+            metrics: [
+                { value: "100%", label: "System Uptime" },
+                { value: "Sub-second", label: "Latency" },
+            ],
+        };
+        setData((prev: any) => ({
+            ...prev,
+            projects: [newProj, ...(prev?.projects || [])],
+        }));
+        setSelectedProjectIndex(0);
+        setActiveTab("projects");
+        toast.success("New project drafted! You can now configure its details, features, and media.");
+    };
+
+    const handleDeleteProject = (index: number) => {
+        const proj = data?.projects?.[index];
+        if (!proj) return;
+        if (data.projects.length <= 1) {
+            toast.error("You must have at least one project in your showcase.");
+            return;
+        }
+        const confirmDelete = window.confirm(`Are you sure you want to delete "${proj.title}"? This cannot be undone.`);
+        if (!confirmDelete) return;
+
+        setData((prev: any) => {
+            const projects = prev.projects.filter((_: any, i: number) => i !== index);
+            return { ...prev, projects };
+        });
+        setSelectedProjectIndex(0);
+        toast.success(`Project "${proj.title}" removed.`);
+    };
+
+    const handleAddNewExperience = () => {
+        const newExp = {
+            company: "New Venture / Organization",
+            role: "Principal Technical Lead / Architect",
+            stack: "Distributed Systems & Cloud Architecture",
+            duration: `${new Date().getFullYear()} — Present`,
+            location: "Dhaka, Bangladesh",
+            badge: "Executive Leadership",
+            tech: ["Next.js", "TypeScript", "Node.js", "Cloud Infrastructure"],
+            link: "https://",
+            linkLabel: "Live Platform / Verification Portal",
+            description: [
+                "Leading system architecture, product roadmaps, and high-concurrency cloud deployments.",
+                "Mentoring software engineers and establishing modern code review standards.",
+            ],
+        };
+        setData((prev: any) => ({
+            ...prev,
+            experience: [newExp, ...(prev?.experience || [])],
+        }));
+        setActiveTab("experience");
+        toast.success("New executive role drafted! Scroll down to edit details and accomplishments.");
+    };
+
+    const handleDeleteExperience = (index: number) => {
+        const exp = data?.experience?.[index];
+        if (!exp) return;
+        const confirmDelete = window.confirm(`Remove experience at "${exp.company}"?`);
+        if (!confirmDelete) return;
+
+        setData((prev: any) => ({
+            ...prev,
+            experience: prev.experience.filter((_: any, i: number) => i !== index),
+        }));
+        toast.success(`Experience at "${exp.company}" removed.`);
+    };
+
+    const handleAddNewSkillDomain = () => {
+        const newSkill = {
+            title: "New Engineering Domain",
+            description: "Designing, engineering, and scaling modern technical systems.",
+            skills: ["Architecture", "System Design", "Cloud Infrastructure"],
+            color: "text-blue-500 bg-blue-500/10 border-blue-500/20",
+        };
+        setData((prev: any) => ({
+            ...prev,
+            skills: [...(prev?.skills || []), newSkill],
+        }));
+        setActiveTab("skills");
+        toast.success("New technical skill domain created!");
+    };
+
+    const handleDeleteSkillDomain = (index: number) => {
+        const cat = data?.skills?.[index];
+        if (!cat) return;
+        const confirmDelete = window.confirm(`Delete skill domain "${cat.title}"?`);
+        if (!confirmDelete) return;
+
+        setData((prev: any) => ({
+            ...prev,
+            skills: prev.skills.filter((_: any, i: number) => i !== index),
+        }));
+        toast.success(`Skill domain "${cat.title}" removed.`);
+    };
+
+    const handleAddNewCourse = () => {
+        const newCourse = {
+            title: "Institution / Academy Name",
+            level: "Professional Track",
+            badge: "Credential / Specialization Name",
+            desc: "Comprehensive mastery and practical application of industry-standard technologies.",
+        };
+        setData((prev: any) => ({
+            ...prev,
+            education: {
+                ...prev?.education,
+                courses: [...(prev?.education?.courses || []), newCourse],
+            },
+        }));
+        setActiveTab("education");
+        toast.success("New certification / specialization added!");
+    };
+
+    const handleDeleteCourse = (index: number) => {
+        const course = data?.education?.courses?.[index];
+        if (!course) return;
+        const confirmDelete = window.confirm(`Delete certification "${course.title} - ${course.badge}"?`);
+        if (!confirmDelete) return;
+
+        setData((prev: any) => ({
+            ...prev,
+            education: {
+                ...prev?.education,
+                courses: prev.education.courses.filter((_: any, i: number) => i !== index),
+            },
+        }));
+        toast.success("Certification removed.");
+    };
+
+    const handleAddNewResearchPillar = () => {
+        const newPillar = {
+            id: `pillar-${Date.now().toString(36)}`,
+            title: "New Research Objective / Topic",
+            desc: "Comprehensive description of the algorithmic methodology, mathematical foundations, and diagnostic goals.",
+            tag: "Research Domain",
+            highlight: "Key Benchmark / Breakthrough",
+            bullets: [
+                "Primary objective and methodology overview",
+                "Model validation and experimental setup",
+            ],
+        };
+        setData((prev: any) => ({
+            ...prev,
+            research: {
+                ...prev?.research,
+                pillars: [...(prev?.research?.pillars || []), newPillar],
+            },
+        }));
+        setActiveTab("research");
+        toast.success("New research pillar created!");
+    };
+
+    const handleDeleteResearchPillar = (index: number) => {
+        const pillar = data?.research?.pillars?.[index];
+        if (!pillar) return;
+        const confirmDelete = window.confirm(`Delete research pillar "${pillar.title}"?`);
+        if (!confirmDelete) return;
+
+        setData((prev: any) => ({
+            ...prev,
+            research: {
+                ...prev?.research,
+                pillars: prev.research.pillars.filter((_: any, i: number) => i !== index),
+            },
+        }));
+        toast.success("Research pillar removed.");
+    };
+
+    const handleAddNewStrategicPillar = () => {
+        const newPillar = {
+            title: "New Strategic Pillar",
+            desc: "Executive vision, business philosophy, and client value proposition.",
+            tag: "Executive Vision",
+        };
+        setData((prev: any) => ({
+            ...prev,
+            about: {
+                ...prev?.about,
+                pillars: [...(prev?.about?.pillars || []), newPillar],
+            },
+        }));
+        setActiveTab("about");
+        toast.success("Strategic pillar added!");
+    };
+
+    const handleDeleteStrategicPillar = (index: number) => {
+        const pillar = data?.about?.pillars?.[index];
+        if (!pillar) return;
+        if (!window.confirm(`Delete pillar "${pillar.title}"?`)) return;
+        setData((prev: any) => ({
+            ...prev,
+            about: {
+                ...prev?.about,
+                pillars: prev.about.pillars.filter((_: any, i: number) => i !== index),
+            },
+        }));
+        toast.success("Strategic pillar removed.");
+    };
+
+    const handleAddNewTimelineStep = () => {
+        const newStep = {
+            title: "Milestone Title",
+            date: `${new Date().getFullYear()}`,
+            role: "Executive / Architectural Role",
+            desc: "Description of the milestone, achievements, and impact.",
+            badge: "Career Milestone",
+        };
+        setData((prev: any) => ({
+            ...prev,
+            about: {
+                ...prev?.about,
+                timeline: [...(prev?.about?.timeline || []), newStep],
+            },
+        }));
+        setActiveTab("about");
+        toast.success("Career milestone added!");
+    };
+
+    const handleDeleteTimelineStep = (index: number) => {
+        const step = data?.about?.timeline?.[index];
+        if (!step) return;
+        if (!window.confirm(`Delete milestone "${step.title}"?`)) return;
+        setData((prev: any) => ({
+            ...prev,
+            about: {
+                ...prev?.about,
+                timeline: prev.about.timeline.filter((_: any, i: number) => i !== index),
+            },
+        }));
+        toast.success("Milestone removed.");
+    };
+
+    const handleAddNewExecutiveTrait = () => {
+        const newTrait = {
+            title: "Executive Trait",
+            info: "Leadership Quality",
+            desc: "Description of personal discipline, work ethic, or cultural foundation.",
+        };
+        setData((prev: any) => ({
+            ...prev,
+            about: {
+                ...prev?.about,
+                traits: [...(prev?.about?.traits || []), newTrait],
+            },
+        }));
+        setActiveTab("about");
+        toast.success("Executive attribute added!");
+    };
+
+    const handleDeleteExecutiveTrait = (index: number) => {
+        const trait = data?.about?.traits?.[index];
+        if (!trait) return;
+        if (!window.confirm(`Delete attribute "${trait.title}"?`)) return;
+        setData((prev: any) => ({
+            ...prev,
+            about: {
+                ...prev?.about,
+                traits: prev.about.traits.filter((_: any, i: number) => i !== index),
+            },
+        }));
+        toast.success("Attribute removed.");
     };
 
     // Handle Image Upload for a Project
@@ -684,6 +986,101 @@ export default function AdminDashboardPage() {
                                     <span className="text-xs text-muted-foreground">Technical Arsenal</span>
                                     <div className="text-2xl font-black text-foreground">{data.skills?.length || 0} Domains</div>
                                     <span className="text-[11px] text-blue-500 font-semibold">Next.js 15 &amp; Cloud</span>
+                                </div>
+                            </div>
+
+                            {/* Quick Creation & Addition Hub */}
+                            <div className="p-6 rounded-3xl bg-card border border-border space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <h3 className="text-base font-bold flex items-center gap-2">
+                                            <Sparkles size={18} className="text-primary" />
+                                            <span>Quick Content Creation Hub</span>
+                                        </h3>
+                                        <p className="text-xs text-muted-foreground mt-0.5">
+                                            Add and draft new items into your portfolio in 1 click with bulletproof safeguards.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewProject}
+                                        className="p-3.5 rounded-2xl bg-muted/40 hover:bg-primary/10 border border-border hover:border-primary/40 transition-all text-left group cursor-pointer space-y-2">
+                                        <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <FolderKanban size={16} />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold text-foreground">+ New Project</div>
+                                            <div className="text-[10px] text-muted-foreground">Portfolio Grid</div>
+                                        </div>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewExperience}
+                                        className="p-3.5 rounded-2xl bg-muted/40 hover:bg-primary/10 border border-border hover:border-primary/40 transition-all text-left group cursor-pointer space-y-2">
+                                        <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <Briefcase size={16} />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold text-foreground">+ New Role</div>
+                                            <div className="text-[10px] text-muted-foreground">Career & Leadership</div>
+                                        </div>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewSkillDomain}
+                                        className="p-3.5 rounded-2xl bg-muted/40 hover:bg-primary/10 border border-border hover:border-primary/40 transition-all text-left group cursor-pointer space-y-2">
+                                        <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <Sliders size={16} />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold text-foreground">+ Skill Domain</div>
+                                            <div className="text-[10px] text-muted-foreground">Tech Stack</div>
+                                        </div>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewCourse}
+                                        className="p-3.5 rounded-2xl bg-muted/40 hover:bg-primary/10 border border-border hover:border-primary/40 transition-all text-left group cursor-pointer space-y-2">
+                                        <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <GraduationCap size={16} />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold text-foreground">+ Certificate</div>
+                                            <div className="text-[10px] text-muted-foreground">Specialization</div>
+                                        </div>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewResearchPillar}
+                                        className="p-3.5 rounded-2xl bg-muted/40 hover:bg-primary/10 border border-border hover:border-primary/40 transition-all text-left group cursor-pointer space-y-2">
+                                        <div className="w-8 h-8 rounded-xl bg-violet-500/10 text-violet-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <Microscope size={16} />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold text-foreground">+ Research Pillar</div>
+                                            <div className="text-[10px] text-muted-foreground">AI / Medical CV</div>
+                                        </div>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewTimelineStep}
+                                        className="p-3.5 rounded-2xl bg-muted/40 hover:bg-primary/10 border border-border hover:border-primary/40 transition-all text-left group cursor-pointer space-y-2">
+                                        <div className="w-8 h-8 rounded-xl bg-pink-500/10 text-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <Sparkles size={16} />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold text-foreground">+ Milestone</div>
+                                            <div className="text-[10px] text-muted-foreground">About Trajectory</div>
+                                        </div>
+                                    </button>
                                 </div>
                             </div>
 
@@ -1096,33 +1493,9 @@ export default function AdminDashboardPage() {
 
                                 <Button
                                     type="button"
-                                    onClick={() => {
-                                        const newProj = {
-                                            id: `project-${Date.now()}`,
-                                            title: "New Venture Title",
-                                            subtitle: "Platform Subtitle",
-                                            category: "healthtech",
-                                            categoryLabel: "Custom Solution",
-                                            role: `Founder & Lead Architect (${data.general?.company || "WebZen"})`,
-                                            status: "Production Live",
-                                            year: "2026",
-                                            isFlagship: false,
-                                            description: "Comprehensive description of the platform architecture, client requirements, and deliverables.",
-                                            images: [],
-                                            liveLink: "https://example.com",
-                                            tech: ["Next.js", "TypeScript", "Tailwind CSS"],
-                                            features: [{ title: "Core Feature", desc: "Detailed description of the feature." }],
-                                            metrics: [{ value: "100%", label: "Satisfaction" }],
-                                        };
-                                        setData((prev: any) => ({
-                                            ...prev,
-                                            projects: [newProj, ...prev.projects],
-                                        }));
-                                        setSelectedProjectIndex(0);
-                                        toast.success("New project drafted! You can now edit its details and upload images.");
-                                    }}
+                                    onClick={handleAddNewProject}
                                     size="sm"
-                                    className="rounded-xl font-bold gap-1.5">
+                                    className="rounded-xl font-bold gap-1.5 shadow-sm">
                                     <Plus size={15} />
                                     <span>Add New Project</span>
                                 </Button>
@@ -1148,6 +1521,13 @@ export default function AdminDashboardPage() {
                                         )}
                                     </button>
                                 ))}
+                                <button
+                                    type="button"
+                                    onClick={handleAddNewProject}
+                                    className="px-3 py-2 rounded-xl text-xs font-bold bg-muted/40 hover:bg-primary/10 border border-dashed border-border hover:border-primary/40 text-muted-foreground hover:text-primary transition-all flex items-center gap-1 cursor-pointer shrink-0">
+                                    <Plus size={13} />
+                                    <span>Draft New</span>
+                                </button>
                             </div>
 
                             {/* Active Project Editor */}
@@ -1167,26 +1547,29 @@ export default function AdminDashboardPage() {
                                                     }}
                                                     className="w-4 h-4 rounded text-primary focus:ring-primary"
                                                 />
-                                                <span>Set as Flagship Venture of the Year</span>
+                                                <span>Set as Flagship Venture / Spotlight Case Study</span>
                                             </label>
                                         </div>
 
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                if (data.projects.length <= 1) {
-                                                    toast.error("You must have at least one project.");
-                                                    return;
-                                                }
-                                                const projects = data.projects.filter((_: any, i: number) => i !== selectedProjectIndex);
-                                                setData({ ...data, projects });
-                                                setSelectedProjectIndex(0);
-                                                toast.success("Project removed.");
-                                            }}
-                                            className="text-xs text-destructive hover:underline flex items-center gap-1 font-semibold cursor-pointer">
-                                            <Trash2 size={13} />
-                                            <span>Delete Project</span>
-                                        </button>
+                                        <div className="flex items-center gap-2">
+                                            {data.projects[selectedProjectIndex].liveLink && (
+                                                <a
+                                                    href={data.projects[selectedProjectIndex].liveLink}
+                                                    target="_blank"
+                                                    rel="noreferrer noopener"
+                                                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-border text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                                                    <ExternalLink size={12} />
+                                                    <span>View Live</span>
+                                                </a>
+                                            )}
+                                            <button
+                                                type="button"
+                                                onClick={() => handleDeleteProject(selectedProjectIndex)}
+                                                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-destructive hover:bg-destructive/10 border border-destructive/20 transition-colors flex items-center gap-1.5 cursor-pointer">
+                                                <Trash2 size={13} />
+                                                <span>Delete Project</span>
+                                            </button>
+                                        </div>
                                     </div>
 
                                     {/* Basic Details */}
@@ -1206,7 +1589,7 @@ export default function AdminDashboardPage() {
                                         </div>
 
                                         <div className="space-y-1.5">
-                                            <label className="text-xs font-bold text-muted-foreground">Subtitle / Domain</label>
+                                            <label className="text-xs font-bold text-muted-foreground">Subtitle / Domain Tagline</label>
                                             <input
                                                 type="text"
                                                 value={data.projects[selectedProjectIndex].subtitle}
@@ -1220,23 +1603,60 @@ export default function AdminDashboardPage() {
                                         </div>
 
                                         <div className="space-y-1.5">
+                                            <label className="text-xs font-bold text-muted-foreground flex items-center gap-1.5">
+                                                <Link2 size={13} className="text-primary" />
+                                                <span>Slug / URL Identifier (/projects/[id])</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={data.projects[selectedProjectIndex].id || ""}
+                                                onChange={(e) => {
+                                                    const projects = [...data.projects];
+                                                    projects[selectedProjectIndex].id = e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, "");
+                                                    setData({ ...data, projects });
+                                                }}
+                                                placeholder="e.g. webzen-technologies, imranh-me"
+                                                className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-xs font-mono"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-1.5">
                                             <label className="text-xs font-bold text-muted-foreground">Category Pill</label>
                                             <select
-                                                value={data.projects[selectedProjectIndex].category}
+                                                value={data.projects[selectedProjectIndex].category || "agency"}
                                                 onChange={(e) => {
                                                     const projects = [...data.projects];
                                                     projects[selectedProjectIndex].category = e.target.value;
                                                     setData({ ...data, projects });
                                                 }}
                                                 className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-sm">
+                                                <option value="agency">Ventures &amp; Agency Studio</option>
                                                 <option value="healthtech">HealthTech &amp; Clinical</option>
-                                                <option value="edtech">EdTech &amp; Marketplace</option>
-                                                <option value="proptech">PropTech &amp; Systems</option>
+                                                <option value="academic">Academic, Research &amp; Portfolios</option>
+                                                <option value="edtech">EdTech &amp; Learning Marketplace</option>
+                                                <option value="proptech">PropTech &amp; Real Estate Systems</option>
+                                                <option value="saas">Enterprise SaaS Platform</option>
+                                                <option value="custom">Custom High-Impact Solution</option>
                                             </select>
                                         </div>
 
                                         <div className="space-y-1.5">
-                                            <label className="text-xs font-bold text-muted-foreground">Your Role</label>
+                                            <label className="text-xs font-bold text-muted-foreground">Category Pill Display Text</label>
+                                            <input
+                                                type="text"
+                                                value={data.projects[selectedProjectIndex].categoryLabel || ""}
+                                                onChange={(e) => {
+                                                    const projects = [...data.projects];
+                                                    projects[selectedProjectIndex].categoryLabel = e.target.value;
+                                                    setData({ ...data, projects });
+                                                }}
+                                                placeholder="e.g. HealthTech & Clinical SaaS"
+                                                className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-sm"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-1.5">
+                                            <label className="text-xs font-bold text-muted-foreground">Your Executive Role</label>
                                             <input
                                                 type="text"
                                                 value={data.projects[selectedProjectIndex].role}
@@ -1245,6 +1665,36 @@ export default function AdminDashboardPage() {
                                                     projects[selectedProjectIndex].role = e.target.value;
                                                     setData({ ...data, projects });
                                                 }}
+                                                className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-sm"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-1.5">
+                                            <label className="text-xs font-bold text-muted-foreground">Client / Partner Organization</label>
+                                            <input
+                                                type="text"
+                                                value={data.projects[selectedProjectIndex].client || ""}
+                                                onChange={(e) => {
+                                                    const projects = [...data.projects];
+                                                    projects[selectedProjectIndex].client = e.target.value;
+                                                    setData({ ...data, projects });
+                                                }}
+                                                placeholder="e.g. Imran Hossain (BRAC University)"
+                                                className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-sm"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-1.5">
+                                            <label className="text-xs font-bold text-muted-foreground">Project Year / Stage</label>
+                                            <input
+                                                type="text"
+                                                value={data.projects[selectedProjectIndex].year || ""}
+                                                onChange={(e) => {
+                                                    const projects = [...data.projects];
+                                                    projects[selectedProjectIndex].year = e.target.value;
+                                                    setData({ ...data, projects });
+                                                }}
+                                                placeholder="e.g. 2026 Production"
                                                 className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-sm"
                                             />
                                         </div>
@@ -1278,11 +1728,67 @@ export default function AdminDashboardPage() {
                                                 className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-sm"
                                             />
                                         </div>
+
+                                        <div className="space-y-1.5">
+                                            <label className="text-xs font-bold text-muted-foreground">Client Repository (GitHub)</label>
+                                            <input
+                                                type="text"
+                                                value={data.projects[selectedProjectIndex].clientLink || ""}
+                                                onChange={(e) => {
+                                                    const projects = [...data.projects];
+                                                    projects[selectedProjectIndex].clientLink = e.target.value;
+                                                    setData({ ...data, projects });
+                                                }}
+                                                placeholder="https://github.com/..."
+                                                className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-xs font-mono"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-1.5">
+                                            <label className="text-xs font-bold text-muted-foreground">Server Repository (GitHub)</label>
+                                            <input
+                                                type="text"
+                                                value={data.projects[selectedProjectIndex].serverLink || ""}
+                                                onChange={(e) => {
+                                                    const projects = [...data.projects];
+                                                    projects[selectedProjectIndex].serverLink = e.target.value;
+                                                    setData({ ...data, projects });
+                                                }}
+                                                placeholder="https://github.com/..."
+                                                className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-xs font-mono"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Tech Stack */}
+                                    <div className="space-y-2 pt-2 border-t border-border/60">
+                                        <label className="text-xs font-bold text-muted-foreground">Tech Stack (Comma-separated)</label>
+                                        <input
+                                            type="text"
+                                            value={data.projects[selectedProjectIndex].tech?.join(", ") || ""}
+                                            onChange={(e) => {
+                                                const projects = [...data.projects];
+                                                projects[selectedProjectIndex].tech = e.target.value
+                                                    .split(",")
+                                                    .map((s) => s.trim())
+                                                    .filter(Boolean);
+                                                setData({ ...data, projects });
+                                            }}
+                                            placeholder="Next.js 16, TypeScript, Turbopack, Tailwind CSS"
+                                            className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-xs font-mono"
+                                        />
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {data.projects[selectedProjectIndex].tech?.map((t: string, tIdx: number) => (
+                                                <span key={tIdx} className="px-2.5 py-0.5 rounded-md bg-primary/10 text-primary text-[10px] font-semibold border border-primary/20">
+                                                    {t}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
 
                                     {/* Description */}
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-bold text-muted-foreground">Detailed Description</label>
+                                        <label className="text-xs font-bold text-muted-foreground">Detailed Description &amp; Architecture Overview</label>
                                         <textarea
                                             rows={3}
                                             value={data.projects[selectedProjectIndex].description}
@@ -1291,11 +1797,151 @@ export default function AdminDashboardPage() {
                                                 projects[selectedProjectIndex].description = e.target.value;
                                                 setData({ ...data, projects });
                                             }}
-                                            className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-sm resize-none"
+                                            className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-sm resize-none leading-relaxed"
                                         />
                                     </div>
 
-                                    {/* IMAGES & SCREENSHOTS SECTION (UPLOADABLE) */}
+                                    {/* Core Features & Deliverables */}
+                                    <div className="pt-4 border-t border-border/60 space-y-3">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                                    Core Features &amp; Deliverables
+                                                </h4>
+                                                <p className="text-[11px] text-muted-foreground">
+                                                    Displayed in project case studies and deep-dive detail views.
+                                                </p>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const projects = [...data.projects];
+                                                    const feats = projects[selectedProjectIndex].features || [];
+                                                    projects[selectedProjectIndex].features = [
+                                                        ...feats,
+                                                        { title: "New Deliverable / Feature", desc: "Detailed breakdown of the architectural solution." },
+                                                    ];
+                                                    setData({ ...data, projects });
+                                                }}
+                                                className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                                                <Plus size={13} />
+                                                <span>Add Feature</span>
+                                            </button>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            {(data.projects[selectedProjectIndex].features || []).map((feat: any, fIdx: number) => (
+                                                <div key={fIdx} className="p-3 rounded-xl bg-muted/30 border border-border space-y-2 relative group">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            const projects = [...data.projects];
+                                                            projects[selectedProjectIndex].features = projects[selectedProjectIndex].features.filter(
+                                                                (_: any, i: number) => i !== fIdx
+                                                            );
+                                                            setData({ ...data, projects });
+                                                        }}
+                                                        className="absolute top-2.5 right-2.5 text-muted-foreground hover:text-destructive p-1 rounded-md hover:bg-destructive/10 transition-colors">
+                                                        <Trash2 size={13} />
+                                                    </button>
+                                                    <input
+                                                        type="text"
+                                                        value={feat.title || ""}
+                                                        onChange={(e) => {
+                                                            const projects = [...data.projects];
+                                                            projects[selectedProjectIndex].features[fIdx].title = e.target.value;
+                                                            setData({ ...data, projects });
+                                                        }}
+                                                        placeholder="Feature Title"
+                                                        className="w-[calc(100%-2rem)] px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-bold"
+                                                    />
+                                                    <textarea
+                                                        rows={2}
+                                                        value={feat.desc || ""}
+                                                        onChange={(e) => {
+                                                            const projects = [...data.projects];
+                                                            projects[selectedProjectIndex].features[fIdx].desc = e.target.value;
+                                                            setData({ ...data, projects });
+                                                        }}
+                                                        placeholder="Feature Description"
+                                                        className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs resize-none"
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Performance & Impact Metrics */}
+                                    <div className="pt-4 border-t border-border/60 space-y-3">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                                    Impact &amp; Performance Metrics
+                                                </h4>
+                                                <p className="text-[11px] text-muted-foreground">
+                                                    Numerical achievements (e.g. 100% Automated, 98% Latency Drop).
+                                                </p>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const projects = [...data.projects];
+                                                    const mets = projects[selectedProjectIndex].metrics || [];
+                                                    projects[selectedProjectIndex].metrics = [
+                                                        ...mets,
+                                                        { value: "100%", label: "Satisfaction / SLA" },
+                                                    ];
+                                                    setData({ ...data, projects });
+                                                }}
+                                                className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                                                <Plus size={13} />
+                                                <span>Add Metric</span>
+                                            </button>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                                            {(data.projects[selectedProjectIndex].metrics || []).map((met: any, mIdx: number) => (
+                                                <div key={mIdx} className="p-2.5 rounded-xl bg-muted/30 border border-border space-y-1.5 relative group">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            const projects = [...data.projects];
+                                                            projects[selectedProjectIndex].metrics = projects[selectedProjectIndex].metrics.filter(
+                                                                (_: any, i: number) => i !== mIdx
+                                                            );
+                                                            setData({ ...data, projects });
+                                                        }}
+                                                        className="absolute top-2 right-2 text-muted-foreground hover:text-destructive p-0.5">
+                                                        <Trash2 size={12} />
+                                                    </button>
+                                                    <input
+                                                        type="text"
+                                                        value={met.value || ""}
+                                                        onChange={(e) => {
+                                                            const projects = [...data.projects];
+                                                            projects[selectedProjectIndex].metrics[mIdx].value = e.target.value;
+                                                            setData({ ...data, projects });
+                                                        }}
+                                                        placeholder="Value (e.g. 100%)"
+                                                        className="w-[calc(100%-1.5rem)] px-2.5 py-1 rounded-md bg-background border border-border text-xs font-bold text-primary"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        value={met.label || ""}
+                                                        onChange={(e) => {
+                                                            const projects = [...data.projects];
+                                                            projects[selectedProjectIndex].metrics[mIdx].label = e.target.value;
+                                                            setData({ ...data, projects });
+                                                        }}
+                                                        placeholder="Label"
+                                                        className="w-full px-2.5 py-1 rounded-md bg-background border border-border text-[11px] text-muted-foreground"
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* IMAGES & SCREENSHOTS SECTION (UPLOADABLE & DIRECT URL) */}
                                     <div className="pt-6 border-t border-border space-y-4">
                                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                             <div>
@@ -1304,12 +1950,12 @@ export default function AdminDashboardPage() {
                                                     <span>Project Screenshots &amp; Media Gallery</span>
                                                 </h3>
                                                 <p className="text-[11px] text-muted-foreground">
-                                                    Upload new screenshots or change labels and captions for the multi-device slider.
+                                                    Upload new screenshots or add direct image URLs/paths for multi-device showcase.
                                                 </p>
                                             </div>
 
                                             {/* File upload input */}
-                                            <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-primary-foreground font-bold text-xs cursor-pointer hover:opacity-90 transition-opacity">
+                                            <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-primary-foreground font-bold text-xs cursor-pointer hover:opacity-90 transition-opacity shrink-0">
                                                 <Upload size={14} />
                                                 <span>
                                                     {uploadingFor === `project-${selectedProjectIndex}`
@@ -1323,6 +1969,49 @@ export default function AdminDashboardPage() {
                                                     onChange={(e) => handleImageUpload(e, selectedProjectIndex)}
                                                 />
                                             </label>
+                                        </div>
+
+                                        {/* Direct Image URL input */}
+                                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-3 rounded-xl bg-muted/20 border border-border/80">
+                                            <input
+                                                type="text"
+                                                value={manualImageUrl}
+                                                onChange={(e) => setManualImageUrl(e.target.value)}
+                                                placeholder="Or paste image URL / local path (e.g. /projects/imranh.jpg or https://...)"
+                                                className="flex-1 px-3 py-1.5 rounded-lg bg-background border border-border text-xs"
+                                            />
+                                            <input
+                                                type="text"
+                                                value={manualImageLabel}
+                                                onChange={(e) => setManualImageLabel(e.target.value)}
+                                                placeholder="Label (e.g. Homepage)"
+                                                className="sm:w-36 px-3 py-1.5 rounded-lg bg-background border border-border text-xs"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    if (!manualImageUrl.trim()) {
+                                                        toast.error("Please enter a valid image URL or path.");
+                                                        return;
+                                                    }
+                                                    const projects = [...data.projects];
+                                                    const imgs = projects[selectedProjectIndex].images || [];
+                                                    projects[selectedProjectIndex].images = [
+                                                        ...imgs,
+                                                        {
+                                                            src: manualImageUrl.trim(),
+                                                            label: manualImageLabel.trim() || "Screenshot",
+                                                            caption: "Project showcase screenshot",
+                                                        },
+                                                    ];
+                                                    setData({ ...data, projects });
+                                                    setManualImageUrl("");
+                                                    setManualImageLabel("");
+                                                    toast.success("Image URL added to project gallery!");
+                                                }}
+                                                className="px-3.5 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-bold text-xs transition-colors shrink-0 cursor-pointer">
+                                                Add Image URL
+                                            </button>
                                         </div>
 
                                         {/* Image List */}
@@ -1653,6 +2342,108 @@ export default function AdminDashboardPage() {
                                 </div>
                             </div>
 
+                            {/* Research Pillars / Objectives (Add/Delete/Edit) */}
+                            <div className="space-y-4 pt-4 border-t border-border/60">
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                                            Research Pillars &amp; Core Model Objectives
+                                        </h3>
+                                        <p className="text-[11px] text-muted-foreground">
+                                            Manage your deep learning research streams (e.g. Segmentation, Hybrid-ViT, Explainable AI).
+                                        </p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewResearchPillar}
+                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors cursor-pointer">
+                                        <Plus size={14} /> Add Research Pillar
+                                    </button>
+                                </div>
+
+                                <div className="space-y-4">
+                                    {(data.research?.pillars || []).map((pillar: any, pIdx: number) => (
+                                        <div key={pIdx} className="p-4 rounded-2xl bg-muted/30 border border-border space-y-3 relative group">
+                                            <div className="flex items-center justify-between pb-2 border-b border-border/60">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-xs font-mono font-bold text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded">
+                                                        Pillar #{pIdx + 1}
+                                                    </span>
+                                                    <span className="text-xs font-bold text-foreground truncate max-w-xs">
+                                                        {pillar.title || "Untitled Pillar"}
+                                                    </span>
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleDeleteResearchPillar(pIdx)}
+                                                    className="text-xs text-destructive hover:underline flex items-center gap-1 cursor-pointer">
+                                                    <Trash2 size={13} />
+                                                    <span>Delete</span>
+                                                </button>
+                                            </div>
+
+                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                <div className="space-y-1 sm:col-span-2">
+                                                    <label className="text-[11px] font-bold text-muted-foreground">Pillar Title</label>
+                                                    <input
+                                                        type="text"
+                                                        value={pillar.title || ""}
+                                                        onChange={(e) => {
+                                                            const pillars = [...data.research.pillars];
+                                                            pillars[pIdx].title = e.target.value;
+                                                            setData({ ...data, research: { ...data.research, pillars } });
+                                                        }}
+                                                        className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-bold"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[11px] font-bold text-muted-foreground">Tag / Category</label>
+                                                    <input
+                                                        type="text"
+                                                        value={pillar.tag || ""}
+                                                        onChange={(e) => {
+                                                            const pillars = [...data.research.pillars];
+                                                            pillars[pIdx].tag = e.target.value;
+                                                            setData({ ...data, research: { ...data.research, pillars } });
+                                                        }}
+                                                        placeholder="e.g. Model Architecture"
+                                                        className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1 sm:col-span-3">
+                                                    <label className="text-[11px] font-bold text-muted-foreground">Key Highlight Badge</label>
+                                                    <input
+                                                        type="text"
+                                                        value={pillar.highlight || ""}
+                                                        onChange={(e) => {
+                                                            const pillars = [...data.research.pillars];
+                                                            pillars[pIdx].highlight = e.target.value;
+                                                            setData({ ...data, research: { ...data.research, pillars } });
+                                                        }}
+                                                        placeholder="e.g. 3,064+ MRI Benchmark / Dual-Path Feature Fusion"
+                                                        className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-semibold text-primary"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-1">
+                                                <label className="text-[11px] font-bold text-muted-foreground">Description</label>
+                                                <textarea
+                                                    rows={2}
+                                                    value={pillar.desc || ""}
+                                                    onChange={(e) => {
+                                                        const pillars = [...data.research.pillars];
+                                                        pillars[pIdx].desc = e.target.value;
+                                                        setData({ ...data, research: { ...data.research, pillars } });
+                                                    }}
+                                                    className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs resize-none"
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
                             {/* Diagnostic Benchmark Metrics */}
                             <div className="space-y-4 pt-4 border-t border-border/60">
                                 <div className="flex items-center justify-between">
@@ -1862,68 +2653,215 @@ export default function AdminDashboardPage() {
                     {/* 5. EXPERIENCE & LEADERSHIP TAB */}
                     {activeTab === "experience" && (
                         <div className="p-6 sm:p-8 rounded-3xl bg-card border border-border space-y-6 animate-in fade-in duration-300">
-                            <div>
-                                <h2 className="text-xl font-bold">Leadership &amp; Professional Experience</h2>
-                                <p className="text-xs text-muted-foreground mt-0.5">
-                                    Manage corporate leadership positions, mentorship, and accomplishments.
-                                </p>
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/60 pb-5">
+                                <div>
+                                    <h2 className="text-xl font-bold">Leadership &amp; Professional Experience</h2>
+                                    <p className="text-xs text-muted-foreground mt-0.5">
+                                        Manage corporate leadership positions, ventures, accomplishments, and tech stacks.
+                                    </p>
+                                </div>
+                                <Button
+                                    type="button"
+                                    onClick={handleAddNewExperience}
+                                    size="sm"
+                                    className="rounded-xl font-bold gap-1.5 shadow-sm">
+                                    <Plus size={15} />
+                                    <span>Add New Role</span>
+                                </Button>
                             </div>
 
                             <div className="space-y-6">
                                 {data.experience?.map((exp: any, eIdx: number) => (
-                                    <div key={eIdx} className="p-5 rounded-2xl bg-muted/30 border border-border space-y-4">
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                            <div className="space-y-1">
-                                                <label className="text-xs font-bold text-muted-foreground">Company</label>
+                                    <div key={eIdx} className="p-6 rounded-2xl bg-muted/30 border border-border space-y-5 relative">
+                                        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-border/60">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-xs font-mono font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20">
+                                                    Position #{eIdx + 1}
+                                                </span>
+                                                <span className="text-sm font-bold text-foreground">
+                                                    {exp.role || "Untitled Role"} • {exp.company || "Company"}
+                                                </span>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleDeleteExperience(eIdx)}
+                                                className="px-3 py-1 rounded-lg text-xs font-semibold text-destructive hover:bg-destructive/10 border border-destructive/20 transition-colors flex items-center gap-1 cursor-pointer">
+                                                <Trash2 size={13} />
+                                                <span>Delete Role</span>
+                                            </button>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div className="space-y-1.5">
+                                                <label className="text-xs font-bold text-muted-foreground">Company / Organization</label>
                                                 <input
                                                     type="text"
-                                                    value={exp.company}
+                                                    value={exp.company || ""}
                                                     onChange={(e) => {
                                                         const newExp = [...data.experience];
                                                         newExp[eIdx].company = e.target.value;
                                                         setData({ ...data, experience: newExp });
                                                     }}
-                                                    className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm font-bold"
+                                                    className="w-full px-3.5 py-2 rounded-xl bg-background border border-border text-sm font-bold"
                                                 />
                                             </div>
-                                            <div className="space-y-1">
+                                            <div className="space-y-1.5">
                                                 <label className="text-xs font-bold text-muted-foreground">Role Title</label>
                                                 <input
                                                     type="text"
-                                                    value={exp.role}
+                                                    value={exp.role || ""}
                                                     onChange={(e) => {
                                                         const newExp = [...data.experience];
                                                         newExp[eIdx].role = e.target.value;
                                                         setData({ ...data, experience: newExp });
                                                     }}
-                                                    className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm"
+                                                    className="w-full px-3.5 py-2 rounded-xl bg-background border border-border text-sm"
                                                 />
                                             </div>
-                                            <div className="space-y-1">
-                                                <label className="text-xs font-bold text-muted-foreground">Duration</label>
+                                            <div className="space-y-1.5">
+                                                <label className="text-xs font-bold text-muted-foreground">Duration (e.g. March, 2026 — Present)</label>
                                                 <input
                                                     type="text"
-                                                    value={exp.duration}
+                                                    value={exp.duration || ""}
                                                     onChange={(e) => {
                                                         const newExp = [...data.experience];
                                                         newExp[eIdx].duration = e.target.value;
                                                         setData({ ...data, experience: newExp });
                                                     }}
-                                                    className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm"
+                                                    className="w-full px-3.5 py-2 rounded-xl bg-background border border-border text-sm"
                                                 />
                                             </div>
-                                            <div className="space-y-1">
+                                            <div className="space-y-1.5">
                                                 <label className="text-xs font-bold text-muted-foreground">Location</label>
                                                 <input
                                                     type="text"
-                                                    value={exp.location}
+                                                    value={exp.location || ""}
                                                     onChange={(e) => {
                                                         const newExp = [...data.experience];
                                                         newExp[eIdx].location = e.target.value;
                                                         setData({ ...data, experience: newExp });
                                                     }}
-                                                    className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm"
+                                                    className="w-full px-3.5 py-2 rounded-xl bg-background border border-border text-sm"
                                                 />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <label className="text-xs font-bold text-muted-foreground">Domain / Stack Headline</label>
+                                                <input
+                                                    type="text"
+                                                    value={exp.stack || ""}
+                                                    onChange={(e) => {
+                                                        const newExp = [...data.experience];
+                                                        newExp[eIdx].stack = e.target.value;
+                                                        setData({ ...data, experience: newExp });
+                                                    }}
+                                                    placeholder="e.g. Venture Leadership & Enterprise Architecture"
+                                                    className="w-full px-3.5 py-2 rounded-xl bg-background border border-border text-xs"
+                                                />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <label className="text-xs font-bold text-muted-foreground">Badge Label</label>
+                                                <input
+                                                    type="text"
+                                                    value={exp.badge || ""}
+                                                    onChange={(e) => {
+                                                        const newExp = [...data.experience];
+                                                        newExp[eIdx].badge = e.target.value;
+                                                        setData({ ...data, experience: newExp });
+                                                    }}
+                                                    placeholder="e.g. Executive Leadership"
+                                                    className="w-full px-3.5 py-2 rounded-xl bg-background border border-border text-xs font-semibold text-primary"
+                                                />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <label className="text-xs font-bold text-muted-foreground">Verification URL (Optional)</label>
+                                                <input
+                                                    type="text"
+                                                    value={exp.link || ""}
+                                                    onChange={(e) => {
+                                                        const newExp = [...data.experience];
+                                                        newExp[eIdx].link = e.target.value;
+                                                        setData({ ...data, experience: newExp });
+                                                    }}
+                                                    placeholder="https://..."
+                                                    className="w-full px-3.5 py-2 rounded-xl bg-background border border-border text-xs font-mono"
+                                                />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <label className="text-xs font-bold text-muted-foreground">Link Display Text</label>
+                                                <input
+                                                    type="text"
+                                                    value={exp.linkLabel || ""}
+                                                    onChange={(e) => {
+                                                        const newExp = [...data.experience];
+                                                        newExp[eIdx].linkLabel = e.target.value;
+                                                        setData({ ...data, experience: newExp });
+                                                    }}
+                                                    placeholder="e.g. Flagship Production: devojyotidutta.com"
+                                                    className="w-full px-3.5 py-2 rounded-xl bg-background border border-border text-xs"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Tech Stack */}
+                                        <div className="space-y-1.5 pt-2 border-t border-border/40">
+                                            <label className="text-xs font-bold text-muted-foreground">Tech Stack (Comma-separated)</label>
+                                            <input
+                                                type="text"
+                                                value={exp.tech?.join(", ") || ""}
+                                                onChange={(e) => {
+                                                    const newExp = [...data.experience];
+                                                    newExp[eIdx].tech = e.target.value.split(",").map((s) => s.trim()).filter(Boolean);
+                                                    setData({ ...data, experience: newExp });
+                                                }}
+                                                placeholder="Next.js 15, TypeScript, System Architecture, Cloud Infrastructure"
+                                                className="w-full px-3.5 py-2 rounded-xl bg-background border border-border text-xs font-mono"
+                                            />
+                                        </div>
+
+                                        {/* Key Accomplishments (Bullet points) */}
+                                        <div className="space-y-2 pt-2 border-t border-border/40">
+                                            <div className="flex items-center justify-between">
+                                                <label className="text-xs font-bold text-muted-foreground">Key Accomplishments &amp; Leadership Impacts</label>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const newExp = [...data.experience];
+                                                        const desc = newExp[eIdx].description || [];
+                                                        newExp[eIdx].description = [...desc, "New key accomplishment or deliverable."];
+                                                        setData({ ...data, experience: newExp });
+                                                    }}
+                                                    className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                                                    <Plus size={12} />
+                                                    <span>Add Accomplishment</span>
+                                                </button>
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                {(exp.description || []).map((bullet: string, bIdx: number) => (
+                                                    <div key={bIdx} className="flex items-center gap-2">
+                                                        <span className="text-xs text-primary font-mono font-bold">•</span>
+                                                        <input
+                                                            type="text"
+                                                            value={bullet}
+                                                            onChange={(e) => {
+                                                                const newExp = [...data.experience];
+                                                                newExp[eIdx].description[bIdx] = e.target.value;
+                                                                setData({ ...data, experience: newExp });
+                                                            }}
+                                                            className="flex-1 px-3 py-1.5 rounded-lg bg-background border border-border text-xs"
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                const newExp = [...data.experience];
+                                                                newExp[eIdx].description = newExp[eIdx].description.filter((_: any, i: number) => i !== bIdx);
+                                                                setData({ ...data, experience: newExp });
+                                                            }}
+                                                            className="text-muted-foreground hover:text-destructive p-1 rounded-md">
+                                                            <Trash2 size={13} />
+                                                        </button>
+                                                    </div>
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
@@ -1935,42 +2873,111 @@ export default function AdminDashboardPage() {
                     {/* 6. TECHNICAL ARSENAL (SKILLS) */}
                     {activeTab === "skills" && (
                         <div className="p-6 sm:p-8 rounded-3xl bg-card border border-border space-y-6 animate-in fade-in duration-300">
-                            <div>
-                                <h2 className="text-xl font-bold">Technical Arsenal &amp; Capabilities</h2>
-                                <p className="text-xs text-muted-foreground mt-0.5">
-                                    Configure skill domains and technology tags.
-                                </p>
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/60 pb-5">
+                                <div>
+                                    <h2 className="text-xl font-bold">Technical Arsenal &amp; Capabilities</h2>
+                                    <p className="text-xs text-muted-foreground mt-0.5">
+                                        Configure technical skill domains, descriptions, and technology tags.
+                                    </p>
+                                </div>
+                                <Button
+                                    type="button"
+                                    onClick={handleAddNewSkillDomain}
+                                    size="sm"
+                                    className="rounded-xl font-bold gap-1.5 shadow-sm">
+                                    <Plus size={15} />
+                                    <span>Add Skill Domain</span>
+                                </Button>
                             </div>
 
                             <div className="grid grid-cols-1 gap-4">
                                 {data.skills?.map((cat: any, cIdx: number) => (
-                                    <div key={cIdx} className="p-5 rounded-2xl bg-muted/30 border border-border space-y-3">
-                                        <div className="space-y-1">
-                                            <label className="text-xs font-bold text-muted-foreground">Domain Title</label>
-                                            <input
-                                                type="text"
-                                                value={cat.title}
-                                                onChange={(e) => {
-                                                    const newSkills = [...data.skills];
-                                                    newSkills[cIdx].title = e.target.value;
-                                                    setData({ ...data, skills: newSkills });
-                                                }}
-                                                className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm font-bold"
-                                            />
+                                    <div key={cIdx} className="p-5 rounded-2xl bg-muted/30 border border-border space-y-4 relative">
+                                        <div className="flex items-center justify-between pb-2 border-b border-border/60">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-xs font-mono font-bold text-blue-500 bg-blue-500/10 px-2 py-0.5 rounded">
+                                                    Domain #{cIdx + 1}
+                                                </span>
+                                                <span className="text-sm font-bold text-foreground">
+                                                    {cat.title || "Untitled Domain"}
+                                                </span>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleDeleteSkillDomain(cIdx)}
+                                                className="text-xs text-destructive hover:underline flex items-center gap-1 cursor-pointer">
+                                                <Trash2 size={13} />
+                                                <span>Delete Domain</span>
+                                            </button>
                                         </div>
 
-                                        <div className="space-y-1">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div className="space-y-1.5">
+                                                <label className="text-xs font-bold text-muted-foreground">Domain Title</label>
+                                                <input
+                                                    type="text"
+                                                    value={cat.title || ""}
+                                                    onChange={(e) => {
+                                                        const newSkills = [...data.skills];
+                                                        newSkills[cIdx].title = e.target.value;
+                                                        setData({ ...data, skills: newSkills });
+                                                    }}
+                                                    className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm font-bold"
+                                                />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <label className="text-xs font-bold text-muted-foreground">Color Badge Theme</label>
+                                                <select
+                                                    value={cat.color || "text-blue-500 bg-blue-500/10 border-blue-500/20"}
+                                                    onChange={(e) => {
+                                                        const newSkills = [...data.skills];
+                                                        newSkills[cIdx].color = e.target.value;
+                                                        setData({ ...data, skills: newSkills });
+                                                    }}
+                                                    className="w-full px-3 py-2 rounded-xl bg-background border border-border text-xs">
+                                                    <option value="text-blue-500 bg-blue-500/10 border-blue-500/20">Ocean Blue</option>
+                                                    <option value="text-emerald-500 bg-emerald-500/10 border-emerald-500/20">Emerald Green</option>
+                                                    <option value="text-violet-500 bg-violet-500/10 border-violet-500/20">Violet Purple</option>
+                                                    <option value="text-amber-500 bg-amber-500/10 border-amber-500/20">Amber Gold</option>
+                                                    <option value="text-cyan-500 bg-cyan-500/10 border-cyan-500/20">Cyan Teal</option>
+                                                    <option value="text-pink-500 bg-pink-500/10 border-pink-500/20">Rose Pink</option>
+                                                </select>
+                                            </div>
+                                            <div className="space-y-1.5 sm:col-span-2">
+                                                <label className="text-xs font-bold text-muted-foreground">Domain Overview &amp; Architectural Focus</label>
+                                                <input
+                                                    type="text"
+                                                    value={cat.description || ""}
+                                                    onChange={(e) => {
+                                                        const newSkills = [...data.skills];
+                                                        newSkills[cIdx].description = e.target.value;
+                                                        setData({ ...data, skills: newSkills });
+                                                    }}
+                                                    placeholder="Designing resilient, high-availability distributed systems and cloud platforms."
+                                                    className="w-full px-3 py-2 rounded-xl bg-background border border-border text-xs"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-2 pt-2 border-t border-border/40">
                                             <label className="text-xs font-bold text-muted-foreground">Skills (Comma-separated)</label>
                                             <input
                                                 type="text"
-                                                value={cat.skills?.join(", ")}
+                                                value={cat.skills?.join(", ") || ""}
                                                 onChange={(e) => {
                                                     const newSkills = [...data.skills];
                                                     newSkills[cIdx].skills = e.target.value.split(",").map((s) => s.trim()).filter(Boolean);
                                                     setData({ ...data, skills: newSkills });
                                                 }}
-                                                className="w-full px-3 py-2 rounded-xl bg-background border border-border text-xs"
+                                                className="w-full px-3 py-2 rounded-xl bg-background border border-border text-xs font-mono"
                                             />
+                                            <div className="flex flex-wrap gap-1.5">
+                                                {cat.skills?.map((s: string, sIdx: number) => (
+                                                    <span key={sIdx} className="px-2.5 py-0.5 rounded-md bg-muted text-foreground text-[10px] font-semibold border border-border">
+                                                        {s}
+                                                    </span>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
@@ -1980,19 +2987,47 @@ export default function AdminDashboardPage() {
 
                     {/* 7. ABOUT ME & VISION */}
                     {activeTab === "about" && (
-                        <div className="p-6 sm:p-8 rounded-3xl bg-card border border-border space-y-6 animate-in fade-in duration-300">
-                            <div>
-                                <h2 className="text-xl font-bold">Strategic Pillars &amp; Milestones</h2>
+                        <div className="p-6 sm:p-8 rounded-3xl bg-card border border-border space-y-8 animate-in fade-in duration-300">
+                            <div className="border-b border-border/60 pb-5">
+                                <h2 className="text-xl font-bold">Strategic Pillars, Career Milestones &amp; Attributes</h2>
                                 <p className="text-xs text-muted-foreground mt-0.5">
-                                    Edit the 4 executive pillars and career milestones.
+                                    Manage your 4 executive pillars, career trajectory milestones, and leadership traits.
                                 </p>
                             </div>
 
+                            {/* Section 1: Strategic Pillars */}
                             <div className="space-y-4">
-                                <h3 className="text-sm font-bold text-foreground">4 Strategic Pillars</h3>
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Strategic Executive Pillars</h3>
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewStrategicPillar}
+                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                                        <Plus size={14} /> Add Pillar
+                                    </button>
+                                </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {data.about?.pillars?.map((pil: any, pIdx: number) => (
-                                        <div key={pIdx} className="p-4 rounded-xl bg-muted/30 border border-border space-y-2">
+                                        <div key={pIdx} className="p-4 rounded-xl bg-muted/30 border border-border space-y-2 relative group">
+                                            <div className="flex items-center justify-between pb-1">
+                                                <input
+                                                    type="text"
+                                                    value={pil.tag || ""}
+                                                    onChange={(e) => {
+                                                        const newPillars = [...data.about.pillars];
+                                                        newPillars[pIdx].tag = e.target.value;
+                                                        setData({ ...data, about: { ...data.about, pillars: newPillars } });
+                                                    }}
+                                                    placeholder="Pillar Tag"
+                                                    className="w-1/2 px-2 py-0.5 rounded bg-background border border-border text-[10px] font-bold uppercase text-primary"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleDeleteStrategicPillar(pIdx)}
+                                                    className="text-muted-foreground hover:text-destructive p-1 rounded">
+                                                    <Trash2 size={13} />
+                                                </button>
+                                            </div>
                                             <input
                                                 type="text"
                                                 value={pil.title}
@@ -2001,6 +3036,7 @@ export default function AdminDashboardPage() {
                                                     newPillars[pIdx].title = e.target.value;
                                                     setData({ ...data, about: { ...data.about, pillars: newPillars } });
                                                 }}
+                                                placeholder="Pillar Headline"
                                                 className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-bold"
                                             />
                                             <textarea
@@ -2011,6 +3047,153 @@ export default function AdminDashboardPage() {
                                                     newPillars[pIdx].desc = e.target.value;
                                                     setData({ ...data, about: { ...data.about, pillars: newPillars } });
                                                 }}
+                                                placeholder="Pillar Description"
+                                                className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs resize-none"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Section 2: Leadership Trajectory (Timeline) */}
+                            <div className="space-y-4 pt-4 border-t border-border/60">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Leadership Trajectory Milestones</h3>
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewTimelineStep}
+                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                                        <Plus size={14} /> Add Milestone
+                                    </button>
+                                </div>
+                                <div className="space-y-3">
+                                    {(data.about?.timeline || []).map((step: any, sIdx: number) => (
+                                        <div key={sIdx} className="p-4 rounded-xl bg-muted/30 border border-border space-y-2 relative group">
+                                            <div className="flex items-center justify-between pb-1">
+                                                <div className="flex items-center gap-2">
+                                                    <input
+                                                        type="text"
+                                                        value={step.date || ""}
+                                                        onChange={(e) => {
+                                                            const timeline = [...data.about.timeline];
+                                                            timeline[sIdx].date = e.target.value;
+                                                            setData({ ...data, about: { ...data.about, timeline } });
+                                                        }}
+                                                        placeholder="Year (e.g. 2026)"
+                                                        className="w-24 px-2 py-0.5 rounded bg-background border border-border text-xs font-mono font-bold text-primary"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        value={step.badge || ""}
+                                                        onChange={(e) => {
+                                                            const timeline = [...data.about.timeline];
+                                                            timeline[sIdx].badge = e.target.value;
+                                                            setData({ ...data, about: { ...data.about, timeline } });
+                                                        }}
+                                                        placeholder="Badge Label"
+                                                        className="w-36 px-2 py-0.5 rounded bg-background border border-border text-[10px] font-bold uppercase text-muted-foreground"
+                                                    />
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleDeleteTimelineStep(sIdx)}
+                                                    className="text-muted-foreground hover:text-destructive p-1 rounded">
+                                                    <Trash2 size={13} />
+                                                </button>
+                                            </div>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                                <input
+                                                    type="text"
+                                                    value={step.title || ""}
+                                                    onChange={(e) => {
+                                                        const timeline = [...data.about.timeline];
+                                                        timeline[sIdx].title = e.target.value;
+                                                        setData({ ...data, about: { ...data.about, timeline } });
+                                                    }}
+                                                    placeholder="Milestone Title"
+                                                    className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-bold"
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={step.role || ""}
+                                                    onChange={(e) => {
+                                                        const timeline = [...data.about.timeline];
+                                                        timeline[sIdx].role = e.target.value;
+                                                        setData({ ...data, about: { ...data.about, timeline } });
+                                                    }}
+                                                    placeholder="Role Focus"
+                                                    className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-semibold text-primary"
+                                                />
+                                            </div>
+                                            <textarea
+                                                rows={2}
+                                                value={step.desc || ""}
+                                                onChange={(e) => {
+                                                    const timeline = [...data.about.timeline];
+                                                    timeline[sIdx].desc = e.target.value;
+                                                    setData({ ...data, about: { ...data.about, timeline } });
+                                                }}
+                                                placeholder="Milestone details"
+                                                className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs resize-none"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Section 3: Executive Attributes */}
+                            <div className="space-y-4 pt-4 border-t border-border/60">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Executive Attributes &amp; Discipline</h3>
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewExecutiveTrait}
+                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                                        <Plus size={14} /> Add Attribute
+                                    </button>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {(data.about?.traits || []).map((trait: any, trIdx: number) => (
+                                        <div key={trIdx} className="p-4 rounded-xl bg-muted/30 border border-border space-y-2 relative group">
+                                            <div className="flex items-center justify-between pb-1">
+                                                <input
+                                                    type="text"
+                                                    value={trait.info || ""}
+                                                    onChange={(e) => {
+                                                        const traits = [...data.about.traits];
+                                                        traits[trIdx].info = e.target.value;
+                                                        setData({ ...data, about: { ...data.about, traits } });
+                                                    }}
+                                                    placeholder="Subtext Tag"
+                                                    className="w-1/2 px-2 py-0.5 rounded bg-background border border-border text-[10px] font-bold uppercase text-primary"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleDeleteExecutiveTrait(trIdx)}
+                                                    className="text-muted-foreground hover:text-destructive p-1 rounded">
+                                                    <Trash2 size={13} />
+                                                </button>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                value={trait.title || ""}
+                                                onChange={(e) => {
+                                                    const traits = [...data.about.traits];
+                                                    traits[trIdx].title = e.target.value;
+                                                    setData({ ...data, about: { ...data.about, traits } });
+                                                }}
+                                                placeholder="Attribute Title"
+                                                className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-bold"
+                                            />
+                                            <textarea
+                                                rows={2}
+                                                value={trait.desc || ""}
+                                                onChange={(e) => {
+                                                    const traits = [...data.about.traits];
+                                                    traits[trIdx].desc = e.target.value;
+                                                    setData({ ...data, about: { ...data.about, traits } });
+                                                }}
+                                                placeholder="Description"
                                                 className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs resize-none"
                                             />
                                         </div>
@@ -2020,52 +3203,151 @@ export default function AdminDashboardPage() {
                         </div>
                     )}
 
-                    {/* 8. EDUCATION TAB */}
+                    {/* 8. EDUCATION & CERTIFICATIONS TAB */}
                     {activeTab === "education" && (
-                        <div className="p-6 sm:p-8 rounded-3xl bg-card border border-border space-y-6 animate-in fade-in duration-300">
-                            <div>
-                                <h2 className="text-xl font-bold">Academic Degree &amp; Specializations</h2>
-                                <p className="text-xs text-muted-foreground mt-0.5">
-                                    University education, CGPA, and online certifications.
-                                </p>
+                        <div className="p-6 sm:p-8 rounded-3xl bg-card border border-border space-y-8 animate-in fade-in duration-300">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/60 pb-5">
+                                <div>
+                                    <h2 className="text-xl font-bold">Academic Degree &amp; Specializations</h2>
+                                    <p className="text-xs text-muted-foreground mt-0.5">
+                                        University degree, CGPA, and online certifications/specializations.
+                                    </p>
+                                </div>
+                                <Button
+                                    type="button"
+                                    onClick={handleAddNewCourse}
+                                    size="sm"
+                                    className="rounded-xl font-bold gap-1.5 shadow-sm">
+                                    <Plus size={15} />
+                                    <span>Add Certification</span>
+                                </Button>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="space-y-1">
-                                    <label className="text-xs font-bold text-muted-foreground">Degree Title</label>
-                                    <input
-                                        type="text"
-                                        value={data.education?.degree || ""}
-                                        onChange={(e) => setData({ ...data, education: { ...data.education, degree: e.target.value } })}
-                                        className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm"
-                                    />
+                            {/* Section 1: Academic Degree */}
+                            <div className="space-y-4">
+                                <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">University Academic Degree</h3>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-bold text-muted-foreground">Degree Title</label>
+                                        <input
+                                            type="text"
+                                            value={data.education?.degree || ""}
+                                            onChange={(e) => setData({ ...data, education: { ...data.education, degree: e.target.value } })}
+                                            className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm"
+                                        />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-bold text-muted-foreground">University / Institution</label>
+                                        <input
+                                            type="text"
+                                            value={data.education?.institution || ""}
+                                            onChange={(e) => setData({ ...data, education: { ...data.education, institution: e.target.value } })}
+                                            className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm"
+                                        />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-bold text-muted-foreground">CGPA</label>
+                                        <input
+                                            type="text"
+                                            value={data.education?.cgpa || ""}
+                                            onChange={(e) => setData({ ...data, education: { ...data.education, cgpa: e.target.value } })}
+                                            className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm font-bold"
+                                        />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-bold text-muted-foreground">Timeline</label>
+                                        <input
+                                            type="text"
+                                            value={data.education?.timeline || ""}
+                                            onChange={(e) => setData({ ...data, education: { ...data.education, timeline: e.target.value } })}
+                                            className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm"
+                                        />
+                                    </div>
                                 </div>
-                                <div className="space-y-1">
-                                    <label className="text-xs font-bold text-muted-foreground">University / Institution</label>
-                                    <input
-                                        type="text"
-                                        value={data.education?.institution || ""}
-                                        onChange={(e) => setData({ ...data, education: { ...data.education, institution: e.target.value } })}
-                                        className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm"
-                                    />
+                            </div>
+
+                            {/* Section 2: Specializations, Courses & Professional Certifications */}
+                            <div className="space-y-4 pt-4 border-t border-border/60">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Specializations &amp; Certifications</h3>
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewCourse}
+                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                                        <Plus size={14} /> Add Specialization
+                                    </button>
                                 </div>
-                                <div className="space-y-1">
-                                    <label className="text-xs font-bold text-muted-foreground">CGPA</label>
-                                    <input
-                                        type="text"
-                                        value={data.education?.cgpa || ""}
-                                        onChange={(e) => setData({ ...data, education: { ...data.education, cgpa: e.target.value } })}
-                                        className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm font-bold"
-                                    />
-                                </div>
-                                <div className="space-y-1">
-                                    <label className="text-xs font-bold text-muted-foreground">Timeline</label>
-                                    <input
-                                        type="text"
-                                        value={data.education?.timeline || ""}
-                                        onChange={(e) => setData({ ...data, education: { ...data.education, timeline: e.target.value } })}
-                                        className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm"
-                                    />
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {(data.education?.courses || []).map((course: any, cIdx: number) => (
+                                        <div key={cIdx} className="p-4 rounded-xl bg-muted/30 border border-border space-y-3 relative group">
+                                            <div className="flex items-center justify-between pb-1">
+                                                <input
+                                                    type="text"
+                                                    value={course.level || ""}
+                                                    onChange={(e) => {
+                                                        const courses = [...data.education.courses];
+                                                        courses[cIdx].level = e.target.value;
+                                                        setData({ ...data, education: { ...data.education, courses } });
+                                                    }}
+                                                    placeholder="Track / Level"
+                                                    className="w-1/2 px-2 py-0.5 rounded bg-background border border-border text-[10px] font-mono font-bold uppercase text-primary"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleDeleteCourse(cIdx)}
+                                                    className="text-muted-foreground hover:text-destructive p-1 rounded">
+                                                    <Trash2 size={13} />
+                                                </button>
+                                            </div>
+
+                                            <div className="grid grid-cols-1 gap-2">
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-bold text-muted-foreground">Institution / Platform</label>
+                                                    <input
+                                                        type="text"
+                                                        value={course.title || ""}
+                                                        onChange={(e) => {
+                                                            const courses = [...data.education.courses];
+                                                            courses[cIdx].title = e.target.value;
+                                                            setData({ ...data, education: { ...data.education, courses } });
+                                                        }}
+                                                        placeholder="e.g. Programming Hero / DeepLearning.AI"
+                                                        className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-bold"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-bold text-muted-foreground">Credential Badge</label>
+                                                    <input
+                                                        type="text"
+                                                        value={course.badge || ""}
+                                                        onChange={(e) => {
+                                                            const courses = [...data.education.courses];
+                                                            courses[cIdx].badge = e.target.value;
+                                                            setData({ ...data, education: { ...data.education, courses } });
+                                                        }}
+                                                        placeholder="e.g. Next Level Development"
+                                                        className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-semibold text-primary"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-bold text-muted-foreground">Description &amp; Mastery Scope</label>
+                                                <textarea
+                                                    rows={2}
+                                                    value={course.desc || ""}
+                                                    onChange={(e) => {
+                                                        const courses = [...data.education.courses];
+                                                        courses[cIdx].desc = e.target.value;
+                                                        setData({ ...data, education: { ...data.education, courses } });
+                                                    }}
+                                                    placeholder="Description of technologies mastered"
+                                                    className="w-full px-3 py-1.5 rounded-lg bg-background border border-border text-xs resize-none"
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>

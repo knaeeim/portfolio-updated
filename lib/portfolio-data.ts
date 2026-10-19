@@ -49,13 +49,25 @@ export async function getPortfolioData(): Promise<any> {
                         }
                     }
 
+                    const userProjects = cleanDoc?._hasCustomizedProjects && Array.isArray(cleanDoc.projects)
+                        ? cleanDoc.projects
+                        : (mergedProjects.length > 0 ? mergedProjects : (localData?.projects || []));
+
                     const mergedDoc = {
                         ...(localData || {}),
                         ...cleanDoc,
                         general: { ...(localData?.general || {}), ...(cleanDoc?.general || {}) },
                         hero: { ...(localData?.hero || {}), ...(cleanDoc?.hero || {}) },
                         research: { ...(localData?.research || {}), ...(cleanDoc?.research || {}) },
-                        projects: mergedProjects.length > 0 ? mergedProjects : localData?.projects || [],
+                        about: { ...(localData?.about || {}), ...(cleanDoc?.about || {}) },
+                        education: { ...(localData?.education || {}), ...(cleanDoc?.education || {}) },
+                        projects: userProjects,
+                        experience: Array.isArray(cleanDoc?.experience) && cleanDoc.experience.length > 0
+                            ? cleanDoc.experience
+                            : (localData?.experience || []),
+                        skills: Array.isArray(cleanDoc?.skills) && cleanDoc.skills.length > 0
+                            ? cleanDoc.skills
+                            : (localData?.skills || []),
                     };
                     inMemoryCache = mergedDoc;
                     return mergedDoc;
@@ -162,7 +174,7 @@ export async function savePortfolioData(
 }> {
     try {
         // Strip security credentials and temporary client fields
-        const cleanData = { ...data };
+        const cleanData = { ...data, _hasCustomizedProjects: true };
         delete cleanData.security;
         delete cleanData._githubToken;
         delete cleanData._id;

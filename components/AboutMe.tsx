@@ -123,6 +123,10 @@ interface AboutMeProps {
     data?: any;
 }
 
+const defaultPillarIcons = [Cpu, Users, Target, TrendingUp, Lightbulb, Compass, ShieldCheck];
+const defaultTimelineIcons = [Terminal, Layers3, Users, Briefcase, Zap, Trophy];
+const defaultTraitIcons = [Trophy, ShieldCheck, Lightbulb, Heart, Target, Compass];
+
 const AboutMe = ({ data }: AboutMeProps) => {
     useEffect(() => {
         AOS.init({
@@ -132,6 +136,10 @@ const AboutMe = ({ data }: AboutMeProps) => {
             offset: 80,
         });
     }, []);
+
+    const pillars = data?.about?.pillars && data.about.pillars.length > 0 ? data.about.pillars : strategicPillars;
+    const timeline = data?.about?.timeline && data.about.timeline.length > 0 ? data.about.timeline : leadershipTimeline;
+    const traits = data?.about?.traits && data.about.traits.length > 0 ? data.about.traits : executiveTraits;
 
     return (
         <section id="about" className="py-8 sm:py-12 md:py-16 bg-background relative overflow-hidden">
@@ -155,31 +163,38 @@ const AboutMe = ({ data }: AboutMeProps) => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                        {strategicPillars.map((pillar, idx) => (
-                            <div
-                                key={idx}
-                                className="group p-5 sm:p-6 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl hover:bg-card hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between"
-                                data-aos="fade-up"
-                                data-aos-delay={idx * 100}>
-                                <div className="space-y-4">
-                                    <div className="flex items-center justify-between">
-                                        <div
-                                            className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${pillar.color} group-hover:scale-110 transition-transform`}>
-                                            <pillar.icon size={22} />
+                        {pillars.map((pillar: any, idx: number) => {
+                            const IconComponent = typeof pillar.icon === "function" || typeof pillar.icon === "object"
+                                ? pillar.icon
+                                : defaultPillarIcons[idx % defaultPillarIcons.length];
+                            const colorClass = pillar.color || "text-primary bg-primary/10 border-primary/20";
+
+                            return (
+                                <div
+                                    key={idx}
+                                    className="group p-5 sm:p-6 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl hover:bg-card hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between"
+                                    data-aos="fade-up"
+                                    data-aos-delay={idx * 100}>
+                                    <div className="space-y-4">
+                                        <div className="flex items-center justify-between">
+                                            <div
+                                                className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${colorClass} group-hover:scale-110 transition-transform`}>
+                                                <IconComponent size={22} />
+                                            </div>
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-full border border-border">
+                                                {pillar.tag || "Core Pillar"}
+                                            </span>
                                         </div>
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-full border border-border">
-                                            {pillar.tag}
-                                        </span>
+                                        <h3 className="text-lg font-bold text-foreground tracking-tight leading-snug">
+                                            {pillar.title}
+                                        </h3>
+                                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                                            {pillar.desc}
+                                        </p>
                                     </div>
-                                    <h3 className="text-lg font-bold text-foreground tracking-tight leading-snug">
-                                        {pillar.title}
-                                    </h3>
-                                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                                        {pillar.desc}
-                                    </p>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -199,42 +214,48 @@ const AboutMe = ({ data }: AboutMeProps) => {
                     </div>
 
                     <div className="relative space-y-6 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
-                        {leadershipTimeline.map((step, index) => (
-                            <div
-                                key={index}
-                                className="sm:relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
-                                data-aos="fade-up"
-                                data-aos-delay={index * 120}>
-                                {/* Node dot */}
-                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-border bg-background group-hover:border-primary group-hover:scale-110 transition-all duration-300 absolute left-0 md:left-1/2 md:-translate-x-1/2 z-10 shadow-md">
-                                    <step.icon
-                                        size={16}
-                                        className="text-muted-foreground group-hover:text-primary transition-colors"
-                                    />
-                                </div>
+                        {timeline.map((step: any, index: number) => {
+                            const IconComponent = typeof step.icon === "function" || typeof step.icon === "object"
+                                ? step.icon
+                                : defaultTimelineIcons[index % defaultTimelineIcons.length];
 
-                                {/* Content Card */}
-                                <div className="w-[calc(100%-3.5rem)] ml-12 md:ml-0 md:w-[45%] p-4 sm:p-6 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-300">
-                                    <div className="flex items-center justify-between gap-2 mb-2">
-                                        <span className="text-xs font-mono font-bold text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
-                                            {step.date}
-                                        </span>
-                                        <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">
-                                            {step.badge}
-                                        </span>
+                            return (
+                                <div
+                                    key={index}
+                                    className="sm:relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
+                                    data-aos="fade-up"
+                                    data-aos-delay={index * 120}>
+                                    {/* Node dot */}
+                                    <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-border bg-background group-hover:border-primary group-hover:scale-110 transition-all duration-300 absolute left-0 md:left-1/2 md:-translate-x-1/2 z-10 shadow-md">
+                                        <IconComponent
+                                            size={16}
+                                            className="text-muted-foreground group-hover:text-primary transition-colors"
+                                        />
                                     </div>
-                                    <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight">
-                                        {step.title}
-                                    </h3>
-                                    <div className="text-xs font-semibold text-primary mt-1">
-                                        {step.role}
+
+                                    {/* Content Card */}
+                                    <div className="w-[calc(100%-3.5rem)] ml-12 md:ml-0 md:w-[45%] p-4 sm:p-6 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-300">
+                                        <div className="flex items-center justify-between gap-2 mb-2">
+                                            <span className="text-xs font-mono font-bold text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                                                {step.date}
+                                            </span>
+                                            <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">
+                                                {step.badge}
+                                            </span>
+                                        </div>
+                                        <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight">
+                                            {step.title}
+                                        </h3>
+                                        <div className="text-xs font-semibold text-primary mt-1">
+                                            {step.role}
+                                        </div>
+                                        <p className="text-muted-foreground mt-2 text-xs sm:text-sm leading-relaxed">
+                                            {step.desc}
+                                        </p>
                                     </div>
-                                    <p className="text-muted-foreground mt-2 text-xs sm:text-sm leading-relaxed">
-                                        {step.desc}
-                                    </p>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -254,27 +275,34 @@ const AboutMe = ({ data }: AboutMeProps) => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                        {executiveTraits.map((trait, index) => (
-                            <div
-                                key={index}
-                                className="p-5 sm:p-6 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl hover:bg-card hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl group"
-                                data-aos="fade-up"
-                                data-aos-delay={index * 100}>
+                        {traits.map((trait: any, index: number) => {
+                            const IconComponent = typeof trait.icon === "function" || typeof trait.icon === "object"
+                                ? trait.icon
+                                : defaultTraitIcons[index % defaultTraitIcons.length];
+                            const colorClass = trait.color || "bg-primary/10 text-primary";
+
+                            return (
                                 <div
-                                    className={`inline-flex p-3 rounded-2xl mb-5 ${trait.color} group-hover:scale-110 transition-transform duration-300`}>
-                                    <trait.icon size={22} />
+                                    key={index}
+                                    className="p-5 sm:p-6 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl hover:bg-card hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl group"
+                                    data-aos="fade-up"
+                                    data-aos-delay={index * 100}>
+                                    <div
+                                        className={`inline-flex p-3 rounded-2xl mb-5 ${colorClass} group-hover:scale-110 transition-transform duration-300`}>
+                                        <IconComponent size={22} />
+                                    </div>
+                                    <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-1">
+                                        {trait.info}
+                                    </div>
+                                    <h3 className="text-lg font-bold text-foreground mb-2">
+                                        {trait.title}
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                                        {trait.desc}
+                                    </p>
                                 </div>
-                                <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-1">
-                                    {trait.info}
-                                </div>
-                                <h3 className="text-lg font-bold text-foreground mb-2">
-                                    {trait.title}
-                                </h3>
-                                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                                    {trait.desc}
-                                </p>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </div>
