@@ -71,7 +71,7 @@ export const ResearchSection = ({ data }: ResearchProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
                     <span className="text-neutral-900 dark:text-white font-semibold">05. AI &amp; COMPUTER VISION</span>
@@ -99,7 +99,7 @@ export const ResearchSection = ({ data }: ResearchProps) => {
             </motion.div>
 
             {/* Main Stage */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 z-20 relative space-y-10">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-8 lg:py-12 z-20 relative space-y-10">
                 
                 {/* Header */}
                 <motion.div
@@ -112,7 +112,7 @@ export const ResearchSection = ({ data }: ResearchProps) => {
                         <span className="font-light text-neutral-500 dark:text-neutral-400 text-xs sm:text-sm tracking-wide block uppercase font-mono">
                             // MEDICAL COMPUTER VISION INITIATIVE
                         </span>
-                        <h2 className="editorial-display text-4xl sm:text-6xl text-neutral-900 dark:text-white">
+                        <h2 className="editorial-display text-3xl sm:text-5xl lg:text-6xl text-neutral-900 dark:text-white">
                             BRAIN TUMOR <span className="text-[#E64A11]">SEGMENTATION</span>
                         </h2>
                         <p className="font-light text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm">
@@ -131,7 +131,7 @@ export const ResearchSection = ({ data }: ResearchProps) => {
                 </motion.div>
 
                 {/* 4 Quantitative Benchmark Metrics */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 font-mono text-xs">
                     {(research.metrics || defaultResearch.metrics).map((item: any, idx: number) => (
                         <motion.div
                             key={idx}
@@ -140,9 +140,9 @@ export const ResearchSection = ({ data }: ResearchProps) => {
                             viewport={{ once: true, amount: 0.2 }}
                             transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
                             whileHover={{ y: -4 }}
-                            className="p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E]/90 shadow-sm dark:shadow-none space-y-1 transition-all">
+                            className="p-3.5 sm:p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E]/90 shadow-sm dark:shadow-none space-y-1 transition-all">
                             <div className="text-[10px] text-neutral-500 dark:text-neutral-400 font-bold">{item.label}</div>
-                            <div className="editorial-display text-3xl sm:text-4xl text-[#E64A11] pt-1">
+                            <div className="editorial-display text-2xl sm:text-4xl text-[#E64A11] pt-1">
                                 {item.value}
                             </div>
                             <div className="text-[10px] text-neutral-500 font-light">{item.subtext}</div>
@@ -151,7 +151,7 @@ export const ResearchSection = ({ data }: ResearchProps) => {
                 </div>
 
                 {/* 4 Pipeline Phases Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 font-mono text-xs">
                     {(research.architecturePhases || defaultResearch.architecturePhases).map(
                         (phase: any, idx: number) => (
                             <motion.div
@@ -161,7 +161,7 @@ export const ResearchSection = ({ data }: ResearchProps) => {
                                 viewport={{ once: true, amount: 0.15 }}
                                 transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
                                 whileHover={{ y: -4 }}
-                                className="p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60 shadow-sm dark:shadow-none space-y-2 hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-all">
+                                className="p-4 sm:p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60 shadow-sm dark:shadow-none space-y-2 hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-all">
                                 <span className="text-[#E64A11] font-bold text-[10px] block">
                                     {phase.phase}
                                 </span>

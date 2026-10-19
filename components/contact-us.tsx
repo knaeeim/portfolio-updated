@@ -108,7 +108,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11] animate-pulse" />
                     <span className="text-neutral-900 dark:text-white font-semibold">05. TRANSMISSION</span>
@@ -136,7 +136,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
             </motion.div>
 
             {/* Main Stage: Centered Burnt Orange Geometric Poster */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-10 z-20 relative space-y-12">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-10 z-20 relative space-y-12">
                 
                 {/* Central CTA Poster Block */}
                 <motion.div
@@ -144,7 +144,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.15 }}
                     transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative rounded-sm burnt-stripes p-8 sm:p-14 lg:p-20 shadow-2xl border border-[#E64A11]/60 space-y-8 overflow-hidden">
+                    className="relative rounded-sm burnt-stripes p-5 sm:p-12 lg:p-20 shadow-2xl border border-[#E64A11]/60 space-y-8 overflow-hidden">
                     
                     <div className="space-y-4 max-w-4xl">
                         <span className="font-light text-neutral-200 text-sm sm:text-base tracking-wide block uppercase font-mono">
@@ -152,14 +152,14 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                         </span>
 
                         <div className="space-y-1 sm:space-y-2">
-                            <div className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] text-white">
+                            <div className="editorial-display text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] text-white">
                                 YOUR NEXT
                             </div>
-                            <div className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] text-black">
+                            <div className="editorial-display text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] text-black">
                                 FLAGSHIP
                             </div>
                             <div className="flex items-center gap-4 flex-wrap">
-                                <div className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] text-white">
+                                <div className="editorial-display text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] text-white">
                                     PROJECT
                                 </div>
                                 <CircularChevronBtn
@@ -241,7 +241,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 20 }}
                             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                            className="rounded-sm border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E] shadow-xl dark:shadow-2xl p-6 sm:p-8 space-y-6">
+                            className="rounded-sm border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E] shadow-xl dark:shadow-2xl p-4 sm:p-8 space-y-6">
                             
                             <div className="flex items-center justify-between border-b border-neutral-200 dark:border-white/5 pb-3 font-mono text-xs">
                                 <span className="text-[#E64A11] font-bold uppercase tracking-wider">
@@ -326,7 +326,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
 
                 {/* Profiles & External Links Bar */}
                 <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-neutral-200 dark:border-white/5 font-mono text-xs">
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                         <span className="text-neutral-500 text-[10px] uppercase">PROFILES:</span>
                         <a
                             href={linkedin}
@@ -367,7 +367,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-t poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-t poster-perimeter-border">
                 <div>© {new Date().getFullYear()} KHAIRUL BASHAR NAEEIM</div>
                 <div>DHAKA // UTC+6</div>
                 <div className="text-neutral-700 dark:text-neutral-400 font-semibold">@NAEEIM_DEV</div>

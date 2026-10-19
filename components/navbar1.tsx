@@ -143,12 +143,12 @@ export const Navbar1 = ({
                     </nav>
 
                     {/* CELL 3: Command Trigger (⌘K) & Telemetry (3 Columns) */}
-                    <div className="col-span-6 lg:col-span-3 px-3 sm:px-4 py-2.5 sm:py-3 border-l border-border flex items-center justify-end gap-2.5">
+                    <div className="col-span-6 lg:col-span-3 px-2 xs:px-4 py-2.5 sm:py-3 border-l border-border flex items-center justify-end gap-1.5 xs:gap-2.5">
                         {/* Mechanical Keycap ⌘K Trigger */}
                         <button
                             type="button"
                             onClick={() => setIsCommandOpen(true)}
-                            className="keycap-btn inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-card border border-border text-[11px] text-muted-foreground hover:text-foreground transition-all cursor-pointer"
+                            className="keycap-btn inline-flex items-center gap-1 xs:gap-1.5 px-2 xs:px-2.5 py-1 rounded bg-card border border-border text-[10px] xs:text-[11px] text-muted-foreground hover:text-foreground transition-all cursor-pointer"
                             title="Open Command Palette (⌘K)">
                             <Command size={11} className="text-[#E64A11]" />
                             <span className="font-mono text-[10px] font-bold">⌘K</span>
@@ -176,7 +176,7 @@ export const Navbar1 = ({
                                         <Menu size={16} />
                                     </button>
                                 </SheetTrigger>
-                                <SheetContent side="right" className="w-80 bg-background border-l border-border p-6 font-mono">
+                                <SheetContent side="right" className="w-[280px] xs:w-80 max-w-[90vw] bg-background border-l border-border p-4 xs:p-6 font-mono">
                                     <SheetHeader className="text-left mb-6 pb-4 border-b border-border">
                                         <SheetTitle className="text-sm font-bold tracking-tight text-foreground flex items-center justify-between">
                                             <span>THE BLUEPRINT INDEX</span>

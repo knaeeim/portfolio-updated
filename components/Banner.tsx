@@ -37,7 +37,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                 initial={{ opacity: 0, y: -15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 sm:pt-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-300 z-10 border-b poster-perimeter-border pb-4">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pt-6 sm:pt-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-300 z-10 border-b poster-perimeter-border pb-4">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11] animate-pulse" />
                     <span className="text-neutral-900 dark:text-white font-semibold">ARCHITECTURE</span>
@@ -55,7 +55,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
             </motion.div>
 
             {/* Main Stage: Layered Z-Index Depth Poster */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 flex-1 flex items-center relative">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-8 lg:py-12 flex-1 flex items-center relative">
                 
                 {/* ======================================================== */}
                 {/* LAYER 0 (z-0): Giant Background Watermark Text           */}
@@ -85,7 +85,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                     {/* ======================================================== */}
                     {/* LAYER 1 (z-10): Burnt Orange Solid Geometric Block       */}
                     {/* ======================================================== */}
-                    <div className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[500px] h-[310px] xs:h-[330px] sm:h-[400px] lg:h-[470px] xl:h-[500px] flex-shrink-0">
+                    <div className="relative w-full max-w-[280px] xs:max-w-[340px] sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[500px] h-[280px] xs:h-[330px] sm:h-[400px] lg:h-[470px] xl:h-[500px] flex-shrink-0">
                         
                         <motion.div
                             style={l1}
@@ -126,7 +126,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                 delay: 0.25,
                                 ease: [0.22, 1, 0.36, 1],
                             }}
-                            className="absolute -right-4 xs:-right-6 sm:-right-14 md:-right-20 lg:-right-24 xl:-right-28 bottom-0 w-[350px] xs:w-[380px] sm:w-[440px] md:w-[480px] lg:w-[500px] xl:w-[550px] h-[420px] xs:h-[455px] sm:h-[520px] md:h-[580px] lg:h-[620px] xl:h-[670px] z-20 pointer-events-none">
+                            className="absolute -right-3 xs:-right-6 sm:-right-14 md:-right-20 lg:-right-24 xl:-right-28 bottom-0 w-[310px] xs:w-[380px] sm:w-[440px] md:w-[480px] lg:w-[500px] xl:w-[550px] h-[370px] xs:h-[455px] sm:h-[520px] md:h-[580px] lg:h-[620px] xl:h-[670px] z-20 pointer-events-none">
                             <div className="relative w-full h-full filter contrast-110 drop-shadow-[0_25px_50px_rgba(0,0,0,0.95)]">
                                 <Image
                                     src={profileImage}
@@ -146,7 +146,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                     {/* ======================================================== */}
                     <motion.div
                         style={l3}
-                        className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-none lg:w-auto mt-8 lg:mt-0 lg:-ml-20 xl:-ml-28 z-30 space-y-6 text-left">
+                        className="w-full max-w-[280px] xs:max-w-[340px] sm:max-w-[440px] md:max-w-[560px] lg:max-w-none lg:w-auto mt-8 lg:mt-0 lg:-ml-20 xl:-ml-28 z-30 space-y-6 text-left">
                         
                         {/* 3-Row Stacked Ultra-Heavy Typography with masked kinetic reveal */}
                         <div className="space-y-1 sm:space-y-2 text-left">
@@ -155,7 +155,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                     initial={{ y: "110%", opacity: 0 }}
                                     animate={{ y: "0%", opacity: 1 }}
                                     transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                                    className="editorial-display text-[2.6rem] sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-neutral-900 dark:text-white">
+                                    className="editorial-display text-[2.1rem] xs:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[6.2rem] xl:text-[7.5rem] text-neutral-900 dark:text-white">
                                     NAEEIM
                                 </motion.h1>
                             </div>
@@ -164,7 +164,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                     initial={{ y: "110%", opacity: 0 }}
                                     animate={{ y: "0%", opacity: 1 }}
                                     transition={{ duration: 0.75, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                    className="editorial-display text-[2.6rem] sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-neutral-900 dark:text-white">
+                                    className="editorial-display text-[2.1rem] xs:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[6.2rem] xl:text-[7.5rem] text-neutral-900 dark:text-white">
                                     SOFTWARE
                                 </motion.div>
                             </div>
@@ -173,7 +173,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                     initial={{ y: "110%", opacity: 0 }}
                                     animate={{ y: "0%", opacity: 1 }}
                                     transition={{ duration: 0.75, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                    className="editorial-display text-[2.6rem] sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-[#E64A11]">
+                                    className="editorial-display text-[2.1rem] xs:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[6.2rem] xl:text-[7.5rem] text-[#E64A11]">
                                     ARCHITECT
                                 </motion.div>
                                 <motion.div
@@ -196,17 +196,17 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                 Shipping mission-critical web applications, clinical zero-queue portals, and high-uptime platforms.
                             </p>
 
-                            <div className="flex flex-wrap items-center gap-3 pt-1 font-mono text-xs">
+                            <div className="flex flex-wrap items-center gap-2 xs:gap-3 pt-1 font-mono text-xs">
                                 <a
                                     href="#projects"
-                                    className="px-4 py-2 bg-neutral-900 text-white dark:bg-white dark:text-black font-bold uppercase tracking-wider rounded hover:bg-[#E64A11] dark:hover:bg-[#E64A11] hover:text-white transition-colors inline-flex items-center gap-2">
+                                    className="px-3 xs:px-4 py-2 bg-neutral-900 text-white dark:bg-white dark:text-black font-bold uppercase tracking-wider rounded hover:bg-[#E64A11] dark:hover:bg-[#E64A11] hover:text-white transition-colors inline-flex items-center gap-1.5 xs:gap-2 text-[11px] xs:text-xs">
                                     <span>EXPLORE DOSSIERS</span>
                                     <ArrowUpRight size={13} />
                                 </a>
                                 <a
                                     href="/resume.pdf"
                                     download
-                                    className="px-4 py-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900/60 text-neutral-800 dark:text-neutral-200 font-semibold uppercase tracking-wider rounded hover:border-neutral-900 dark:hover:border-white transition-colors inline-flex items-center gap-2">
+                                    className="px-3 xs:px-4 py-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900/60 text-neutral-800 dark:text-neutral-200 font-semibold uppercase tracking-wider rounded hover:border-neutral-900 dark:hover:border-white transition-colors inline-flex items-center gap-1.5 xs:gap-2 text-[11px] xs:text-xs">
                                     <FileText size={13} className="text-[#E64A11]" />
                                     <span>EXECUTIVE CV</span>
                                 </a>
@@ -214,7 +214,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                     href={whatsappUrl}
                                     target="_blank"
                                     rel="noreferrer noopener"
-                                    className="px-3.5 py-2 text-neutral-600 dark:text-neutral-400 hover:text-[#E64A11] dark:hover:text-[#E64A11] transition-colors inline-flex items-center gap-1.5">
+                                    className="px-3 xs:px-3.5 py-2 text-neutral-600 dark:text-neutral-400 hover:text-[#E64A11] dark:hover:text-[#E64A11] transition-colors inline-flex items-center gap-1.5 text-[11px] xs:text-xs">
                                     <MessageCircle size={14} />
                                     <span>WHATSAPP CHAT ↗</span>
                                 </a>
@@ -232,7 +232,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 sm:pb-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-t poster-perimeter-border pt-4">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pb-6 sm:pb-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-t poster-perimeter-border pt-4">
                 <div className="flex items-center gap-2">
                     <span className="text-neutral-900 dark:text-white font-semibold">@NAEEIM.SITE_</span>
                 </div>

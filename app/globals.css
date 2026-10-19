@@ -35,6 +35,7 @@
   --color-card: var(--card);
   --color-signal: #FF4F00;
   --color-phosphor: #10B981;
+  --breakpoint-xs: 380px;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -106,6 +107,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   * {
     @apply border-border outline-ring/50;
@@ -113,6 +115,8 @@
   body {
     @apply bg-background text-foreground antialiased selection:bg-[#FF4F00]/20 selection:text-[#FF4F00] transition-colors duration-200;
     font-feature-settings: "rlig" 1, "calt" 1, "tnum" 1;
+    overflow-x: hidden;
+    width: 100%;
   }
 }
 

@@ -90,7 +90,7 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
                     <span className="text-neutral-900 dark:text-white font-semibold">04. PROOF OF WORK</span>
@@ -118,7 +118,7 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
             </motion.div>
 
             {/* Main Stage: Two Interlocking High-Contrast Blocks */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-10 z-20 relative space-y-12">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-10 z-20 relative space-y-12">
                 
                 {/* SECTION 4A: BURNT ORANGE BACKDROP (600+ CP SOLVED) */}
                 <motion.div
@@ -126,10 +126,10 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.15 }}
                     transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative rounded-sm burnt-stripes p-8 sm:p-12 lg:p-16 shadow-2xl border border-[#E64A11]/60 space-y-8 overflow-hidden">
+                    className="relative rounded-sm burnt-stripes p-5 sm:p-10 lg:p-16 shadow-2xl border border-[#E64A11]/60 space-y-8 overflow-hidden">
                     
                     {/* Watermark inside block */}
-                    <div className="absolute top-6 right-6 font-mono text-[10px] text-black/50 tracking-widest uppercase font-bold">
+                    <div className="absolute top-6 right-6 font-mono text-[9px] sm:text-[10px] text-black/50 tracking-widest uppercase font-bold">
                         VERIFIED BY CODEFORCES / LEETCODE
                     </div>
 
@@ -137,16 +137,16 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                         <span className="font-light text-neutral-200 text-xs sm:text-sm tracking-wide block uppercase font-mono">
                             // COMPETITIVE PROGRAMMING RIGOR
                         </span>
-                        <div className="editorial-display text-6xl sm:text-8xl md:text-9xl lg:text-[8.5rem] text-white">
+                        <div className="editorial-display text-5xl xs:text-6xl sm:text-8xl md:text-9xl lg:text-[8.5rem] text-white">
                             600+
                         </div>
-                        <h3 className="editorial-display text-2xl sm:text-4xl text-black">
+                        <h3 className="editorial-display text-xl sm:text-3xl lg:text-4xl text-black">
                             ALGORITHMIC CHALLENGES SOLVED
                         </h3>
                     </div>
 
                     {/* Paradigm Selector Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 font-mono text-xs pt-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 font-mono text-xs pt-4">
                         {algorithmicParadigms.map((item, idx) => {
                             const isSelected = selectedParadigm === idx;
                             return (
@@ -154,7 +154,7 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                     key={idx}
                                     type="button"
                                     onClick={() => setSelectedParadigm(idx)}
-                                    className={`p-4 rounded-xs text-left transition-all cursor-pointer space-y-2 border ${
+                                    className={`p-3.5 sm:p-4 rounded-xs text-left transition-all cursor-pointer space-y-2 border ${
                                         isSelected
                                             ? "bg-black text-white border-white shadow-xl scale-[1.02]"
                                             : "bg-black/40 text-neutral-100 border-black/30 hover:bg-black/60"
@@ -175,17 +175,17 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                     </div>
 
                     {/* Verifiable External Profiles Bar */}
-                    <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-black/20 font-mono text-xs">
-                        <div className="text-black/80 font-bold">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-black/20 font-mono text-xs">
+                        <div className="text-black/80 font-bold text-xs sm:text-sm">
                             APPLICATION: {algorithmicParadigms[selectedParadigm].systemApplication}
                         </div>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                             <a
                                 href="https://codeforces.com/profile/knaeeim"
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1 shadow">
+                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1 shadow text-xs">
                                 <span>CODEFORCES</span>
                                 <ArrowUpRight size={12} />
                             </a>
@@ -193,7 +193,7 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                 href="https://leetcode.com/u/knaeeim/"
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1 shadow">
+                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1 shadow text-xs">
                                 <span>LEETCODE</span>
                                 <ArrowUpRight size={12} />
                             </a>
@@ -201,7 +201,7 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                 href="https://www.codechef.com/users/knaeeim"
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1 shadow">
+                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1 shadow text-xs">
                                 <span>CODECHEF</span>
                                 <ArrowUpRight size={12} />
                             </a>
@@ -217,7 +217,7 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.15 }}
                     transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative rounded-sm scroll-mt-20 bg-white dark:bg-[#0E0E0E] p-8 sm:p-12 lg:p-16 border border-neutral-200 dark:border-neutral-800 shadow-xl dark:shadow-2xl space-y-8">
+                    className="relative rounded-sm scroll-mt-20 bg-white dark:bg-[#0E0E0E] p-5 sm:p-10 lg:p-16 border border-neutral-200 dark:border-neutral-800 shadow-xl dark:shadow-2xl space-y-8">
                     
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 dark:border-white/5 pb-6">
                         <div className="space-y-2">
@@ -225,10 +225,10 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                 // TALENT MENTORSHIP &amp; ACADEMY
                             </span>
                             <div className="flex items-baseline gap-4 flex-wrap">
-                                <div className="editorial-display text-5xl sm:text-7xl lg:text-8xl text-neutral-900 dark:text-white">
+                                <div className="editorial-display text-4xl xs:text-5xl sm:text-7xl lg:text-8xl text-neutral-900 dark:text-white">
                                     100+
                                 </div>
-                                <div className="editorial-display text-2xl sm:text-4xl text-[#E64A11]">
+                                <div className="editorial-display text-xl sm:text-3xl lg:text-4xl text-[#E64A11]">
                                     ENGINEERS MENTORED
                                 </div>
                             </div>
@@ -238,13 +238,13 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                             </p>
                         </div>
 
-                        <div className="flex items-center gap-3 text-xs font-mono px-3 py-1.5 rounded-xs bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-neutral-300">
+                        <div className="flex items-center gap-3 text-xs font-mono px-3 py-1.5 rounded-xs bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-neutral-300 self-start md:self-auto">
                             <span className="text-neutral-900 dark:text-white font-bold">12 PRODUCTION CAPSTONES</span>
                         </div>
                     </div>
 
                     {/* 4 Industrial Curriculum Modules Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 font-mono text-xs">
                         {mentorshipModules.map((mod, idx) => (
                             <motion.div
                                 key={idx}
@@ -253,7 +253,7 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                 viewport={{ once: true, amount: 0.15 }}
                                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                                 whileHover={{ y: -4 }}
-                                className="p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60 shadow-sm dark:shadow-none space-y-3 hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-all">
+                                className="p-4 sm:p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60 shadow-sm dark:shadow-none space-y-3 hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-all">
                                 <div className="flex items-center justify-between text-[10px] text-neutral-500 dark:text-neutral-400">
                                     <span className="text-[#E64A11] font-bold">{mod.moduleNumber}</span>
                                     <span>{mod.duration}</span>

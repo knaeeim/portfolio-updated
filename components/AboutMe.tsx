@@ -75,7 +75,7 @@ export const AboutMe = ({ data }: AboutMeProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
                     <span className="text-neutral-900 dark:text-white font-semibold">00. EXECUTIVE DOSSIER</span>
@@ -103,7 +103,7 @@ export const AboutMe = ({ data }: AboutMeProps) => {
             </motion.div>
 
             {/* Main Content */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 z-20 relative space-y-12">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-8 lg:py-12 z-20 relative space-y-12">
                 
                 {/* Heading */}
                 <motion.div
@@ -115,13 +115,13 @@ export const AboutMe = ({ data }: AboutMeProps) => {
                     <span className="font-light text-neutral-500 dark:text-neutral-400 text-xs sm:text-sm tracking-wide block uppercase font-mono">
                         // BACKGROUND &amp; CAPABILITIES
                     </span>
-                    <h2 className="editorial-display text-4xl sm:text-6xl text-neutral-900 dark:text-white">
+                    <h2 className="editorial-display text-3xl sm:text-5xl lg:text-6xl text-neutral-900 dark:text-white">
                         TECHNICAL RIGOR &amp; <span className="text-[#E64A11]">STRATEGY</span>
                     </h2>
                 </motion.div>
 
                 {/* 4 Strategic Pillars */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                     {strategicPillars.map((pillar, idx) => (
                         <motion.div
                             key={idx}
@@ -130,7 +130,7 @@ export const AboutMe = ({ data }: AboutMeProps) => {
                             viewport={{ once: true, amount: 0.15 }}
                             transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
                             whileHover={{ y: -4 }}
-                            className="p-6 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E]/90 shadow-sm dark:shadow-none space-y-3 hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-all group">
+                            className="p-4 sm:p-6 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E]/90 shadow-sm dark:shadow-none space-y-3 hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-all group">
                             <div className="flex items-center justify-between text-[10px] font-mono">
                                 <span className="text-[#E64A11] font-bold">PILLAR 0{idx + 1}</span>
                                 <span className="text-neutral-500 uppercase">{pillar.tag}</span>
@@ -164,7 +164,7 @@ export const AboutMe = ({ data }: AboutMeProps) => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true, amount: 0.2 }}
                                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                                className="p-4 sm:p-5 grid grid-cols-1 md:grid-cols-12 gap-3 items-center hover:bg-neutral-50 dark:hover:bg-white/5 transition-colors">
+                                className="p-3.5 sm:p-5 grid grid-cols-1 md:grid-cols-12 gap-2.5 sm:gap-3 items-start md:items-center hover:bg-neutral-50 dark:hover:bg-white/5 transition-colors">
                                 <div className="md:col-span-2 text-sm font-black text-[#E64A11]">
                                     {item.year}
                                 </div>

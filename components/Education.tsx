@@ -62,7 +62,7 @@ export const EducationSection = ({ data }: EducationSectionProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
                     <span className="text-neutral-900 dark:text-white font-semibold">06. ACADEMIA &amp; CREDENTIALS</span>
@@ -90,7 +90,7 @@ export const EducationSection = ({ data }: EducationSectionProps) => {
             </motion.div>
 
             {/* Main Stage */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 z-20 relative space-y-10">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-8 lg:py-12 z-20 relative space-y-10">
                 
                 {/* Header */}
                 <motion.div
@@ -102,7 +102,7 @@ export const EducationSection = ({ data }: EducationSectionProps) => {
                     <span className="font-light text-neutral-500 dark:text-neutral-400 text-xs sm:text-sm tracking-wide block uppercase font-mono">
                         // FOUNDATIONS &amp; CERTIFICATIONS
                     </span>
-                    <h2 className="editorial-display text-4xl sm:text-6xl text-neutral-900 dark:text-white">
+                    <h2 className="editorial-display text-3xl sm:text-5xl lg:text-6xl text-neutral-900 dark:text-white">
                         EDUCATION &amp; <span className="text-[#E64A11]">SPECIALIZATION</span>
                     </h2>
                 </motion.div>
@@ -124,7 +124,7 @@ export const EducationSection = ({ data }: EducationSectionProps) => {
                         {degrees.map((deg, idx) => (
                             <div
                                 key={idx}
-                                className="p-6 sm:p-8 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E]/90 shadow-sm dark:shadow-none space-y-4">
+                                className="p-4 sm:p-6 lg:p-8 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E]/90 shadow-sm dark:shadow-none space-y-4">
                                 <div className="flex items-center justify-between border-b border-neutral-200 dark:border-white/5 pb-3">
                                     <span className="text-[10px] font-bold text-[#E64A11] uppercase tracking-wider">
                                         {deg.status || "Currently Studying"}
@@ -141,7 +141,7 @@ export const EducationSection = ({ data }: EducationSectionProps) => {
                                     </p>
                                 </div>
 
-                                <div className="pt-2 border-t border-neutral-200 dark:border-white/5 grid grid-cols-2 gap-3 text-[11px]">
+                                <div className="pt-2 border-t border-neutral-200 dark:border-white/5 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-[11px]">
                                     <div className="p-3 rounded-xs bg-neutral-50 dark:bg-black border border-neutral-200 dark:border-white/5">
                                         <div className="text-[9px] text-neutral-500 uppercase">ACADEMIC STANDING</div>
                                         <div className="text-sm font-bold text-neutral-900 dark:text-white mt-0.5">{deg.cgpa}</div>
@@ -175,7 +175,7 @@ export const EducationSection = ({ data }: EducationSectionProps) => {
                                     viewport={{ once: true, amount: 0.15 }}
                                     transition={{ duration: 0.5, delay: idx * 0.08 }}
                                     whileHover={{ y: -3 }}
-                                    className="p-4 sm:p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 shadow-sm dark:shadow-none space-y-2 hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-all">
+                                    className="p-3.5 sm:p-5 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 shadow-sm dark:shadow-none space-y-2 hover:border-[#E64A11] dark:hover:border-[#E64A11] transition-all">
                                     <div className="flex items-center justify-between text-[10px]">
                                         <span className="font-bold text-[#E64A11]">{course.title}</span>
                                         <span className="text-neutral-500 dark:text-neutral-400">{course.level}</span>

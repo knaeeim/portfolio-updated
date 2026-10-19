@@ -226,7 +226,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
                     <span className="text-neutral-900 dark:text-white font-semibold">03. SELECTED WORKS</span>
@@ -254,7 +254,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
             </motion.div>
 
             {/* Project Spreads Container */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-10 z-20 relative space-y-20">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-10 z-20 relative space-y-20">
                 
                 {displayProjects.map((project: any, pIdx: number) => {
                     const isDrawerOpen = !!openDrawers[project.id];
@@ -272,16 +272,16 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                             className="border-b border-neutral-200 dark:border-neutral-800 pb-16 last:border-b-0 space-y-8 group">
                             
                             {/* Project Spread Perimeter Header */}
-                            <div className="flex items-center justify-between text-xs font-mono border-b border-neutral-200 dark:border-white/5 pb-3">
-                                <div className="flex items-center gap-3">
-                                    <span className="text-[#E64A11] font-black tracking-widest text-base">
+                            <div className="flex flex-wrap items-center justify-between text-xs font-mono border-b border-neutral-200 dark:border-white/5 pb-3 gap-2">
+                                <div className="flex items-center gap-2 sm:gap-3">
+                                    <span className="text-[#E64A11] font-black tracking-widest text-sm sm:text-base">
                                         {project.dossierNumber}
                                     </span>
-                                    <span className="text-neutral-500 dark:text-neutral-400 uppercase tracking-wider text-[11px]">
+                                    <span className="text-neutral-500 dark:text-neutral-400 uppercase tracking-wider text-[10px] sm:text-[11px]">
                                         // {project.category}
                                     </span>
                                 </div>
-                                <div className="flex items-center gap-4 text-neutral-500 dark:text-neutral-400">
+                                <div className="flex items-center gap-2 sm:gap-4 text-neutral-500 dark:text-neutral-400 text-[10px] sm:text-xs">
                                     <span>{project.role}</span>
                                     <span>•</span>
                                     <span className="text-neutral-900 dark:text-white font-semibold">{project.year}</span>
@@ -292,7 +292,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative">
                                 
                                 {/* LEFT (4 COLS): Solid Burnt Orange Geometric Block */}
-                                <div className="lg:col-span-4 relative aspect-square sm:aspect-4/3 lg:aspect-square rounded-sm burnt-stripes p-6 sm:p-8 flex flex-col justify-between shadow-2xl border border-[#E64A11]/60">
+                                <div className="lg:col-span-4 relative aspect-square sm:aspect-4/3 lg:aspect-square rounded-sm burnt-stripes p-4 sm:p-6 lg:p-8 flex flex-col justify-between shadow-2xl border border-[#E64A11]/60">
                                     <div className="space-y-1">
                                         <span className="font-light text-neutral-200 text-xs sm:text-sm tracking-wide block">
                                             {project.leadIn}
@@ -364,7 +364,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                     {/* Overlapping Heavy Title + ( > ) Drawer Trigger */}
                                     <div className="flex flex-wrap items-end justify-between gap-4 pt-2">
                                         <div className="space-y-1">
-                                            <h3 className="editorial-display text-3xl sm:text-5xl lg:text-6xl text-neutral-900 dark:text-white">
+                                            <h3 className="editorial-display text-2xl sm:text-4xl lg:text-5xl xl:text-6xl text-neutral-900 dark:text-white">
                                                 {project.title}
                                             </h3>
                                             <p className="font-light text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm max-w-xl">
@@ -372,7 +372,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                             </p>
                                         </div>
 
-                                        <div className="flex items-center gap-3">
+                                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                                             {project.liveUrl && (
                                                 <a
                                                     href={project.liveUrl}
@@ -402,9 +402,9 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                         animate={{ opacity: 1, height: "auto" }}
                                         exit={{ opacity: 0, height: 0 }}
                                         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                                        className="rounded-sm border border-[#E64A11]/50 bg-neutral-50 dark:bg-[#0A0A09] p-6 space-y-6 font-mono text-xs overflow-hidden shadow-xl">
+                                        className="rounded-sm border border-[#E64A11]/50 bg-neutral-50 dark:bg-[#0A0A09] p-3.5 sm:p-6 space-y-4 sm:space-y-6 font-mono text-xs overflow-hidden shadow-xl">
                                         
-                                        <div className="flex items-center justify-between border-b border-neutral-200 dark:border-white/10 pb-3">
+                                        <div className="flex flex-wrap items-center justify-between border-b border-neutral-200 dark:border-white/10 pb-3 gap-2">
                                             <div className="flex items-center gap-2 text-[#E64A11] font-bold">
                                                 <Shield size={14} />
                                                 <span>SYSTEM ARCHITECTURE &amp; SIMULATOR // {project.dossierNumber}</span>
@@ -419,7 +419,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                         </div>
 
                                         {/* Bottleneck & Resolution Callout */}
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-xs bg-white dark:bg-white/5 border border-neutral-200 dark:border-white/10 shadow-sm dark:shadow-none">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 p-3 sm:p-4 rounded-xs bg-white dark:bg-white/5 border border-neutral-200 dark:border-white/10 shadow-sm dark:shadow-none">
                                             <div>
                                                 <span className="text-[10px] text-neutral-500 dark:text-neutral-400 uppercase font-bold block">
                                                     BOTTLENECK:
@@ -440,7 +440,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
 
                                         {/* API Simulator Trigger & Monospace Payload */}
                                         <div className="space-y-3">
-                                            <div className="flex items-center justify-between">
+                                            <div className="flex flex-wrap items-center justify-between gap-2">
                                                 <button
                                                     type="button"
                                                     onClick={() => runApiSimulator(project.id)}
@@ -457,14 +457,14 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                                 </span>
                                             </div>
 
-                                            <div className="p-4 rounded-xs bg-neutral-900 dark:bg-black border border-neutral-800 dark:border-white/10 overflow-x-auto shadow-inner">
+                                            <div className="p-3 sm:p-4 rounded-xs bg-neutral-900 dark:bg-black border border-neutral-800 dark:border-white/10 overflow-x-auto shadow-inner">
                                                 {isRunning ? (
                                                     <div className="py-4 text-center text-neutral-400 flex items-center justify-center gap-2">
                                                         <span className="w-2 h-2 rounded-full bg-[#E64A11] animate-ping" />
                                                         <span>STREAMING RESPONSE...</span>
                                                     </div>
                                                 ) : (
-                                                    <pre className="text-emerald-400 dark:text-emerald-300 text-[11px] leading-relaxed">
+                                                    <pre className="text-emerald-400 dark:text-emerald-300 text-[10px] sm:text-[11px] leading-relaxed">
                                                         {JSON.stringify(project.apiSimulator.responsePayload, null, 2)}
                                                     </pre>
                                                 )}

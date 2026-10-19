@@ -70,7 +70,7 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
                     <span className="text-neutral-900 dark:text-white font-semibold">02. ARCHITECTURE</span>
@@ -98,7 +98,7 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
             </motion.div>
 
             {/* Main Poster Grid */}
-            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 z-20 flex-1 flex flex-col justify-center space-y-10">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-8 lg:py-12 z-20 flex-1 flex flex-col justify-center space-y-10">
                 
                 {/* Section Editorial Heading */}
                 <motion.div
@@ -110,7 +110,7 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
                     <span className="font-light text-neutral-500 dark:text-neutral-400 text-xs sm:text-sm tracking-wide block uppercase font-mono">
                         // THE ARCHITECTURAL STACK
                     </span>
-                    <h2 className="editorial-display text-4xl sm:text-6xl lg:text-7xl text-neutral-900 dark:text-white">
+                    <h2 className="editorial-display text-3xl sm:text-5xl lg:text-7xl text-neutral-900 dark:text-white">
                         LAYERED SYSTEM <span className="text-[#E64A11]">MATRIX</span>
                     </h2>
                     <p className="font-light text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm max-w-xl">
@@ -169,7 +169,7 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
 
                                 {/* Card Body */}
                                 <div
-                                    className={`h-full p-6 sm:p-8 rounded-sm border transition-all duration-300 flex flex-col justify-between space-y-6 ${
+                                    className={`h-full p-4 sm:p-6 lg:p-8 rounded-sm border transition-all duration-300 flex flex-col justify-between space-y-6 ${
                                         isActive
                                             ? "bg-white dark:bg-[#0A0A09] border-[#E64A11] shadow-2xl"
                                             : "bg-white/90 dark:bg-[#0E0E0E]/90 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 shadow-sm dark:shadow-none"
@@ -239,7 +239,7 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-t poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-t poster-perimeter-border">
                 <div>NODE: {activePillar.title}</div>
                 <div>SLA // GUARANTEED</div>
             </motion.div>
