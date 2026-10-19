@@ -146,16 +146,16 @@ export const TerminalHero = ({ data }: BannerProps) => {
                     {/* ======================================================== */}
                     <motion.div
                         style={l3}
-                        className="w-full lg:w-auto mt-8 lg:mt-0 lg:-ml-20 xl:-ml-28 z-30 space-y-6 flex flex-col items-center lg:items-start text-center lg:text-left">
+                        className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-none lg:w-auto mt-8 lg:mt-0 lg:-ml-20 xl:-ml-28 z-30 space-y-6 text-left">
                         
                         {/* 3-Row Stacked Ultra-Heavy Typography with masked kinetic reveal */}
-                        <div className="space-y-1 sm:space-y-2 flex flex-col items-center lg:items-start w-full">
+                        <div className="space-y-1 sm:space-y-2 text-left">
                             <div className="overflow-hidden">
                                 <motion.h1
                                     initial={{ y: "110%", opacity: 0 }}
                                     animate={{ y: "0%", opacity: 1 }}
                                     transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                                    className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-neutral-900 dark:text-white">
+                                    className="editorial-display text-[2.6rem] sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-neutral-900 dark:text-white">
                                     NAEEIM
                                 </motion.h1>
                             </div>
@@ -164,16 +164,16 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                     initial={{ y: "110%", opacity: 0 }}
                                     animate={{ y: "0%", opacity: 1 }}
                                     transition={{ duration: 0.75, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                    className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-neutral-900 dark:text-white">
+                                    className="editorial-display text-[2.6rem] sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-neutral-900 dark:text-white">
                                     SOFTWARE
                                 </motion.div>
                             </div>
-                            <div className="overflow-hidden flex items-center justify-center lg:justify-start gap-3 sm:gap-5 flex-wrap">
+                            <div className="overflow-hidden flex items-center gap-3 sm:gap-5 flex-wrap">
                                 <motion.div
                                     initial={{ y: "110%", opacity: 0 }}
                                     animate={{ y: "0%", opacity: 1 }}
                                     transition={{ duration: 0.75, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                    className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-[#E64A11]">
+                                    className="editorial-display text-[2.6rem] sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-[#E64A11]">
                                     ARCHITECT
                                 </motion.div>
                                 <motion.div
@@ -190,13 +190,13 @@ export const TerminalHero = ({ data }: BannerProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.65, ease: "easeOut" }}
-                            className="space-y-4 max-w-lg pt-2 mx-auto lg:mx-0 text-center lg:text-left">
+                            className="space-y-4 max-w-lg pt-2 text-left">
                             <p className="font-light text-neutral-600 dark:text-neutral-300 text-sm sm:text-base leading-relaxed">
                                 Founder &amp; CEO at <strong className="text-neutral-900 dark:text-white font-medium">WebZen Bangladesh</strong>. 
                                 Shipping mission-critical web applications, clinical zero-queue portals, and high-uptime platforms.
                             </p>
 
-                            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1 font-mono text-xs">
+                            <div className="flex flex-wrap items-center gap-3 pt-1 font-mono text-xs">
                                 <a
                                     href="#projects"
                                     className="px-4 py-2 bg-neutral-900 text-white dark:bg-white dark:text-black font-bold uppercase tracking-wider rounded hover:bg-[#E64A11] dark:hover:bg-[#E64A11] hover:text-white transition-colors inline-flex items-center gap-2">
