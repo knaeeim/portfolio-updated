@@ -40,18 +40,11 @@ export async function getPortfolioData(): Promise<any> {
                 if (doc) {
                     const { _id, updatedAt, ...cleanDoc } = doc as any;
                     const localData = getLocalFilePortfolioData();
-                    const mergedProjects = [...(cleanDoc?.projects || [])];
-                    if (localData?.projects) {
-                        for (const lp of localData.projects) {
-                            if (!mergedProjects.some((p: any) => p.id === lp.id)) {
-                                mergedProjects.push(lp);
-                            }
-                        }
-                    }
 
-                    const userProjects = cleanDoc?._hasCustomizedProjects && Array.isArray(cleanDoc.projects)
+                    // If MongoDB has projects, respect them 100% as the source of truth
+                    const userProjects = Array.isArray(cleanDoc?.projects) && cleanDoc.projects.length > 0
                         ? cleanDoc.projects
-                        : (mergedProjects.length > 0 ? mergedProjects : (localData?.projects || []));
+                        : (localData?.projects || []);
 
                     const mergedDoc = {
                         ...(localData || {}),

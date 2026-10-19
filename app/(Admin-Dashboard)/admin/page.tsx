@@ -680,7 +680,7 @@ export default function AdminDashboardPage() {
                     const projects = [...prev.projects];
                     const targetProj = { ...projects[projectIdx] };
                     targetProj.images = [
-                        ...targetProj.images,
+                        ...(targetProj.images || []),
                         {
                             src: newImgUrl,
                             label: file.name.replace(/\.[^/.]+$/, ""),

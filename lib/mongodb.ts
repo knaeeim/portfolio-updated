@@ -5,7 +5,8 @@ const options = {};
 let clientPromise: Promise<MongoClient> | null = null;
 
 export function isMongoConfigured(): boolean {
-    return !!process.env.MONGODB_URI && process.env.MONGODB_URI.trim().length > 0;
+    const uri = process.env.MONGODB_URI?.trim();
+    return !!uri && (uri.startsWith("mongodb://") || uri.startsWith("mongodb+srv://"));
 }
 
 export async function getMongoClient(): Promise<MongoClient | null> {

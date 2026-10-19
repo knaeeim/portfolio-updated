@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getPortfolioData, savePortfolioData } from "@/lib/portfolio-data";
 
 export async function GET() {
@@ -31,6 +32,14 @@ export async function POST(request: Request) {
                 { error: result.error || "Failed to persist portfolio data" },
                 { status: 500 }
             );
+        }
+
+        // Purge Next.js route caches so updates reflect immediately
+        try {
+            revalidatePath("/");
+            revalidatePath("/projects/[id]", "page");
+        } catch (revErr) {
+            console.warn("revalidatePath error:", revErr);
         }
 
         let userMessage = "Portfolio successfully updated and saved!";

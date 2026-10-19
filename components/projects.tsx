@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     ArrowUpRight,
@@ -18,21 +19,10 @@ import {
     Layers,
     Server,
     Cpu,
+    ImageIcon,
 } from "lucide-react";
 
-interface ProjectDossier {
-    dossierNumber: string;
-    id: string;
-    title: string;
-    subtitle: string;
-    role: string;
-    year: string;
-    category: string;
-    description: string;
-    imageSrc: string;
-    liveUrl: string;
-    adminUrl?: string;
-    techStack: string[];
+interface ArchitecturalSpec {
     schemaDiagram: {
         layer1: string;
         layer2: string;
@@ -52,20 +42,8 @@ interface ProjectDossier {
     };
 }
 
-const dossiers: ProjectDossier[] = [
-    {
-        dossierNumber: "01",
-        id: "webzen-technologies",
-        title: "WebZen Bangladesh (webzenbd.com)",
-        subtitle: "Enterprise Architecture Studio & Scalable Venture Engine",
-        role: "Founder & Chief Executive Officer (CEO)",
-        year: "2024 — Present",
-        category: "VENTURE STUDIO // ENTERPRISE SYSTEMS",
-        description:
-            "Flagship digital engineering studio founded and steered by Khairul Bashar Naeeim. Engineering high-concurrency SaaS applications, enterprise cloud platforms, and clinical systems with sub-40ms response times and zero-downtime microservices architectures.",
-        imageSrc: "/uploads/1792203603681_Screenshot_2026-10-17_at_8.19.52_AM.png",
-        liveUrl: "https://webzenbd.com/",
-        techStack: ["Next.js 16", "TypeScript", "Turbopack", "Node.js", "PostgreSQL", "MongoDB Atlas", "Vercel Edge"],
+const defaultArchitecturalData: Record<string, ArchitecturalSpec> = {
+    "webzen-technologies": {
         schemaDiagram: {
             layer1: "Edge CDN (Vercel Global Ingestion)",
             layer2: "Next.js 16 SSR & Edge Middleware Gateway",
@@ -92,20 +70,7 @@ const dossiers: ProjectDossier[] = [
             },
         },
     },
-    {
-        dossierNumber: "02",
-        id: "devojyoti-dutta",
-        title: "Dr. Devojyoti Dutta Medical Portal",
-        subtitle: "Automated Clinical Appointment Engine & Telemedicine Architecture",
-        role: "Founder & Lead Systems Architect (WebZen)",
-        year: "2026 Production",
-        category: "HEALTHTECH // CLINICAL SAAS",
-        description:
-            "Engineered an automated clinical booking and patient management platform for Ayurvedacharya Dr. Devojyoti Dutta (NIA Jaipur Alumnus). Replaced physical chamber queues with real-time 3-step slot reservation, automated daily quota control, and physician administration center.",
-        imageSrc: "/devojyoti/preview.png",
-        liveUrl: "https://www.devojyotidutta.com/",
-        adminUrl: "https://www.devojyotidutta.com/admin",
-        techStack: ["Next.js 15", "TypeScript", "PostgreSQL", "Prisma", "Server Actions", "WhatsApp Cloud API", "Tailwind CSS"],
+    "devojyoti-dutta": {
         schemaDiagram: {
             layer1: "Patient Web Client (Bilingual Bengali/English UX)",
             layer2: "Next.js 15 Server Actions (Input Validation & Sanitization)",
@@ -131,19 +96,7 @@ const dossiers: ProjectDossier[] = [
             },
         },
     },
-    {
-        dossierNumber: "03",
-        id: "imranh-me",
-        title: "Imran Hossain (imranh.me)",
-        subtitle: "Research Associate Platform, BIGD, BRAC University",
-        role: "Lead Architect & Full-Stack Engineer (WebZen)",
-        year: "2026 Production",
-        category: "ACADEMIC WEB // INTERACTIVE CANVAS",
-        description:
-            "Engineered the academic and economic research platform for Imran Hossain (BIGD, BRAC University). Features interactive HTML5 canvas wave physics ('Equilibrium Wave Field'), publication index drawers, and econometric trend visualizations with sub-second page loads.",
-        imageSrc: "/projects/imranh.jpg",
-        liveUrl: "https://imranh.me/",
-        techStack: ["Next.js 16", "Turbopack", "HTML5 Canvas Physics", "TypeScript", "Academic SEO", "Vercel Edge"],
+    "imranh-me": {
         schemaDiagram: {
             layer1: "Cursor & Pointer Shockwave Vector Listener",
             layer2: "HTML5 Canvas Equilibrium Particle Field (60 FPS)",
@@ -168,19 +121,7 @@ const dossiers: ProjectDossier[] = [
             },
         },
     },
-    {
-        dossierNumber: "04",
-        id: "skill-bridge",
-        title: "Skill-Bridge Enterprise",
-        subtitle: "Tutor Marketplace with 3-Tier RBAC & Relational Scheduling",
-        role: "Lead Full-Stack Architect",
-        year: "2025",
-        category: "EDTECH // RELATIONAL MARKETPLACE",
-        description:
-            "Full-stack educational booking marketplace connecting students with verified instructors. Built with a normalized PostgreSQL relational schema, Prisma ORM, and granular 3-tier Role-Based Access Control protecting sensitive tutor payout metrics.",
-        imageSrc: "/skills/skill1.png",
-        liveUrl: "https://skill-bridge-client-taupe.vercel.app/",
-        techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma ORM", "Modular Express", "JWT RBAC"],
+    "skill-bridge": {
         schemaDiagram: {
             layer1: "Student / Instructor / Admin Dashboards",
             layer2: "Modular Express Router + JWT Auth Middleware",
@@ -205,7 +146,32 @@ const dossiers: ProjectDossier[] = [
             },
         },
     },
-];
+};
+
+const fallbackSpec: ArchitecturalSpec = {
+    schemaDiagram: {
+        layer1: "Client UI Layer (Responsive Next.js Component)",
+        layer2: "API Orchestration Gateway (Type-Safe Routes)",
+        layer3: "Service Layer & Business Logic Interceptor",
+        layer4: "Database & Cloud Infrastructure",
+    },
+    hardestProblem: {
+        title: "Latency & Relational Data Consistency",
+        challenge: "Maintaining low roundtrip times and preventing race conditions under concurrent client actions.",
+        resolution: "Engineered optimized indexing, atomic query transactions, and sub-second SSR data caching.",
+    },
+    apiSimulator: {
+        method: "GET",
+        endpoint: "/api/v1/telemetry",
+        simulatedLatency: "28ms",
+        responsePayload: {
+            status: 200,
+            health: "OPERATIONAL",
+            latency: "28ms",
+            cluster: "PRODUCTION_LIVE",
+        },
+    },
+};
 
 interface ProjectsSectionProps {
     data?: any;
@@ -213,16 +179,50 @@ interface ProjectsSectionProps {
 
 export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
     // Mode toggle per project: 'ui' vs 'schema'
-    const [viewModes, setViewModes] = useState<Record<string, "ui" | "schema">>({
-        "webzen-technologies": "ui",
-        "devojyoti-dutta": "ui",
-        "imranh-me": "ui",
-        "skill-bridge": "ui",
-    });
+    const [viewModes, setViewModes] = useState<Record<string, "ui" | "schema">>({});
+
+    // Active image selector per project (for multi-image portfolios)
+    const [activeImageIndices, setActiveImageIndices] = useState<Record<string, number>>({});
 
     // Code drawer collapse state for API simulator
     const [openSimulators, setOpenSimulators] = useState<Record<string, boolean>>({});
     const [simulatorRunning, setSimulatorRunning] = useState<Record<string, boolean>>({});
+
+    // Read projects dynamically from database / portfolioData
+    const rawProjects = Array.isArray(data?.projects) && data.projects.length > 0 ? data.projects : [];
+
+    // Map projects with architectural specs
+    const displayProjects = rawProjects.map((p: any, index: number) => {
+        const spec = defaultArchitecturalData[p.id] || fallbackSpec;
+        const numStr = (index + 1) < 10 ? `0${index + 1}` : `${index + 1}`;
+
+        // Ensure images is always a populated array
+        const imagesList = Array.isArray(p.images) && p.images.length > 0
+            ? p.images
+            : (p.imageSrc
+                ? [{ src: p.imageSrc, label: "Screenshot", caption: "Production preview" }]
+                : [{ src: "/devojyoti/preview.png", label: "Screenshot", caption: "Production preview" }]);
+
+        return {
+            dossierNumber: numStr,
+            id: p.id || `project-${index}`,
+            title: p.title || "Untitled Production Platform",
+            subtitle: p.subtitle || "Scalable Web Application",
+            role: p.role || "Lead Full-Stack Architect",
+            year: p.year || "2026 Production",
+            category: p.categoryLabel || p.category || "ENTERPRISE SYSTEMS",
+            description: p.description || "",
+            images: imagesList,
+            liveUrl: p.liveLink || p.liveUrl || "",
+            adminUrl: p.adminLink || p.adminUrl || "",
+            clientLink: p.clientLink || "",
+            serverLink: p.serverLink || "",
+            techStack: Array.isArray(p.tech) ? p.tech : (Array.isArray(p.techStack) ? p.techStack : ["Next.js", "TypeScript", "Tailwind CSS"]),
+            schemaDiagram: spec.schemaDiagram,
+            hardestProblem: spec.hardestProblem,
+            apiSimulator: spec.apiSimulator,
+        };
+    });
 
     const toggleViewMode = (projectId: string, mode: "ui" | "schema") => {
         setViewModes((prev) => ({ ...prev, [projectId]: mode }));
@@ -256,23 +256,28 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                             Interactive Engineering Dossiers
                         </h2>
                         <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
-                            Full-width technical deconstructions. Toggle between UI Previews and System Architecture Schemas, 
-                            inspect solved bottlenecks, and simulate live API response payloads.
+                            Full-width technical deconstructions dynamically synchronized with production registry. 
+                            Toggle between UI Previews and System Architecture Schemas, switch screenshots, 
+                            and simulate live API response payloads.
                         </p>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground">
                         <span className="w-2 h-2 rounded-full bg-[#10B981]" />
-                        <span>4 DOSSIERS DOCUMENTED</span>
+                        <span>{displayProjects.length} DOSSIERS DOCUMENTED</span>
                     </div>
                 </div>
 
-                {/* Full-Width Horizontal Engineering Dossiers (01 through 04) */}
+                {/* Full-Width Horizontal Engineering Dossiers */}
                 <div className="divide-y divide-border border-y border-border">
-                    {dossiers.map((dossier) => {
+                    {displayProjects.map((dossier: any) => {
                         const currentView = viewModes[dossier.id] || "ui";
                         const isSimOpen = !!openSimulators[dossier.id];
                         const isSimRunning = !!simulatorRunning[dossier.id];
+
+                        // Current active image for this project
+                        const activeIdx = activeImageIndices[dossier.id] || 0;
+                        const currentImg = dossier.images[activeIdx] || dossier.images[0];
 
                         return (
                             <div
@@ -290,18 +295,30 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                         </span>
                                     </div>
 
-                                    <div className="flex items-center gap-4 text-xs font-mono">
+                                    <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs font-mono">
                                         <span className="text-foreground font-semibold">{dossier.role}</span>
                                         <span className="text-muted-foreground">•</span>
                                         <span className="text-muted-foreground">{dossier.year}</span>
-                                        <a
-                                            href={dossier.liveUrl}
-                                            target="_blank"
-                                            rel="noreferrer noopener"
-                                            className="keycap-btn px-2.5 py-1 rounded bg-foreground text-background text-[11px] font-bold inline-flex items-center gap-1 hover:bg-[#FF4F00] hover:text-white transition-colors">
-                                            <span>LIVE SYSTEM</span>
-                                            <ArrowUpRight size={12} />
-                                        </a>
+                                        
+                                        {/* Dedicated Case Study Link */}
+                                        <Link
+                                            href={`/projects/${dossier.id}`}
+                                            className="keycap-btn px-2.5 py-1 rounded bg-card border border-border text-foreground hover:border-[#FF4F00] transition-colors inline-flex items-center gap-1 text-[11px] font-semibold">
+                                            <span>CASE STUDY</span>
+                                            <ArrowUpRight size={11} className="text-[#FF4F00]" />
+                                        </Link>
+
+                                        {/* External Live Site Link */}
+                                        {dossier.liveUrl && (
+                                            <a
+                                                href={dossier.liveUrl}
+                                                target="_blank"
+                                                rel="noreferrer noopener"
+                                                className="keycap-btn px-2.5 py-1 rounded bg-foreground text-background text-[11px] font-bold inline-flex items-center gap-1 hover:bg-[#FF4F00] hover:text-white transition-colors">
+                                                <span>LIVE SITE</span>
+                                                <ExternalLink size={11} />
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
 
@@ -309,7 +326,9 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                                     <div className="lg:col-span-8 space-y-2">
                                         <h3 className="text-xl sm:text-3xl font-bold tracking-tight text-foreground">
-                                            {dossier.title}
+                                            <Link href={`/projects/${dossier.id}`} className="hover:text-[#FF4F00] transition-colors">
+                                                {dossier.title}
+                                            </Link>
                                         </h3>
                                         <p className="text-xs sm:text-sm font-mono text-[#FF4F00]">
                                             {dossier.subtitle}
@@ -325,7 +344,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                             TECHNOLOGY STACK:
                                         </div>
                                         <div className="flex flex-wrap gap-1.5">
-                                            {dossier.techStack.map((tech) => (
+                                            {dossier.techStack.map((tech: string) => (
                                                 <span
                                                     key={tech}
                                                     className="px-2 py-0.5 rounded bg-muted/60 border border-border text-[11px] font-mono text-foreground font-medium">
@@ -368,7 +387,9 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                         </div>
 
                                         <span className="text-[10px] font-mono text-muted-foreground hidden sm:inline">
-                                            {currentView === "ui" ? "PRODUCTION SCREEN CAPTURE" : "ARCHITECTURAL TOPOLOGY"}
+                                            {currentView === "ui"
+                                                ? `${dossier.images.length} SCREENSHOT${dossier.images.length > 1 ? "S" : ""} CONFIGURED`
+                                                : "ARCHITECTURAL TOPOLOGY"}
                                         </span>
                                     </div>
 
@@ -377,23 +398,73 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                         <AnimatePresence mode="wait">
                                             {currentView === "ui" ? (
                                                 <motion.div
-                                                    key="ui"
+                                                    key={`ui-${activeIdx}-${currentImg?.src}`}
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
                                                     exit={{ opacity: 0 }}
                                                     transition={{ duration: 0.2 }}
-                                                    className="relative aspect-16/9 sm:aspect-21/9 w-full bg-muted overflow-hidden">
-                                                    <Image
-                                                        src={dossier.imageSrc}
-                                                        alt={dossier.title}
-                                                        fill
-                                                        sizes="(max-width: 1024px) 100vw, 1200px"
-                                                        className="object-cover object-top filter grayscale-20 group-hover:grayscale-0 transition-all duration-500"
-                                                    />
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent pointer-events-none" />
-                                                    <div className="absolute bottom-3 left-3 px-2 py-1 rounded bg-background/90 border border-border text-[10px] font-mono text-foreground">
-                                                        VERIFIED PRODUCTION // {dossier.liveUrl}
+                                                    className="space-y-0">
+                                                    
+                                                    {/* Screen Viewer */}
+                                                    <div className="relative aspect-16/9 sm:aspect-21/9 w-full bg-muted overflow-hidden">
+                                                        <Image
+                                                            src={currentImg.src}
+                                                            alt={currentImg.label || dossier.title}
+                                                            fill
+                                                            sizes="(max-width: 1024px) 100vw, 1200px"
+                                                            className="object-cover object-top filter grayscale-15 group-hover:grayscale-0 transition-all duration-500"
+                                                        />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent pointer-events-none" />
+                                                        
+                                                        {/* Caption Plate on Image Bottom */}
+                                                        <div className="absolute bottom-3 inset-x-3 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+                                                            <div className="flex items-center gap-2 pointer-events-auto">
+                                                                <span className="px-2 py-1 rounded bg-background/90 border border-border text-[10px] font-mono text-foreground font-bold">
+                                                                    {currentImg.label || "SCREENSHOT"}
+                                                                </span>
+                                                                {currentImg.caption && (
+                                                                    <span className="hidden sm:inline px-2 py-1 rounded bg-background/80 border border-border/80 text-[10px] font-mono text-muted-foreground">
+                                                                        {currentImg.caption}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+
+                                                            <div className="pointer-events-auto">
+                                                                <Link
+                                                                    href={`/projects/${dossier.id}`}
+                                                                    className="px-2 py-1 rounded bg-background/90 border border-border text-[10px] font-mono text-[#FF4F00] hover:text-white hover:bg-[#FF4F00] transition-colors inline-flex items-center gap-1 font-bold">
+                                                                    <span>CASE STUDY DETAILS</span>
+                                                                    <ArrowUpRight size={11} />
+                                                                </Link>
+                                                            </div>
+                                                        </div>
                                                     </div>
+
+                                                    {/* Screenshot Gallery Switcher Tabs (If multiple images exist) */}
+                                                    {dossier.images.length > 1 && (
+                                                        <div className="p-2 sm:p-2.5 bg-muted/30 border-t border-border flex items-center gap-2 overflow-x-auto">
+                                                            <span className="text-[10px] font-mono text-muted-foreground uppercase shrink-0 pl-1">
+                                                                SCREENS:
+                                                            </span>
+                                                            {dossier.images.map((img: any, iIdx: number) => {
+                                                                const isImgActive = activeIdx === iIdx;
+                                                                return (
+                                                                    <button
+                                                                        key={iIdx}
+                                                                        type="button"
+                                                                        onClick={() => setActiveImageIndices((prev) => ({ ...prev, [dossier.id]: iIdx }))}
+                                                                        className={`px-2.5 py-1 rounded text-[10px] font-mono font-medium transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
+                                                                            isImgActive
+                                                                                ? "bg-[#FF4F00] text-white shadow-xs font-bold"
+                                                                                : "bg-card border border-border text-muted-foreground hover:text-foreground"
+                                                                        }`}>
+                                                                        <span>0{iIdx + 1}.</span>
+                                                                        <span>{img.label || `Screen ${iIdx + 1}`}</span>
+                                                                    </button>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
                                                 </motion.div>
                                             ) : (
                                                 <motion.div
