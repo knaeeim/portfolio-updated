@@ -112,7 +112,7 @@ export const Navbar1 = ({
                         <a href="#home" className="flex items-center gap-2 group truncate">
                             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shrink-0" />
                             <div className="flex flex-col truncate">
-                                <span className="font-bold text-foreground tracking-tight text-[11px] group-hover:text-[#FF4F00] transition-colors truncate">
+                                <span className="font-bold text-foreground tracking-tight text-[11px] group-hover:text-[#E64A11] transition-colors truncate">
                                     {userName}
                                 </span>
                                 <span className="text-[10px] text-muted-foreground tracking-widest uppercase truncate">
@@ -132,7 +132,7 @@ export const Navbar1 = ({
                                 key={link.number}
                                 href={link.href}
                                 className="flex-1 flex items-center justify-center gap-1.5 px-2 py-3 text-[11px] tracking-wider text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-all group">
-                                <span className="text-[9px] text-[#FF4F00] font-bold">
+                                <span className="text-[9px] text-[#E64A11] font-bold">
                                     {link.number}.
                                 </span>
                                 <span className="font-semibold group-hover:translate-x-0.5 transition-transform">
@@ -150,7 +150,7 @@ export const Navbar1 = ({
                             onClick={() => setIsCommandOpen(true)}
                             className="keycap-btn inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-card border border-border text-[11px] text-muted-foreground hover:text-foreground transition-all cursor-pointer"
                             title="Open Command Palette (⌘K)">
-                            <Command size={11} className="text-[#FF4F00]" />
+                            <Command size={11} className="text-[#E64A11]" />
                             <span className="font-mono text-[10px] font-bold">⌘K</span>
                             <span className="hidden xl:inline text-[10px] text-muted-foreground">INDEX</span>
                         </button>

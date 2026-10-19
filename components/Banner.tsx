@@ -1,305 +1,223 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-    Terminal,
-    ArrowUpRight,
-    FileText,
-    CheckCircle2,
-    Briefcase,
-    Code2,
-    ShieldCheck,
-    Cpu,
-    ExternalLink,
-    Play,
-    Send,
-    Activity,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, FileText, MessageCircle } from "lucide-react";
+import { usePosterParallax } from "@/components/poster/usePosterParallax";
+import { FloatingPixel } from "@/components/poster/FloatingPixel";
+import { CircularChevronBtn } from "@/components/poster/CircularChevronBtn";
 
 interface BannerProps {
     data?: any;
 }
 
 export const TerminalHero = ({ data }: BannerProps) => {
-    // Interactive Recruiter vs Engineer Perspective Toggle
-    const [perspective, setPerspective] = useState<"recruiter" | "engineer">("engineer");
-
-    // Mini Terminal Prompt State
-    const [terminalInput, setTerminalInput] = useState("");
-    const [terminalLogs, setTerminalLogs] = useState<Array<{ cmd: string; res: string }>>([
-        { cmd: "init telemetry", res: "NODE_READY: naeeim-production-cluster (latency: 34ms)" },
-    ]);
+    const { handleMouseMove, handleMouseLeave, l0, l1, l2, l3 } = usePosterParallax();
 
     const general = data?.general || {};
     const name = general.name || "Khairul Bashar Naeeim";
-    const company = general.company || "WebZen Bangladesh";
-    const profileImage = general.profileImage || "/profilePicture.jpg";
-
-    const handleTerminalSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        const cmd = terminalInput.trim().toLowerCase();
-        if (!cmd) return;
-
-        let response = "";
-        if (cmd === "help") {
-            response = "AVAILABLE: status, stack, cp, contact, clear";
-        } else if (cmd === "status") {
-            response = "FOUNDER & CEO // AVAILABLE FOR ADVISORY & SYSTEM ARCHITECTURE";
-        } else if (cmd === "stack") {
-            response = "Next.js 16, TypeScript, PostgreSQL, Prisma, Modular Express, PyTorch";
-        } else if (cmd === "cp") {
-            response = "600+ SOLVED (Codeforces, LeetCode, CodeChef) // DS, Graphs, DP";
-        } else if (cmd === "contact") {
-            response = "EMAIL: kmnaeeim@gmail.com // WHATSAPP: +880 1712-854941";
-        } else if (cmd === "clear") {
-            setTerminalLogs([]);
-            setTerminalInput("");
-            return;
-        } else {
-            response = `COMMAND NOT FOUND: "${cmd}". TYPE "help" FOR MANIFEST.`;
-        }
-
-        setTerminalLogs((prev) => [...prev.slice(-4), { cmd: terminalInput, res: response }]);
-        setTerminalInput("");
-    };
+    const profileImage =
+        general.profileImage ||
+        "/uploads/1792206573237_file_00000000437081fa9153c7692bcee042.png";
+    const whatsappUrl =
+        general.whatsapp ||
+        "https://wa.me/8801712854941?text=Hi%20Naeeim,%20I'd%20like%20to%20discuss%20a%20project.";
 
     return (
         <section
             id="home"
-            className="w-full border-b border-border bg-background relative overflow-hidden">
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="w-full min-h-[92vh] lg:min-h-[96vh] bg-pitch-black text-white relative overflow-hidden flex flex-col justify-between border-b border-[#222220] select-none">
             
-            {/* Top Structural Hairline with Crosshair Intersections */}
-            <div className="w-full max-w-[1440px] mx-auto border-x border-border">
+            {/* Top Perimeter Bar (3-Column Spread) */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 sm:pt-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-300 z-40 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11] animate-pulse" />
+                    <span>ARCHITECTURE</span>
+                </div>
+                <div className="hidden sm:block text-neutral-400">
+                    FULL-STACK
+                </div>
+                <div className="relative flex items-center gap-2">
+                    <span>SYSTEMS</span>
+                    <FloatingPixel
+                        color="orange"
+                        className="absolute -bottom-5 right-0 hidden md:block"
+                    />
+                </div>
+            </div>
+
+            {/* Main Stage: Layered Z-Index Depth Poster */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 flex-1 flex items-center relative">
                 
-                {/* 12-Column Asymmetric Swiss Layout (8 cols left / 4 cols right) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-border">
+                {/* ======================================================== */}
+                {/* LAYER 0 (z-0): Giant Background Watermark Text           */}
+                {/* ======================================================== */}
+                <motion.div
+                    style={l0}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                    <span className="watermark-text text-[22vw] sm:text-[20vw] lg:text-[18vw] text-[#121212] whitespace-nowrap -tracking-[0.06em]">
+                        NAEEIM // 01
+                    </span>
+                </motion.div>
+
+                {/* Floating Pixel Squares (Layer 1 Background Anchors) */}
+                <motion.div style={l1} className="absolute inset-0 pointer-events-none z-10">
+                    <FloatingPixel color="orange" className="absolute top-12 left-[15%] hidden lg:block" />
+                    <FloatingPixel color="grey" className="absolute top-[35%] left-[8%] hidden sm:block" />
+                    <FloatingPixel color="orange" className="absolute bottom-[22%] right-[12%] hidden sm:block" />
+                    <FloatingPixel color="grey" className="absolute top-[18%] right-[24%] hidden lg:block" />
+                </motion.div>
+
+                {/* Container for Midground and Foreground */}
+                <div className="w-full relative z-20 flex flex-col lg:flex-row items-center justify-between min-h-[500px] lg:min-h-[580px]">
                     
-                    {/* LEFT COLUMN: 8 Columns - The Interactive System Blueprint */}
-                    <div className="lg:col-span-8 p-6 sm:p-10 lg:p-12 flex flex-col justify-between space-y-8">
+                    {/* ======================================================== */}
+                    {/* LAYER 1 (z-10): Burnt Orange Solid Geometric Block       */}
+                    {/* ======================================================== */}
+                    <div className="relative w-full max-w-[320px] sm:max-w-[420px] lg:max-w-[460px] aspect-4/5 sm:aspect-square flex-shrink-0">
                         
-                        {/* Blueprint Metadata Header */}
-                        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
-                            <div className="flex items-center gap-2">
-                                <span className="inline-block w-2 h-2 rounded-full bg-[#FF4F00]" />
-                                <span className="tech-label text-foreground">
-                                    SYSTEM BLUEPRINT // ARCHITECTURAL DOSSIER
+                        <motion.div
+                            style={l1}
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: 1 }}
+                            transition={{
+                                duration: 0.85,
+                                ease: [0.22, 1, 0.36, 1],
+                            }}
+                            className="origin-left w-full h-full rounded-xs burnt-stripes relative shadow-2xl overflow-hidden border border-[#E64A11]/60">
+                            
+                            {/* Inside Top-Left: Light Editorial Lead-In Phrase */}
+                            <div className="absolute top-6 left-6 sm:top-8 sm:left-8 z-20 max-w-[220px]">
+                                <span className="font-light text-neutral-200 text-xs sm:text-sm tracking-wide block leading-snug">
+                                    Need a resilient
+                                </span>
+                                <span className="font-semibold text-white text-xs sm:text-sm tracking-tight block">
+                                    full-stack system?
                                 </span>
                             </div>
-                            <div className="flex items-center gap-3 text-[11px] font-mono text-muted-foreground">
-                                <span>LOC: DHAKA (BD)</span>
-                                <span>•</span>
-                                <span>STATUS: PRODUCTION-READY</span>
+
+                            {/* Minimal Watermark inside Block */}
+                            <div className="absolute bottom-4 left-6 text-[10px] font-mono text-black/50 tracking-widest uppercase font-bold">
+                                // 01 STUDIO ARCHITECT
                             </div>
-                        </div>
+                        </motion.div>
 
-                        {/* High-Craft Editorial Headline */}
-                        <div className="space-y-3">
-                            <h1 className="text-3xl sm:text-4xl lg:text-[3.25rem] font-bold tracking-tight text-foreground leading-[1.1]">
-                                Resilient full-stack systems,{" "}
-                                <span className="text-[#FF4F00] font-mono font-normal">type-safe</span> backends &amp; high-craft web apps.
-                            </h1>
-
-                            {/* Perspective Toggle: [ Recruiter ] vs [ Engineer ] */}
-                            <div className="pt-1 flex items-center gap-2.5">
-                                <span className="text-[11px] font-mono text-muted-foreground uppercase">
-                                    VIEW AS:
-                                </span>
-                                <div className="inline-flex p-0.5 rounded border border-border bg-card">
-                                    <button
-                                        type="button"
-                                        onClick={() => setPerspective("recruiter")}
-                                        className={`px-2.5 py-0.5 rounded text-xs font-mono font-semibold transition-all ${
-                                            perspective === "recruiter"
-                                                ? "bg-[#FF4F00] text-white shadow-xs"
-                                                : "text-muted-foreground hover:text-foreground"
-                                        }`}>
-                                        Recruiter
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setPerspective("engineer")}
-                                        className={`px-2.5 py-0.5 rounded text-xs font-mono font-semibold transition-all ${
-                                            perspective === "engineer"
-                                                ? "bg-[#FF4F00] text-white shadow-xs"
-                                                : "text-muted-foreground hover:text-foreground"
-                                        }`}>
-                                        Engineer
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Crisp, Text-Light Subtext */}
-                            <div className="min-h-[60px] pt-1">
-                                <AnimatePresence mode="wait">
-                                    {perspective === "recruiter" ? (
-                                        <motion.div
-                                            key="recruiter"
-                                            initial={{ opacity: 0, y: 4 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -4 }}
-                                            transition={{ duration: 0.15 }}
-                                            className="space-y-1.5">
-                                            <p className="text-sm sm:text-base text-muted-foreground leading-snug">
-                                                Founder &amp; CEO at <strong className="text-foreground">{company}</strong>. 
-                                                Delivering scalable production web apps, clinical automation, and developer training.
-                                            </p>
-                                            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-muted-foreground">
-                                                <span className="text-foreground font-semibold">15+ Ventures</span>
-                                                <span>•</span>
-                                                <span className="text-foreground font-semibold">100+ Trained</span>
-                                                <span>•</span>
-                                                <span className="text-[#10B981] font-semibold">99.9% Uptime</span>
-                                            </div>
-                                        </motion.div>
-                                    ) : (
-                                        <motion.div
-                                            key="engineer"
-                                            initial={{ opacity: 0, y: 4 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -4 }}
-                                            transition={{ duration: 0.15 }}
-                                            className="space-y-1.5">
-                                            <p className="text-sm sm:text-base text-muted-foreground leading-snug">
-                                                Specialized in <strong className="text-foreground">Next.js 16</strong>, <strong className="text-foreground">TypeScript</strong>, <strong className="text-foreground">PostgreSQL / Prisma</strong>, and modular backends. Grounded in <strong className="text-foreground">600+ CP problems</strong>.
-                                            </p>
-                                            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-muted-foreground">
-                                                <span className="text-[#FF4F00] font-semibold">TypeScript &amp; Node</span>
-                                                <span>•</span>
-                                                <span className="text-foreground font-semibold">Prisma / Postgres</span>
-                                                <span>•</span>
-                                                <span className="text-[#10B981] font-semibold">600+ Solved</span>
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        </div>
-
-                        {/* Mechanical Keycap CTA Group */}
-                        <div className="pt-2 flex flex-wrap items-center gap-2.5">
-                            <a
-                                href="#projects"
-                                className="keycap-btn px-4 py-2 rounded bg-foreground text-background font-mono text-xs font-bold tracking-wider hover:bg-[#FF4F00] hover:text-white transition-colors inline-flex items-center gap-1.5">
-                                <span>VIEW PROJECTS</span>
-                                <ArrowUpRight size={13} />
-                            </a>
-                            <a
-                                href="/resume.pdf"
-                                download
-                                className="keycap-btn px-3.5 py-2 rounded bg-card border border-border text-foreground font-mono text-xs font-semibold hover:border-foreground transition-all inline-flex items-center gap-1.5">
-                                <FileText size={13} className="text-[#FF4F00]" />
-                                <span>RESUME (PDF)</span>
-                            </a>
-                            <a
-                                href="#contact"
-                                className="px-3.5 py-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
-                                <span>CONTACT ↗</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    {/* RIGHT COLUMN: 4 Columns - Live Environment Inspector & Architectural Portrait */}
-                    <div className="lg:col-span-4 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-card/40">
-                        
-                        {/* Profile Frame with Architectural Coordinates */}
-                        <div className="space-y-3">
-                            <div className="flex items-center justify-between text-[11px] font-mono text-muted-foreground border-b border-border pb-2">
-                                <span className="flex items-center gap-1.5">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-                                    <span>FOUNDER_PORTRAIT.RAW</span>
-                                </span>
-                                <span>ASPECT: 4:5</span>
-                            </div>
-
-                            <div className="relative aspect-4/5 w-full rounded border border-border overflow-hidden bg-muted group">
+                        {/* ======================================================== */}
+                        {/* LAYER 2 (z-20): Cutout Portrait Overlapping Block Right  */}
+                        {/* ======================================================== */}
+                        <motion.div
+                            style={l2}
+                            initial={{ y: 60, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{
+                                duration: 0.9,
+                                delay: 0.25,
+                                ease: [0.22, 1, 0.36, 1],
+                            }}
+                            className="absolute -right-6 sm:-right-16 lg:-right-24 bottom-0 w-[240px] sm:w-[320px] lg:w-[380px] h-[340px] sm:h-[440px] lg:h-[500px] z-20 pointer-events-none">
+                            <div className="relative w-full h-full filter contrast-110 drop-shadow-[0_20px_40px_rgba(0,0,0,0.85)]">
                                 <Image
                                     src={profileImage}
                                     alt={name}
                                     fill
                                     priority
-                                    sizes="(max-width: 640px) 320px, (max-width: 1024px) 380px, 420px"
-                                    className="object-cover object-top filter grayscale contrast-105 group-hover:grayscale-0 transition-all duration-500"
+                                    sizes="(max-width: 640px) 260px, (max-width: 1024px) 340px, 420px"
+                                    className="object-contain object-bottom"
                                 />
-                                
-                                {/* Exposed Technical Hairlines & Corner Coordinates */}
-                                <div className="absolute inset-0 border border-border/40 pointer-events-none" />
-                                <div className="absolute top-2 left-2 px-1.5 py-0.5 rounded bg-background/90 border border-border text-[9px] font-mono text-foreground font-bold">
-                                    K. B. NAEEIM
-                                </div>
-                                <div className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-background/90 border border-border text-[9px] font-mono text-[#10B981] font-bold">
-                                    ONLINE // DHAKA
-                                </div>
                             </div>
-                        </div>
-
-                        {/* Live Environment Inspector Card */}
-                        <div className="rounded border border-border bg-card p-4 space-y-3 font-mono text-xs">
-                            <div className="flex items-center justify-between border-b border-border pb-2">
-                                <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider flex items-center gap-1.5">
-                                    <Activity size={12} className="text-[#FF4F00]" />
-                                    <span>ENVIRONMENT INSPECTOR</span>
-                                </span>
-                                <span className="text-[10px] text-[#10B981] font-bold">HEALTH: 100%</span>
-                            </div>
-
-                            {/* Telemetry Stats */}
-                            <div className="grid grid-cols-2 gap-2 text-[11px]">
-                                <div className="p-2 rounded bg-muted/40 border border-border/60">
-                                    <div className="text-[10px] text-muted-foreground uppercase">ALGORITHMIC CP</div>
-                                    <div className="text-sm font-bold text-foreground">600+ Solved</div>
-                                    <div className="text-[9px] text-muted-foreground">CF / LeetCode</div>
-                                </div>
-                                <div className="p-2 rounded bg-muted/40 border border-border/60">
-                                    <div className="text-[10px] text-muted-foreground uppercase">SSR LATENCY</div>
-                                    <div className="text-sm font-bold text-[#10B981]">&lt;38ms</div>
-                                    <div className="text-[9px] text-muted-foreground">Turbopack Vercel</div>
-                                </div>
-                            </div>
-
-                            {/* Interactive Mini Terminal Prompt */}
-                            <div className="space-y-1.5 pt-1">
-                                <div className="text-[10px] text-muted-foreground flex items-center justify-between">
-                                    <span>INTERACTIVE PROMPT</span>
-                                    <span className="text-[9px]">type &quot;help&quot;</span>
-                                </div>
-                                
-                                <div className="p-2 rounded bg-background border border-border text-[11px] space-y-1 font-mono max-h-24 overflow-y-auto">
-                                    {terminalLogs.map((log, idx) => (
-                                        <div key={idx} className="space-y-0.5">
-                                            <div className="text-muted-foreground text-[10px]">
-                                                &gt; {log.cmd}
-                                            </div>
-                                            <div className="text-foreground text-[10px] pl-2 border-l border-border">
-                                                {log.res}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <form onSubmit={handleTerminalSubmit} className="flex items-center gap-1 pt-1">
-                                    <span className="text-[#FF4F00] text-[11px] font-bold">&gt;</span>
-                                    <input
-                                        type="text"
-                                        value={terminalInput}
-                                        onChange={(e) => setTerminalInput(e.target.value)}
-                                        placeholder="status, stack, cp..."
-                                        className="w-full bg-transparent text-[11px] text-foreground outline-none font-mono placeholder:text-muted-foreground/50"
-                                    />
-                                    <button
-                                        type="submit"
-                                        className="text-muted-foreground hover:text-[#FF4F00] transition-colors p-1">
-                                        <Send size={11} />
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+                        </motion.div>
 
                     </div>
 
+                    {/* ======================================================== */}
+                    {/* LAYER 3 (z-30): Foreground Stacked Impact Typography    */}
+                    {/* ======================================================== */}
+                    <motion.div
+                        style={l3}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                            duration: 0.8,
+                            delay: 0.45,
+                            ease: [0.22, 1, 0.36, 1],
+                        }}
+                        className="w-full lg:w-auto mt-8 lg:mt-0 lg:-ml-28 xl:-ml-36 z-30 space-y-6">
+                        
+                        {/* 3-Row Stacked Ultra-Heavy Typography */}
+                        <div className="space-y-1 sm:space-y-2">
+                            <div className="overflow-hidden">
+                                <h1 className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-white">
+                                    NAEEIM
+                                </h1>
+                            </div>
+                            <div className="overflow-hidden">
+                                <div className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-white">
+                                    SOFTWARE
+                                </div>
+                            </div>
+                            <div className="overflow-hidden flex items-center gap-3 sm:gap-5 flex-wrap">
+                                <div className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.5rem] text-[#E64A11]">
+                                    ARCHITECT
+                                </div>
+                                <CircularChevronBtn href="#projects" size="lg" />
+                            </div>
+                        </div>
+
+                        {/* Text-Light Bio & Action Anchors */}
+                        <div className="space-y-4 max-w-lg pt-2">
+                            <p className="font-light text-neutral-300 text-sm sm:text-base leading-relaxed">
+                                Founder &amp; CEO at <strong className="text-white font-medium">WebZen Bangladesh</strong>. 
+                                Shipping mission-critical web applications, clinical zero-queue portals, and high-uptime platforms.
+                            </p>
+
+                            <div className="flex flex-wrap items-center gap-3 pt-1 font-mono text-xs">
+                                <a
+                                    href="#projects"
+                                    className="px-4 py-2 bg-white text-black font-bold uppercase tracking-wider rounded hover:bg-[#E64A11] hover:text-white transition-colors inline-flex items-center gap-2">
+                                    <span>EXPLORE DOSSIERS</span>
+                                    <ArrowUpRight size={13} />
+                                </a>
+                                <a
+                                    href="/resume.pdf"
+                                    download
+                                    className="px-4 py-2 border border-neutral-700 bg-neutral-900/60 text-neutral-200 font-semibold uppercase tracking-wider rounded hover:border-white transition-colors inline-flex items-center gap-2">
+                                    <FileText size={13} className="text-[#E64A11]" />
+                                    <span>EXECUTIVE CV</span>
+                                </a>
+                                <a
+                                    href={whatsappUrl}
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    className="px-3.5 py-2 text-neutral-400 hover:text-[#E64A11] transition-colors inline-flex items-center gap-1.5">
+                                    <MessageCircle size={14} />
+                                    <span>WHATSAPP CHAT ↗</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </motion.div>
+
                 </div>
 
+            </div>
+
+            {/* Bottom Perimeter Bar */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 sm:pb-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-t border-white/5 pt-4">
+                <div className="flex items-center gap-2">
+                    <span className="text-white">@NAEEIM.SITE_</span>
+                </div>
+                <div className="hidden sm:block text-neutral-500">
+                    DHAKA, BD // UTC+6
+                </div>
+                <div className="text-[#E64A11] font-semibold">
+                    @600_PROBLEMS_SOLVED
+                </div>
             </div>
 
         </section>

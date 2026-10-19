@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     Mail,
     Copy,
     Check,
-    ArrowUpRight,
     MessageCircle,
     Phone,
     Linkedin,
@@ -13,24 +13,31 @@ import {
     FileText,
     Send,
     Download,
+    ArrowUpRight,
 } from "lucide-react";
 import { toast } from "sonner";
+import { usePosterParallax } from "@/components/poster/usePosterParallax";
+import { FloatingPixel } from "@/components/poster/FloatingPixel";
+import { CircularChevronBtn } from "@/components/poster/CircularChevronBtn";
 
 interface ContactSectionProps {
     data?: any;
 }
 
 const quickTopics = [
-    { label: "Project", prefix: "Hi Naeeim, I'd like to discuss a project: " },
-    { label: "Advisory", prefix: "Hi Naeeim, interested in architecture advisory for: " },
+    { label: "New Project", prefix: "Hi Naeeim, I'd like to build a new project: " },
+    { label: "Architecture Advisory", prefix: "Hi Naeeim, looking for architecture advisory for: " },
     { label: "Collaboration", prefix: "Hi Naeeim, interested in collaborating on: " },
     { label: "Say Hello", prefix: "Hi Naeeim, " },
 ];
 
 export const ContactSection = ({ data }: ContactSectionProps) => {
+    const { handleMouseMove, handleMouseLeave, l0 } = usePosterParallax();
+
     const [copiedEmail, setCopiedEmail] = useState(false);
+    const [isFormOpen, setIsFormOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [selectedTopic, setSelectedTopic] = useState<string>("Project");
+    const [selectedTopic, setSelectedTopic] = useState<string>("New Project");
     const [messageText, setMessageText] = useState<string>("");
     const [emailInput, setEmailInput] = useState<string>("");
     const [nameInput, setNameInput] = useState<string>("");
@@ -50,13 +57,6 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
         setCopiedEmail(true);
         toast.success(`Copied: ${email}`);
         setTimeout(() => setCopiedEmail(false), 2000);
-    };
-
-    const handleTopicClick = (topic: typeof quickTopics[0]) => {
-        setSelectedTopic(topic.label);
-        if (!messageText.trim() || quickTopics.some((t) => messageText.startsWith(t.prefix))) {
-            setMessageText(topic.prefix);
-        }
     };
 
     const handleFormSubmit = async (e: React.FormEvent) => {
@@ -80,15 +80,15 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
             });
 
             if (res.ok) {
-                toast.success("Message sent! I'll reply within 24 hours.");
+                toast.success("Message transmitted! I will respond within 24 hours.");
             } else {
-                toast.success("Received! I will get back to you shortly.");
+                toast.success("Message received! Thank you.");
             }
             setMessageText("");
             setEmailInput("");
             setNameInput("");
         } catch {
-            toast.success("Message received! Thank you.");
+            toast.success("Message sent! For urgent needs, feel free to use WhatsApp.");
         } finally {
             setIsSubmitting(false);
         }
@@ -97,251 +97,259 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
     return (
         <footer
             id="contact"
-            className="w-full border-t border-border bg-background relative overflow-hidden py-10 sm:py-14">
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="w-full bg-pitch-black text-white relative overflow-hidden flex flex-col justify-between border-t border-[#222220] py-12 sm:py-16 select-none">
             
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            {/* Top Perimeter Bar */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-b border-white/5">
+                <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11] animate-pulse" />
+                    <span>05. TRANSMISSION</span>
+                </div>
+                <div className="hidden sm:block text-neutral-500">
+                    DIRECT CHANNELS
+                </div>
+                <div className="flex items-center gap-2">
+                    <span>DHAKA, BD // UTC+6</span>
+                    <FloatingPixel color="orange" className="hidden sm:block" />
+                </div>
+            </div>
+
+            {/* Giant Background Watermark Text (Layer 0) */}
+            <motion.div
+                style={l0}
+                className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                <span className="watermark-text text-[26vw] text-[#121212] whitespace-nowrap">
+                    CONTACT // 05
+                </span>
+            </motion.div>
+
+            {/* Main Stage: Centered Burnt Orange Geometric Poster */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-10 z-20 relative space-y-12">
                 
-                {/* Text-Light Header */}
-                <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-                    <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-                            <span className="tech-label text-foreground">
-                                07. DIRECT CONTACT
-                            </span>
+                {/* Central CTA Poster Block */}
+                <div className="relative rounded-sm burnt-stripes p-8 sm:p-14 lg:p-20 shadow-2xl border border-[#E64A11]/60 space-y-8 overflow-hidden">
+                    
+                    <div className="space-y-4 max-w-4xl">
+                        <span className="font-light text-neutral-200 text-sm sm:text-base tracking-wide block uppercase font-mono">
+                            Ready to collaborate on
+                        </span>
+
+                        <div className="space-y-1 sm:space-y-2">
+                            <div className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] text-white">
+                                YOUR NEXT
+                            </div>
+                            <div className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] text-black">
+                                FLAGSHIP
+                            </div>
+                            <div className="flex items-center gap-4 flex-wrap">
+                                <div className="editorial-display text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] text-white">
+                                    PROJECT
+                                </div>
+                                <CircularChevronBtn
+                                    onClick={() => setIsFormOpen(!isFormOpen)}
+                                    size="lg"
+                                    className="text-white"
+                                />
+                            </div>
                         </div>
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
-                            Let&apos;s talk.
-                        </h2>
+
+                        <p className="font-light text-neutral-100 text-xs sm:text-sm max-w-xl pt-2">
+                            Available for high-stakes venture platforms, systems advisory, and full-stack engineering. 
+                            Tap the chevron to dispatch a message or pick an instant direct line below.
+                        </p>
                     </div>
 
-                    <div className="flex items-center gap-2 px-2.5 py-1 rounded bg-[#10B981]/10 border border-[#10B981]/25 text-[11px] font-mono text-[#10B981] self-start sm:self-auto">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-                        <span>AVAILABLE FOR WORK &amp; ADVISORY</span>
+                    {/* Instant Direct Channel Pills (Inside Orange Block) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-6 border-t border-black/20 font-mono text-xs">
+                        
+                        {/* 1. WhatsApp */}
+                        <a
+                            href={whatsappDirectUrl}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="p-3.5 rounded-xs bg-black text-white hover:bg-white hover:text-black transition-colors flex items-center justify-between group">
+                            <div className="flex items-center gap-2.5">
+                                <MessageCircle size={16} className="text-[#E64A11]" />
+                                <span className="font-bold">WhatsApp</span>
+                            </div>
+                            <ArrowUpRight size={13} className="opacity-70 group-hover:opacity-100" />
+                        </a>
+
+                        {/* 2. Copy Email */}
+                        <div className="p-3.5 rounded-xs bg-black text-white flex items-center justify-between">
+                            <div className="flex items-center gap-2.5 truncate mr-2">
+                                <Mail size={16} className="text-[#E64A11] shrink-0" />
+                                <span className="font-bold truncate">{email}</span>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={copyEmail}
+                                className="text-[10px] text-[#E64A11] hover:underline font-bold shrink-0 cursor-pointer">
+                                {copiedEmail ? "COPIED" : "COPY"}
+                            </button>
+                        </div>
+
+                        {/* 3. Phone */}
+                        <a
+                            href={`tel:${phone.replace(/\s+/g, "")}`}
+                            className="p-3.5 rounded-xs bg-black text-white hover:bg-white hover:text-black transition-colors flex items-center justify-between group">
+                            <div className="flex items-center gap-2.5">
+                                <Phone size={16} className="text-[#E64A11]" />
+                                <span className="font-bold">Direct Call</span>
+                            </div>
+                            <span className="text-[10px] text-neutral-400 font-mono">{phone}</span>
+                        </a>
+
+                        {/* 4. Resume */}
+                        <a
+                            href="/resume.pdf"
+                            download
+                            className="p-3.5 rounded-xs bg-black text-white hover:bg-white hover:text-black transition-colors flex items-center justify-between group">
+                            <div className="flex items-center gap-2.5">
+                                <FileText size={16} className="text-[#E64A11]" />
+                                <span className="font-bold">Executive CV</span>
+                            </div>
+                            <Download size={13} className="text-[#E64A11]" />
+                        </a>
+
                     </div>
+
                 </div>
 
-                {/* Grid: 4 Instant Action Cards (Left) + Quick Form (Right) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                    
-                    {/* LEFT (6 COLS): 4 Ultra-Clean Instant Cards */}
-                    <div className="lg:col-span-6 space-y-3 font-mono text-xs">
-                        
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Morphing Quick-Dispatch Form Area */}
+                <AnimatePresence>
+                    {isFormOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 20 }}
+                            transition={{ duration: 0.35 }}
+                            className="rounded-sm border border-neutral-800 bg-[#0E0E0E] p-6 sm:p-8 space-y-6">
                             
-                            {/* Card 1: WhatsApp */}
-                            <a
-                                href={whatsappDirectUrl}
-                                target="_blank"
-                                rel="noreferrer noopener"
-                                className="keycap-btn p-3.5 rounded-lg border border-[#10B981]/35 bg-[#10B981]/5 hover:bg-[#10B981]/10 hover:border-[#10B981] transition-all flex flex-col justify-between space-y-2 group">
-                                <div className="flex items-center justify-between">
-                                    <div className="w-7 h-7 rounded bg-[#10B981]/15 text-[#10B981] flex items-center justify-center font-bold">
-                                        <MessageCircle size={16} />
-                                    </div>
-                                    <span className="text-[10px] text-[#10B981] font-bold">
-                                        CHAT ↗
-                                    </span>
-                                </div>
-                                <div>
-                                    <div className="font-bold font-sans text-sm text-foreground group-hover:text-[#10B981] transition-colors">
-                                        WhatsApp
-                                    </div>
-                                    <div className="text-[11px] text-muted-foreground mt-0.5">
-                                        {phone}
-                                    </div>
-                                </div>
-                            </a>
-
-                            {/* Card 2: Email */}
-                            <div className="keycap-btn p-3.5 rounded-lg border border-border bg-card hover:border-[#FF4F00] transition-all flex flex-col justify-between space-y-2 group">
-                                <div className="flex items-center justify-between">
-                                    <div className="w-7 h-7 rounded bg-[#FF4F00]/10 text-[#FF4F00] flex items-center justify-center font-bold">
-                                        <Mail size={16} />
-                                    </div>
-                                    <button
-                                        type="button"
-                                        onClick={copyEmail}
-                                        className="text-[10px] text-[#FF4F00] hover:underline flex items-center gap-1 font-bold cursor-pointer">
-                                        {copiedEmail ? <Check size={11} /> : <Copy size={11} />}
-                                        <span>{copiedEmail ? "COPIED" : "COPY"}</span>
-                                    </button>
-                                </div>
-                                <div>
-                                    <div className="font-bold font-sans text-sm text-foreground truncate">
-                                        Email
-                                    </div>
-                                    <a
-                                        href={`mailto:${email}`}
-                                        className="text-[11px] text-muted-foreground hover:text-foreground truncate block mt-0.5">
-                                        {email}
-                                    </a>
-                                </div>
-                            </div>
-
-                            {/* Card 3: Phone */}
-                            <a
-                                href={`tel:${phone.replace(/\s+/g, "")}`}
-                                className="keycap-btn p-3.5 rounded-lg border border-border bg-card hover:border-foreground transition-all flex flex-col justify-between space-y-2 group">
-                                <div className="flex items-center justify-between">
-                                    <div className="w-7 h-7 rounded bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold">
-                                        <Phone size={15} />
-                                    </div>
-                                    <span className="text-[10px] text-muted-foreground font-bold group-hover:text-foreground">
-                                        CALL ↗
-                                    </span>
-                                </div>
-                                <div>
-                                    <div className="font-bold font-sans text-sm text-foreground">
-                                        Direct Phone
-                                    </div>
-                                    <div className="text-[11px] text-muted-foreground mt-0.5">
-                                        {phone}
-                                    </div>
-                                </div>
-                            </a>
-
-                            {/* Card 4: Resume */}
-                            <a
-                                href="/resume.pdf"
-                                download
-                                className="keycap-btn p-3.5 rounded-lg border border-border bg-card hover:border-[#FF4F00] transition-all flex flex-col justify-between space-y-2 group">
-                                <div className="flex items-center justify-between">
-                                    <div className="w-7 h-7 rounded bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">
-                                        <FileText size={15} />
-                                    </div>
-                                    <span className="text-[10px] text-[#FF4F00] font-bold group-hover:underline flex items-center gap-0.5">
-                                        PDF <Download size={10} />
-                                    </span>
-                                </div>
-                                <div>
-                                    <div className="font-bold font-sans text-sm text-foreground group-hover:text-[#FF4F00] transition-colors">
-                                        Executive CV
-                                    </div>
-                                    <div className="text-[11px] text-muted-foreground mt-0.5">
-                                        1-Click Download
-                                    </div>
-                                </div>
-                            </a>
-
-                        </div>
-
-                        {/* Social Links */}
-                        <div className="flex items-center gap-2 pt-1 font-mono text-xs">
-                            <span className="text-[10px] text-muted-foreground uppercase mr-1">PROFILES:</span>
-                            <a
-                                href={linkedin}
-                                target="_blank"
-                                rel="noreferrer noopener"
-                                className="px-2.5 py-1 rounded border border-border bg-card hover:border-foreground transition-all flex items-center gap-1.5 text-foreground text-[11px] font-semibold">
-                                <Linkedin size={12} />
-                                <span>LinkedIn</span>
-                            </a>
-                            <a
-                                href={github}
-                                target="_blank"
-                                rel="noreferrer noopener"
-                                className="px-2.5 py-1 rounded border border-border bg-card hover:border-foreground transition-all flex items-center gap-1.5 text-foreground text-[11px] font-semibold">
-                                <Github size={12} />
-                                <span>GitHub</span>
-                            </a>
-                            <a
-                                href="https://codeforces.com/profile/knaeeim"
-                                target="_blank"
-                                rel="noreferrer noopener"
-                                className="px-2.5 py-1 rounded border border-border bg-card hover:border-foreground transition-all flex items-center gap-1.5 text-foreground text-[11px] font-semibold">
-                                <span>Codeforces</span>
-                            </a>
-                        </div>
-
-                    </div>
-
-                    {/* RIGHT (6 COLS): Ultra-Clean 2-Field Dispatch */}
-                    <div className="lg:col-span-6">
-                        
-                        <form
-                            onSubmit={handleFormSubmit}
-                            className="p-4 sm:p-5 rounded-lg border border-border bg-card/60 space-y-3 font-mono text-xs">
-                            
-                            {/* Topic Chips */}
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                                <span className="text-[10px] text-muted-foreground uppercase mr-1">TOPIC:</span>
-                                {quickTopics.map((topic) => {
-                                    const isSelected = selectedTopic === topic.label;
-                                    return (
-                                        <button
-                                            key={topic.label}
-                                            type="button"
-                                            onClick={() => handleTopicClick(topic)}
-                                            className={`px-2.5 py-0.5 rounded text-[11px] transition-all cursor-pointer ${
-                                                isSelected
-                                                    ? "bg-[#FF4F00] text-white font-bold"
-                                                    : "bg-muted/50 border border-border/80 text-muted-foreground hover:text-foreground"
-                                            }`}>
-                                            {topic.label}
-                                        </button>
-                                    );
-                                })}
-                            </div>
-
-                            {/* Inputs */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                                <input
-                                    type="text"
-                                    value={nameInput}
-                                    onChange={(e) => setNameInput(e.target.value)}
-                                    placeholder="Your Name"
-                                    className="w-full px-3 py-2 rounded bg-background border border-border text-foreground text-xs font-sans outline-none focus:border-[#FF4F00] transition-colors"
-                                />
-                                <input
-                                    required
-                                    type="text"
-                                    value={emailInput}
-                                    onChange={(e) => setEmailInput(e.target.value)}
-                                    placeholder="Your Email or Phone *"
-                                    className="w-full px-3 py-2 rounded bg-background border border-border text-foreground text-xs font-sans outline-none focus:border-[#FF4F00] transition-colors"
-                                />
-                            </div>
-
-                            <textarea
-                                required
-                                rows={3}
-                                value={messageText}
-                                onChange={(e) => setMessageText(e.target.value)}
-                                placeholder="Your note or project details..."
-                                className="w-full px-3 py-2 rounded bg-background border border-border text-foreground text-xs font-sans outline-none focus:border-[#FF4F00] transition-colors resize-none"
-                            />
-
-                            {/* Submit Button */}
-                            <div className="flex items-center justify-between pt-1">
-                                <span className="text-[10px] text-muted-foreground font-mono">
-                                    Direct to personal inbox
+                            <div className="flex items-center justify-between border-b border-white/5 pb-3 font-mono text-xs">
+                                <span className="text-[#E64A11] font-bold uppercase tracking-wider">
+                                    // DIRECT TRANSMISSION TO NAEEIM
                                 </span>
                                 <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="keycap-btn px-4 py-2 bg-foreground text-background font-bold text-xs font-mono rounded hover:bg-[#FF4F00] hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50">
-                                    <Send size={12} />
-                                    <span>{isSubmitting ? "SENDING..." : "SEND"}</span>
+                                    type="button"
+                                    onClick={() => setIsFormOpen(false)}
+                                    className="text-neutral-400 hover:text-white">
+                                    [ CLOSE ]
                                 </button>
                             </div>
 
-                        </form>
+                            <form onSubmit={handleFormSubmit} className="space-y-4 font-mono text-xs">
+                                
+                                {/* Topic selector */}
+                                <div className="flex items-center gap-2 flex-wrap">
+                                    <span className="text-neutral-400 text-[10px]">TOPIC:</span>
+                                    {quickTopics.map((topic) => (
+                                        <button
+                                            key={topic.label}
+                                            type="button"
+                                            onClick={() => {
+                                                setSelectedTopic(topic.label);
+                                                setMessageText(topic.prefix);
+                                            }}
+                                            className={`px-3 py-1 rounded-xs transition-colors cursor-pointer ${
+                                                selectedTopic === topic.label
+                                                    ? "bg-[#E64A11] text-white font-bold"
+                                                    : "bg-white/5 border border-white/10 text-neutral-300 hover:text-white"
+                                            }`}>
+                                            {topic.label}
+                                        </button>
+                                    ))}
+                                </div>
 
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <input
+                                        type="text"
+                                        value={nameInput}
+                                        onChange={(e) => setNameInput(e.target.value)}
+                                        placeholder="Your Name"
+                                        className="w-full px-3 py-2.5 rounded-xs bg-black border border-white/10 text-white placeholder:text-neutral-500 outline-none focus:border-[#E64A11]"
+                                    />
+                                    <input
+                                        required
+                                        type="text"
+                                        value={emailInput}
+                                        onChange={(e) => setEmailInput(e.target.value)}
+                                        placeholder="Your Email or WhatsApp *"
+                                        className="w-full px-3 py-2.5 rounded-xs bg-black border border-white/10 text-white placeholder:text-neutral-500 outline-none focus:border-[#E64A11]"
+                                    />
+                                </div>
+
+                                <textarea
+                                    required
+                                    rows={3}
+                                    value={messageText}
+                                    onChange={(e) => setMessageText(e.target.value)}
+                                    placeholder="Your note or project requirements..."
+                                    className="w-full px-3 py-2.5 rounded-xs bg-black border border-white/10 text-white placeholder:text-neutral-500 outline-none focus:border-[#E64A11] resize-none"
+                                />
+
+                                <div className="flex items-center justify-between pt-1">
+                                    <span className="text-[10px] text-neutral-400">
+                                        Replies typically within 24 hours
+                                    </span>
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="px-5 py-2.5 bg-[#E64A11] text-white font-bold rounded-xs hover:bg-[#FF5100] transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50">
+                                        <Send size={13} />
+                                        <span>{isSubmitting ? "TRANSMITTING..." : "DISPATCH"}</span>
+                                    </button>
+                                </div>
+
+                            </form>
+
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Profiles & External Links Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5 font-mono text-xs">
+                    <div className="flex items-center gap-4">
+                        <span className="text-neutral-500 text-[10px] uppercase">PROFILES:</span>
+                        <a
+                            href={linkedin}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="text-neutral-300 hover:text-white flex items-center gap-1">
+                            <Linkedin size={13} />
+                            <span>LinkedIn</span>
+                        </a>
+                        <a
+                            href={github}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="text-neutral-300 hover:text-white flex items-center gap-1">
+                            <Github size={13} />
+                            <span>GitHub</span>
+                        </a>
+                        <a
+                            href="https://codeforces.com/profile/knaeeim"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="text-neutral-300 hover:text-white flex items-center gap-1">
+                            <span>Codeforces</span>
+                        </a>
                     </div>
 
-                </div>
-
-                {/* Minimal Colophon */}
-                <div className="pt-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono text-muted-foreground">
-                    <div>
-                        © {new Date().getFullYear()} Khairul Bashar Naeeim • Dhaka
-                    </div>
-                    <a href="#home" className="hover:text-foreground transition-colors">
+                    <a href="#home" className="text-neutral-400 hover:text-white transition-colors">
                         Back to Top ↑
                     </a>
                 </div>
 
+            </div>
+
+            {/* Bottom Perimeter Bar */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 z-40 border-t border-white/5">
+                <div>© {new Date().getFullYear()} KHAIRUL BASHAR NAEEIM</div>
+                <div>DHAKA // UTC+6</div>
+                <div className="text-neutral-400">@NAEEIM_DEV</div>
             </div>
 
         </footer>

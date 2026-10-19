@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
-import { GraduationCap, Calendar, MapPin, Award, BookOpen, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { usePosterParallax } from "@/components/poster/usePosterParallax";
+import { FloatingPixel } from "@/components/poster/FloatingPixel";
 
 interface EducationSectionProps {
     data?: any;
@@ -29,6 +31,8 @@ const defaultCourses = [
 ];
 
 export const EducationSection = ({ data }: EducationSectionProps) => {
+    const { handleMouseMove, handleMouseLeave, l0 } = usePosterParallax();
+
     const education = data?.education || {};
     const defaultDegree = {
         degree: education.degree || "BSc in Computer Science & Engineering (CSE)",
@@ -48,68 +52,84 @@ export const EducationSection = ({ data }: EducationSectionProps) => {
     return (
         <section
             id="education"
-            className="w-full border-b border-border bg-background relative overflow-hidden py-10 sm:py-14">
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="w-full bg-pitch-black text-white relative overflow-hidden border-b border-[#222220] py-12 sm:py-16 select-none">
             
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            {/* Top Perimeter Bar */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-b border-white/5">
+                <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
+                    <span>06. ACADEMIA &amp; CREDENTIALS</span>
+                </div>
+                <div className="hidden sm:block text-neutral-500">
+                    SPECIALIZATION COHORTS
+                </div>
+                <div className="flex items-center gap-2">
+                    <span>CGPA 3.59 / 4.00</span>
+                    <FloatingPixel color="orange" className="hidden sm:block" />
+                </div>
+            </div>
+
+            {/* Giant Background Watermark Text (Layer 0) */}
+            <motion.div
+                style={l0}
+                className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                <span className="watermark-text text-[22vw] text-[#121212] whitespace-nowrap">
+                    ACADEMIA // 06
+                </span>
+            </motion.div>
+
+            {/* Main Stage */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 z-20 relative space-y-10">
                 
                 {/* Header */}
-                <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-                    <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
-                            <span className="tech-label text-foreground">
-                                06. ACADEMIC CREDENTIALS
-                            </span>
-                        </div>
-                        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                            Education &amp; Specialization
-                        </h2>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground bg-card border border-border px-2.5 py-1 rounded">
-                        <span className="text-foreground font-bold">CGPA: 3.59 / 4.00</span>
-                        <span>•</span>
-                        <span className="text-[#10B981]">ACTIVE DEGREE</span>
-                    </div>
+                <div className="space-y-2 max-w-2xl">
+                    <span className="font-light text-neutral-300 text-xs sm:text-sm tracking-wide block uppercase font-mono">
+                        // FOUNDATIONS &amp; CERTIFICATIONS
+                    </span>
+                    <h2 className="editorial-display text-4xl sm:text-6xl text-white">
+                        EDUCATION &amp; <span className="text-[#E64A11]">SPECIALIZATION</span>
+                    </h2>
                 </div>
 
                 {/* 12-Column Grid: Degree (6 Cols) & Professional Certifications (6 Cols) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start font-mono text-xs">
                     
                     {/* LEFT (6 COLS): Degree Milestone */}
                     <div className="lg:col-span-6 space-y-4">
-                        <div className="text-[10px] font-mono uppercase text-muted-foreground tracking-wider">
-                            UNIVERSITY DEGREE:
+                        <div className="text-[10px] uppercase text-neutral-400 tracking-wider font-bold">
+                            // UNIVERSITY DEGREE:
                         </div>
 
                         {degrees.map((deg, idx) => (
                             <div
                                 key={idx}
-                                className="p-6 rounded border border-border bg-card/60 font-mono text-xs space-y-4">
-                                <div className="flex items-center justify-between border-b border-border pb-3">
-                                    <span className="text-[10px] font-bold text-[#FF4F00] uppercase tracking-wider">
+                                className="p-6 sm:p-8 rounded-xs border border-neutral-800 bg-[#0E0E0E]/90 space-y-4">
+                                <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                                    <span className="text-[10px] font-bold text-[#E64A11] uppercase tracking-wider">
                                         {deg.status || "Currently Studying"}
                                     </span>
-                                    <span className="text-[11px] text-muted-foreground">{deg.timeline}</span>
+                                    <span className="text-[11px] text-neutral-400">{deg.timeline}</span>
                                 </div>
 
                                 <div className="space-y-1">
-                                    <h3 className="text-xl font-bold font-sans text-foreground">
+                                    <h3 className="text-xl sm:text-2xl font-bold font-sans text-white">
                                         {deg.institution}
                                     </h3>
-                                    <p className="text-xs text-[#FF4F00] font-semibold">
+                                    <p className="text-xs text-[#E64A11] font-semibold">
                                         {deg.degree}
                                     </p>
                                 </div>
 
-                                <div className="pt-2 border-t border-border grid grid-cols-2 gap-3 text-[11px]">
-                                    <div className="p-2.5 rounded bg-muted/40 border border-border/60">
-                                        <div className="text-[9px] text-muted-foreground uppercase">ACADEMIC STANDING</div>
-                                        <div className="text-sm font-bold text-foreground mt-0.5">{deg.cgpa}</div>
+                                <div className="pt-2 border-t border-white/5 grid grid-cols-2 gap-3 text-[11px]">
+                                    <div className="p-3 rounded-xs bg-black border border-white/5">
+                                        <div className="text-[9px] text-neutral-500 uppercase">ACADEMIC STANDING</div>
+                                        <div className="text-sm font-bold text-white mt-0.5">{deg.cgpa}</div>
                                     </div>
-                                    <div className="p-2.5 rounded bg-muted/40 border border-border/60">
-                                        <div className="text-[9px] text-muted-foreground uppercase">CAMPUS LOCATION</div>
-                                        <div className="text-xs font-bold text-foreground mt-0.5">{deg.location}</div>
+                                    <div className="p-3 rounded-xs bg-black border border-white/5">
+                                        <div className="text-[9px] text-neutral-500 uppercase">LOCATION</div>
+                                        <div className="text-xs font-bold text-white mt-0.5">{deg.location}</div>
                                     </div>
                                 </div>
                             </div>
@@ -118,23 +138,23 @@ export const EducationSection = ({ data }: EducationSectionProps) => {
 
                     {/* RIGHT (6 COLS): Professional Certifications */}
                     <div className="lg:col-span-6 space-y-4">
-                        <div className="text-[10px] font-mono uppercase text-muted-foreground tracking-wider">
-                            PROFESSIONAL CERTIFICATIONS &amp; COHORTS:
+                        <div className="text-[10px] uppercase text-neutral-400 tracking-wider font-bold">
+                            // PROFESSIONAL CERTIFICATIONS:
                         </div>
 
-                        <div className="space-y-3 font-mono text-xs">
+                        <div className="space-y-3">
                             {courses.map((course: any, idx: number) => (
                                 <div
                                     key={idx}
-                                    className="p-4 rounded border border-border bg-card/40 space-y-2 hover:border-foreground/30 transition-colors">
+                                    className="p-4 sm:p-5 rounded-xs border border-neutral-800 bg-neutral-900/60 space-y-2 hover:border-[#E64A11] transition-colors">
                                     <div className="flex items-center justify-between text-[10px]">
-                                        <span className="font-bold text-[#10B981]">{course.title}</span>
-                                        <span className="text-muted-foreground">{course.level}</span>
+                                        <span className="font-bold text-[#E64A11]">{course.title}</span>
+                                        <span className="text-neutral-400">{course.level}</span>
                                     </div>
-                                    <div className="text-xs font-bold text-foreground">
+                                    <div className="text-xs font-bold text-white font-sans">
                                         {course.badge}
                                     </div>
-                                    <p className="text-[11px] text-muted-foreground leading-relaxed font-sans">
+                                    <p className="text-[11px] text-neutral-300 leading-relaxed font-sans font-light">
                                         {course.desc}
                                     </p>
                                 </div>

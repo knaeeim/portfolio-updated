@@ -4,23 +4,14 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-    ArrowUpRight,
-    ExternalLink,
-    Code2,
-    Shield,
-    Database,
-    Play,
-    CheckCircle2,
-    AlertCircle,
-    ChevronDown,
-    ChevronUp,
-    Terminal,
-    Layers,
-    Server,
-    Cpu,
-    ImageIcon,
-} from "lucide-react";
+import { ArrowUpRight, ExternalLink, Shield, Play, ChevronDown, ChevronUp } from "lucide-react";
+import { usePosterParallax } from "@/components/poster/usePosterParallax";
+import { FloatingPixel } from "@/components/poster/FloatingPixel";
+import { CircularChevronBtn } from "@/components/poster/CircularChevronBtn";
+
+interface ProjectsSectionProps {
+    data?: any;
+}
 
 interface ArchitecturalSpec {
     schemaDiagram: {
@@ -45,8 +36,8 @@ interface ArchitecturalSpec {
 const defaultArchitecturalData: Record<string, ArchitecturalSpec> = {
     "webzen-technologies": {
         schemaDiagram: {
-            layer1: "Edge CDN (Vercel Global Ingestion)",
-            layer2: "Next.js 16 SSR & Edge Middleware",
+            layer1: "Edge CDN (Vercel Ingestion)",
+            layer2: "Next.js 16 SSR & Middleware",
             layer3: "Prisma Client & SWR Cache",
             layer4: "MongoDB Atlas + PostgreSQL",
         },
@@ -150,9 +141,9 @@ const defaultArchitecturalData: Record<string, ArchitecturalSpec> = {
 
 const fallbackSpec: ArchitecturalSpec = {
     schemaDiagram: {
-        layer1: "Client UI Layer (Responsive Next.js Component)",
-        layer2: "API Orchestration Gateway (Type-Safe Routes)",
-        layer3: "Service Layer & Business Logic Interceptor",
+        layer1: "Client UI Layer (Next.js)",
+        layer2: "API Orchestration Gateway",
+        layer3: "Service Interceptor & Cache",
         layer4: "Database & Cloud Infrastructure",
     },
     hardestProblem: {
@@ -165,435 +156,324 @@ const fallbackSpec: ArchitecturalSpec = {
         endpoint: "/api/v1/telemetry",
         simulatedLatency: "28ms",
         responsePayload: {
-            status: 200,
-            health: "OPERATIONAL",
+            status: "ONLINE",
+            cluster: "PRODUCTION_ACTIVE",
             latency: "28ms",
-            cluster: "PRODUCTION_LIVE",
         },
     },
 };
 
-interface ProjectsSectionProps {
-    data?: any;
-}
-
 export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
-    // Mode toggle per project: 'ui' vs 'schema'
-    const [viewModes, setViewModes] = useState<Record<string, "ui" | "schema">>({});
+    const { handleMouseMove, handleMouseLeave, l0 } = usePosterParallax();
 
-    // Active image selector per project (for multi-image portfolios)
+    const [openDrawers, setOpenDrawers] = useState<Record<string, boolean>>({});
     const [activeImageIndices, setActiveImageIndices] = useState<Record<string, number>>({});
+    const [simRunning, setSimRunning] = useState<Record<string, boolean>>({});
 
-    // Code drawer collapse state for API simulator
-    const [openSimulators, setOpenSimulators] = useState<Record<string, boolean>>({});
-    const [simulatorRunning, setSimulatorRunning] = useState<Record<string, boolean>>({});
+    // Read projects dynamically from backend data
+    const rawProjects = Array.isArray(data?.projects) ? data.projects : [];
+    const displayProjects = rawProjects.map((proj: any, idx: number) => {
+        const id = proj.id || `proj-${idx}`;
+        const spec = defaultArchitecturalData[id] || fallbackSpec;
 
-    // Read projects dynamically from database / portfolioData
-    const rawProjects = Array.isArray(data?.projects) && data.projects.length > 0 ? data.projects : [];
-
-    // Map projects with architectural specs
-    const displayProjects = rawProjects.map((p: any, index: number) => {
-        const spec = defaultArchitecturalData[p.id] || fallbackSpec;
-        const numStr = (index + 1) < 10 ? `0${index + 1}` : `${index + 1}`;
-
-        // Ensure images is always a populated array
-        const imagesList = Array.isArray(p.images) && p.images.length > 0
-            ? p.images
-            : (p.imageSrc
-                ? [{ src: p.imageSrc, label: "Screenshot", caption: "Production preview" }]
-                : [{ src: "/devojyoti/preview.png", label: "Screenshot", caption: "Production preview" }]);
+        const images = Array.isArray(proj.images) && proj.images.length > 0
+            ? proj.images.map((img: any, iIdx: number) => ({
+                  src: typeof img === "string" ? img : img.src || proj.image,
+                  label: typeof img === "string" ? `SCREEN // 0${iIdx + 1}` : img.label || `SCREEN // 0${iIdx + 1}`,
+              }))
+            : [{ src: proj.image || "/profilePicture.jpg", label: "PRIMARY SCREEN" }];
 
         return {
-            dossierNumber: numStr,
-            id: p.id || `project-${index}`,
-            title: p.title || "Untitled Production Platform",
-            subtitle: p.subtitle || "Scalable Web Application",
-            role: p.role || "Lead Full-Stack Architect",
-            year: p.year || "2026 Production",
-            category: p.categoryLabel || p.category || "ENTERPRISE SYSTEMS",
-            description: p.description || "",
-            images: imagesList,
-            liveUrl: p.liveLink || p.liveUrl || "",
-            adminUrl: p.adminLink || p.adminUrl || "",
-            clientLink: p.clientLink || "",
-            serverLink: p.serverLink || "",
-            techStack: Array.isArray(p.tech) ? p.tech : (Array.isArray(p.techStack) ? p.techStack : ["Next.js", "TypeScript", "Tailwind CSS"]),
-            schemaDiagram: spec.schemaDiagram,
-            hardestProblem: spec.hardestProblem,
-            apiSimulator: spec.apiSimulator,
+            id,
+            dossierNumber: `G0${idx + 1}`,
+            title: proj.title || "Production System",
+            subtitle: proj.subtitle || proj.shortDescription || "Full-Stack Web Architecture",
+            category: proj.category || "ENTERPRISE",
+            role: proj.role || "Lead System Architect",
+            year: proj.year || "2026",
+            leadIn: proj.client || proj.impact || "Enterprise Architecture",
+            description: proj.description || proj.challenge || "Mission-critical production platform.",
+            techStack: Array.isArray(proj.techStack) ? proj.techStack : ["Next.js", "TypeScript", "PostgreSQL"],
+            liveUrl: proj.liveUrl,
+            githubUrl: proj.githubUrl,
+            images,
+            ...spec,
         };
     });
 
-    const toggleViewMode = (projectId: string, mode: "ui" | "schema") => {
-        setViewModes((prev) => ({ ...prev, [projectId]: mode }));
+    const toggleDrawer = (id: string) => {
+        setOpenDrawers((prev) => ({ ...prev, [id]: !prev[id] }));
     };
 
-    const runApiSimulator = (projectId: string) => {
-        setSimulatorRunning((prev) => ({ ...prev, [projectId]: true }));
-        setOpenSimulators((prev) => ({ ...prev, [projectId]: true }));
+    const runApiSimulator = (id: string) => {
+        setSimRunning((prev) => ({ ...prev, [id]: true }));
+        setOpenDrawers((prev) => ({ ...prev, [id]: true }));
         setTimeout(() => {
-            setSimulatorRunning((prev) => ({ ...prev, [projectId]: false }));
-        }, 350);
+            setSimRunning((prev) => ({ ...prev, [id]: false }));
+        }, 600);
     };
 
     return (
         <section
             id="projects"
-            className="w-full border-b border-border bg-background relative overflow-hidden py-12 sm:py-16">
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="w-full bg-pitch-black text-white relative overflow-hidden border-b border-[#222220] py-12 sm:py-16 select-none">
             
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-                
-                {/* Header */}
-                <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-                    <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
-                            <span className="tech-label text-foreground">
-                                02. SELECTED WORKS
-                            </span>
-                        </div>
-                        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                            Engineering Dossiers
-                        </h2>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground">
-                        <span className="w-2 h-2 rounded-full bg-[#10B981]" />
-                        <span>{displayProjects.length} WORKS DOCUMENTED</span>
-                    </div>
+            {/* Top Perimeter Bar */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-b border-white/5">
+                <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
+                    <span>03. SELECTED WORKS</span>
                 </div>
+                <div className="hidden sm:block text-neutral-500">
+                    MAGAZINE SPREAD SHOWCASE
+                </div>
+                <div className="flex items-center gap-2">
+                    <span>{displayProjects.length} REPOSITORIES</span>
+                    <FloatingPixel color="orange" className="hidden sm:block" />
+                </div>
+            </div>
 
-                {/* Full-Width Horizontal Engineering Dossiers */}
-                <div className="divide-y divide-border border-y border-border">
-                    {displayProjects.map((dossier: any) => {
-                        const currentView = viewModes[dossier.id] || "ui";
-                        const isSimOpen = !!openSimulators[dossier.id];
-                        const isSimRunning = !!simulatorRunning[dossier.id];
+            {/* Giant Background Watermark Text (Layer 0) */}
+            <motion.div
+                style={l0}
+                className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                <span className="watermark-text text-[26vw] text-[#121212] whitespace-nowrap">
+                    WORKS // 03
+                </span>
+            </motion.div>
 
-                        // Current active image for this project
-                        const activeIdx = activeImageIndices[dossier.id] || 0;
-                        const currentImg = dossier.images[activeIdx] || dossier.images[0];
+            {/* Project Spreads Container */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-10 z-20 relative space-y-20">
+                
+                {displayProjects.map((project: any, pIdx: number) => {
+                    const isDrawerOpen = !!openDrawers[project.id];
+                    const isRunning = !!simRunning[project.id];
+                    const activeImgIdx = activeImageIndices[project.id] || 0;
+                    const activeImg = project.images[activeImgIdx] || project.images[0];
 
-                        return (
-                            <div
-                                key={dossier.id}
-                                className="py-10 sm:py-14 space-y-8 group">
-                                
-                                {/* Top Bar: Number, Category, Role, Year & Live Link */}
-                                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-lg sm:text-xl font-mono font-bold text-[#FF4F00]">
-                                            {dossier.dossierNumber}.
-                                        </span>
-                                        <span className="text-[11px] font-mono font-bold tracking-widest text-muted-foreground uppercase">
-                                            {dossier.category}
-                                        </span>
-                                    </div>
-
-                                    <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs font-mono">
-                                        <span className="text-foreground font-semibold">{dossier.role}</span>
-                                        <span className="text-muted-foreground">•</span>
-                                        <span className="text-muted-foreground">{dossier.year}</span>
-                                        
-                                        {/* Dedicated Case Study Link */}
-                                        <Link
-                                            href={`/projects/${dossier.id}`}
-                                            className="keycap-btn px-2.5 py-1 rounded bg-card border border-border text-foreground hover:border-[#FF4F00] transition-colors inline-flex items-center gap-1 text-[11px] font-semibold">
-                                            <span>CASE STUDY</span>
-                                            <ArrowUpRight size={11} className="text-[#FF4F00]" />
-                                        </Link>
-
-                                        {/* External Live Site Link */}
-                                        {dossier.liveUrl && (
-                                            <a
-                                                href={dossier.liveUrl}
-                                                target="_blank"
-                                                rel="noreferrer noopener"
-                                                className="keycap-btn px-2.5 py-1 rounded bg-foreground text-background text-[11px] font-bold inline-flex items-center gap-1 hover:bg-[#FF4F00] hover:text-white transition-colors">
-                                                <span>LIVE SITE</span>
-                                                <ExternalLink size={11} />
-                                            </a>
-                                        )}
-                                    </div>
+                    return (
+                        <div
+                            key={project.id}
+                            className="border-b border-neutral-800 pb-16 last:border-b-0 space-y-8 group">
+                            
+                            {/* Project Spread Perimeter Header */}
+                            <div className="flex items-center justify-between text-xs font-mono border-b border-white/5 pb-3">
+                                <div className="flex items-center gap-3">
+                                    <span className="text-[#E64A11] font-black tracking-widest text-base">
+                                        {project.dossierNumber}
+                                    </span>
+                                    <span className="text-neutral-400 uppercase tracking-wider text-[11px]">
+                                        // {project.category}
+                                    </span>
                                 </div>
+                                <div className="flex items-center gap-4 text-neutral-400">
+                                    <span>{project.role}</span>
+                                    <span>•</span>
+                                    <span className="text-white">{project.year}</span>
+                                </div>
+                            </div>
 
-                                {/* Main Title & Description */}
-                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                                    <div className="lg:col-span-8 space-y-2">
-                                        <h3 className="text-xl sm:text-3xl font-bold tracking-tight text-foreground">
-                                            <Link href={`/projects/${dossier.id}`} className="hover:text-[#FF4F00] transition-colors">
-                                                {dossier.title}
-                                            </Link>
-                                        </h3>
-                                        <p className="text-xs sm:text-sm font-mono text-[#FF4F00]">
-                                            {dossier.subtitle}
-                                        </p>
-                                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pt-1">
-                                            {dossier.description}
-                                        </p>
+                            {/* Main Magazine Layout: Left Solid Burnt Block / Right Breakout Mockup */}
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative">
+                                
+                                {/* LEFT (4 COLS): Solid Burnt Orange Geometric Block */}
+                                <div className="lg:col-span-4 relative aspect-square sm:aspect-4/3 lg:aspect-square rounded-sm burnt-stripes p-6 sm:p-8 flex flex-col justify-between shadow-2xl border border-[#E64A11]/60">
+                                    <div className="space-y-1">
+                                        <span className="font-light text-neutral-200 text-xs sm:text-sm tracking-wide block">
+                                            {project.leadIn}
+                                        </span>
+                                        <div className="font-mono text-3xl sm:text-4xl font-black text-white tracking-tight">
+                                            {project.dossierNumber}
+                                        </div>
                                     </div>
 
-                                    {/* Tech Stack Chips */}
-                                    <div className="lg:col-span-4 space-y-2">
-                                        <div className="text-[10px] font-mono uppercase text-muted-foreground tracking-wider">
-                                            TECHNOLOGY STACK:
-                                        </div>
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {dossier.techStack.map((tech: string) => (
+                                    {/* Tech Stack Chips Inside Orange Block */}
+                                    <div className="space-y-3">
+                                        <div className="flex flex-wrap gap-1">
+                                            {project.techStack.map((tech: string) => (
                                                 <span
                                                     key={tech}
-                                                    className="px-2 py-0.5 rounded bg-muted/60 border border-border text-[11px] font-mono text-foreground font-medium">
+                                                    className="px-2 py-0.5 rounded-xs bg-black/40 text-white font-mono text-[10px] font-bold">
                                                     {tech}
                                                 </span>
                                             ))}
                                         </div>
+                                        <div className="font-mono text-[10px] text-black/60 tracking-widest uppercase font-bold">
+                                            ARCHITECTURAL DOSSIER
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* 1. INTERACTIVE ARCHITECTURE TOGGLE ([ UI Preview ] vs [ System Schema ]) */}
-                                <div className="space-y-3">
-                                    <div className="flex items-center justify-between border-b border-border pb-2">
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-xs font-mono text-muted-foreground uppercase">
-                                                VIEWPORT MODE:
-                                            </span>
-                                            <div className="inline-flex p-0.5 rounded border border-border bg-card">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => toggleViewMode(dossier.id, "ui")}
-                                                    className={`px-3 py-1 rounded text-xs font-mono font-semibold transition-all cursor-pointer ${
-                                                        currentView === "ui"
-                                                            ? "bg-[#FF4F00] text-white shadow-xs"
-                                                            : "text-muted-foreground hover:text-foreground"
-                                                    }`}>
-                                                    [ UI Preview ]
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => toggleViewMode(dossier.id, "schema")}
-                                                    className={`px-3 py-1 rounded text-xs font-mono font-semibold transition-all cursor-pointer ${
-                                                        currentView === "schema"
-                                                            ? "bg-[#FF4F00] text-white shadow-xs"
-                                                            : "text-muted-foreground hover:text-foreground"
-                                                    }`}>
-                                                    [ System Schema / ER Diagram ]
-                                                </button>
+                                {/* RIGHT (8 COLS): Visual Breakout with Overlapping Title & ( > ) Trigger */}
+                                <div className="lg:col-span-8 relative space-y-4 lg:-ml-12 xl:-ml-16 z-20">
+                                    
+                                    {/* Breakout Screen Viewer */}
+                                    <div className="relative aspect-16/9 sm:aspect-21/9 rounded-sm border border-neutral-800 bg-[#0A0A09] overflow-hidden shadow-2xl group/screen">
+                                        <Image
+                                            src={activeImg.src}
+                                            alt={project.title}
+                                            fill
+                                            sizes="(max-width: 1024px) 100vw, 900px"
+                                            className="object-cover object-top filter grayscale-20 group-hover/screen:grayscale-0 transition-all duration-500"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+
+                                        {/* Multi-Screen Switcher Tabs */}
+                                        {project.images.length > 1 && (
+                                            <div className="absolute top-3 right-3 flex items-center gap-1.5 z-30 font-mono text-[10px]">
+                                                {project.images.map((img: any, iIdx: number) => {
+                                                    const isSelected = activeImgIdx === iIdx;
+                                                    return (
+                                                        <button
+                                                            key={iIdx}
+                                                            type="button"
+                                                            onClick={() =>
+                                                                setActiveImageIndices((prev) => ({
+                                                                    ...prev,
+                                                                    [project.id]: iIdx,
+                                                                }))
+                                                            }
+                                                            className={`px-2 py-1 rounded-xs transition-all cursor-pointer ${
+                                                                isSelected
+                                                                    ? "bg-[#E64A11] text-white font-bold"
+                                                                    : "bg-black/75 border border-white/20 text-neutral-300 hover:text-white"
+                                                            }`}>
+                                                            0{iIdx + 1}
+                                                        </button>
+                                                    );
+                                                })}
                                             </div>
-                                        </div>
-
-                                        <span className="text-[10px] font-mono text-muted-foreground hidden sm:inline">
-                                            {currentView === "ui"
-                                                ? `${dossier.images.length} SCREENSHOT${dossier.images.length > 1 ? "S" : ""} CONFIGURED`
-                                                : "ARCHITECTURAL TOPOLOGY"}
-                                        </span>
-                                    </div>
-
-                                    {/* Viewport Frame */}
-                                    <div className="rounded border border-border bg-card overflow-hidden">
-                                        <AnimatePresence mode="wait">
-                                            {currentView === "ui" ? (
-                                                <motion.div
-                                                    key={`ui-${activeIdx}-${currentImg?.src}`}
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: 1 }}
-                                                    exit={{ opacity: 0 }}
-                                                    transition={{ duration: 0.2 }}
-                                                    className="space-y-0">
-                                                    
-                                                    {/* Screen Viewer */}
-                                                    <div className="relative aspect-16/9 sm:aspect-21/9 w-full bg-muted overflow-hidden">
-                                                        <Image
-                                                            src={currentImg.src}
-                                                            alt={currentImg.label || dossier.title}
-                                                            fill
-                                                            sizes="(max-width: 1024px) 100vw, 1200px"
-                                                            className="object-cover object-top filter grayscale-15 group-hover:grayscale-0 transition-all duration-500"
-                                                        />
-                                                        <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent pointer-events-none" />
-                                                        
-                                                        {/* Caption Plate on Image Bottom */}
-                                                        <div className="absolute bottom-3 inset-x-3 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
-                                                            <div className="flex items-center gap-2 pointer-events-auto">
-                                                                <span className="px-2 py-1 rounded bg-background/90 border border-border text-[10px] font-mono text-foreground font-bold">
-                                                                    {currentImg.label || "SCREENSHOT"}
-                                                                </span>
-                                                                {currentImg.caption && (
-                                                                    <span className="hidden sm:inline px-2 py-1 rounded bg-background/80 border border-border/80 text-[10px] font-mono text-muted-foreground">
-                                                                        {currentImg.caption}
-                                                                    </span>
-                                                                )}
-                                                            </div>
-
-                                                            <div className="pointer-events-auto">
-                                                                <Link
-                                                                    href={`/projects/${dossier.id}`}
-                                                                    className="px-2 py-1 rounded bg-background/90 border border-border text-[10px] font-mono text-[#FF4F00] hover:text-white hover:bg-[#FF4F00] transition-colors inline-flex items-center gap-1 font-bold">
-                                                                    <span>CASE STUDY DETAILS</span>
-                                                                    <ArrowUpRight size={11} />
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Screenshot Gallery Switcher Tabs (If multiple images exist) */}
-                                                    {dossier.images.length > 1 && (
-                                                        <div className="p-2 sm:p-2.5 bg-muted/30 border-t border-border flex items-center gap-2 overflow-x-auto">
-                                                            <span className="text-[10px] font-mono text-muted-foreground uppercase shrink-0 pl-1">
-                                                                SCREENS:
-                                                            </span>
-                                                            {dossier.images.map((img: any, iIdx: number) => {
-                                                                const isImgActive = activeIdx === iIdx;
-                                                                return (
-                                                                    <button
-                                                                        key={iIdx}
-                                                                        type="button"
-                                                                        onClick={() => setActiveImageIndices((prev) => ({ ...prev, [dossier.id]: iIdx }))}
-                                                                        className={`px-2.5 py-1 rounded text-[10px] font-mono font-medium transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
-                                                                            isImgActive
-                                                                                ? "bg-[#FF4F00] text-white shadow-xs font-bold"
-                                                                                : "bg-card border border-border text-muted-foreground hover:text-foreground"
-                                                                        }`}>
-                                                                        <span>0{iIdx + 1}.</span>
-                                                                        <span>{img.label || `Screen ${iIdx + 1}`}</span>
-                                                                    </button>
-                                                                );
-                                                            })}
-                                                        </div>
-                                                    )}
-                                                </motion.div>
-                                            ) : (
-                                                <motion.div
-                                                    key="schema"
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: 1 }}
-                                                    exit={{ opacity: 0 }}
-                                                    transition={{ duration: 0.2 }}
-                                                    className="p-6 sm:p-8 font-mono text-xs space-y-4 bg-muted/20">
-                                                    <div className="text-[10px] text-muted-foreground uppercase tracking-wider flex items-center gap-2">
-                                                        <Layers size={13} className="text-[#FF4F00]" />
-                                                        <span>END-TO-END SYSTEM TOPOLOGY &amp; DATA PIPELINE</span>
-                                                    </div>
-
-                                                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                                                        <div className="p-3 rounded border border-border bg-card space-y-1">
-                                                            <div className="text-[9px] text-[#FF4F00] font-bold">STAGE 01: INGRESS</div>
-                                                            <div className="text-xs font-semibold text-foreground">
-                                                                {dossier.schemaDiagram.layer1}
-                                                            </div>
-                                                        </div>
-                                                        <div className="p-3 rounded border border-border bg-card space-y-1">
-                                                            <div className="text-[9px] text-[#FF4F00] font-bold">STAGE 02: GATEWAY</div>
-                                                            <div className="text-xs font-semibold text-foreground">
-                                                                {dossier.schemaDiagram.layer2}
-                                                            </div>
-                                                        </div>
-                                                        <div className="p-3 rounded border border-border bg-card space-y-1">
-                                                            <div className="text-[9px] text-[#10B981] font-bold">STAGE 03: ORCHESTRATION</div>
-                                                            <div className="text-xs font-semibold text-foreground">
-                                                                {dossier.schemaDiagram.layer3}
-                                                            </div>
-                                                        </div>
-                                                        <div className="p-3 rounded border border-border bg-card space-y-1">
-                                                            <div className="text-[9px] text-[#10B981] font-bold">STAGE 04: PERSISTENCE</div>
-                                                            <div className="text-xs font-semibold text-foreground">
-                                                                {dossier.schemaDiagram.layer4}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="p-2.5 rounded bg-background border border-border text-[11px] text-muted-foreground">
-                                                        <span className="text-foreground font-bold">Contract Guarantee:</span> All mutation RPCs enforce strict idempotency and relational consistency.
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </div>
-                                </div>
-
-                                {/* 2. THE HARDEST ENGINEERING PROBLEM (CHALLENGE & RESOLUTION) */}
-                                <div className="p-3 sm:p-3.5 rounded border border-border bg-card/60 font-mono text-xs space-y-2">
-                                    <div className="flex items-center justify-between border-b border-border pb-1.5">
-                                        <span className="text-[10px] text-[#FF4F00] font-bold uppercase tracking-wider flex items-center gap-1.5">
-                                            <Shield size={11} />
-                                            <span>SOLVED: {dossier.hardestProblem.title}</span>
-                                        </span>
-                                        <span className="text-[10px] text-[#10B981] font-bold">OPTIMAL</span>
-                                    </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-0.5">
-                                        <div className="text-xs">
-                                            <span className="text-[10px] text-muted-foreground uppercase font-bold">BOTTLENECK: </span>
-                                            <span className="text-muted-foreground">
-                                                {dossier.hardestProblem.challenge}
-                                            </span>
-                                        </div>
-                                        <div className="text-xs">
-                                            <span className="text-[10px] text-foreground uppercase font-bold">FIX: </span>
-                                            <span className="text-foreground">
-                                                {dossier.hardestProblem.resolution}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* 3. LIVE REQUEST SIMULATOR ([ Run Sample API Call ]) */}
-                                <div className="space-y-2">
-                                    <div className="flex items-center justify-between">
-                                        <button
-                                            type="button"
-                                            onClick={() => runApiSimulator(dossier.id)}
-                                            className="keycap-btn px-3 py-1.5 rounded bg-muted border border-border text-foreground font-mono text-xs font-semibold inline-flex items-center gap-2 hover:border-[#FF4F00] transition-all cursor-pointer">
-                                            <Play size={11} className="text-[#FF4F00]" />
-                                            <span>[ Run Sample API Call ]</span>
-                                            <span className="text-[10px] text-muted-foreground">
-                                                {dossier.apiSimulator.method} {dossier.apiSimulator.endpoint}
-                                            </span>
-                                        </button>
-
-                                        {isSimOpen && (
-                                            <button
-                                                type="button"
-                                                onClick={() => setOpenSimulators((prev) => ({ ...prev, [dossier.id]: !prev[dossier.id] }))}
-                                                className="text-xs font-mono text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
-                                                <span>{isSimOpen ? "Hide Drawer" : "Show Drawer"}</span>
-                                                {isSimOpen ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
-                                            </button>
                                         )}
                                     </div>
 
-                                    {/* Collapsible Monospace JSON Code Drawer */}
-                                    {isSimOpen && (
-                                        <motion.div
-                                            initial={{ opacity: 0, height: 0 }}
-                                            animate={{ opacity: 1, height: "auto" }}
-                                            exit={{ opacity: 0, height: 0 }}
-                                            className="rounded border border-border bg-background p-4 font-mono text-xs space-y-2 overflow-x-auto">
-                                            <div className="flex items-center justify-between text-[10px] text-muted-foreground border-b border-border pb-1.5">
-                                                <span className="flex items-center gap-2">
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-                                                    <span>SIMULATED RESPONSE PAYLOAD</span>
-                                                </span>
-                                                <span>LATENCY: {isSimRunning ? "MEASURING..." : dossier.apiSimulator.simulatedLatency}</span>
-                                            </div>
+                                    {/* Overlapping Heavy Title + ( > ) Drawer Trigger */}
+                                    <div className="flex flex-wrap items-end justify-between gap-4 pt-2">
+                                        <div className="space-y-1">
+                                            <h3 className="editorial-display text-3xl sm:text-5xl lg:text-6xl text-white">
+                                                {project.title}
+                                            </h3>
+                                            <p className="font-light text-neutral-300 text-xs sm:text-sm max-w-xl">
+                                                {project.description}
+                                            </p>
+                                        </div>
 
-                                            {isSimRunning ? (
-                                                <div className="py-4 text-center text-muted-foreground flex items-center justify-center gap-2">
-                                                    <span className="inline-block w-2 h-2 rounded-full bg-[#FF4F00] animate-ping" />
-                                                    <span>EXECUTING CALL: {dossier.apiSimulator.endpoint}...</span>
-                                                </div>
-                                            ) : (
-                                                <pre className="text-foreground text-[11px] leading-relaxed">
-                                                    {JSON.stringify(dossier.apiSimulator.responsePayload, null, 2)}
-                                                </pre>
+                                        <div className="flex items-center gap-3">
+                                            {project.liveUrl && (
+                                                <a
+                                                    href={project.liveUrl}
+                                                    target="_blank"
+                                                    rel="noreferrer noopener"
+                                                    className="px-3 py-1.5 rounded-xs border border-neutral-700 bg-neutral-900/80 text-xs font-mono text-neutral-200 hover:text-white hover:border-[#E64A11] transition-all inline-flex items-center gap-1.5">
+                                                    <span>LIVE</span>
+                                                    <ExternalLink size={12} />
+                                                </a>
                                             )}
-                                        </motion.div>
-                                    )}
+                                            <CircularChevronBtn
+                                                onClick={() => toggleDrawer(project.id)}
+                                                label={isDrawerOpen ? "CLOSE" : "INSPECT"}
+                                            />
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>
-                        );
-                    })}
-                </div>
+
+                            {/* Collapsible Architecture & Code Inspector Drawer */}
+                            <AnimatePresence>
+                                {isDrawerOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="rounded-sm border border-[#E64A11]/40 bg-[#0A0A09] p-6 space-y-6 font-mono text-xs overflow-hidden">
+                                        
+                                        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                                            <div className="flex items-center gap-2 text-[#E64A11] font-bold">
+                                                <Shield size={14} />
+                                                <span>SYSTEM ARCHITECTURE &amp; SIMULATOR // {project.dossierNumber}</span>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => toggleDrawer(project.id)}
+                                                className="text-neutral-400 hover:text-white inline-flex items-center gap-1">
+                                                <span>CLOSE DRAWER</span>
+                                                <ChevronUp size={14} />
+                                            </button>
+                                        </div>
+
+                                        {/* Bottleneck & Resolution Callout */}
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-xs bg-white/5 border border-white/10">
+                                            <div>
+                                                <span className="text-[10px] text-neutral-400 uppercase font-bold block">
+                                                    BOTTLENECK:
+                                                </span>
+                                                <p className="text-neutral-300 mt-1">
+                                                    {project.hardestProblem.challenge}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <span className="text-[10px] text-[#E64A11] uppercase font-bold block">
+                                                    ARCHITECTURAL FIX:
+                                                </span>
+                                                <p className="text-white mt-1">
+                                                    {project.hardestProblem.resolution}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        {/* API Simulator Trigger & Monospace Payload */}
+                                        <div className="space-y-3">
+                                            <div className="flex items-center justify-between">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => runApiSimulator(project.id)}
+                                                    className="px-3 py-1.5 rounded-xs bg-[#E64A11] text-white font-bold inline-flex items-center gap-2 hover:bg-[#FF5100] transition-colors cursor-pointer">
+                                                    <Play size={12} />
+                                                    <span>[ Run Simulated API Call ]</span>
+                                                    <span className="text-[10px] opacity-80">
+                                                        {project.apiSimulator.method} {project.apiSimulator.endpoint}
+                                                    </span>
+                                                </button>
+
+                                                <span className="text-[11px] text-neutral-400">
+                                                    LATENCY: {isRunning ? "TESTING..." : project.apiSimulator.simulatedLatency}
+                                                </span>
+                                            </div>
+
+                                            <div className="p-4 rounded-xs bg-black border border-white/10 overflow-x-auto">
+                                                {isRunning ? (
+                                                    <div className="py-4 text-center text-neutral-400 flex items-center justify-center gap-2">
+                                                        <span className="w-2 h-2 rounded-full bg-[#E64A11] animate-ping" />
+                                                        <span>STREAMING RESPONSE...</span>
+                                                    </div>
+                                                ) : (
+                                                    <pre className="text-neutral-200 text-[11px] leading-relaxed">
+                                                        {JSON.stringify(project.apiSimulator.responsePayload, null, 2)}
+                                                    </pre>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center justify-between pt-2 text-xs">
+                                            <Link
+                                                href={`/projects/${project.id}`}
+                                                className="text-[#E64A11] hover:underline font-bold inline-flex items-center gap-1">
+                                                <span>READ COMPLETE CASE STUDY ROUTE</span>
+                                                <ArrowUpRight size={13} />
+                                            </Link>
+                                        </div>
+
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
+                        </div>
+                    );
+                })}
 
             </div>
 

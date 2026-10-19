@@ -1,20 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-    Terminal,
-    ArrowUpRight,
-    ExternalLink,
-    Code2,
-    GraduationCap,
-    CheckCircle2,
-    Layers,
-    BookOpen,
-    Users,
-    TrendingUp,
-    Shield,
-    Cpu,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Terminal, Award, Users, BookOpen } from "lucide-react";
+import { usePosterParallax } from "@/components/poster/usePosterParallax";
+import { FloatingPixel } from "@/components/poster/FloatingPixel";
+import { CircularChevronBtn } from "@/components/poster/CircularChevronBtn";
 
 interface ExperienceSectionProps {
     data?: any;
@@ -54,94 +45,94 @@ const algorithmicParadigms = [
 const mentorshipModules = [
     {
         moduleNumber: "MOD // 01",
-        title: "Runtime & Memory Execution",
+        title: "Runtime Execution & Memory",
         duration: "Weeks 1 — 3",
-        syllabus: "V8 internals, call stack, heap allocation, event loop, and memory leaks.",
-        capstoneOutcome: "In-memory queue processor with zero memory leaks.",
+        syllabus: "V8 engine internals, call stack execution, heap allocation, and memory leaks.",
+        capstoneOutcome: "Engineered in-memory queue processor with zero leaks.",
     },
     {
         moduleNumber: "MOD // 02",
-        title: "Component Systems & SSR",
+        title: "Full-Stack Component SSR",
         duration: "Weeks 4 — 7",
-        syllabus: "React 19 concurrent mode, Next.js App Router, and SSR hydration.",
+        syllabus: "React 19 concurrent features, Next.js App Router, and SSR hydration.",
         capstoneOutcome: "Full-stack web apps with sub-50ms render latency.",
     },
     {
         moduleNumber: "MOD // 03",
         title: "Relational Modeling & Integrity",
         duration: "Weeks 8 — 10",
-        syllabus: "PostgreSQL 3NF normalization, foreign keys, and Prisma transactions.",
+        syllabus: "PostgreSQL 3NF normalization, foreign key constraints, and Prisma transactions.",
         capstoneOutcome: "Multi-table relational databases with ACID guarantees.",
     },
     {
         moduleNumber: "MOD // 04",
         title: "Production Governance & CI/CD",
         duration: "Weeks 11 — 12",
-        syllabus: "Git trunk workflows, code review standards, and automated CI/CD.",
+        syllabus: "Git trunk-based workflows, rigorous code reviews, and automated CI/CD.",
         capstoneOutcome: "12 student teams deployed verified production apps.",
     },
 ];
 
 export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
+    const { handleMouseMove, handleMouseLeave, l0 } = usePosterParallax();
     const [selectedParadigm, setSelectedParadigm] = useState(0);
 
     return (
         <section
             id="problem-solving"
-            className="w-full border-b border-border bg-background relative overflow-hidden py-10 sm:py-14">
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="w-full bg-pitch-black text-white relative overflow-hidden border-b border-[#222220] py-12 sm:py-16 select-none">
             
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-                
-                {/* ======================================================== */}
-                {/* PART 1: THE ALGORITHMIC LEDGER (600+ Solved Challenges) */}
-                {/* ======================================================== */}
-                <div className="space-y-6">
-                    
-                    {/* Header */}
-                    <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-                        <div className="space-y-1">
-                            <div className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
-                                <span className="tech-label text-foreground">
-                                    03. PROBLEM SOLVING LEDGER
-                                </span>
-                            </div>
-                            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                                600+ Competitive Programming Challenges
-                            </h2>
-                        </div>
+            {/* Top Perimeter Bar */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-b border-white/5">
+                <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
+                    <span>04. PROOF OF WORK</span>
+                </div>
+                <div className="hidden sm:block text-neutral-500">
+                    ALGORITHMIC RIGOR &amp; MENTORSHIP
+                </div>
+                <div className="flex items-center gap-2">
+                    <span>600+ SOLVED • 100+ MENTORED</span>
+                    <FloatingPixel color="orange" className="hidden sm:block" />
+                </div>
+            </div>
 
-                        {/* Verifiable Platform Links */}
-                        <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                            <a
-                                href="https://codeforces.com/profile/knaeeim"
-                                target="_blank"
-                                rel="noreferrer noopener"
-                                className="keycap-btn px-2.5 py-1 rounded bg-card border border-border text-foreground hover:border-[#FF4F00] transition-colors inline-flex items-center gap-1">
-                                <span>CODEFORCES</span>
-                                <ArrowUpRight size={11} className="text-[#FF4F00]" />
-                            </a>
-                            <a
-                                href="https://leetcode.com/u/knaeeim/"
-                                target="_blank"
-                                rel="noreferrer noopener"
-                                className="keycap-btn px-2.5 py-1 rounded bg-card border border-border text-foreground hover:border-[#FF4F00] transition-colors inline-flex items-center gap-1">
-                                <span>LEETCODE</span>
-                                <ArrowUpRight size={11} className="text-[#FF4F00]" />
-                            </a>
-                            <a
-                                href="https://www.codechef.com/users/knaeeim"
-                                target="_blank"
-                                rel="noreferrer noopener"
-                                className="keycap-btn px-2.5 py-1 rounded bg-card border border-border text-foreground hover:border-[#FF4F00] transition-colors inline-flex items-center gap-1">
-                                <span>CODECHEF</span>
-                                <ArrowUpRight size={11} className="text-[#FF4F00]" />
-                            </a>
-                        </div>
+            {/* Giant Background Watermark Text (Layer 0) */}
+            <motion.div
+                style={l0}
+                className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                <span className="watermark-text text-[26vw] text-[#121212] whitespace-nowrap">
+                    PROOF // 04
+                </span>
+            </motion.div>
+
+            {/* Main Stage: Two Interlocking High-Contrast Blocks */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-10 z-20 relative space-y-12">
+                
+                {/* SECTION 4A: BURNT ORANGE BACKDROP (600+ CP SOLVED) */}
+                <div className="relative rounded-sm burnt-stripes p-8 sm:p-12 lg:p-16 shadow-2xl border border-[#E64A11]/60 space-y-8 overflow-hidden">
+                    
+                    {/* Watermark inside block */}
+                    <div className="absolute top-6 right-6 font-mono text-[10px] text-black/50 tracking-widest uppercase font-bold">
+                        VERIFIED BY CODEFORCES / LEETCODE
                     </div>
 
-                    {/* Ledger Grid: 4 Paradigm Cards with Interactive Inspector */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="space-y-2 max-w-xl">
+                        <span className="font-light text-neutral-200 text-xs sm:text-sm tracking-wide block uppercase font-mono">
+                            // COMPETITIVE PROGRAMMING RIGOR
+                        </span>
+                        <div className="editorial-display text-6xl sm:text-8xl md:text-9xl lg:text-[8.5rem] text-white">
+                            600+
+                        </div>
+                        <h3 className="editorial-display text-2xl sm:text-4xl text-black">
+                            ALGORITHMIC CHALLENGES SOLVED
+                        </h3>
+                    </div>
+
+                    {/* Paradigm Selector Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 font-mono text-xs pt-4">
                         {algorithmicParadigms.map((item, idx) => {
                             const isSelected = selectedParadigm === idx;
                             return (
@@ -149,149 +140,112 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                                     key={idx}
                                     type="button"
                                     onClick={() => setSelectedParadigm(idx)}
-                                    className={`p-4 rounded border text-left font-mono transition-all cursor-pointer space-y-3 ${
+                                    className={`p-4 rounded-xs text-left transition-all cursor-pointer space-y-2 border ${
                                         isSelected
-                                            ? "bg-card border-[#FF4F00] shadow-md"
-                                            : "bg-card/40 border-border hover:border-foreground/40"
+                                            ? "bg-black text-white border-white shadow-xl scale-[1.02]"
+                                            : "bg-black/40 text-neutral-100 border-black/30 hover:bg-black/60"
                                     }`}>
-                                    <div className="flex items-center justify-between text-xs">
-                                        <span className="text-[10px] text-muted-foreground uppercase font-bold">
-                                            PARADIGM 0{idx + 1}
-                                        </span>
-                                        <span className="text-sm font-bold text-[#FF4F00]">
-                                            {item.count}
-                                        </span>
+                                    <div className="flex items-center justify-between text-[10px]">
+                                        <span className="font-bold opacity-80">{item.count}</span>
+                                        <span className="opacity-60">{item.percentage}%</span>
                                     </div>
-
-                                    <div>
-                                        <h3 className="text-xs font-bold text-foreground leading-tight">
-                                            {item.paradigm}
-                                        </h3>
-                                        <div className="w-full bg-muted h-1 rounded-full overflow-hidden mt-2">
-                                            <div
-                                                className="bg-[#FF4F00] h-full"
-                                                style={{ width: `${item.percentage}%` }}
-                                            />
-                                        </div>
+                                    <div className="font-bold text-sm leading-snug">
+                                        {item.paradigm}
                                     </div>
-
-                                    <div className="text-[10px] text-muted-foreground leading-snug">
-                                        {item.topics.slice(0, 3).join(" • ")}
+                                    <div className="text-[10px] opacity-75 truncate">
+                                        {item.topics.join(" • ")}
                                     </div>
                                 </button>
                             );
                         })}
                     </div>
 
-                    {/* Paradigm Architectural Translation Drawer */}
-                    <div className="p-4 sm:p-5 rounded border border-border bg-card/60 font-mono text-xs space-y-2">
-                        <div className="flex items-center justify-between text-[10px] text-muted-foreground border-b border-border pb-1.5">
-                            <span className="flex items-center gap-2">
-                                <Cpu size={12} className="text-[#FF4F00]" />
-                                <span className="font-bold text-foreground">
-                                    SYSTEM APPLICATION: {algorithmicParadigms[selectedParadigm].paradigm.toUpperCase()}
-                                </span>
-                            </span>
-                            <span className="text-[#10B981] font-bold">
-                                {algorithmicParadigms[selectedParadigm].count} VERIFIED SOLVED
-                            </span>
+                    {/* Verifiable External Profiles Bar */}
+                    <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-black/20 font-mono text-xs">
+                        <div className="text-black/80 font-bold">
+                            APPLICATION: {algorithmicParadigms[selectedParadigm].systemApplication}
                         </div>
-                        <p className="text-xs text-foreground leading-relaxed pt-1">
-                            {algorithmicParadigms[selectedParadigm].systemApplication}
-                        </p>
+
+                        <div className="flex items-center gap-2">
+                            <a
+                                href="https://codeforces.com/profile/knaeeim"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1">
+                                <span>CODEFORCES</span>
+                                <ArrowUpRight size={12} />
+                            </a>
+                            <a
+                                href="https://leetcode.com/u/knaeeim/"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1">
+                                <span>LEETCODE</span>
+                                <ArrowUpRight size={12} />
+                            </a>
+                            <a
+                                href="https://www.codechef.com/users/knaeeim"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                className="px-3 py-1.5 rounded-xs bg-black text-white font-bold hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1">
+                                <span>CODECHEF</span>
+                                <ArrowUpRight size={12} />
+                            </a>
+                        </div>
                     </div>
 
                 </div>
 
-                {/* ======================================================== */}
-                {/* PART 2: MENTORSHIP & INSTRUCTION LOG (100+ Students)      */}
-                {/* ======================================================== */}
-                <div id="mentorship" className="space-y-8 pt-6 border-t border-border">
+                {/* SECTION 4B: DARK EDITORIAL BACKDROP (100+ STUDENTS MENTORED) */}
+                <div
+                    id="mentorship"
+                    className="relative rounded-sm bg-[#0E0E0E] p-8 sm:p-12 lg:p-16 border border-neutral-800 shadow-2xl space-y-8">
                     
-                    {/* Header */}
-                    <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-                        <div className="space-y-1">
-                            <div className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-[#10B981]" />
-                                <span className="tech-label text-foreground">
-                                    04. MENTORSHIP &amp; INSTRUCTION
-                                </span>
-                            </div>
-                            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                                Developer Training @ BD Calling
-                            </h2>
-                        </div>
-
-                        <div className="flex items-center gap-3 text-xs font-mono bg-card border border-border px-2.5 py-1 rounded">
-                            <span className="text-foreground font-bold">100+ STUDENTS</span>
-                            <span className="text-muted-foreground">•</span>
-                            <span className="text-[#10B981] font-bold">12 TEAMS</span>
-                        </div>
-                    </div>
-
-                    {/* Academic Syllabus Table */}
-                    <div className="border border-border rounded overflow-hidden">
-                        <div className="divide-y divide-border">
-                            {mentorshipModules.map((item, idx) => (
-                                <div
-                                    key={idx}
-                                    className="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start font-mono text-xs hover:bg-muted/20 transition-colors">
-                                    
-                                    {/* Module & Duration (3 cols) */}
-                                    <div className="lg:col-span-3 space-y-1">
-                                        <div className="text-[10px] text-[#10B981] font-bold">
-                                            {item.moduleNumber}
-                                        </div>
-                                        <div className="text-sm font-bold text-foreground">
-                                            {item.title}
-                                        </div>
-                                        <div className="text-[11px] text-muted-foreground">
-                                            {item.duration}
-                                        </div>
-                                    </div>
-
-                                    {/* Curriculum Details (6 cols) */}
-                                    <div className="lg:col-span-6 space-y-1">
-                                        <div className="text-[10px] text-muted-foreground uppercase">
-                                            INSTRUCTION SYLLABUS:
-                                        </div>
-                                        <p className="text-xs text-foreground leading-relaxed font-sans">
-                                            {item.syllabus}
-                                        </p>
-                                    </div>
-
-                                    {/* Capstone Outcome (3 cols) */}
-                                    <div className="lg:col-span-3 space-y-1">
-                                        <div className="text-[10px] text-muted-foreground uppercase">
-                                            VERIFIED OUTCOME:
-                                        </div>
-                                        <div className="p-2.5 rounded bg-muted/40 border border-border text-[11px] text-foreground">
-                                            {item.capstoneOutcome}
-                                        </div>
-                                    </div>
-
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
+                        <div className="space-y-2">
+                            <span className="font-light text-neutral-400 text-xs sm:text-sm tracking-wide block uppercase font-mono">
+                                // TALENT MENTORSHIP &amp; ACADEMY
+                            </span>
+                            <div className="flex items-baseline gap-4 flex-wrap">
+                                <div className="editorial-display text-5xl sm:text-7xl lg:text-8xl text-white">
+                                    100+
                                 </div>
-                            ))}
+                                <div className="editorial-display text-2xl sm:text-4xl text-[#E64A11]">
+                                    ENGINEERS MENTORED
+                                </div>
+                            </div>
+                            <p className="font-light text-neutral-300 text-xs sm:text-sm max-w-xl">
+                                Lead Web Instructor @ BD Calling Academy. Directed polytechnic cohorts 
+                                in production JavaScript, Next.js architecture, and collaborative Git practices.
+                            </p>
+                        </div>
+
+                        <div className="flex items-center gap-3 text-xs font-mono px-3 py-1.5 rounded-xs bg-white/5 border border-white/10 text-neutral-300">
+                            <span className="text-white font-bold">12 PRODUCTION CAPSTONES</span>
                         </div>
                     </div>
 
-                    {/* Mentorship Impact Summary Ribbon */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
-                        <div className="p-3 rounded border border-border bg-card space-y-0.5">
-                            <div className="text-[10px] text-muted-foreground uppercase">COHORT CAPACITY</div>
-                            <div className="text-lg font-bold text-foreground">100+ Polytechnic Students</div>
-                            <div className="text-[10px] text-muted-foreground">Industrial Engineering Cohort</div>
-                        </div>
-                        <div className="p-3 rounded border border-border bg-card space-y-0.5">
-                            <div className="text-[10px] text-muted-foreground uppercase">PRODUCTION CAPSTONES</div>
-                            <div className="text-lg font-bold text-[#10B981]">12 Live Platforms Deployed</div>
-                            <div className="text-[10px] text-muted-foreground">Supervised architecture reviews</div>
-                        </div>
-                        <div className="p-3 rounded border border-border bg-card space-y-0.5">
-                            <div className="text-[10px] text-muted-foreground uppercase">CURRICULUM SPEC</div>
-                            <div className="text-lg font-bold text-[#FF4F00]">MERN + Next.js + Git</div>
-                            <div className="text-[10px] text-muted-foreground">Industry-aligned standards</div>
-                        </div>
+                    {/* 4 Industrial Curriculum Modules Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
+                        {mentorshipModules.map((mod, idx) => (
+                            <div
+                                key={idx}
+                                className="p-5 rounded-xs border border-neutral-800 bg-neutral-900/60 space-y-3 hover:border-[#E64A11] transition-colors">
+                                <div className="flex items-center justify-between text-[10px] text-neutral-400">
+                                    <span className="text-[#E64A11] font-bold">{mod.moduleNumber}</span>
+                                    <span>{mod.duration}</span>
+                                </div>
+                                <div className="font-bold text-white text-sm">
+                                    {mod.title}
+                                </div>
+                                <p className="font-light text-neutral-300 text-xs leading-relaxed">
+                                    {mod.syllabus}
+                                </p>
+                                <div className="text-[10px] text-[#E64A11] pt-1 border-t border-white/5 font-semibold">
+                                    ● {mod.capstoneOutcome}
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
                 </div>

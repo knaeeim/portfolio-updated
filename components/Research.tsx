@@ -1,19 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-    BrainCircuit,
-    Layers,
-    Cpu,
-    Eye,
-    Activity,
-    FileText,
-    ExternalLink,
-    CheckCircle2,
-    Database,
-    Zap,
-    ArrowUpRight,
-} from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, BrainCircuit } from "lucide-react";
+import { usePosterParallax } from "@/components/poster/usePosterParallax";
+import { FloatingPixel } from "@/components/poster/FloatingPixel";
 
 interface ResearchProps {
     data?: any;
@@ -23,11 +14,11 @@ const defaultResearch = {
     badge: "05. AI RESEARCH",
     title: "Brain Tumor Segmentation",
     subtitle: "Hybrid CNN-ViT with Explainable AI (Grad-CAM)",
-    status: "ACTIVE RESEARCH",
+    status: "ACTIVE BENCHMARK",
     leadResearcher: "Khairul Bashar Naeeim",
     institution: "Sonargaon University — CSE",
     abstract:
-        "Hybrid CNN-ViT architecture paired with Grad-CAM for high-precision multi-sequence MRI brain tumor segmentation.",
+        "Hybrid CNN-ViT architecture paired with Grad-CAM for high-precision multi-sequence MRI brain tumor segmentation across Glioma, Meningioma, Pituitary tumors.",
     dataset: "BraTS & Figshare (3,064+ Scans)",
     paperUrl: "https://github.com/knaeeim",
     metrics: [
@@ -65,114 +56,97 @@ const defaultResearch = {
 
 export const ResearchSection = ({ data }: ResearchProps) => {
     const research = data?.research || defaultResearch;
+    const { handleMouseMove, handleMouseLeave, l0 } = usePosterParallax();
 
     return (
         <section
             id="research"
-            className="w-full border-b border-border bg-background relative overflow-hidden py-10 sm:py-14">
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="w-full bg-pitch-black text-white relative overflow-hidden border-b border-[#222220] py-12 sm:py-16 select-none">
             
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            {/* Top Perimeter Bar */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-b border-white/5">
+                <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
+                    <span>05. AI &amp; COMPUTER VISION</span>
+                </div>
+                <div className="hidden sm:block text-neutral-500">
+                    DEEP LEARNING INITIATIVE
+                </div>
+                <div className="flex items-center gap-2">
+                    <span>98.7% PRECISION</span>
+                    <FloatingPixel color="orange" className="hidden sm:block" />
+                </div>
+            </div>
+
+            {/* Giant Background Watermark Text (Layer 0) */}
+            <motion.div
+                style={l0}
+                className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                <span className="watermark-text text-[24vw] text-[#121212] whitespace-nowrap">
+                    VISION // 05
+                </span>
+            </motion.div>
+
+            {/* Main Stage */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 z-20 relative space-y-10">
                 
                 {/* Header */}
-                <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-                    <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
-                            <span className="tech-label text-foreground">
-                                {research.badge || defaultResearch.badge}
-                            </span>
-                        </div>
-                        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                            {research.title || defaultResearch.title}
-                        </h2>
-                    </div>
-
-                    <div className="flex items-center gap-3 text-xs font-mono">
-                        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#10B981]/10 border border-[#10B981]/20 text-[#10B981] font-bold">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-ping" />
-                            <span>{research.status || defaultResearch.status}</span>
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
+                    <div className="space-y-2 max-w-2xl">
+                        <span className="font-light text-neutral-300 text-xs sm:text-sm tracking-wide block uppercase font-mono">
+                            // MEDICAL COMPUTER VISION INITIATIVE
                         </span>
-                        <a
-                            href={research.paperUrl || defaultResearch.paperUrl}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                            className="keycap-btn px-2.5 py-1 rounded bg-card border border-border text-foreground hover:border-[#FF4F00] transition-colors inline-flex items-center gap-1">
-                            <span>RESEARCH REPO</span>
-                            <ArrowUpRight size={11} className="text-[#FF4F00]" />
-                        </a>
-                    </div>
-                </div>
-
-                {/* Abstract & Dataset Bar */}
-                <div className="p-5 rounded border border-border bg-card/60 font-mono text-xs space-y-3">
-                    <div className="flex items-center justify-between text-[10px] text-muted-foreground border-b border-border pb-2">
-                        <span className="uppercase">INVESTIGATION DOSSIER</span>
-                        <span>LEAD: {research.leadResearcher || defaultResearch.leadResearcher}</span>
+                        <h2 className="editorial-display text-4xl sm:text-6xl text-white">
+                            BRAIN TUMOR <span className="text-[#E64A11]">SEGMENTATION</span>
+                        </h2>
+                        <p className="font-light text-neutral-300 text-xs sm:text-sm">
+                            {research.abstract || defaultResearch.abstract}
+                        </p>
                     </div>
 
-                    <p className="text-xs sm:text-sm text-foreground leading-relaxed font-sans">
-                        {research.abstract || defaultResearch.abstract}
-                    </p>
-
-                    <div className="pt-2 flex flex-wrap items-center gap-4 text-[11px] text-muted-foreground border-t border-border">
-                        <div>
-                            <span className="text-foreground font-bold">DATASET:</span>{" "}
-                            {research.dataset || defaultResearch.dataset}
-                        </div>
-                        <div>
-                            <span className="text-foreground font-bold">INSTITUTION:</span>{" "}
-                            {research.institution || defaultResearch.institution}
-                        </div>
-                    </div>
+                    <a
+                        href={research.paperUrl || defaultResearch.paperUrl}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="px-4 py-2 bg-neutral-900 border border-neutral-700 text-white font-mono text-xs font-bold uppercase rounded-xs hover:border-[#E64A11] transition-colors inline-flex items-center gap-2 self-start md:self-auto">
+                        <span>RESEARCH REPO</span>
+                        <ArrowUpRight size={13} className="text-[#E64A11]" />
+                    </a>
                 </div>
 
                 {/* 4 Quantitative Benchmark Metrics */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono text-xs">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs">
                     {(research.metrics || defaultResearch.metrics).map((item: any, idx: number) => (
                         <div
                             key={idx}
-                            className="p-4 rounded border border-border bg-card space-y-1">
-                            <div className="text-[10px] text-muted-foreground">{item.label}</div>
-                            <div className="text-2xl font-bold text-[#FF4F00]">{item.value}</div>
-                            <div className="text-[10px] text-muted-foreground">{item.subtext}</div>
+                            className="p-5 rounded-xs border border-neutral-800 bg-[#0E0E0E]/90 space-y-1">
+                            <div className="text-[10px] text-neutral-400 font-bold">{item.label}</div>
+                            <div className="editorial-display text-3xl sm:text-4xl text-[#E64A11] pt-1">
+                                {item.value}
+                            </div>
+                            <div className="text-[10px] text-neutral-500 font-light">{item.subtext}</div>
                         </div>
                     ))}
                 </div>
 
-                {/* Pipeline Architecture 4-Phase Grid */}
-                <div className="space-y-3 font-mono text-xs">
-                    <div className="text-[10px] text-muted-foreground uppercase tracking-wider">
-                        FOUR-PHASE PIPELINE ARCHITECTURE:
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {(research.architecturePhases || defaultResearch.architecturePhases).map((step: any, idx: number) => (
+                {/* 4 Pipeline Phases Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
+                    {(research.architecturePhases || defaultResearch.architecturePhases).map(
+                        (phase: any, idx: number) => (
                             <div
                                 key={idx}
-                                className="p-4 rounded border border-border bg-card/40 space-y-2">
-                                <div className="text-[10px] text-[#10B981] font-bold">
-                                    {step.phase}
-                                </div>
-                                <p className="text-xs text-muted-foreground leading-relaxed font-sans">
-                                    {step.desc}
+                                className="p-5 rounded-xs border border-neutral-800 bg-neutral-900/60 space-y-2 hover:border-[#E64A11] transition-colors">
+                                <span className="text-[#E64A11] font-bold text-[10px] block">
+                                    {phase.phase}
+                                </span>
+                                <p className="font-light text-neutral-300 text-xs leading-relaxed font-sans">
+                                    {phase.desc}
                                 </p>
                             </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Tech Stack Ribbon */}
-                <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border font-mono text-xs">
-                    <span className="text-[10px] text-muted-foreground uppercase mr-2">
-                        STACK ENVIRONMENT:
-                    </span>
-                    {(research.techStack || defaultResearch.techStack).map((item: string, idx: number) => (
-                        <span
-                            key={idx}
-                            className="px-2 py-0.5 rounded bg-muted/40 border border-border text-[11px] text-foreground font-medium">
-                            {item}
-                        </span>
-                    ))}
+                        )
+                    )}
                 </div>
 
             </div>

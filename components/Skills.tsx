@@ -2,416 +2,223 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-    Layers,
-    Server,
-    Database,
-    Cpu,
-    ArrowRight,
-    CheckCircle2,
-    Code2,
-    Shield,
-    Workflow,
-    Zap,
-} from "lucide-react";
-
-interface TechNode {
-    id: string;
-    name: string;
-    tag: string;
-    layer: "client" | "api" | "data";
-    connectedTo: string[];
-    productionUsage: string;
-    invariants: string[];
-    slaMetric: string;
-}
-
-const techMatrix: TechNode[] = [
-    // Layer 1: Client & Presentation Layer
-    {
-        id: "nextjs",
-        name: "Next.js 16 (Turbopack)",
-        tag: "FRAMEWORK",
-        layer: "client",
-        connectedTo: ["typescript", "serveractions", "postgres", "modular-express"],
-        productionUsage: "Hybrid SSR/SSG rendering, dynamic server components, and sub-40ms edge response times.",
-        invariants: ["Turbopack Zero-HMR Drift", "React 19 Server Actions", "Edge Caching"],
-        slaMetric: "<38ms TTFB on Vercel Edge",
-    },
-    {
-        id: "typescript",
-        name: "TypeScript 5.8",
-        tag: "LANGUAGE",
-        layer: "client",
-        connectedTo: ["nextjs", "react", "modular-express", "prisma"],
-        productionUsage: "End-to-end type safety across client UI, Zod API contracts, and Prisma schema models.",
-        invariants: ["Strict Null Checks", "Zero Any Invariants", "Inferred Schema Types"],
-        slaMetric: "100% Type-Coverage Guarantee",
-    },
-    {
-        id: "react",
-        name: "React 19 & Framer",
-        tag: "UI LIBRARY",
-        layer: "client",
-        connectedTo: ["nextjs", "typescript", "tailwind"],
-        productionUsage: "Concurrent rendering, spring physics transitions, and zero-layout-shift micro-interactions.",
-        invariants: ["Zero CLS Layout Invariance", "Spring Physics Kinetics", "Memoized Virtual Tree"],
-        slaMetric: "60 FPS Fluid Interactions",
-    },
-    {
-        id: "tailwind",
-        name: "Tailwind CSS 4",
-        tag: "DESIGN TOKENS",
-        layer: "client",
-        connectedTo: ["react", "nextjs"],
-        productionUsage: "Swiss typographic grid tokens, tactile keycaps, and 1px structural hairlines.",
-        invariants: ["CSS Custom Property Tokens", "Zero Bloat Utility Engine", "Dark/Light Dynamic Mapping"],
-        slaMetric: "Under 12KB Output Bundle",
-    },
-
-    // Layer 2: API & Orchestration Layer
-    {
-        id: "modular-express",
-        name: "Modular Express Architecture",
-        tag: "BACKEND ENGINE",
-        layer: "api",
-        connectedTo: ["typescript", "prisma", "postgres", "rbac-jwt"],
-        productionUsage: "Domain-driven module isolation with centralized error middleware and request sanitization.",
-        invariants: ["Separation of Concerns", "Decoupled Business Logic", "Async Error Interceptors"],
-        slaMetric: "P99 < 45ms Across REST Endpoints",
-    },
-    {
-        id: "prisma",
-        name: "Prisma ORM",
-        tag: "DATA MAPPING",
-        layer: "api",
-        connectedTo: ["postgres", "typescript", "modular-express"],
-        productionUsage: "Declarative schemas, automated migrations, relational joins, and ACID transactions.",
-        invariants: ["Relational Foreign Key Integrity", "Auto-Generated Typed Client", "Zero SQL Injection Vulnerability"],
-        slaMetric: "Sub-millisecond ORM Overhead",
-    },
-    {
-        id: "serveractions",
-        name: "Next.js Server Actions",
-        tag: "ORCHESTRATION",
-        layer: "api",
-        connectedTo: ["nextjs", "postgres", "mongodb"],
-        productionUsage: "Type-safe server RPC mutations with automated cache purging and optimistic UI updates.",
-        invariants: ["CSRF Protection Inherent", "Server-Only Execution Boundaries", "Atomic Cache Invalidation"],
-        slaMetric: "Instant Cache Mutation",
-    },
-    {
-        id: "rbac-jwt",
-        name: "RBAC & JWT Security",
-        tag: "GOVERNANCE",
-        layer: "api",
-        connectedTo: ["modular-express", "postgres", "nextjs"],
-        productionUsage: "Role-based access control protecting physician portals, student cohorts, and admin routes.",
-        invariants: ["Cryptographic Token Signature", "HTTP-Only Secure Cookie Storage", "Granular Permission Guardrails"],
-        slaMetric: "Zero-Trust Enforcement",
-    },
-
-    // Layer 3: Data, Persistence & Intelligence Layer
-    {
-        id: "postgres",
-        name: "PostgreSQL",
-        tag: "PRIMARY RDBMS",
-        layer: "data",
-        connectedTo: ["prisma", "modular-express", "typescript"],
-        productionUsage: "ACID relational persistence, composite indexing on high-frequency lookups, and 3NF tables.",
-        invariants: ["Strict Referential Integrity", "B-Tree Indexing Optimization", "Atomic Rollback Support"],
-        slaMetric: "99.99% Data Consistency",
-    },
-    {
-        id: "mongodb",
-        name: "MongoDB Atlas",
-        tag: "DOCUMENT STORE",
-        layer: "data",
-        connectedTo: ["serveractions", "nextjs"],
-        productionUsage: "Polymorphic venture content storage, telemetry event streams, and consultation records.",
-        invariants: ["Global Distributed Sharding", "Document Level Concurrency", "Dynamic Content Schema"],
-        slaMetric: "High-Throughput Write Handling",
-    },
-    {
-        id: "redis",
-        name: "Redis Key-Value Cache",
-        tag: "MEMORY ACCELERATION",
-        layer: "data",
-        connectedTo: ["modular-express", "postgres"],
-        productionUsage: "In-memory caching, API rate-limiting token buckets, and distributed slot reservation mutex locks.",
-        invariants: ["Atomic Lock Mutexes", "TTL Expire Invariants", "Sub-Millisecond Read Latency"],
-        slaMetric: "<2ms Retrieval Latency",
-    },
-    {
-        id: "pytorch",
-        name: "PyTorch (ViT + CNN)",
-        tag: "DEEP LEARNING",
-        layer: "data",
-        connectedTo: ["nextjs", "modular-express"],
-        productionUsage: "Medical AI model for brain tumor segmentation on 3,064+ MRI scans with Explainable Grad-CAM.",
-        invariants: ["12-Head Self-Attention Stem", "Dual-Path Feature Bottleneck", "Saliency Interpretability"],
-        slaMetric: "98.7% Diagnostic Precision",
-    },
-];
+import { Layers, Server, Cpu, Database, Shield, Zap } from "lucide-react";
+import { usePosterParallax } from "@/components/poster/usePosterParallax";
+import { FloatingPixel } from "@/components/poster/FloatingPixel";
+import { CircularChevronBtn } from "@/components/poster/CircularChevronBtn";
 
 interface SkillsSectionProps {
     data?: any;
 }
 
+const architecturalPillars = [
+    {
+        id: "frontend",
+        pillarNumber: "01",
+        title: "FRONTEND & NEXT.JS 16",
+        leadIn: "hybrid edge & concurrent kinetics",
+        coreHighlight: "TURBOPACK SSR",
+        description:
+            "Engineered around Next.js 16 App Router, React 19 concurrent features, and Tailwind CSS 4. Sub-38ms TTFB on Vercel Edge with zero hydration drift.",
+        stack: ["Next.js 16", "React 19", "TypeScript 5.8", "Tailwind CSS 4", "Framer Motion"],
+        sla: "<38ms TTFB Edge",
+        icon: Layers,
+    },
+    {
+        id: "backend",
+        pillarNumber: "02",
+        title: "BACKEND & PRISMA/POSTGRES",
+        leadIn: "isolated domain services & ACID integrity",
+        coreHighlight: "MODULAR REST",
+        description:
+            "Domain-driven Express architecture with Zod schema contract validation, PostgreSQL relational modeling, and atomic Prisma $transaction guarantees.",
+        stack: ["Modular Express", "PostgreSQL", "Prisma ORM", "Redis Mutex", "RBAC & JWT"],
+        sla: "P99 < 45ms REST",
+        icon: Server,
+    },
+    {
+        id: "core",
+        pillarNumber: "03",
+        title: "ALGORITHMIC CORE & AI",
+        leadIn: "mathematical rigor & computer vision",
+        coreHighlight: "600+ CP SOLVED",
+        description:
+            "Grounded in 600+ competitive programming challenges across LeetCode & Codeforces. Active research in PyTorch Hybrid CNN-ViT brain tumor segmentation.",
+        stack: ["Data Structures", "Graph Theory", "Dynamic Programming", "PyTorch 2.4", "Grad-CAM"],
+        sla: "98.7% Diagnostic Precision",
+        icon: Cpu,
+    },
+];
+
 export const SkillSection = ({ data }: SkillsSectionProps) => {
-    const [selectedNodeId, setSelectedNodeId] = useState<string>("prisma");
+    const [activePillarId, setActivePillarId] = useState("frontend");
+    const { handleMouseMove, handleMouseLeave, l0 } = usePosterParallax();
 
-    const selectedNode = techMatrix.find((node) => node.id === selectedNodeId) || techMatrix[5];
-
-    const isConnected = (nodeId: string) => {
-        if (nodeId === selectedNodeId) return true;
-        if (selectedNode.connectedTo.includes(nodeId)) return true;
-        const targetNode = techMatrix.find((n) => n.id === nodeId);
-        if (targetNode?.connectedTo.includes(selectedNodeId)) return true;
-        return false;
-    };
-
-    const clientNodes = techMatrix.filter((n) => n.layer === "client");
-    const apiNodes = techMatrix.filter((n) => n.layer === "api");
-    const dataNodes = techMatrix.filter((n) => n.layer === "data");
+    const activePillar =
+        architecturalPillars.find((p) => p.id === activePillarId) || architecturalPillars[0];
 
     return (
         <section
             id="architecture"
-            className="w-full border-b border-border bg-background relative overflow-hidden py-10 sm:py-14">
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="w-full min-h-[90vh] bg-pitch-black text-white relative overflow-hidden flex flex-col justify-between border-b border-[#222220] py-10 sm:py-14 select-none">
             
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            {/* Top Perimeter Bar */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 z-40 border-b border-white/5">
+                <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
+                    <span>02. ARCHITECTURE</span>
+                </div>
+                <div className="hidden sm:block text-neutral-500">
+                    LAYERED MATRIX
+                </div>
+                <div className="flex items-center gap-2">
+                    <span>PRODUCTION RUNTIME</span>
+                    <FloatingPixel color="orange" className="hidden sm:block" />
+                </div>
+            </div>
+
+            {/* Giant Background Watermark Text (Layer 0) */}
+            <motion.div
+                style={l0}
+                className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                <span className="watermark-text text-[24vw] text-[#121212] whitespace-nowrap">
+                    STACK // 02
+                </span>
+            </motion.div>
+
+            {/* Main Poster Grid */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 py-8 lg:py-12 z-20 flex-1 flex flex-col justify-center space-y-10">
                 
-                {/* Section Header */}
-                <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-                    <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
-                            <span className="tech-label text-foreground">
-                                01. ARCHITECTURE MATRIX
-                            </span>
-                        </div>
-                        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                            Interactive 3-Tier System
-                        </h2>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground bg-card border border-border px-2.5 py-1 rounded">
-                        <span className="inline-block w-2 h-2 rounded-full bg-[#10B981] animate-ping" />
-                        <span>NODE: {selectedNode.name.toUpperCase()}</span>
-                    </div>
+                {/* Section Editorial Heading */}
+                <div className="space-y-2 max-w-2xl">
+                    <span className="font-light text-neutral-300 text-xs sm:text-sm tracking-wide block uppercase font-mono">
+                        // THE ARCHITECTURAL STACK
+                    </span>
+                    <h2 className="editorial-display text-4xl sm:text-6xl lg:text-7xl text-white">
+                        LAYERED SYSTEM <span className="text-[#E64A11]">MATRIX</span>
+                    </h2>
+                    <p className="font-light text-neutral-300 text-xs sm:text-sm max-w-xl">
+                        Hover across any pillar to trigger cooperative background shifts, 
+                        expand the inspection drawer, and inspect production invariants.
+                    </p>
                 </div>
 
-                {/* 12-Column Layout: 8 Cols Interactive Diagram / 4 Cols Monospace Production Inspector */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    
-                    {/* LEFT (8 COLS): 3-Tier System Architecture Diagram */}
-                    <div className="lg:col-span-8 space-y-6">
-                        
-                        {/* TIER 1: CLIENT & PRESENTATION LAYER */}
-                        <div className="p-4 sm:p-5 rounded border border-border bg-card/60 space-y-3">
-                            <div className="flex items-center justify-between text-xs font-mono text-muted-foreground border-b border-border pb-2">
-                                <span className="font-bold text-foreground flex items-center gap-2">
-                                    <Layers size={13} className="text-[#FF4F00]" />
-                                    <span>TIER 01: CLIENT &amp; PRESENTATION LAYER</span>
-                                </span>
-                                <span className="text-[10px]">SSR • REACT 19 • TURBOPACK</span>
-                            </div>
+                {/* 3 Asymmetric Poster Cards with Sliding Burnt Orange Anchor */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+                    {architecturalPillars.map((pillar) => {
+                        const isActive = pillar.id === activePillarId;
+                        const IconComponent = pillar.icon;
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
-                                {clientNodes.map((node) => {
-                                    const active = isConnected(node.id);
-                                    const isCurrent = node.id === selectedNodeId;
-                                    return (
-                                        <button
-                                            key={node.id}
-                                            type="button"
-                                            onClick={() => setSelectedNodeId(node.id)}
-                                            onMouseEnter={() => setSelectedNodeId(node.id)}
-                                            className={`p-3 rounded text-left font-mono transition-all border cursor-pointer ${
-                                                isCurrent
-                                                    ? "bg-[#FF4F00] text-white border-[#FF4F00] shadow-md"
-                                                    : active
-                                                    ? "bg-card border-[#FF4F00]/60 text-foreground"
-                                                    : "bg-muted/30 border-border/80 text-muted-foreground hover:text-foreground hover:border-foreground/40"
-                                            }`}>
-                                            <div className="text-[9px] uppercase tracking-wider opacity-80">{node.tag}</div>
-                                            <div className="text-xs font-bold truncate mt-0.5">{node.name}</div>
-                                            <div className="text-[10px] mt-1 opacity-70 flex items-center gap-1">
-                                                <span>{active ? "• Connected" : "— Standby"}</span>
-                                            </div>
-                                        </button>
-                                    );
-                                })}
-                            </div>
-                        </div>
+                        return (
+                            <div
+                                key={pillar.id}
+                                onMouseEnter={() => setActivePillarId(pillar.id)}
+                                onClick={() => setActivePillarId(pillar.id)}
+                                className="relative group cursor-pointer">
+                                
+                                {/* Cooperative Sliding Burnt Orange Background Block */}
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="active-pillar-bg"
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 300,
+                                            damping: 30,
+                                        }}
+                                        className="absolute -inset-1.5 rounded-sm burnt-stripes -z-10 shadow-2xl"
+                                    />
+                                )}
 
-                        {/* Visual Connector Hairline */}
-                        <div className="flex justify-center items-center py-0.5">
-                            <div className="h-4 w-px bg-border relative">
-                                <div className="absolute top-1/2 -left-1 w-2 h-2 rounded-full bg-[#FF4F00]" />
-                            </div>
-                        </div>
+                                {/* Scattering Pixel Anchors when Active */}
+                                {isActive && (
+                                    <>
+                                        <FloatingPixel
+                                            color="orange"
+                                            className="absolute -top-3 -right-3 z-30"
+                                        />
+                                        <FloatingPixel
+                                            color="grey"
+                                            className="absolute -bottom-3 -left-3 z-30"
+                                        />
+                                        <FloatingPixel
+                                            color="orange"
+                                            className="absolute top-1/2 -right-4 z-30 hidden md:block"
+                                        />
+                                    </>
+                                )}
 
-                        {/* TIER 2: API & ORCHESTRATION LAYER */}
-                        <div className="p-4 sm:p-5 rounded border border-border bg-card/60 space-y-3">
-                            <div className="flex items-center justify-between text-xs font-mono text-muted-foreground border-b border-border pb-2">
-                                <span className="font-bold text-foreground flex items-center gap-2">
-                                    <Server size={13} className="text-[#FF4F00]" />
-                                    <span>TIER 02: API &amp; ORCHESTRATION LAYER</span>
-                                </span>
-                                <span className="text-[10px]">MODULAR EXPRESS • PRISMA • RBAC</span>
-                            </div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
-                                {apiNodes.map((node) => {
-                                    const active = isConnected(node.id);
-                                    const isCurrent = node.id === selectedNodeId;
-                                    return (
-                                        <button
-                                            key={node.id}
-                                            type="button"
-                                            onClick={() => setSelectedNodeId(node.id)}
-                                            onMouseEnter={() => setSelectedNodeId(node.id)}
-                                            className={`p-3 rounded text-left font-mono transition-all border cursor-pointer ${
-                                                isCurrent
-                                                    ? "bg-[#FF4F00] text-white border-[#FF4F00] shadow-md"
-                                                    : active
-                                                    ? "bg-card border-[#FF4F00]/60 text-foreground"
-                                                    : "bg-muted/30 border-border/80 text-muted-foreground hover:text-foreground hover:border-foreground/40"
-                                            }`}>
-                                            <div className="text-[9px] uppercase tracking-wider opacity-80">{node.tag}</div>
-                                            <div className="text-xs font-bold truncate mt-0.5">{node.name}</div>
-                                            <div className="text-[10px] mt-1 opacity-70 flex items-center gap-1">
-                                                <span>{active ? "• Connected" : "— Standby"}</span>
-                                            </div>
-                                        </button>
-                                    );
-                                })}
-                            </div>
-                        </div>
-
-                        {/* Visual Connector Hairline */}
-                        <div className="flex justify-center items-center py-0.5">
-                            <div className="h-4 w-px bg-border relative">
-                                <div className="absolute top-1/2 -left-1 w-2 h-2 rounded-full bg-[#10B981]" />
-                            </div>
-                        </div>
-
-                        {/* TIER 3: DATA, PERSISTENCE & INTELLIGENCE LAYER */}
-                        <div className="p-4 sm:p-5 rounded border border-border bg-card/60 space-y-3">
-                            <div className="flex items-center justify-between text-xs font-mono text-muted-foreground border-b border-border pb-2">
-                                <span className="font-bold text-foreground flex items-center gap-2">
-                                    <Database size={13} className="text-[#10B981]" />
-                                    <span>TIER 03: DATA, PERSISTENCE &amp; INTELLIGENCE</span>
-                                </span>
-                                <span className="text-[10px]">POSTGRESQL • REDIS • PYTORCH</span>
-                            </div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
-                                {dataNodes.map((node) => {
-                                    const active = isConnected(node.id);
-                                    const isCurrent = node.id === selectedNodeId;
-                                    return (
-                                        <button
-                                            key={node.id}
-                                            type="button"
-                                            onClick={() => setSelectedNodeId(node.id)}
-                                            onMouseEnter={() => setSelectedNodeId(node.id)}
-                                            className={`p-3 rounded text-left font-mono transition-all border cursor-pointer ${
-                                                isCurrent
-                                                    ? "bg-[#10B981] text-white border-[#10B981] shadow-md"
-                                                    : active
-                                                    ? "bg-card border-[#10B981]/60 text-foreground"
-                                                    : "bg-muted/30 border-border/80 text-muted-foreground hover:text-foreground hover:border-foreground/40"
-                                            }`}>
-                                            <div className="text-[9px] uppercase tracking-wider opacity-80">{node.tag}</div>
-                                            <div className="text-xs font-bold truncate mt-0.5">{node.name}</div>
-                                            <div className="text-[10px] mt-1 opacity-70 flex items-center gap-1">
-                                                <span>{active ? "• Connected" : "— Standby"}</span>
-                                            </div>
-                                        </button>
-                                    );
-                                })}
-                            </div>
-                        </div>
-
-                    </div>
-
-                    {/* RIGHT (4 COLS): Monospace Production Usage Side-Panel */}
-                    <div className="lg:col-span-4 sticky top-20">
-                        <div className="rounded border border-border bg-card p-5 space-y-4 font-mono text-xs">
-                            
-                            <div className="flex items-center justify-between border-b border-border pb-3">
-                                <div>
-                                    <span className="text-[10px] text-muted-foreground uppercase tracking-widest">
-                                        NODE INSPECTION
-                                    </span>
-                                    <h3 className="text-sm font-bold text-foreground mt-0.5">
-                                        {selectedNode.name}
-                                    </h3>
-                                </div>
-                                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#FF4F00]/10 text-[#FF4F00] border border-[#FF4F00]/20">
-                                    {selectedNode.tag}
-                                </span>
-                            </div>
-
-                            {/* Production Architecture Usage Callout */}
-                            <div className="space-y-1.5">
-                                <div className="text-[10px] text-muted-foreground uppercase tracking-wider">
-                                    PRODUCTION IMPLEMENTATION
-                                </div>
-                                <p className="text-xs text-foreground leading-relaxed p-3 rounded bg-muted/40 border border-border/70">
-                                    {selectedNode.productionUsage}
-                                </p>
-                            </div>
-
-                            {/* Architectural Invariants */}
-                            <div className="space-y-2">
-                                <div className="text-[10px] text-muted-foreground uppercase tracking-wider">
-                                    ARCHITECTURAL INVARIANTS
-                                </div>
-                                <div className="space-y-1">
-                                    {selectedNode.invariants.map((item, i) => (
-                                        <div key={i} className="flex items-center gap-2 text-[11px] text-foreground">
-                                            <CheckCircle2 size={12} className="text-[#10B981] shrink-0" />
-                                            <span>{item}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* SLA Telemetry Benchmark */}
-                            <div className="pt-2 border-t border-border flex items-center justify-between">
-                                <span className="text-[10px] text-muted-foreground">SLA BENCHMARK:</span>
-                                <span className="text-xs font-bold text-[#10B981]">{selectedNode.slaMetric}</span>
-                            </div>
-
-                            {/* Active Trace Graph */}
-                            <div className="pt-2 border-t border-border space-y-1 text-[10px] text-muted-foreground">
-                                <div className="flex items-center justify-between">
-                                    <span>CONNECTED DEPENDENCIES:</span>
-                                    <span className="text-foreground font-bold">{selectedNode.connectedTo.length} NODES</span>
-                                </div>
-                                <div className="flex flex-wrap gap-1 pt-1">
-                                    {selectedNode.connectedTo.map((depId) => {
-                                        const depNode = techMatrix.find((n) => n.id === depId);
-                                        return (
-                                            <span
-                                                key={depId}
-                                                className="px-1.5 py-0.5 rounded bg-muted text-[10px] text-foreground">
-                                                {depNode?.name.split(" ")[0] || depId}
+                                {/* Card Body */}
+                                <div
+                                    className={`h-full p-6 sm:p-8 rounded-sm border transition-all duration-300 flex flex-col justify-between space-y-6 ${
+                                        isActive
+                                            ? "bg-[#0A0A09] border-[#E64A11] shadow-2xl"
+                                            : "bg-[#0E0E0E]/90 border-neutral-800 hover:border-neutral-600"
+                                    }`}>
+                                    
+                                    {/* Card Header: Number + Icon + Lead-In */}
+                                    <div className="space-y-3 border-b border-white/5 pb-4">
+                                        <div className="flex items-center justify-between">
+                                            <span className="font-mono text-2xl font-black text-[#E64A11]">
+                                                {pillar.pillarNumber}.
                                             </span>
-                                        );
-                                    })}
+                                            <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center text-neutral-300">
+                                                <IconComponent size={18} />
+                                            </div>
+                                        </div>
+                                        <div className="font-light text-neutral-400 text-xs italic">
+                                            {pillar.leadIn}
+                                        </div>
+                                    </div>
+
+                                    {/* Title & Core Highlight */}
+                                    <div className="space-y-2">
+                                        <h3
+                                            className={`font-black text-xl sm:text-2xl uppercase tracking-tight transition-colors ${
+                                                isActive ? "text-[#E64A11]" : "text-white"
+                                            }`}>
+                                            {pillar.title}
+                                        </h3>
+                                        <p className="font-light text-neutral-300 text-xs sm:text-sm leading-relaxed">
+                                            {pillar.description}
+                                        </p>
+                                    </div>
+
+                                    {/* Tech Stack Chips */}
+                                    <div className="space-y-3 pt-2">
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {pillar.stack.map((tech) => (
+                                                <span
+                                                    key={tech}
+                                                    className="px-2 py-0.5 rounded-xs bg-white/5 border border-white/10 text-[10px] font-mono text-neutral-200">
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        {/* Card Footer: SLA & Circular Chevron Button */}
+                                        <div className="flex items-center justify-between pt-3 border-t border-white/5 text-xs font-mono">
+                                            <span className="text-[#E64A11] font-bold">
+                                                {pillar.sla}
+                                            </span>
+                                            <CircularChevronBtn size="sm" />
+                                        </div>
+                                    </div>
+
                                 </div>
+
                             </div>
-
-                        </div>
-                    </div>
-
+                        );
+                    })}
                 </div>
 
+            </div>
+
+            {/* Bottom Perimeter Bar */}
+            <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 z-40 border-t border-white/5">
+                <div>NODE: {activePillar.title}</div>
+                <div>SLA // GUARANTEED</div>
             </div>
 
         </section>
