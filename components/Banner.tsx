@@ -30,14 +30,14 @@ export const TerminalHero = ({ data }: BannerProps) => {
             id="home"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="w-full min-h-[92vh] lg:min-h-[96vh] bg-pitch-black text-neutral-900 dark:text-white relative overflow-hidden flex flex-col justify-between border-b poster-border select-none">
+            className="w-full min-h-[92vh] lg:min-h-[96vh] scroll-mt-20 bg-pitch-black text-neutral-900 dark:text-white relative overflow-hidden flex flex-col justify-between border-b poster-border select-none">
             
             {/* Top Perimeter Bar (3-Column Spread) */}
             <motion.div
                 initial={{ opacity: 0, y: -15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 sm:pt-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-300 z-40 border-b poster-perimeter-border pb-4">
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 sm:pt-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-300 z-10 border-b poster-perimeter-border pb-4">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11] animate-pulse" />
                     <span className="text-neutral-900 dark:text-white font-semibold">ARCHITECTURE</span>
@@ -80,12 +80,12 @@ export const TerminalHero = ({ data }: BannerProps) => {
                 </motion.div>
 
                 {/* Container for Midground and Foreground */}
-                <div className="w-full relative z-20 flex flex-col lg:flex-row items-center justify-between min-h-[520px] lg:min-h-[640px] pt-10 sm:pt-14 lg:pt-16 pb-4">
+                <div className="w-full relative z-20 flex flex-col lg:flex-row items-center justify-between min-h-[520px] lg:min-h-[640px] pt-14 sm:pt-20 lg:pt-16 pb-4">
                     
                     {/* ======================================================== */}
                     {/* LAYER 1 (z-10): Burnt Orange Solid Geometric Block       */}
                     {/* ======================================================== */}
-                    <div className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[500px] h-[360px] sm:h-[420px] lg:h-[470px] xl:h-[500px] flex-shrink-0">
+                    <div className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[500px] h-[310px] xs:h-[330px] sm:h-[400px] lg:h-[470px] xl:h-[500px] flex-shrink-0">
                         
                         <motion.div
                             style={l1}
@@ -126,7 +126,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                 delay: 0.25,
                                 ease: [0.22, 1, 0.36, 1],
                             }}
-                            className="absolute -right-8 sm:-right-16 md:-right-20 lg:-right-24 xl:-right-28 bottom-0 w-[300px] sm:w-[410px] md:w-[460px] lg:w-[490px] xl:w-[540px] h-[410px] sm:h-[520px] md:h-[580px] lg:h-[620px] xl:h-[670px] z-20 pointer-events-none">
+                            className="absolute -right-4 xs:-right-6 sm:-right-14 md:-right-20 lg:-right-24 xl:-right-28 bottom-0 w-[350px] xs:w-[380px] sm:w-[440px] md:w-[480px] lg:w-[500px] xl:w-[550px] h-[420px] xs:h-[455px] sm:h-[520px] md:h-[580px] lg:h-[620px] xl:h-[670px] z-20 pointer-events-none">
                             <div className="relative w-full h-full filter contrast-110 drop-shadow-[0_25px_50px_rgba(0,0,0,0.95)]">
                                 <Image
                                     src={profileImage}
@@ -232,7 +232,7 @@ export const TerminalHero = ({ data }: BannerProps) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 sm:pb-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-t poster-perimeter-border pt-4">
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 sm:pb-8 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-t poster-perimeter-border pt-4">
                 <div className="flex items-center gap-2">
                     <span className="text-neutral-900 dark:text-white font-semibold">@NAEEIM.SITE_</span>
                 </div>

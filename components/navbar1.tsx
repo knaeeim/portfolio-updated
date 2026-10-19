@@ -103,7 +103,7 @@ export const Navbar1 = ({
 
     return (
         <>
-            <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur-md border-b border-border transition-colors">
+            <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-md border-b border-border transition-colors">
                 {/* 12-Column Blueprint Grid with Exposed 1px Hairlines */}
                 <div className="w-full max-w-[1440px] mx-auto grid grid-cols-12 text-xs font-mono">
                     
@@ -231,7 +231,7 @@ export const Navbar1 = ({
             {/* ⌘K Interactive Command Palette Modal */}
             {isCommandOpen && (
                 <div
-                    className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-start justify-center pt-20 px-4"
+                    className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-start justify-center pt-20 px-4"
                     onClick={() => setIsCommandOpen(false)}>
                     <div
                         className="w-full max-w-xl bg-card border border-border rounded-lg shadow-2xl overflow-hidden font-mono text-xs animate-in fade-in zoom-in-95 duration-150"

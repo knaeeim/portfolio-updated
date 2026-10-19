@@ -62,7 +62,7 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
             id="architecture"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="w-full min-h-[90vh] bg-pitch-black text-foreground relative overflow-hidden flex flex-col justify-between border-b poster-border py-10 sm:py-14 select-none">
+            className="w-full min-h-[90vh] scroll-mt-20 bg-pitch-black text-foreground relative overflow-hidden flex flex-col justify-between border-b poster-border py-10 sm:py-14 select-none">
             
             {/* Top Perimeter Bar */}
             <motion.div
@@ -70,7 +70,7 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-b poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11]" />
                     <span className="text-neutral-900 dark:text-white font-semibold">02. ARCHITECTURE</span>
@@ -239,7 +239,7 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-t poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-t poster-perimeter-border">
                 <div>NODE: {activePillar.title}</div>
                 <div>SLA // GUARANTEED</div>
             </motion.div>

@@ -100,7 +100,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
             id="contact"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="w-full bg-pitch-black text-foreground relative overflow-hidden flex flex-col justify-between border-t poster-border py-12 sm:py-16 select-none">
+            className="w-full scroll-mt-20 bg-pitch-black text-foreground relative overflow-hidden flex flex-col justify-between border-t poster-border py-12 sm:py-16 select-none">
             
             {/* Top Perimeter Bar */}
             <motion.div
@@ -108,7 +108,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-b poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pb-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-b poster-perimeter-border">
                 <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E64A11] animate-pulse" />
                     <span className="text-neutral-900 dark:text-white font-semibold">05. TRANSMISSION</span>
@@ -367,7 +367,7 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-40 border-t poster-perimeter-border">
+                className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 pt-6 flex items-center justify-between text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 dark:text-neutral-400 z-10 border-t poster-perimeter-border">
                 <div>© {new Date().getFullYear()} KHAIRUL BASHAR NAEEIM</div>
                 <div>DHAKA // UTC+6</div>
                 <div className="text-neutral-700 dark:text-neutral-400 font-semibold">@NAEEIM_DEV</div>
