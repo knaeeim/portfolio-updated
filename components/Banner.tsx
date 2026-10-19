@@ -135,128 +135,111 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                     </div>
 
                     {/* Headline with Live Typewriter & Shimmer Animation */}
-                    <div className="space-y-3 min-h-[170px] sm:min-h-[195px] lg:min-h-[225px] flex flex-col justify-start">
-                        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.18]">
-                            <span className="block">Architecting High-Growth</span>
-                            <span className="block min-h-[1.25em] my-0.5 sm:my-1">
-                                <span className="animate-shimmer-text font-black inline-block">
+                    <div className="space-y-2.5 min-h-[120px] sm:min-h-[140px] lg:min-h-[155px] flex flex-col justify-start">
+                        <h1 className="text-2xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-tight text-foreground leading-[1.2]">
+                            <span className="block">
+                                Architecting <span className="whitespace-nowrap">High-Growth</span>
+                            </span>
+                            <span className="block min-h-[1.2em] my-0.5">
+                                <span className="animate-shimmer-text font-black inline-block text-primary">
                                     {displayedText || "\u00A0"}
                                 </span>
-                                <span className="inline-block w-1 sm:w-1.5 h-[0.8em] bg-primary ml-1.5 align-middle animate-pulse" />
+                                <span className="inline-block w-1 sm:w-1.25 h-[0.8em] bg-primary ml-1 align-middle animate-pulse" />
                             </span>
-                            <span className="block">
+                            <span className="block text-muted-foreground/85 font-bold">
                                 &amp; Scalable Platforms.
                             </span>
                         </h1>
-                        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl font-normal">
+                        <p className="text-xs sm:text-sm lg:text-[15px] text-muted-foreground leading-relaxed max-w-xl font-normal">
                             {bio}
                         </p>
                     </div>
 
                     {/* Executive Interactive Command Card */}
-                    <div className="rounded-2xl border border-border/80 bg-card/60 backdrop-blur-xl shadow-xl overflow-hidden">
+                    <div className="rounded-2xl border border-border/80 dark:border-white/10 bg-card/65 backdrop-blur-xl shadow-lg overflow-hidden">
                         {/* Tab Selector Header */}
-                        <div className="bg-muted/40 px-4 py-2.5 border-b border-border flex items-center justify-between">
+                        <div className="bg-muted/30 px-3.5 py-2 border-b border-border/60 flex items-center justify-between">
                             <div className="flex items-center gap-1.5">
                                 <button
                                     type="button"
                                     onClick={() => setActiveTab("overview")}
-                                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                                         activeTab === "overview"
-                                            ? "bg-background text-primary shadow-xs border border-border"
+                                            ? "bg-background text-primary shadow-xs border border-border/70"
                                             : "text-muted-foreground hover:text-foreground"
                                     }`}>
-                                    Executive Overview
+                                    Executive Focus
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => setActiveTab("telemetry")}
-                                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                                         activeTab === "telemetry"
-                                            ? "bg-background text-primary shadow-xs border border-border"
+                                            ? "bg-background text-primary shadow-xs border border-border/70"
                                             : "text-muted-foreground hover:text-foreground"
                                     }`}>
                                     System Telemetry
                                 </button>
                             </div>
-                            <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-mono">
+                            <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-muted-foreground font-mono">
                                 <ShieldCheck size={13} className="text-emerald-500" />
                                 <span>Verified Founder Profile</span>
                             </div>
                         </div>
 
                         {/* Content Area */}
-                        <div className="p-5 font-mono text-xs md:text-sm">
+                        <div className="p-3.5 sm:p-4 text-xs font-mono">
                             {activeTab === "overview" ? (
-                                <div className="space-y-2.5">
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-primary font-bold">FOUNDER:</span>
-                                        <span className="text-foreground font-semibold">
-                                            {name}
-                                        </span>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <div className="p-2 sm:p-2.5 rounded-xl bg-muted/30 border border-border/50 space-y-0.5">
+                                        <div className="text-[10px] font-bold uppercase text-primary">Founder &amp; CEO</div>
+                                        <div className="text-foreground font-bold font-sans text-xs sm:text-sm">{company}</div>
                                     </div>
-                                    <div className="flex items-center gap-2 flex-wrap">
-                                        <span className="text-primary font-bold">LEADERSHIP:</span>
-                                        <span className="text-blue-500 font-semibold">
-                                            CEO @ {company}
-                                        </span>
-                                        <span className="text-muted-foreground">|</span>
-                                        <span className="text-muted-foreground">
-                                            Former Web Instructor @ BD Calling Academy
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center gap-2 flex-wrap">
-                                        <span className="text-primary font-bold">FLAGSHIP LIVE:</span>
+                                    <div className="p-2 sm:p-2.5 rounded-xl bg-muted/30 border border-border/50 space-y-0.5">
+                                        <div className="text-[10px] font-bold uppercase text-emerald-600 dark:text-emerald-400">Flagship Production</div>
                                         <a
                                             href="https://www.devojyotidutta.com/"
                                             target="_blank"
                                             rel="noreferrer noopener"
-                                            className="text-emerald-500 font-bold hover:underline inline-flex items-center gap-1">
-                                            devojyotidutta.com
-                                            <ArrowUpRight size={13} />
+                                            className="text-foreground font-bold font-sans text-xs sm:text-sm hover:text-primary inline-flex items-center gap-1">
+                                            <span>devojyotidutta.com</span>
+                                            <ArrowUpRight size={12} />
                                         </a>
-                                        <span className="text-[11px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-sans font-medium">
-                                            Clinical Booking Platform
-                                        </span>
                                     </div>
-                                    <div className="flex items-center gap-2 flex-wrap">
-                                        <span className="text-primary font-bold">AI RESEARCH:</span>
-                                        <a
-                                            href="#research"
-                                            className="text-cyan-500 font-semibold hover:underline inline-flex items-center gap-1">
-                                            Hybrid CNN-ViT Brain Tumor Detection &amp; XAI
-                                            <ArrowUpRight size={13} />
+                                    <div className="p-2 sm:p-2.5 rounded-xl bg-muted/30 border border-border/50 space-y-0.5">
+                                        <div className="text-[10px] font-bold uppercase text-cyan-600 dark:text-cyan-400">Active AI Research</div>
+                                        <a href="#research" className="text-foreground font-semibold font-sans text-xs hover:text-cyan-500 flex items-center gap-1 truncate">
+                                            <span>Hybrid CNN-ViT (Medical AI)</span>
+                                            <ArrowUpRight size={11} className="shrink-0" />
                                         </a>
-                                        <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-sans font-medium">
-                                            Ongoing Research
-                                        </span>
                                     </div>
-                                    <div className="pt-1 text-muted-foreground text-xs leading-relaxed font-sans">
-                                        Steering enterprise architecture, Next.js 15 platforms, and deep-learning vision models with high availability and verified clinical accuracy.
+                                    <div className="p-2 sm:p-2.5 rounded-xl bg-muted/30 border border-border/50 space-y-0.5">
+                                        <div className="text-[10px] font-bold uppercase text-blue-600 dark:text-blue-400">Architecture Discipline</div>
+                                        <div className="text-foreground font-semibold font-sans text-xs">Next.js 16 • Turbopack • Zero Bloat</div>
                                     </div>
                                 </div>
                             ) : (
                                 <div className="space-y-2 text-xs font-mono">
-                                    <div className="flex items-center justify-between text-muted-foreground border-b border-border/50 pb-2">
+                                    <div className="flex items-center justify-between text-muted-foreground border-b border-border/50 pb-1.5">
                                         <div className="flex items-center gap-2">
                                             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                                             <span className="text-foreground font-bold text-xs">PRODUCTION CLUSTER TELEMETRY</span>
                                         </div>
-                                        <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-bold text-[11px] bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-                                            <Activity size={12} /> 99.98% SLA
+                                        <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-bold text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                                            <Activity size={11} /> 99.98% SLA
                                         </span>
                                     </div>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 text-muted-foreground text-[11px]">
-                                        <div className="p-2 rounded-xl bg-muted/40 border border-border/50">
-                                            <span className="text-foreground font-semibold">Core Framework:</span> Next.js 16 (Turbopack)
+                                    <div className="grid grid-cols-2 gap-2 pt-0.5 text-muted-foreground text-[11px]">
+                                        <div className="p-1.5 rounded-lg bg-muted/30 border border-border/50">
+                                            <span className="text-foreground font-semibold">Core:</span> Next.js 16
                                         </div>
-                                        <div className="p-2 rounded-xl bg-muted/40 border border-border/50">
-                                            <span className="text-foreground font-semibold">Flagship Live:</span> devojyotidutta.com
+                                        <div className="p-1.5 rounded-lg bg-muted/30 border border-border/50">
+                                            <span className="text-foreground font-semibold">Live:</span> devojyotidutta.com
                                         </div>
-                                        <div className="p-2 rounded-xl bg-muted/40 border border-border/50">
+                                        <div className="p-1.5 rounded-lg bg-muted/30 border border-border/50">
                                             <span className="text-foreground font-semibold">SSR Latency:</span> &lt;42ms Sub-Second
                                         </div>
-                                        <div className="p-2 rounded-xl bg-muted/40 border border-border/50">
+                                        <div className="p-1.5 rounded-lg bg-muted/30 border border-border/50">
                                             <span className="text-foreground font-semibold">Security:</span> RBAC &amp; Protected /admin
                                         </div>
                                     </div>
@@ -266,42 +249,37 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                     </div>
 
                     {/* CTAs */}
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-1">
+                    <div className="flex flex-wrap items-center gap-3 pt-0.5">
                         <Button
                             asChild
-                            size="lg"
-                            className="w-full sm:w-auto rounded-xl px-7 font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-0.5">
+                            className="rounded-xl px-5 h-10 font-bold shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 transition-all hover:-translate-y-0.5">
                             <a href="#projects">
-                                Explore Flagship Ventures
+                                Explore Ventures
                                 <ChevronRight className="ml-1 size-4" />
                             </a>
                         </Button>
                         <Button
                             asChild
-                            size="lg"
                             variant="outline"
-                            className="w-full sm:w-auto rounded-xl px-6 font-semibold hover:-translate-y-0.5 transition-all">
+                            className="rounded-xl px-4 h-10 font-semibold hover:-translate-y-0.5 transition-all">
                             <a href={resumeFile} download>
-                                <Download className="mr-2 size-4" />
+                                <Download className="mr-1.5 size-4" />
                                 Executive CV
                             </a>
                         </Button>
-                        <Button
-                            asChild
-                            size="lg"
-                            variant="ghost"
-                            className="w-full sm:w-auto rounded-xl px-5 text-muted-foreground hover:text-foreground">
-                            <a href="#contact">
-                                Schedule Call
-                            </a>
-                        </Button>
+                        <a
+                            href="#contact"
+                            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors ml-auto sm:ml-2">
+                            <span>Get in Touch</span>
+                            <ArrowUpRight size={13} />
+                        </a>
                     </div>
 
                     {/* Metric Counter Ribbon */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-6 border-t border-border/60">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 sm:pt-5 border-t border-border/50">
                         {metrics.map((item: any, idx: number) => (
                             <div key={idx} className="space-y-0.5">
-                                <div className="text-xl sm:text-3xl font-extrabold text-foreground tracking-tight">
+                                <div className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
                                     {item.value}
                                 </div>
                                 <div className="text-[11px] sm:text-xs text-muted-foreground font-medium leading-snug">
@@ -316,33 +294,33 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                 <div
                     className="lg:col-span-5 flex justify-center items-center relative self-center"
                     data-aos="fade-left">
-                    <div className="relative w-full max-w-xs sm:max-w-md mx-auto">
+                    <div className="relative w-full max-w-[270px] sm:max-w-[340px] lg:max-w-[380px] mx-auto">
                         {/* Decorative Gradient Glow Rings */}
-                        <div className="absolute -inset-4 bg-gradient-to-tr from-primary/30 via-blue-500/20 to-cyan-500/30 rounded-3xl blur-2xl opacity-60 animate-pulse-glow" />
+                        <div className="absolute -inset-3 bg-gradient-to-tr from-primary/25 via-blue-500/15 to-cyan-500/25 rounded-3xl blur-2xl opacity-60 pointer-events-none" />
 
                         {/* Portrait Frame */}
-                        <div className="relative rounded-3xl p-2.5 sm:p-3 bg-gradient-to-b from-border/80 via-card to-border/40 border border-border shadow-2xl overflow-hidden backdrop-blur-md group">
+                        <div className="relative rounded-3xl p-2 sm:p-2.5 bg-gradient-to-b from-border/80 via-card to-border/40 border border-border shadow-2xl overflow-hidden backdrop-blur-md group">
                             <div className="relative aspect-4/5 w-full rounded-2xl overflow-hidden bg-muted">
                                 <Image
                                     src={profileImage}
                                     alt={name}
                                     fill
                                     priority
-                                    sizes="(max-width: 640px) 280px, (max-width: 1024px) 400px, 480px"
+                                    sizes="(max-width: 640px) 270px, (max-width: 1024px) 340px, 380px"
                                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
 
                                 {/* Name plate on portrait bottom */}
-                                <div className="absolute bottom-0 inset-x-0 p-3.5 sm:p-5 space-y-1">
+                                <div className="absolute bottom-0 inset-x-0 p-3.5 sm:p-4 space-y-1">
                                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm">
                                         <Sparkles size={11} />
                                         Founder &amp; CEO
                                     </div>
-                                    <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight">
+                                    <h3 className="text-base sm:text-lg font-bold text-foreground leading-tight">
                                         {name}
                                     </h3>
-                                    <p className="text-[11px] sm:text-xs text-muted-foreground font-medium">
+                                    <p className="text-[11px] text-muted-foreground font-medium">
                                         Lead Systems Architect • {company}
                                     </p>
                                 </div>
@@ -354,32 +332,32 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                             href="https://www.devojyotidutta.com/"
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="absolute -top-4 sm:-top-6 left-0 sm:-left-8 p-2.5 sm:p-3 rounded-2xl bg-card/85 border border-border/80 dark:border-white/10 shadow-2xl backdrop-blur-2xl flex items-center gap-2.5 sm:gap-3 animate-float-slow hover:border-primary/50 transition-all z-20 group max-w-[85%] sm:max-w-none">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-sm sm:text-base shrink-0 group-hover:scale-110 transition-transform">
+                            className="absolute -top-3 -left-3 sm:-left-5 p-2 sm:p-2.5 rounded-2xl bg-card/90 border border-border/80 dark:border-white/10 shadow-xl backdrop-blur-2xl flex items-center gap-2 sm:gap-2.5 hover:border-primary/50 transition-all z-20 group">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 group-hover:scale-110 transition-transform">
                                 🌿
                             </div>
                             <div>
-                                <div className="text-xs font-bold text-foreground flex items-center gap-1">
+                                <div className="text-[11px] font-bold text-foreground flex items-center gap-1">
                                     <span>devojyotidutta.com</span>
-                                    <ArrowUpRight size={12} className="text-muted-foreground group-hover:text-primary transition-colors" />
+                                    <ArrowUpRight size={11} className="text-muted-foreground group-hover:text-primary transition-colors" />
                                 </div>
-                                <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                                <div className="text-[9px] text-emerald-600 dark:text-emerald-400 font-semibold">
                                     Flagship Production Live
                                 </div>
                             </div>
                         </a>
 
                         {/* Floating Live Badge 2: Architecture & Mentorship */}
-                        <div className="absolute -bottom-4 sm:-bottom-6 right-0 sm:-right-8 p-2.5 sm:p-3.5 rounded-2xl bg-card/85 border border-border/80 dark:border-white/10 shadow-2xl backdrop-blur-2xl flex items-center gap-2.5 sm:gap-3 z-20 max-w-[85%] sm:max-w-none">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold text-sm sm:text-base shrink-0">
-                                <Users size={16} />
+                        <div className="absolute -bottom-3 -right-3 sm:-right-5 p-2 sm:p-2.5 rounded-2xl bg-card/90 border border-border/80 dark:border-white/10 shadow-xl backdrop-blur-2xl flex items-center gap-2 sm:gap-2.5 z-20">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold text-xs sm:text-sm shrink-0">
+                                <Users size={14} />
                             </div>
                             <div>
-                                <div className="text-xs font-bold text-foreground">
-                                    100+ Engineers Led
+                                <div className="text-[11px] font-bold text-foreground">
+                                    100+ Engineers Mentored
                                 </div>
-                                <div className="text-[10px] text-muted-foreground font-medium">
-                                    Mentored at BD Calling Academy
+                                <div className="text-[9px] text-muted-foreground font-medium">
+                                    BD Calling Academy
                                 </div>
                             </div>
                         </div>
