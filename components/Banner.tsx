@@ -26,7 +26,7 @@ interface BannerProps {
 const defaultBannerConfig = {
     name: "Khairul Bashar Naeeim",
     role: "Founder & CEO, Principal Full-Stack Architect",
-    company: "WebZen",
+    company: "WebZen Bangladesh",
     profileImage: "/profilePicture.jpg",
     resumeFile: "/resume.pdf",
     githubProfile: "https://github.com/knaeeim",

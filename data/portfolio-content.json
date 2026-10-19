@@ -1,7 +1,7 @@
 {
   "general": {
     "name": "Khairul Bashar Naeeim",
-    "company": "WebZen",
+    "company": "WebZen Bangladesh",
     "role": "Founder & CEO, Principal Full-Stack Architect",
     "tagline": "Architecting High-Growth Digital Ventures & Scalable Platforms",
     "availabilityStatus": "Available for Advisory & High-Impact Projects",
@@ -60,7 +60,7 @@
       },
       {
         "title": "Venture Delivery & Client ROI",
-        "desc": "As Founder & CEO of WebZen, I deliver turnkey production platforms (such as Dr. Devojyoti Dutta's medical portal) that drive immediate business value.",
+        "desc": "As Founder & CEO of WebZen Bangladesh, I deliver turnkey production platforms (such as Dr. Devojyoti Dutta's medical portal) that drive immediate business value.",
         "tag": "Business ROI"
       }
     ],
@@ -87,10 +87,10 @@
         "badge": "Technical Leadership"
       },
       {
-        "title": "Founder & CEO, WebZen",
+        "title": "Founder & CEO, WebZen Bangladesh",
         "date": "2026 & Present",
         "role": "Executive Direction & Flagship Delivery",
-        "desc": "Leading WebZen in delivering high-stakes production platforms, including the automated clinical booking platform for Dr. Devojyoti Dutta.",
+        "desc": "Leading WebZen Bangladesh in delivering high-stakes production platforms, including the automated clinical booking platform for Dr. Devojyoti Dutta.",
         "badge": "Venture Leadership"
       }
     ],
@@ -119,7 +119,7 @@
   },
   "experience": [
     {
-      "company": "WebZen",
+      "company": "WebZen Bangladesh",
       "role": "Founder & Chief Executive Officer",
       "stack": "Venture Leadership & Enterprise Architecture",
       "duration": "March, 2026 — Present",
@@ -238,7 +238,7 @@
   "projects": [
     {
       "id": "webzen-technologies",
-      "title": "WebZen Technologies (webzenbd.com)",
+      "title": "WebZen Bangladesh (webzenbd.com)",
       "subtitle": "Next-Gen Enterprise Architecture, SaaS Development & Digital Ventures Studio",
       "category": "agency",
       "categoryLabel": "Ventures & Agency Studio",
@@ -247,11 +247,11 @@
       "client": "Global Enterprise Clients, Tech Founders & Healthcare Ventures",
       "year": "2024 — Present",
       "isFlagship": true,
-      "description": "WebZen (webzenbd.com) is an elite digital engineering and technology studio founded and steered by Khairul Bashar Naeeim. We engineer resilient full-stack web platforms, mission-critical SaaS systems, and enterprise cloud solutions with sub-second performance, robust security, and scalable microservices architectures.",
+      "description": "WebZen Bangladesh (webzenbd.com) is an elite digital engineering and technology studio founded and steered by Khairul Bashar Naeeim. We engineer resilient full-stack web platforms, mission-critical SaaS systems, and enterprise cloud solutions with sub-second performance, robust security, and scalable microservices architectures.",
       "images": [
         {
           "src": "/uploads/1792203603681_Screenshot_2026-10-17_at_8.19.52_AM.png",
-          "label": "WebZen Digital Studio",
+          "label": "WebZen Bangladesh Digital Studio",
           "caption": "Engineering high-growth digital ventures & enterprise architectures"
         },
         {

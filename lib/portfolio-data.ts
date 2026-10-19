@@ -39,8 +39,19 @@ export async function getPortfolioData(): Promise<any> {
                 const doc = await db.collection("content").findOne({ _id: "portfolio_main" as any });
                 if (doc) {
                     const { _id, updatedAt, ...cleanDoc } = doc as any;
-                    inMemoryCache = cleanDoc;
-                    return cleanDoc;
+                    const localData = getLocalFilePortfolioData();
+                    const mergedDoc = {
+                        ...(localData || {}),
+                        ...cleanDoc,
+                        general: { ...(localData?.general || {}), ...(cleanDoc?.general || {}) },
+                        hero: { ...(localData?.hero || {}), ...(cleanDoc?.hero || {}) },
+                        research: { ...(localData?.research || {}), ...(cleanDoc?.research || {}) },
+                        projects: (cleanDoc?.projects && cleanDoc.projects.length > 0)
+                            ? cleanDoc.projects
+                            : localData?.projects || [],
+                    };
+                    inMemoryCache = mergedDoc;
+                    return mergedDoc;
                 }
 
                 // If document does not exist yet, seed initial data from local JSON into MongoDB

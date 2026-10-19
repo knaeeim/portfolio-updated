@@ -33,7 +33,7 @@ const navLinks = [
 
 export const Navbar1 = ({
     className,
-    companyName = "WebZen",
+    companyName = "WebZen Bangladesh",
     userName = "Khairul Bashar Naeeim",
 }: Navbar1Props) => {
     return (

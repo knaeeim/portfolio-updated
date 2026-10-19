@@ -2,29 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
     ExternalLink,
-    Github,
     Sparkles,
-    CheckCircle2,
-    Calendar,
-    Stethoscope,
     Shield,
-    ShieldCheck,
-    MessageCircle,
-    Activity,
-    Layers,
-    ChevronLeft,
-    ChevronRight,
-    Maximize2,
-    X,
-    Laptop,
-    Check,
     Globe,
     Building2,
     GraduationCap,
     HeartPulse,
     Briefcase,
+    ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AOS from "aos";
@@ -64,12 +52,75 @@ interface ProjectItem {
 
 const projectsData: ProjectItem[] = [
     {
+        id: "webzen-technologies",
+        title: "WebZen Bangladesh (webzenbd.com)",
+        subtitle: "Next-Gen Enterprise Architecture, SaaS Development & Digital Ventures Studio",
+        category: "agency",
+        categoryLabel: "Ventures & Agency Studio",
+        role: "Founder & Chief Executive Officer (CEO)",
+        status: "Active Agency & Venture Studio",
+        client: "Global Enterprise Clients, Tech Founders & Healthcare Ventures",
+        year: "2024 — Present",
+        isFlagship: true,
+        description:
+            "WebZen Bangladesh (webzenbd.com) is an elite digital engineering and technology studio founded and steered by Khairul Bashar Naeeim. We engineer resilient full-stack web platforms, mission-critical SaaS systems, and enterprise cloud solutions with sub-second performance, robust security, and scalable microservices architectures.",
+        images: [
+            {
+                src: "/uploads/1792203603681_Screenshot_2026-10-17_at_8.19.52_AM.png",
+                label: "WebZen Bangladesh Digital Studio",
+                caption: "Engineering high-growth digital ventures & enterprise architectures",
+            },
+            {
+                src: "/devojyoti/preview.png",
+                label: "HealthTech Production Systems",
+                caption: "Ayurvedic Medical Platform & smart clinical slot booking engine",
+            },
+        ],
+        liveLink: "https://webzenbd.com/",
+        adminLink: "https://webzenbd.com/",
+        tech: [
+            "Next.js 15",
+            "React 19",
+            "TypeScript",
+            "Node.js",
+            "PostgreSQL",
+            "MongoDB Atlas",
+            "Tailwind CSS 4",
+            "Vercel Cloud",
+            "CI/CD Pipelines",
+        ],
+        features: [
+            {
+                title: "Full-Lifecycle Enterprise Product Engineering",
+                desc: "Translating strategic business visions into production-grade digital platforms from architectural blueprint to global deployment.",
+            },
+            {
+                title: "Sub-Second Latency & High Concurrency",
+                desc: "Engineered with modern SSR architectures, edge caching, and database query optimization ensuring zero slowdown under load.",
+            },
+            {
+                title: "AI & Deep Learning Systems Integration",
+                desc: "Custom healthcare AI, vision models, and automated diagnostic workflows embedded into client web portals.",
+            },
+            {
+                title: "Enterprise Security & RBAC Governance",
+                desc: "Multi-tenant role-based access control, cryptographic session handling, and zero-trust authentication standards.",
+            },
+        ],
+        metrics: [
+            { value: "15+", label: "Platforms Delivered" },
+            { value: "100%", label: "Client Satisfaction" },
+            { value: "99.9%", label: "Uptime SLA" },
+            { value: "Global", label: "Remote Engineering" },
+        ],
+    },
+    {
         id: "devojyoti-dutta",
         title: "Dr. Devojyoti Dutta Medical Portal",
         subtitle: "Ayurvedic Medical Platform & Smart Slot Booking Engine",
         category: "healthtech",
         categoryLabel: "HealthTech & Clinical SaaS",
-        role: "Founder & Lead Systems Architect (WebZen)",
+        role: "Founder & Lead Systems Architect (WebZen Bangladesh)",
         status: "Production Live",
         client: "Ayurvedacharya Devojyoti Dutta (B.A.M.S., NIA Jaipur & B.Sc in BGE)",
         year: "2026 Production",
@@ -127,14 +178,6 @@ const projectsData: ProjectItem[] = [
                 title: "Prakriti Diagnostic Assessment",
                 desc: "Algorithmic constitutional test calculating Ayurvedic doshas (Vata, Pitta, Kapha) with tailored dietary advice.",
             },
-            {
-                title: "Clinical Library & Publications",
-                desc: "Integrated knowledge repository showcasing medical publications, research papers, and 'স্বাস্থ্য দর্পণ' book.",
-            },
-            {
-                title: "Sub-Second SSR & Medical SEO",
-                desc: "High-speed Next.js SSR architecture with bilingual typography (Hind Siliguri) and Google-indexed medical schemas.",
-            },
         ],
         metrics: [
             { value: "100%", label: "Automated Slot Scheduling" },
@@ -170,11 +213,6 @@ const projectsData: ProjectItem[] = [
                 label: "RBAC Admin Center",
                 caption: "Centralized administrative control for platform moderation and user verification.",
             },
-            {
-                src: "/skills/skill4.png",
-                label: "Booking & Escrow",
-                caption: "Session booking flow with calendar availability and confirmation logic.",
-            },
         ],
         liveLink: "https://skill-bridge-client-taupe.vercel.app/",
         clientLink: "https://github.com/knaeeim/skill-bridge-client",
@@ -188,14 +226,6 @@ const projectsData: ProjectItem[] = [
             {
                 title: "Session Scheduling Engine",
                 desc: "Dynamic calendar booking system with conflict prevention.",
-            },
-            {
-                title: "PostgreSQL Relational Schema",
-                desc: "Normalized data architecture with Prisma ORM for relational integrity.",
-            },
-            {
-                title: "JWT Encrypted Authentication",
-                desc: "Industry-standard session validation with protected server routes.",
             },
         ],
         metrics: [
@@ -231,11 +261,6 @@ const projectsData: ProjectItem[] = [
                 label: "Admin Building Control",
                 caption: "Property manager dashboard showing occupancy, collections, and notices.",
             },
-            {
-                src: "/house/house4.png",
-                label: "Notification Dispatch",
-                caption: "Real-time announcement board broadcasting updates to all residents.",
-            },
         ],
         liveLink: "https://house-manager-56098.web.app/",
         clientLink: "https://github.com/knaeeim/houseManager-client",
@@ -250,451 +275,155 @@ const projectsData: ProjectItem[] = [
                 title: "Dynamic Coupon Logic",
                 desc: "Algorithmic validation engine applying promotional discounts on payments.",
             },
-            {
-                title: "Facility Management Hub",
-                desc: "Centralized administrator console for unit allocations and tenant records.",
-            },
-            {
-                title: "Real-Time Query Caching",
-                desc: "TanStack Query integration for instant optimistic updates and sync.",
-            },
         ],
         metrics: [
-            { value: "100%", label: "Automated Billing Calculation" },
-            { value: "Real-time", label: "Tenant Notifications" },
+            { value: "100%", label: "Automated Invoicing" },
+            { value: "Real-time", label: "Tenant Alerts" },
             { value: "Multi-Unit", label: "Occupancy Tracking" },
         ],
     },
 ];
 
-const FlagshipShowcase = ({ project }: { project: ProjectItem }) => {
-    const [selectedImgIndex, setSelectedImgIndex] = useState(0);
-    const [lightboxOpen, setLightboxOpen] = useState(false);
+const CompactProjectCard = ({ project }: { project: ProjectItem }) => {
+    const isFlagship = Boolean(project.isFlagship);
+    const mainImg = project.images?.[0]?.src || "/placeholder.jpg";
+    const topMetric = project.metrics?.[0];
 
     return (
-        <div className="relative rounded-2xl sm:rounded-4xl border-2 border-emerald-500/30 bg-gradient-to-b from-card via-card to-emerald-950/10 shadow-2xl overflow-hidden p-4 sm:p-8 lg:p-10 mb-8 sm:mb-12 lg:mb-16 backdrop-blur-xl">
-            {/* Ambient luxury glow */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+        <div
+            className={`group rounded-2xl sm:rounded-3xl border bg-card/75 backdrop-blur-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between ${
+                isFlagship
+                    ? "border-primary/40 shadow-lg shadow-primary/5 hover:border-primary"
+                    : "border-border/80 hover:border-primary/40"
+            }`}>
+            {/* Visual Thumbnail Frame */}
+            <div className="relative aspect-16/10 w-full overflow-hidden bg-muted/30">
+                <Image
+                    src={mainImg}
+                    alt={project.title}
+                    fill
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-80" />
 
-            {/* Top Status & Role Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-5 sm:pb-6 mb-6 sm:mb-8 border-b border-border/80">
-                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                    <span className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[11px] sm:text-xs font-bold tracking-wide">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                {/* Top Floating Badges */}
+                <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-2 z-10">
+                    <span className="px-2.5 py-1 rounded-full bg-background/90 backdrop-blur-md text-[10px] font-bold text-foreground border border-border/70 uppercase tracking-wider">
+                        {project.categoryLabel || "Venture"}
+                    </span>
+
+                    <div className="flex items-center gap-1.5">
+                        {isFlagship && (
+                            <span className="px-2.5 py-1 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold shadow-sm">
+                                Flagship
+                            </span>
+                        )}
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 backdrop-blur-md text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold border border-emerald-500/30">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span>Live</span>
                         </span>
-                        FLAGSHIP VENTURE
-                    </span>
-                    <span className="hidden sm:inline text-muted-foreground">•</span>
-                    <span className="text-xs font-bold text-foreground">
-                        {project.role}
-                    </span>
+                    </div>
                 </div>
 
-                <div className="flex items-center gap-2 max-w-full">
-                    <span className="text-[11px] sm:text-xs font-mono font-medium text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-lg border border-border max-w-full break-words">
-                        Client: {project.client}
-                    </span>
-                </div>
+                {/* Screen Count Badge */}
+                {project.images && project.images.length > 1 && (
+                    <div className="absolute bottom-2.5 right-3 text-[10px] font-mono font-medium px-2 py-0.5 rounded-md bg-black/60 text-white backdrop-blur-md border border-white/10">
+                        {project.images.length} screens
+                    </div>
+                )}
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                {/* LEFT: Multi-Device Interactive Screen Showcase (7 Columns) */}
-                <div className="lg:col-span-7 space-y-4">
-                    {/* Main Active Screen Display */}
-                    <div className="relative aspect-16/10 w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-border/80 bg-muted/40 shadow-xl group">
-                        <Image
-                            src={project.images[selectedImgIndex]?.src || project.images[0]?.src || "/placeholder.jpg"}
-                            alt={project.images[selectedImgIndex]?.label || project.title}
-                            fill
-                            priority
-                            className="object-cover object-top transition-transform duration-700 group-hover:scale-102"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
-
-                        {/* Fullscreen zoom button */}
-                        <button
-                            type="button"
-                            onClick={() => setLightboxOpen(true)}
-                            aria-label="View Fullscreen"
-                            className="absolute top-4 right-4 p-2.5 rounded-xl bg-black/60 hover:bg-black/80 text-white backdrop-blur-md border border-white/20 transition-all opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer">
-                            <Maximize2 size={18} />
-                        </button>
-
-                        {/* Screen description overlay */}
-                        <div className="absolute bottom-0 inset-x-0 p-5 text-white space-y-1">
-                            <div className="flex items-center justify-between">
-                                <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-                                    Screen {selectedImgIndex + 1} of {project.images.length}: {project.images[selectedImgIndex]?.label || project.title}
-                                </span>
-                                <span className="text-[11px] text-white/70 font-mono">
-                                    Live Production Preview
-                                </span>
-                            </div>
-                            <p className="text-xs sm:text-sm text-white/90 line-clamp-2">
-                                {project.images[selectedImgIndex]?.caption || ""}
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Interactive Thumbnail Selector Tabs */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-                        {project.images.map((img, idx) => (
-                            <button
-                                key={idx}
-                                type="button"
-                                onClick={() => setSelectedImgIndex(idx)}
-                                className={`text-left p-2.5 rounded-xl border transition-all cursor-pointer flex flex-col gap-1 ${
-                                    selectedImgIndex === idx
-                                        ? "bg-emerald-500/10 border-emerald-500/60 shadow-md ring-1 ring-emerald-500/30"
-                                        : "bg-card/40 border-border hover:bg-card/80 hover:border-border/90"
-                                }`}>
-                                <div className="text-[11px] font-bold text-foreground truncate">
-                                    {img.label}
-                                </div>
-                                <div className="text-[10px] text-muted-foreground truncate">
-                                    Click to preview
-                                </div>
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Production Impact Metrics Grid */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-border/60">
-                        {project.metrics.map((m, idx) => (
-                            <div key={idx} className="p-3 rounded-xl bg-card/60 border border-border/60 text-center space-y-0.5">
-                                <div className="text-lg sm:text-xl font-extrabold text-emerald-600 dark:text-emerald-400">
-                                    {m.value}
-                                </div>
-                                <div className="text-[10px] text-muted-foreground font-medium">
-                                    {m.label}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Interactive 3-Step Automated Clinical Workflow (Eliminates Empty Void on Left) */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-card/60 border border-border/80 space-y-3 shadow-xs">
-                        <div className="flex items-center justify-between">
-                            <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                                <Sparkles size={14} className="text-emerald-500" />
-                                <span>Zero-Friction Patient Reservation Flow</span>
-                            </div>
-                            <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                                Automated Engine
-                            </span>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                            <div className="p-3 rounded-xl bg-muted/30 border border-border/60 space-y-1 hover:border-emerald-500/30 transition-colors">
-                                <div className="flex items-center gap-2">
-                                    <span className="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center shrink-0">
-                                        1
-                                    </span>
-                                    <span className="text-xs font-bold text-foreground truncate">
-                                        Chamber &amp; Slot
-                                    </span>
-                                </div>
-                                <p className="text-[11px] text-muted-foreground leading-normal">
-                                    Selects chamber location, dynamic date, and available slot.
-                                </p>
-                            </div>
-
-                            <div className="p-3 rounded-xl bg-muted/30 border border-border/60 space-y-1 hover:border-emerald-500/30 transition-colors">
-                                <div className="flex items-center gap-2">
-                                    <span className="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center shrink-0">
-                                        2
-                                    </span>
-                                    <span className="text-xs font-bold text-foreground truncate">
-                                        Instant WhatsApp
-                                    </span>
-                                </div>
-                                <p className="text-[11px] text-muted-foreground leading-normal">
-                                    Automated phone validation &amp; instant booking confirmation.
-                                </p>
-                            </div>
-
-                            <div className="p-3 rounded-xl bg-muted/30 border border-border/60 space-y-1 hover:border-emerald-500/30 transition-colors">
-                                <div className="flex items-center gap-2">
-                                    <span className="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center shrink-0">
-                                        3
-                                    </span>
-                                    <span className="text-xs font-bold text-foreground truncate">
-                                        Physician Sync
-                                    </span>
-                                </div>
-                                <p className="text-[11px] text-muted-foreground leading-normal">
-                                    Real-time sync to doctor admin dashboard with 0 conflict.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Infrastructure & Telemedicine Certification Banner */}
-                    <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-card/60 border border-emerald-500/25 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shrink-0">
-                                <ShieldCheck size={20} />
-                            </div>
-                            <div>
-                                <div className="text-xs font-bold text-foreground">
-                                    Verified Production Infrastructure
-                                </div>
-                                <div className="text-[11px] text-muted-foreground">
-                                    Sub-second SSR latency • 100% digital slot booking automation
-                                </div>
-                            </div>
-                        </div>
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-xs font-bold border border-emerald-500/30 shrink-0 self-start sm:self-auto">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            <span>100% Live In Production</span>
+            {/* Content Details */}
+            <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                            {project.role}
                         </span>
-                    </div>
-                </div>
-
-                {/* RIGHT: Architecture Deep-Dive & Action Links (5 Columns) */}
-                <div className="lg:col-span-5 space-y-6">
-                    <div>
-                        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1.5">
-                            <HeartPulse size={14} />
-                            <span>Client Web Application Case Study</span>
-                        </div>
-                        <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight leading-tight">
-                            {project.title}
-                        </h3>
-                        <p className="text-sm font-medium text-muted-foreground mt-1">
-                            {project.subtitle}
-                        </p>
+                        {project.year && (
+                            <span className="text-[10px] font-mono text-muted-foreground">
+                                {project.year}
+                            </span>
+                        )}
                     </div>
 
-                    <p className="text-sm text-foreground/80 leading-relaxed">
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight group-hover:text-primary transition-colors leading-snug">
+                        {project.title}
+                    </h3>
+
+                    <p className="text-xs text-muted-foreground line-clamp-1 font-medium">
+                        {project.subtitle}
+                    </p>
+
+                    <p className="text-xs text-foreground/80 line-clamp-2 leading-relaxed pt-1">
                         {project.description}
                     </p>
 
-                    {/* Key Built Features */}
-                    <div className="space-y-3 pt-1">
-                        <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                            <Layers size={14} className="text-emerald-500" />
-                            <span>Core Engineering Deliverables</span>
+                    {/* Metric Highlight Pill */}
+                    {topMetric && (
+                        <div className="pt-1.5">
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-primary/5 border border-primary/15 text-[11px]">
+                                <span className="font-bold text-primary">{topMetric.value}</span>
+                                <span className="text-muted-foreground">• {topMetric.label}</span>
+                            </div>
                         </div>
-                        <div className="grid grid-cols-1 gap-2.5">
-                            {project.features.map((feat, i) => (
-                                <div
-                                    key={i}
-                                    className="p-3 rounded-xl bg-card/50 border border-border/80 flex items-start gap-3">
-                                    <div className="p-1 rounded-md bg-emerald-500/10 text-emerald-500 shrink-0 mt-0.5">
-                                        <Check size={14} />
-                                    </div>
-                                    <div>
-                                        <div className="text-xs font-bold text-foreground">
-                                            {feat.title}
-                                        </div>
-                                        <div className="text-[11px] text-muted-foreground leading-normal mt-0.5">
-                                            {feat.desc}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                    )}
+                </div>
+
+                {/* Card Actions & Tech */}
+                <div className="space-y-3 pt-3 border-t border-border/50">
+                    <div className="flex flex-wrap gap-1.5">
+                        {project.tech.slice(0, 4).map((t) => (
+                            <span
+                                key={t}
+                                className="px-2 py-0.5 rounded-md bg-muted/60 text-[10px] font-semibold text-muted-foreground border border-border/50">
+                                {t}
+                            </span>
+                        ))}
+                        {project.tech.length > 4 && (
+                            <span className="text-[10px] text-muted-foreground self-center font-mono">
+                                +{project.tech.length - 4}
+                            </span>
+                        )}
                     </div>
 
-                    {/* Tech Badges */}
-                    <div className="space-y-2 pt-2">
-                        <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                            Technology Stack
-                        </div>
-                        <div className="flex flex-wrap gap-1.5">
-                            {project.tech.map((t) => (
-                                <span
-                                    key={t}
-                                    className="px-2.5 py-1 rounded-lg bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 dark:text-emerald-300 text-[11px] font-semibold">
-                                    {t}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Direct Action Links */}
-                    <div className="pt-4 flex flex-col sm:flex-row gap-3">
+                    <div className="flex items-center gap-2 pt-1">
                         <Button
                             asChild
-                            size="lg"
-                            className="flex-1 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 hover:from-emerald-700 hover:to-emerald-900 text-white font-bold shadow-lg shadow-emerald-700/20 hover:shadow-xl hover:shadow-emerald-700/30 transition-all hover:-translate-y-0.5">
-                            <a
-                                href={project.liveLink}
-                                target="_blank"
-                                rel="noreferrer noopener">
-                                <Globe className="mr-2 size-4 text-emerald-200" />
-                                Visit Live Production Site
-                                <ExternalLink className="ml-1.5 size-3.5 opacity-80" />
-                            </a>
+                            size="sm"
+                            className="flex-1 rounded-xl text-xs font-bold gap-1.5 h-9 bg-primary text-primary-foreground hover:bg-primary/90">
+                            <Link href={`/projects/${project.id}`}>
+                                <span>Case Study &amp; Architecture</span>
+                                <ArrowRight size={13} />
+                            </Link>
                         </Button>
+
+                        {project.liveLink && (
+                            <Button
+                                asChild
+                                size="sm"
+                                variant="outline"
+                                className="rounded-xl px-2.5 h-9 border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
+                                title="Visit Live Production Site">
+                                <a href={project.liveLink} target="_blank" rel="noreferrer noopener">
+                                    <Globe size={14} />
+                                </a>
+                            </Button>
+                        )}
+
                         {project.adminLink && (
                             <Button
                                 asChild
-                                size="lg"
+                                size="sm"
                                 variant="outline"
-                                className="rounded-xl border-emerald-500/30 hover:bg-emerald-500/10 font-semibold">
-                                <a
-                                    href={project.adminLink}
-                                    target="_blank"
-                                    rel="noreferrer noopener">
-                                    <Shield className="mr-2 size-4 text-emerald-600 dark:text-emerald-400" />
-                                    Doctor Portal (/admin)
+                                className="rounded-xl px-2.5 h-9 border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
+                                title="Admin / Doctor Portal">
+                                <a href={project.adminLink} target="_blank" rel="noreferrer noopener">
+                                    <Shield size={14} />
                                 </a>
                             </Button>
                         )}
                     </div>
-                </div>
-            </div>
-
-            {/* Lightbox Modal */}
-            {lightboxOpen && (
-                <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center p-4 sm:p-8 animate-in fade-in duration-300">
-                    <button
-                        type="button"
-                        onClick={() => setLightboxOpen(false)}
-                        aria-label="Close modal"
-                        className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer">
-                        <X size={24} />
-                    </button>
-                    <div className="relative max-w-5xl w-full aspect-16/10 rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
-                        <Image
-                            src={project.images[selectedImgIndex].src}
-                            alt={project.images[selectedImgIndex].label}
-                            fill
-                            className="object-contain"
-                        />
-                    </div>
-                    <div className="mt-4 text-center max-w-xl text-white space-y-1">
-                        <div className="font-bold text-lg">
-                            {project.images[selectedImgIndex].label}
-                        </div>
-                        <p className="text-xs text-white/70">
-                            {project.images[selectedImgIndex].caption}
-                        </p>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
-};
-
-const StandardProjectCard = ({ project }: { project: ProjectItem }) => {
-    const [imgIndex, setImgIndex] = useState(0);
-
-    return (
-        <div className="group rounded-3xl border border-border/80 bg-card/50 backdrop-blur-md overflow-hidden hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5 flex flex-col justify-between">
-            {/* Top Image Slider */}
-            <div className="relative aspect-16/10 w-full overflow-hidden bg-muted/20">
-                <Image
-                    src={project.images[imgIndex].src}
-                    alt={project.images[imgIndex].label}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-60" />
-
-                {/* Top Badge */}
-                <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="px-3 py-1 rounded-full bg-background/90 backdrop-blur-md text-[10px] font-bold text-foreground border border-border/60 uppercase tracking-wider">
-                        {project.categoryLabel}
-                    </span>
-                </div>
-
-                {/* Thumbnail dots selector */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
-                    {project.images.map((_, idx) => (
-                        <button
-                            key={idx}
-                            type="button"
-                            onClick={() => setImgIndex(idx)}
-                            aria-label={`View image ${idx + 1}`}
-                            className={`rounded-full transition-all cursor-pointer ${
-                                idx === imgIndex
-                                    ? "w-6 h-1.5 bg-primary"
-                                    : "w-1.5 h-1.5 bg-white/40 hover:bg-white/80"
-                            }`}
-                        />
-                    ))}
-                </div>
-            </div>
-
-            {/* Bottom Content */}
-            <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
-                <div className="space-y-4">
-                    <div className="flex justify-between items-start gap-4">
-                        <div>
-                            <span className="text-[11px] font-bold text-primary uppercase tracking-wider">
-                                {project.role}
-                            </span>
-                            <h4 className="text-xl font-bold text-foreground tracking-tight group-hover:text-primary transition-colors">
-                                {project.title}
-                            </h4>
-                            <p className="text-xs text-muted-foreground mt-0.5">
-                                {project.subtitle}
-                            </p>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                            {project.clientLink && (
-                                <a
-                                    href={project.clientLink}
-                                    target="_blank"
-                                    rel="noreferrer noopener"
-                                    title="Client Repository"
-                                    className="p-2.5 rounded-xl bg-muted/60 hover:bg-muted border border-border text-foreground hover:text-primary transition-all">
-                                    <Github size={16} />
-                                </a>
-                            )}
-                            <a
-                                href={project.liveLink}
-                                target="_blank"
-                                rel="noreferrer noopener"
-                                title="Live Application"
-                                className="p-2.5 rounded-xl bg-primary text-primary-foreground shadow-sm hover:scale-105 transition-all">
-                                <ExternalLink size={16} />
-                            </a>
-                        </div>
-                    </div>
-
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                        {project.description}
-                    </p>
-
-                    {/* Features checklist */}
-                    <div className="space-y-2 pt-1">
-                        {project.features.map((feat, i) => (
-                            <div key={i} className="flex items-start gap-2 text-xs text-foreground/80">
-                                <CheckCircle2 size={14} className="text-primary shrink-0 mt-0.5" />
-                                <span>
-                                    <strong>{feat.title}:</strong> {feat.desc}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Tech Pills & Live Link Button */}
-                <div className="pt-4 border-t border-border/50 space-y-4">
-                    <div className="flex flex-wrap gap-1.5">
-                        {project.tech.map((t) => (
-                            <span
-                                key={t}
-                                className="px-2.5 py-1 rounded-md bg-muted/60 text-[10px] font-semibold text-muted-foreground border border-border/60">
-                                {t}
-                            </span>
-                        ))}
-                    </div>
-
-                    <Button asChild variant="outline" className="w-full rounded-xl font-bold justify-between">
-                        <a href={project.liveLink} target="_blank" rel="noreferrer noopener">
-                            <span>Explore Live Platform</span>
-                            <ExternalLink size={14} />
-                        </a>
-                    </Button>
                 </div>
             </div>
         </div>
@@ -708,13 +437,12 @@ interface ProjectsSectionProps {
 const ProjectsSection = ({ data }: ProjectsSectionProps) => {
     const [activeFilter, setActiveFilter] = useState<"all" | "agency" | "healthtech" | "edtech" | "proptech">("all");
 
-    const currentProjects: ProjectItem[] = (data?.projects && data.projects.length > 0)
-        ? data.projects
-        : projectsData;
+    const currentProjects: ProjectItem[] =
+        data?.projects && data.projects.length > 0 ? data.projects : projectsData;
 
     useEffect(() => {
         AOS.init({
-            duration: 600,
+            duration: 500,
             once: true,
             easing: "ease-out-cubic",
         });
@@ -724,8 +452,6 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
         if (activeFilter === "all") return true;
         return p.category === activeFilter;
     });
-
-    const flagship = currentProjects.find((p) => p.isFlagship) || currentProjects[0];
 
     return (
         <section id="projects" className="py-8 sm:py-12 md:py-16 bg-background relative overflow-hidden">
@@ -743,7 +469,7 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                         Selected Production Platforms &amp; Client Case Studies
                     </h2>
                     <p className="text-muted-foreground text-sm sm:text-base mt-2 leading-relaxed">
-                        A curated portfolio of high-impact web platforms, enterprise agency ventures (WebZen), and HealthTech systems engineered to production scale.
+                        A curated portfolio of high-impact web platforms, enterprise agency ventures (WebZen Bangladesh), and HealthTech systems engineered to production scale. Click any card to explore full blueprints and architectural specifications.
                     </p>
                 </div>
 
@@ -768,7 +494,7 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                 : "bg-card/70 border border-border text-muted-foreground hover:text-foreground hover:bg-card"
                         }`}>
                         <Briefcase size={13} />
-                        WebZen Studio
+                        WebZen Bangladesh Studio
                     </button>
                     <button
                         type="button"
@@ -805,25 +531,16 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                     </button>
                 </div>
 
-                {/* Flagship Feature */}
-                {flagship && (activeFilter === "all" || activeFilter === flagship.category) && (
-                    <div data-aos="fade-up">
-                        <FlagshipShowcase project={flagship} />
-                    </div>
-                )}
-
-                {/* Grid for Other Ventures */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                    {filteredProjects
-                        .filter((p) => p.id !== flagship?.id || activeFilter !== "all")
-                        .map((project, idx) => (
-                            <div
-                                key={project.id}
-                                data-aos="fade-up"
-                                data-aos-delay={idx * 120}>
-                                <StandardProjectCard project={project} />
-                            </div>
-                        ))}
+                {/* Grid for All Selected Ventures */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-7">
+                    {filteredProjects.map((project, idx) => (
+                        <div
+                            key={project.id}
+                            data-aos="fade-up"
+                            data-aos-delay={idx * 100}>
+                            <CompactProjectCard project={project} />
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

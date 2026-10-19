@@ -17,7 +17,7 @@ const ContactSection = ({ data }: ContactSectionProps) => {
 
     const general = data?.general || {};
     const name = general.name || "Khairul Bashar Naeeim";
-    const company = general.company || "WebZen";
+    const company = general.company || "WebZen Bangladesh";
     const email = general.email || "kmnaeeim@gmail.com";
     const phone = general.phone || "+880 1712-854941";
     const whatsapp = general.whatsapp || "https://wa.me/8801712854941";
@@ -267,7 +267,7 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                     <div className="flex items-center gap-2">
                         <span className="font-bold text-foreground">Khairul Bashar Naeeim</span>
                         <span>•</span>
-                        <span>Founder &amp; CEO, WebZen</span>
+                        <span>Founder &amp; CEO, WebZen Bangladesh</span>
                     </div>
                     <div>
                         © {new Date().getFullYear()} All Rights Reserved. Engineered with Next.js 15.

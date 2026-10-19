@@ -185,21 +185,38 @@ export const ResearchSection = ({ data }: ResearchProps) => {
                             </span>
                         </div>
 
-                        <div className="flex items-center gap-2">
-                            <Button
-                                asChild
-                                size="sm"
-                                variant="outline"
-                                className="rounded-xl text-xs font-semibold gap-1.5 border-border/80 bg-background/50 backdrop-blur-md hover:bg-background h-8">
-                                <a
-                                    href={researchData.paperUrl || "https://github.com/knaeeim"}
-                                    target="_blank"
-                                    rel="noreferrer noopener">
-                                    <FileText size={13} />
-                                    <span>Research Code / Repo</span>
-                                    <ExternalLink size={12} className="opacity-70" />
-                                </a>
-                            </Button>
+                        <div className="flex flex-wrap items-center gap-2">
+                            {researchData.paperFileUrl && (
+                                <Button
+                                    asChild
+                                    size="sm"
+                                    className="rounded-xl text-xs font-bold gap-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-md shadow-cyan-600/20 h-8">
+                                    <a
+                                        href={researchData.paperFileUrl}
+                                        target="_blank"
+                                        rel="noreferrer noopener">
+                                        <FileText size={13} />
+                                        <span>Read Paper / PDF</span>
+                                        <ExternalLink size={12} className="opacity-80" />
+                                    </a>
+                                </Button>
+                            )}
+
+                            {researchData.paperUrl && (
+                                <Button
+                                    asChild
+                                    size="sm"
+                                    variant="outline"
+                                    className="rounded-xl text-xs font-semibold gap-1.5 border-border/80 bg-background/50 backdrop-blur-md hover:bg-background h-8">
+                                    <a
+                                        href={researchData.paperUrl}
+                                        target="_blank"
+                                        rel="noreferrer noopener">
+                                        <span>Research Code / Repo</span>
+                                        <ExternalLink size={12} className="opacity-70" />
+                                    </a>
+                                </Button>
+                            )}
                         </div>
                     </div>
 

@@ -41,6 +41,7 @@ import {
     Microscope,
     Brain,
     FlaskConical,
+    FileText,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -86,6 +87,7 @@ export default function AdminDashboardPage() {
 
     // Research Tab New Tech Input State
     const [newResearchTech, setNewResearchTech] = useState<string>("");
+    const [uploadingResearchDoc, setUploadingResearchDoc] = useState<boolean>(false);
 
     // Verify session on mount
     useEffect(() => {
@@ -368,6 +370,47 @@ export default function AdminDashboardPage() {
             toast.error("Upload failed.");
         } finally {
             setUploadingFor(null);
+            e.target.value = "";
+        }
+    };
+
+    // Handle Research Paper / Manuscript Document Upload (PDF, DOCX)
+    const handleResearchFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        try {
+            setUploadingResearchDoc(true);
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const res = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (res.ok) {
+                const resJson = await res.json();
+                const uploadedUrl = resJson.url;
+
+                setData((prev: any) => ({
+                    ...prev,
+                    research: {
+                        ...prev.research,
+                        paperFileUrl: uploadedUrl,
+                        paperFileName: file.name,
+                    },
+                }));
+
+                toast.success(`Manuscript "${file.name}" uploaded successfully! Click "Save Changes" to publish.`);
+            } else {
+                toast.error("Failed to upload research document.");
+            }
+        } catch (error) {
+            console.error("Research document upload error:", error);
+            toast.error("Network error uploading research document.");
+        } finally {
+            setUploadingResearchDoc(false);
             e.target.value = "";
         }
     };
@@ -1446,14 +1489,130 @@ export default function AdminDashboardPage() {
                                         />
                                     </div>
 
-                                    <div className="space-y-1.5 sm:col-span-2">
-                                        <label className="text-xs font-bold text-muted-foreground">Paper / Code Repository URL</label>
-                                        <input
-                                            type="text"
-                                            value={data.research?.paperUrl || ""}
-                                            onChange={(e) => setData({ ...data, research: { ...data.research, paperUrl: e.target.value } })}
-                                            className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:outline-none focus:border-primary font-mono text-xs"
-                                        />
+                                    <div className="space-y-3 sm:col-span-2 pt-2 border-t border-border/40">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <label className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                                                    <FileText size={14} className="text-cyan-500" />
+                                                    <span>Research Paper, Manuscript &amp; Code Links</span>
+                                                </label>
+                                                <p className="text-[11px] text-muted-foreground mt-0.5">
+                                                    Provide an external repository link (GitHub/arXiv) and/or upload a PDF/DOCX manuscript for visitors to read.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {/* External Link Input */}
+                                            <div className="p-4 rounded-2xl bg-muted/30 border border-border space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                                                    1. External Paper / Repository URL
+                                                </label>
+                                                <div className="flex gap-2">
+                                                    <input
+                                                        type="text"
+                                                        value={data.research?.paperUrl || ""}
+                                                        onChange={(e) =>
+                                                            setData({
+                                                                ...data,
+                                                                research: { ...data.research, paperUrl: e.target.value },
+                                                            })
+                                                        }
+                                                        placeholder="https://github.com/knaeeim or https://arxiv.org/..."
+                                                        className="flex-1 px-3 py-2 rounded-xl bg-background border border-border text-xs font-mono focus:outline-none focus:border-cyan-500"
+                                                    />
+                                                    {data.research?.paperUrl && (
+                                                        <a
+                                                            href={data.research.paperUrl}
+                                                            target="_blank"
+                                                            rel="noreferrer noopener"
+                                                            className="p-2 rounded-xl bg-muted hover:bg-muted/80 text-foreground border border-border shrink-0 flex items-center justify-center"
+                                                            title="Test Link">
+                                                            <ExternalLink size={14} />
+                                                        </a>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            {/* Direct Document Upload */}
+                                            <div className="p-4 rounded-2xl bg-muted/30 border border-border space-y-2">
+                                                <div className="flex items-center justify-between">
+                                                    <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                                                        2. Upload Document / Manuscript (PDF, DOCX)
+                                                    </label>
+                                                    {data.research?.paperFileUrl && (
+                                                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+                                                            Active File Attached
+                                                        </span>
+                                                    )}
+                                                </div>
+
+                                                {data.research?.paperFileUrl ? (
+                                                    <div className="flex items-center justify-between p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30">
+                                                        <div className="flex items-center gap-2 overflow-hidden">
+                                                            <FileText size={16} className="text-cyan-600 dark:text-cyan-400 shrink-0" />
+                                                            <span className="text-xs font-semibold text-foreground truncate max-w-[180px]">
+                                                                {data.research?.paperFileName || "Uploaded_Paper.pdf"}
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex items-center gap-1.5 shrink-0">
+                                                            <a
+                                                                href={data.research.paperFileUrl}
+                                                                target="_blank"
+                                                                rel="noreferrer noopener"
+                                                                className="px-2.5 py-1 rounded-lg bg-cyan-500 text-white text-[11px] font-bold hover:bg-cyan-600 transition-colors inline-flex items-center gap-1">
+                                                                <span>View</span>
+                                                                <ExternalLink size={10} />
+                                                            </a>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    setData({
+                                                                        ...data,
+                                                                        research: {
+                                                                            ...data.research,
+                                                                            paperFileUrl: "",
+                                                                            paperFileName: "",
+                                                                        },
+                                                                    });
+                                                                    toast.info("Removed uploaded document. Click 'Save Changes' to update.");
+                                                                }}
+                                                                className="p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                                                                title="Remove Document">
+                                                                <Trash2 size={13} />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex items-center gap-2">
+                                                        <label className="flex-1 cursor-pointer">
+                                                            <input
+                                                                type="file"
+                                                                accept=".pdf,.doc,.docx,.ppt,.pptx,application/pdf"
+                                                                onChange={handleResearchFileUpload}
+                                                                disabled={uploadingResearchDoc}
+                                                                className="hidden"
+                                                            />
+                                                            <div className="w-full px-3 py-2 rounded-xl border border-dashed border-border hover:border-cyan-500 text-xs font-semibold text-muted-foreground hover:text-cyan-500 flex items-center justify-center gap-2 transition-colors">
+                                                                {uploadingResearchDoc ? (
+                                                                    <div className="w-3.5 h-3.5 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
+                                                                ) : (
+                                                                    <Upload size={14} />
+                                                                )}
+                                                                <span>
+                                                                    {uploadingResearchDoc
+                                                                        ? "Uploading document..."
+                                                                        : "Upload PDF or Manuscript"}
+                                                                </span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                )}
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    Accepted: PDF, DOCX, DOC. Files are hosted on your server/CDN.
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
