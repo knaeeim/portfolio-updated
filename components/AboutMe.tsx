@@ -19,51 +19,51 @@ interface AboutMeProps {
 
 const strategicPillars = [
     {
-        title: "Strategic Full-Stack Architecture",
-        desc: "Designing resilient, zero-bloat web systems engineered for long-term scalability, low latency, and zero data downtime.",
-        tag: "ENGINEERING RIGOR",
+        title: "Full-Stack Architecture",
+        desc: "Scalable web apps, type-safe backends, and sub-40ms edge performance.",
+        tag: "ENGINEERING",
     },
     {
-        title: "Engineering Mentorship & Leadership",
-        desc: "Trained and mentored 100+ emerging engineers at BD Calling Academy, cultivating clean code disciplines and industry debugging habits.",
-        tag: "TALENT IMPACT",
+        title: "Engineering Mentorship",
+        desc: "Trained 100+ polytechnic engineers in production React & Next.js systems.",
+        tag: "LEADERSHIP",
     },
     {
-        title: "Algorithmic Precision",
-        desc: "Solved 600+ complex competitive programming problems across LeetCode & Codeforces, translating mathematical rigor into optimal database queries.",
-        tag: "ALGORITHMIC RIGOR",
+        title: "Algorithmic Rigor",
+        desc: "600+ problems solved across LeetCode & Codeforces with optimal complexity.",
+        tag: "ALGORITHMS",
     },
     {
-        title: "Venture Delivery & Client ROI",
-        desc: "As Founder & CEO of WebZen Bangladesh, I deliver turnkey production platforms (such as Dr. Devojyoti Dutta's medical portal) driving measurable growth.",
-        tag: "VENTURE EXECUTION",
+        title: "Venture Delivery",
+        desc: "Turnkey production software, clinical automation, and client portals.",
+        tag: "EXECUTION",
     },
 ];
 
 const leadershipTimeline = [
     {
         year: "2023",
-        role: "Computer Science & Algorithmic Specialization",
-        desc: "Mastered C/C++, advanced Data Structures, and algorithmic complexities at Phitron. Solved 600+ competitive programming challenges.",
-        badge: "ALGORITHMIC CORE",
+        role: "Algorithms & Foundations",
+        desc: "Core C/C++, advanced Data Structures, and 600+ competitive programming challenges.",
+        badge: "ALGORITHMS",
     },
     {
         year: "2024",
-        role: "Full-Stack System Engineering",
-        desc: "Specialized in distributed architectures, Next.js, React, Node.js, and database modeling. Architected multi-tenant SaaS platforms.",
-        badge: "SYSTEMS EXPANSION",
+        role: "Full-Stack Engineering",
+        desc: "Next.js, TypeScript, PostgreSQL/Prisma, and distributed web architectures.",
+        badge: "SYSTEMS",
     },
     {
         year: "2025",
-        role: "Web Instructor @ BD Calling Academy",
-        desc: "Led training cohorts for 100+ polytechnic students and junior engineers. Directed curriculum in MERN, Next.js, and real-world system debugging.",
-        badge: "TECHNICAL MENTORSHIP",
+        role: "Instructor @ BD Calling",
+        desc: "Mentored 100+ polytechnic students in React, Next.js, and debugging.",
+        badge: "MENTORSHIP",
     },
     {
         year: "2026",
-        role: "Founder & CEO, WebZen Bangladesh",
-        desc: "Leading WebZen Bangladesh in delivering high-stakes production platforms, including the automated clinical booking platform for Dr. Devojyoti Dutta.",
-        badge: "EXECUTIVE DIRECTION",
+        role: "Founder & CEO @ WebZen",
+        desc: "Architecting high-stakes platforms, healthcare portals, and high-uptime systems.",
+        badge: "VENTURE",
     },
 ];
 
@@ -71,31 +71,27 @@ export const AboutMe = ({ data }: AboutMeProps) => {
     return (
         <section
             id="about"
-            className="w-full border-b border-border bg-background relative overflow-hidden py-12 sm:py-16">
+            className="w-full border-b border-border bg-background relative overflow-hidden py-10 sm:py-14">
             
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
                 
                 {/* Header */}
-                <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <div className="space-y-2">
+                <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                    <div className="space-y-1">
                         <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
                             <span className="tech-label text-foreground">
-                                00. EXECUTIVE DOSSIER // LEADERSHIP &amp; PHILOSOPHY
+                                00. PROFILE &amp; TIMELINE
                             </span>
                         </div>
-                        <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
-                            Bridging Technical Rigor &amp; Product Strategy
+                        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                            Background &amp; Milestones
                         </h2>
-                        <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
-                            A track record defined by hands-on engineering mastery, rigorous algorithmic foundations, 
-                            and executive leadership at WebZen Bangladesh.
-                        </p>
                     </div>
 
-                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground bg-card border border-border px-3 py-1.5 rounded">
+                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground bg-card border border-border px-2.5 py-1 rounded">
                         <span className="w-2 h-2 rounded-full bg-[#10B981]" />
-                        <span>FOUNDER &amp; CHIEF EXECUTIVE OFFICER</span>
+                        <span>FOUNDER &amp; CEO</span>
                     </div>
                 </div>
 

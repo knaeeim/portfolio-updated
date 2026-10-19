@@ -34,7 +34,7 @@ const techMatrix: TechNode[] = [
         tag: "FRAMEWORK",
         layer: "client",
         connectedTo: ["typescript", "serveractions", "postgres", "modular-express"],
-        productionUsage: "Hybrid SSR/SSG rendering pipeline, dynamic server components, and route interceptors with sub-40ms edge response times.",
+        productionUsage: "Hybrid SSR/SSG rendering, dynamic server components, and sub-40ms edge response times.",
         invariants: ["Turbopack Zero-HMR Drift", "React 19 Server Actions", "Edge Caching"],
         slaMetric: "<38ms TTFB on Vercel Edge",
     },
@@ -44,7 +44,7 @@ const techMatrix: TechNode[] = [
         tag: "LANGUAGE",
         layer: "client",
         connectedTo: ["nextjs", "react", "modular-express", "prisma"],
-        productionUsage: "End-to-end type safety spanning client forms, API contract validation (Zod schemas), and Prisma database models.",
+        productionUsage: "End-to-end type safety across client UI, Zod API contracts, and Prisma schema models.",
         invariants: ["Strict Null Checks", "Zero Any Invariants", "Inferred Schema Types"],
         slaMetric: "100% Type-Coverage Guarantee",
     },
@@ -54,7 +54,7 @@ const techMatrix: TechNode[] = [
         tag: "UI LIBRARY",
         layer: "client",
         connectedTo: ["nextjs", "typescript", "tailwind"],
-        productionUsage: "Concurrent rendering, physics-based spring transitions (stiffness 300, damping 30), and zero-layout-shift micro-interactions.",
+        productionUsage: "Concurrent rendering, spring physics transitions, and zero-layout-shift micro-interactions.",
         invariants: ["Zero CLS Layout Invariance", "Spring Physics Kinetics", "Memoized Virtual Tree"],
         slaMetric: "60 FPS Fluid Interactions",
     },
@@ -64,7 +64,7 @@ const techMatrix: TechNode[] = [
         tag: "DESIGN TOKENS",
         layer: "client",
         connectedTo: ["react", "nextjs"],
-        productionUsage: "Swiss typographic grid execution, mechanical keycap tactile styling, and hairline 1px structural border architecture.",
+        productionUsage: "Swiss typographic grid tokens, tactile keycaps, and 1px structural hairlines.",
         invariants: ["CSS Custom Property Tokens", "Zero Bloat Utility Engine", "Dark/Light Dynamic Mapping"],
         slaMetric: "Under 12KB Output Bundle",
     },
@@ -76,7 +76,7 @@ const techMatrix: TechNode[] = [
         tag: "BACKEND ENGINE",
         layer: "api",
         connectedTo: ["typescript", "prisma", "postgres", "rbac-jwt"],
-        productionUsage: "Domain-driven module isolation (routes, controllers, services, interfaces) with centralized error middleware and request sanitization.",
+        productionUsage: "Domain-driven module isolation with centralized error middleware and request sanitization.",
         invariants: ["Separation of Concerns", "Decoupled Business Logic", "Async Error Interceptors"],
         slaMetric: "P99 < 45ms Across REST Endpoints",
     },
@@ -86,7 +86,7 @@ const techMatrix: TechNode[] = [
         tag: "DATA MAPPING",
         layer: "api",
         connectedTo: ["postgres", "typescript", "modular-express"],
-        productionUsage: "Declarative schema modeling, automated migrations, relational joins, and atomic transactions ($transaction API) preventing dirty reads.",
+        productionUsage: "Declarative schemas, automated migrations, relational joins, and ACID transactions.",
         invariants: ["Relational Foreign Key Integrity", "Auto-Generated Typed Client", "Zero SQL Injection Vulnerability"],
         slaMetric: "Sub-millisecond ORM Overhead",
     },
@@ -96,7 +96,7 @@ const techMatrix: TechNode[] = [
         tag: "ORCHESTRATION",
         layer: "api",
         connectedTo: ["nextjs", "postgres", "mongodb"],
-        productionUsage: "RPC-style server mutations without manual boilerplate routes, coupled with optimistic UI updates and automated revalidation.",
+        productionUsage: "Type-safe server RPC mutations with automated cache purging and optimistic UI updates.",
         invariants: ["CSRF Protection Inherent", "Server-Only Execution Boundaries", "Atomic Cache Invalidation"],
         slaMetric: "Instant Cache Mutation",
     },
@@ -106,7 +106,7 @@ const techMatrix: TechNode[] = [
         tag: "GOVERNANCE",
         layer: "api",
         connectedTo: ["modular-express", "postgres", "nextjs"],
-        productionUsage: "Multi-tenant role-based access control protecting physician command centers, student portals, and administrative endpoints.",
+        productionUsage: "Role-based access control protecting physician portals, student cohorts, and admin routes.",
         invariants: ["Cryptographic Token Signature", "HTTP-Only Secure Cookie Storage", "Granular Permission Guardrails"],
         slaMetric: "Zero-Trust Enforcement",
     },
@@ -118,7 +118,7 @@ const techMatrix: TechNode[] = [
         tag: "PRIMARY RDBMS",
         layer: "data",
         connectedTo: ["prisma", "modular-express", "typescript"],
-        productionUsage: "ACID-compliant relational persistence, composite indexing on high-frequency lookups, and normalized third-normal-form (3NF) tables.",
+        productionUsage: "ACID relational persistence, composite indexing on high-frequency lookups, and 3NF tables.",
         invariants: ["Strict Referential Integrity", "B-Tree Indexing Optimization", "Atomic Rollback Support"],
         slaMetric: "99.99% Data Consistency",
     },
@@ -128,7 +128,7 @@ const techMatrix: TechNode[] = [
         tag: "DOCUMENT STORE",
         layer: "data",
         connectedTo: ["serveractions", "nextjs"],
-        productionUsage: "Flexible schema storage for polymorphic venture content, telemetry event streams, and real-time medical consultation logs.",
+        productionUsage: "Polymorphic venture content storage, telemetry event streams, and consultation records.",
         invariants: ["Global Distributed Sharding", "Document Level Concurrency", "Dynamic Content Schema"],
         slaMetric: "High-Throughput Write Handling",
     },
@@ -138,7 +138,7 @@ const techMatrix: TechNode[] = [
         tag: "MEMORY ACCELERATION",
         layer: "data",
         connectedTo: ["modular-express", "postgres"],
-        productionUsage: "In-memory query result caching, API rate-limiting token buckets, and distributed slot reservation locks preventing double-booking.",
+        productionUsage: "In-memory caching, API rate-limiting token buckets, and distributed slot reservation mutex locks.",
         invariants: ["Atomic Lock Mutexes", "TTL Expire Invariants", "Sub-Millisecond Read Latency"],
         slaMetric: "<2ms Retrieval Latency",
     },
@@ -148,7 +148,7 @@ const techMatrix: TechNode[] = [
         tag: "DEEP LEARNING",
         layer: "data",
         connectedTo: ["nextjs", "modular-express"],
-        productionUsage: "Active medical AI model for brain tumor classification and boundary segmentation across 3,064+ MRI scans with Explainable Grad-CAM.",
+        productionUsage: "Medical AI model for brain tumor segmentation on 3,064+ MRI scans with Explainable Grad-CAM.",
         invariants: ["12-Head Self-Attention Stem", "Dual-Path Feature Bottleneck", "Saliency Interpretability"],
         slaMetric: "98.7% Diagnostic Precision",
     },
@@ -178,31 +178,27 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
     return (
         <section
             id="architecture"
-            className="w-full border-b border-border bg-background relative overflow-hidden py-12 sm:py-16">
+            className="w-full border-b border-border bg-background relative overflow-hidden py-10 sm:py-14">
             
             <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                 
-                {/* Section Header with Swiss Architectural Tagging */}
-                <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <div className="space-y-2">
+                {/* Section Header */}
+                <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                    <div className="space-y-1">
                         <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
                             <span className="tech-label text-foreground">
-                                01. ARCHITECTURAL LAYER MATRIX
+                                01. ARCHITECTURE MATRIX
                             </span>
                         </div>
-                        <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
-                            Interactive 3-Tier System Architecture
+                        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                            Interactive 3-Tier System
                         </h2>
-                        <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
-                            Hover or click any node to trace relational dependencies across the Client Layer, 
-                            API Orchestration Layer, and Data Persistence Store.
-                        </p>
                     </div>
 
-                    <div className="flex items-center gap-3 text-xs font-mono text-muted-foreground bg-card border border-border px-3 py-1.5 rounded">
+                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground bg-card border border-border px-2.5 py-1 rounded">
                         <span className="inline-block w-2 h-2 rounded-full bg-[#10B981] animate-ping" />
-                        <span>ACTIVE NODE: {selectedNode.name.toUpperCase()}</span>
+                        <span>NODE: {selectedNode.name.toUpperCase()}</span>
                     </div>
                 </div>
 

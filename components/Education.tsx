@@ -12,19 +12,19 @@ const defaultCourses = [
         title: "Programming Hero",
         level: "Level 2 Specialization",
         badge: "Next Level Web Development",
-        desc: "Advanced relational modeling with Prisma ORM, PostgreSQL schema design, TypeScript 5, and modular Express architectures.",
+        desc: "Prisma ORM, PostgreSQL schema design, TypeScript 5, and modular Express.",
     },
     {
         title: "Programming Hero",
         level: "Level 1 Foundation",
         badge: "Full-Stack Web Engineering",
-        desc: "Deep immersion in HTML5, CSS3, ES6+ JavaScript, React.js component architectures, and REST API development.",
+        desc: "Modern JavaScript, React.js component architectures, and REST APIs.",
     },
     {
         title: "Phitron",
         level: "Core Algorithms",
         badge: "Computer Fundamentals & Data Structures",
-        desc: "Rigorous training in C/C++, algorithmic logic, memory management, pointers, recursion, and graph algorithms.",
+        desc: "C/C++, Data Structures, memory management, and graph algorithms.",
     },
 ];
 
@@ -48,29 +48,25 @@ export const EducationSection = ({ data }: EducationSectionProps) => {
     return (
         <section
             id="education"
-            className="w-full border-b border-border bg-background relative overflow-hidden py-12 sm:py-16">
+            className="w-full border-b border-border bg-background relative overflow-hidden py-10 sm:py-14">
             
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                 
                 {/* Header */}
-                <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <div className="space-y-2">
+                <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                    <div className="space-y-1">
                         <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
                             <span className="tech-label text-foreground">
-                                06. ACADEMIC FOUNDATIONS &amp; CREDENTIALS
+                                06. ACADEMIC CREDENTIALS
                             </span>
                         </div>
-                        <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
-                            Education &amp; Professional Specialization
+                        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                            Education &amp; Specialization
                         </h2>
-                        <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
-                            Formal computer science degree coupled with intensive industrial specializations 
-                            in relational databases, backend engineering, and algorithmic mastery.
-                        </p>
                     </div>
 
-                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground bg-card border border-border px-3 py-1.5 rounded">
+                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground bg-card border border-border px-2.5 py-1 rounded">
                         <span className="text-foreground font-bold">CGPA: 3.59 / 4.00</span>
                         <span>•</span>
                         <span className="text-[#10B981]">ACTIVE DEGREE</span>

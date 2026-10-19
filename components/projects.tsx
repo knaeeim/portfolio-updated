@@ -46,14 +46,14 @@ const defaultArchitecturalData: Record<string, ArchitecturalSpec> = {
     "webzen-technologies": {
         schemaDiagram: {
             layer1: "Edge CDN (Vercel Global Ingestion)",
-            layer2: "Next.js 16 SSR & Edge Middleware Gateway",
-            layer3: "Prisma Client ↔ In-Memory Stale-While-Revalidate Cache",
-            layer4: "MongoDB Atlas Cluster + PostgreSQL Relational Data",
+            layer2: "Next.js 16 SSR & Edge Middleware",
+            layer3: "Prisma Client & SWR Cache",
+            layer4: "MongoDB Atlas + PostgreSQL",
         },
         hardestProblem: {
-            title: "Multi-Tenant Data Pooling & Hydration Drift",
-            challenge: "High concurrency client revalidation caused connection pool exhaustion and intermittent hydration mismatches across polymorphic venture records.",
-            resolution: "Implemented hybrid stale-while-revalidate in-memory caching with atomic MongoDB fallback and strict Turbopack SSR serialization, slashing database query overhead by 68% and guaranteeing zero hydration drift.",
+            title: "Data Pooling & Hydration",
+            challenge: "High concurrency caused pool exhaustion and hydration mismatches across records.",
+            resolution: "Hybrid in-memory SWR caching with atomic fallback, cutting DB query overhead by 68%.",
         },
         apiSimulator: {
             method: "GET",
@@ -72,15 +72,15 @@ const defaultArchitecturalData: Record<string, ArchitecturalSpec> = {
     },
     "devojyoti-dutta": {
         schemaDiagram: {
-            layer1: "Patient Web Client (Bilingual Bengali/English UX)",
-            layer2: "Next.js 15 Server Actions (Input Validation & Sanitization)",
-            layer3: "Redis Mutex Lock (Atomic Slot Concurrency Guard)",
-            layer4: "PostgreSQL Patient Registry + WhatsApp Cloud Dispatch",
+            layer1: "Patient Web Client (Bengali/English)",
+            layer2: "Next.js 15 Server Actions",
+            layer3: "Redis Mutex (Atomic Slot Guard)",
+            layer4: "PostgreSQL Registry + WhatsApp Cloud API",
         },
         hardestProblem: {
-            title: "Simultaneous Slot Race Conditions During Morning Quotas",
-            challenge: "Multiple patients concurrently attempting to book the same restricted clinical appointment slot during morning release hours led to potential double-booking anomalies.",
-            resolution: "Architected distributed Redis mutex locking alongside atomic PostgreSQL serializable transaction boundaries. If two requests collide for the same timestamp, transaction isolation guarantees exactly one succeeds while gracefully alerting the other.",
+            title: "Simultaneous Slot Collisions",
+            challenge: "Concurrent bookings during morning quota releases risked duplicate reservations.",
+            resolution: "Distributed Redis mutex locks with serializable transactions; guarantees exactly one booking per slot.",
         },
         apiSimulator: {
             method: "POST",
@@ -98,15 +98,15 @@ const defaultArchitecturalData: Record<string, ArchitecturalSpec> = {
     },
     "imranh-me": {
         schemaDiagram: {
-            layer1: "Cursor & Pointer Shockwave Vector Listener",
-            layer2: "HTML5 Canvas Equilibrium Particle Field (60 FPS)",
-            layer3: "Next.js 16 Static Regeneration (ISR Paper Drawers)",
-            layer4: "Academic Paper CDN + OpenGraph Scholarly Index",
+            layer1: "Pointer Vector Listener",
+            layer2: "HTML5 Canvas Particle Field (60 FPS)",
+            layer3: "Next.js 16 Static Regeneration (ISR)",
+            layer4: "Academic CDN + Scholarly Index",
         },
         hardestProblem: {
-            title: "Trigonometric Particle Simulation CPU Throttling",
-            challenge: "Real-time interactive canvas wave simulation computed millions of sine/cosine operations per second, throttling mobile CPU threads below 38 FPS.",
-            resolution: "Engineered precomputed sinusoidal lookup buffers and offscreen canvas double-buffering with requestAnimationFrame clamping, locking a steady 60 FPS on low-power devices without battery drain.",
+            title: "Trigonometric Particle Simulation",
+            challenge: "Real-time canvas waves computed millions of sine/cosine ops, throttling mobile FPS.",
+            resolution: "Precomputed lookup buffers with double-buffering; locked a fluid 60 FPS on all devices.",
         },
         apiSimulator: {
             method: "GET",
@@ -124,14 +124,14 @@ const defaultArchitecturalData: Record<string, ArchitecturalSpec> = {
     "skill-bridge": {
         schemaDiagram: {
             layer1: "Student / Instructor / Admin Dashboards",
-            layer2: "Modular Express Router + JWT Auth Middleware",
-            layer3: "Prisma ORM Multi-Table Transaction Boundary",
-            layer4: "PostgreSQL 3NF Normalized Schema (14 Tables)",
+            layer2: "Modular Express + JWT Auth Middleware",
+            layer3: "Prisma Multi-Table Transactions",
+            layer4: "PostgreSQL 3NF Normalized Schema",
         },
         hardestProblem: {
-            title: "Role Privilege Escalation on Shared API Surface",
-            challenge: "Shared marketplace endpoints posed security risks of student accounts intercepting instructor payout balances or calendar reservation overrides.",
-            resolution: "Constructed strict declarative RBAC middleware using cryptographic JWT claims and Zod response projection guards, strictly filtering database queries at the Prisma model layer.",
+            title: "Role Privilege Isolation",
+            challenge: "Shared marketplace endpoints risked unauthorized student access to instructor balances.",
+            resolution: "Strict declarative RBAC middleware with cryptographic JWT claims and Zod projection guards.",
         },
         apiSimulator: {
             method: "POST",
@@ -244,27 +244,22 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
             <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
                 
                 {/* Header */}
-                <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <div className="space-y-2">
+                <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                    <div className="space-y-1">
                         <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
                             <span className="tech-label text-foreground">
-                                02. SELECTED WORKS &amp; CASE-STUDIES
+                                02. SELECTED WORKS
                             </span>
                         </div>
-                        <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
-                            Interactive Engineering Dossiers
+                        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                            Engineering Dossiers
                         </h2>
-                        <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
-                            Full-width technical deconstructions dynamically synchronized with production registry. 
-                            Toggle between UI Previews and System Architecture Schemas, switch screenshots, 
-                            and simulate live API response payloads.
-                        </p>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground">
                         <span className="w-2 h-2 rounded-full bg-[#10B981]" />
-                        <span>{displayProjects.length} DOSSIERS DOCUMENTED</span>
+                        <span>{displayProjects.length} WORKS DOCUMENTED</span>
                     </div>
                 </div>
 
@@ -516,27 +511,27 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                 </div>
 
                                 {/* 2. THE HARDEST ENGINEERING PROBLEM (CHALLENGE & RESOLUTION) */}
-                                <div className="p-4 sm:p-5 rounded border border-border bg-card/60 font-mono text-xs space-y-3">
-                                    <div className="flex items-center justify-between border-b border-border pb-2">
+                                <div className="p-3 sm:p-3.5 rounded border border-border bg-card/60 font-mono text-xs space-y-2">
+                                    <div className="flex items-center justify-between border-b border-border pb-1.5">
                                         <span className="text-[10px] text-[#FF4F00] font-bold uppercase tracking-wider flex items-center gap-1.5">
-                                            <Shield size={12} />
-                                            <span>CHALLENGE &amp; RESOLUTION: {dossier.hardestProblem.title}</span>
+                                            <Shield size={11} />
+                                            <span>SOLVED: {dossier.hardestProblem.title}</span>
                                         </span>
-                                        <span className="text-[10px] text-[#10B981] font-bold">VERIFIED SOLVED</span>
+                                        <span className="text-[10px] text-[#10B981] font-bold">OPTIMAL</span>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-                                        <div className="space-y-1">
-                                            <div className="text-[10px] text-muted-foreground uppercase">THE BOTTLENECK:</div>
-                                            <p className="text-xs text-muted-foreground leading-relaxed">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-0.5">
+                                        <div className="text-xs">
+                                            <span className="text-[10px] text-muted-foreground uppercase font-bold">BOTTLENECK: </span>
+                                            <span className="text-muted-foreground">
                                                 {dossier.hardestProblem.challenge}
-                                            </p>
+                                            </span>
                                         </div>
-                                        <div className="space-y-1">
-                                            <div className="text-[10px] text-foreground font-bold uppercase">ARCHITECTURAL RESOLUTION:</div>
-                                            <p className="text-xs text-foreground leading-relaxed">
+                                        <div className="text-xs">
+                                            <span className="text-[10px] text-foreground uppercase font-bold">FIX: </span>
+                                            <span className="text-foreground">
                                                 {dossier.hardestProblem.resolution}
-                                            </p>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

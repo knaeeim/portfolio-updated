@@ -25,60 +25,60 @@ const algorithmicParadigms = [
         paradigm: "Data Structures & Trees",
         count: "210+",
         percentage: 35,
-        topics: ["Binary Search Trees", "Heaps / Priority Queues", "Segment Trees", "Hash Tables", "Trie"],
-        systemApplication: "High-throughput in-memory indices, cache routing, and hierarchical RBAC tree traversal.",
+        topics: ["BST", "Heaps", "Segment Trees", "Hash Tables", "Trie"],
+        systemApplication: "In-memory indexing, cache routing, and hierarchical RBAC tree traversal.",
     },
     {
         paradigm: "Graph Theory & Traversals",
         count: "145+",
         percentage: 24,
-        topics: ["BFS / DFS", "Dijkstra Shortest Path", "Topological Sort", "Disjoint Set Union (DSU)"],
-        systemApplication: "Dependency graph resolution in build systems, distributed cycle detection, and network routing.",
+        topics: ["BFS / DFS", "Dijkstra", "Topological Sort", "DSU"],
+        systemApplication: "Dependency graph resolution, distributed cycle detection, and network routing.",
     },
     {
         paradigm: "Dynamic Programming",
         count: "130+",
         percentage: 22,
-        topics: ["1D/2D State Transitions", "0/1 Knapsack", "Memoization Tables", "Bitmask DP"],
-        systemApplication: "Optimal resource scheduling, slot allocation algorithms, and database query plan optimization.",
+        topics: ["1D/2D States", "Knapsack", "Memoization", "Bitmask DP"],
+        systemApplication: "Resource scheduling, slot allocation algorithms, and database query optimization.",
     },
     {
         paradigm: "Greedy, Math & Number Theory",
         count: "125+",
         percentage: 19,
-        topics: ["Two-Pointers", "Binary Search", "Prime Sieve", "Modular Arithmetic", "Bit Manipulation"],
-        systemApplication: "Sliding-window rate limiters, token bucket counters, and cryptographic hash verification.",
+        topics: ["Two-Pointers", "Binary Search", "Sieve", "Modular Math", "Bitwise"],
+        systemApplication: "Sliding-window rate limiters, token buckets, and cryptographic hash verification.",
     },
 ];
 
 const mentorshipModules = [
     {
         moduleNumber: "MOD // 01",
-        title: "Memory Execution & JavaScript Runtime",
+        title: "Runtime & Memory Execution",
         duration: "Weeks 1 — 3",
-        syllabus: "V8 engine internals, call stack execution, heap allocation, event loop microtasks, and memory leak mitigation.",
-        capstoneOutcome: "Built an in-memory queue processor with zero memory leaks under stress.",
+        syllabus: "V8 internals, call stack, heap allocation, event loop, and memory leaks.",
+        capstoneOutcome: "In-memory queue processor with zero memory leaks.",
     },
     {
         moduleNumber: "MOD // 02",
-        title: "Full-Stack Component Architecture & SSR",
+        title: "Component Systems & SSR",
         duration: "Weeks 4 — 7",
-        syllabus: "React 19 concurrent features, Next.js App Router, SSR hydration lifecycles, and component tree memoization.",
-        capstoneOutcome: "Engineered responsive full-stack applications with sub-50ms render latency.",
+        syllabus: "React 19 concurrent mode, Next.js App Router, and SSR hydration.",
+        capstoneOutcome: "Full-stack web apps with sub-50ms render latency.",
     },
     {
         moduleNumber: "MOD // 03",
-        title: "Relational Modeling & Schema Integrity",
+        title: "Relational Modeling & Integrity",
         duration: "Weeks 8 — 10",
-        syllabus: "PostgreSQL 3NF normalization, foreign key constraints, composite indexing, and Prisma ORM transactions.",
-        capstoneOutcome: "Designed multi-table relational databases with ACID guarantees.",
+        syllabus: "PostgreSQL 3NF normalization, foreign keys, and Prisma transactions.",
+        capstoneOutcome: "Multi-table relational databases with ACID guarantees.",
     },
     {
         moduleNumber: "MOD // 04",
-        title: "Industrial Debugging & Production Governance",
+        title: "Production Governance & CI/CD",
         duration: "Weeks 11 — 12",
-        syllabus: "Git trunk-based workflows, rigorous code reviews, automated CI/CD deployments, and zero-regression testing.",
-        capstoneOutcome: "12 student teams deployed verified production applications to Vercel.",
+        syllabus: "Git trunk workflows, code review standards, and automated CI/CD.",
+        capstoneOutcome: "12 student teams deployed verified production apps.",
     },
 ];
 
@@ -88,31 +88,27 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
     return (
         <section
             id="problem-solving"
-            className="w-full border-b border-border bg-background relative overflow-hidden py-12 sm:py-16">
+            className="w-full border-b border-border bg-background relative overflow-hidden py-10 sm:py-14">
             
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                 
                 {/* ======================================================== */}
                 {/* PART 1: THE ALGORITHMIC LEDGER (600+ Solved Challenges) */}
                 {/* ======================================================== */}
-                <div className="space-y-8">
+                <div className="space-y-6">
                     
                     {/* Header */}
-                    <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                        <div className="space-y-2">
+                    <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                        <div className="space-y-1">
                             <div className="flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
                                 <span className="tech-label text-foreground">
-                                    03. THE PROOF-OF-WORK LEDGER
+                                    03. PROBLEM SOLVING LEDGER
                                 </span>
                             </div>
-                            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
-                                Algorithmic Rigor &amp; Problem Solving
+                            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                                600+ Competitive Programming Challenges
                             </h2>
-                            <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
-                                Data-journalism breakdown of 600+ competitive programming challenges solved across 
-                                Codeforces, LeetCode, and CodeChef. Translating mathematical rigor into low-latency systems.
-                            </p>
                         </div>
 
                         {/* Verifiable Platform Links */}
@@ -213,28 +209,23 @@ export const ExperienceSection = ({ data }: ExperienceSectionProps) => {
                 <div id="mentorship" className="space-y-8 pt-6 border-t border-border">
                     
                     {/* Header */}
-                    <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                        <div className="space-y-2">
+                    <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                        <div className="space-y-1">
                             <div className="flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-[#10B981]" />
                                 <span className="tech-label text-foreground">
-                                    04. MENTORSHIP &amp; ACADEMIC INSTRUCTION LOG
+                                    04. MENTORSHIP &amp; INSTRUCTION
                                 </span>
                             </div>
-                            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
-                                Industrial Training &amp; Curriculum Governance
+                            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                                Developer Training @ BD Calling
                             </h2>
-                            <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
-                                Official syllabus and impact report as Lead Web Instructor at BD Calling Academy. 
-                                Mentored a cohort of 100+ polytechnic students in production engineering, 
-                                debugging patterns, and collaborative Git practices.
-                            </p>
                         </div>
 
-                        <div className="flex items-center gap-4 text-xs font-mono bg-card border border-border px-3 py-1.5 rounded">
-                            <span className="text-foreground font-bold">100+ ENGINEERS</span>
+                        <div className="flex items-center gap-3 text-xs font-mono bg-card border border-border px-2.5 py-1 rounded">
+                            <span className="text-foreground font-bold">100+ STUDENTS</span>
                             <span className="text-muted-foreground">•</span>
-                            <span className="text-[#10B981] font-bold">12 CAPSTONES</span>
+                            <span className="text-[#10B981] font-bold">12 TEAMS</span>
                         </div>
                     </div>
 

@@ -20,47 +20,45 @@ interface ResearchProps {
 }
 
 const defaultResearch = {
-    badge: "05. ACTIVE MEDICAL AI & COMPUTER VISION INITIATIVE",
-    title: "Brain Tumor Classification & Segmentation",
-    subtitle: "Hybrid CNN-Vision Transformer (ViT) & Explainable AI (Grad-CAM) Framework",
-    status: "ONGOING RESEARCH // ACTIVE MODEL BENCHMARKING",
+    badge: "05. AI RESEARCH",
+    title: "Brain Tumor Segmentation",
+    subtitle: "Hybrid CNN-ViT with Explainable AI (Grad-CAM)",
+    status: "ACTIVE RESEARCH",
     leadResearcher: "Khairul Bashar Naeeim",
-    institution: "Sonargaon University — Dept. of Computer Science & Engineering",
+    institution: "Sonargaon University — CSE",
     abstract:
-        "Developing a synergistic Hybrid CNN-ViT deep learning architecture paired with Explainable AI (Grad-CAM) for high-precision multi-sequence MRI segmentation across Glioma, Meningioma, Pituitary tumors and healthy tissue.",
-    dataset: "Figshare & BraTS Benchmark (3,064+ Multi-Sequence MRI Scans)",
+        "Hybrid CNN-ViT architecture paired with Grad-CAM for high-precision multi-sequence MRI brain tumor segmentation.",
+    dataset: "BraTS & Figshare (3,064+ Scans)",
     paperUrl: "https://github.com/knaeeim",
     metrics: [
         { label: "DIAGNOSTIC ACCURACY", value: "98.7%", subtext: "Holdout benchmark" },
-        { label: "SENSITIVITY / RECALL", value: "99.1%", subtext: "Ultra-low false negatives" },
-        { label: "SPECIFICITY", value: "98.4%", subtext: "Precise tissue stratification" },
-        { label: "AUC-ROC SCORE", value: "0.994", subtext: "High discriminative power" },
+        { label: "SENSITIVITY / RECALL", value: "99.1%", subtext: "Low false negatives" },
+        { label: "SPECIFICITY", value: "98.4%", subtext: "Tissue stratification" },
+        { label: "AUC-ROC SCORE", value: "0.994", subtext: "Discriminative power" },
     ],
     architecturePhases: [
         {
-            phase: "PHASE 01: MULTI-SEQUENCE PREPROCESSING",
-            desc: "Automated skull-stripping, intensity normalization (Z-score), and CLAHE contrast equalization across multi-sequence MRI scans (T1, T2, FLAIR).",
+            phase: "PHASE 01: PREPROCESSING",
+            desc: "Skull-stripping, Z-score normalization, and CLAHE equalization across T1/T2/FLAIR scans.",
         },
         {
-            phase: "PHASE 02: CNN CONVOLUTIONAL SPATIAL STEM",
-            desc: "Multi-scale convolutional layers isolating granular edge patterns, sub-pixel tissue boundaries, and micro-margins of edema.",
+            phase: "PHASE 02: CNN SPATIAL STEM",
+            desc: "Multi-scale convolution layers isolating edge patterns and micro-margins.",
         },
         {
-            phase: "PHASE 03: 12-HEAD VISION TRANSFORMER (ViT)",
-            desc: "Multi-head self-attention tokenization modeling long-range anatomical dependencies across cerebral volumetric slices.",
+            phase: "PHASE 03: VISION TRANSFORMER (ViT)",
+            desc: "12-head self-attention modeling anatomical slice dependencies.",
         },
         {
-            phase: "PHASE 04: BOTTLENECK FUSION & GRAD-CAM XAI",
-            desc: "Cross-attention feature synthesis generating 4-class multi-label diagnosis and visual Grad-CAM activation heatmaps for radiological verification.",
+            phase: "PHASE 04: GRAD-CAM XAI",
+            desc: "Feature synthesis generating 4-class diagnosis and visual heatmaps.",
         },
     ],
     techStack: [
         "PyTorch 2.4",
         "Vision Transformers (ViT)",
         "OpenCV",
-        "Albumentations",
         "Grad-CAM Heatmaps",
-        "CUDA Accelerated",
         "Python 3.11",
     ],
 };
@@ -71,25 +69,22 @@ export const ResearchSection = ({ data }: ResearchProps) => {
     return (
         <section
             id="research"
-            className="w-full border-b border-border bg-background relative overflow-hidden py-12 sm:py-16">
+            className="w-full border-b border-border bg-background relative overflow-hidden py-10 sm:py-14">
             
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                 
                 {/* Header */}
-                <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <div className="space-y-2">
+                <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                    <div className="space-y-1">
                         <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
                             <span className="tech-label text-foreground">
                                 {research.badge || defaultResearch.badge}
                             </span>
                         </div>
-                        <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
+                        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
                             {research.title || defaultResearch.title}
                         </h2>
-                        <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
-                            {research.subtitle || defaultResearch.subtitle}
-                        </p>
                     </div>
 
                     <div className="flex items-center gap-3 text-xs font-mono">
