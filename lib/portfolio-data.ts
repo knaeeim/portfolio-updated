@@ -60,7 +60,16 @@ export async function getPortfolioData(): Promise<any> {
                         hero: { ...(localData?.hero || {}), ...(cleanDoc?.hero || {}) },
                         research: { ...(localData?.research || {}), ...(cleanDoc?.research || {}) },
                         about: { ...(localData?.about || {}), ...(cleanDoc?.about || {}) },
-                        education: { ...(localData?.education || {}), ...(cleanDoc?.education || {}) },
+                        education: {
+                            ...(localData?.education || {}),
+                            ...(cleanDoc?.education || {}),
+                            degrees: Array.isArray(cleanDoc?.education?.degrees) && cleanDoc.education.degrees.length > 0
+                                ? cleanDoc.education.degrees
+                                : (Array.isArray(localData?.education?.degrees) ? localData.education.degrees : undefined),
+                            courses: Array.isArray(cleanDoc?.education?.courses) && cleanDoc.education.courses.length > 0
+                                ? cleanDoc.education.courses
+                                : (localData?.education?.courses || []),
+                        },
                         projects: userProjects,
                         experience: Array.isArray(cleanDoc?.experience) && cleanDoc.experience.length > 0
                             ? cleanDoc.experience

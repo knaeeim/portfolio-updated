@@ -416,6 +416,78 @@ export default function AdminDashboardPage() {
         toast.success(`Skill domain "${cat.title}" removed.`);
     };
 
+    const handleAddNewDegree = () => {
+        const newDegree = {
+            degree: "BSc in Computer Science & Engineering (CSE)",
+            institution: "University / Institution Name",
+            cgpa: "3.75 / 4.00",
+            timeline: "2025 — Present",
+            location: "Dhaka, Bangladesh",
+            status: "Currently Studying",
+        };
+        setData((prev: any) => {
+            const currentDegrees = Array.isArray(prev?.education?.degrees) && prev.education.degrees.length > 0
+                ? prev.education.degrees
+                : (prev?.education?.degree ? [{
+                    degree: prev.education.degree,
+                    institution: prev.education.institution || "",
+                    cgpa: prev.education.cgpa || "",
+                    timeline: prev.education.timeline || "",
+                    location: prev.education.location || "Dhaka, Bangladesh",
+                    status: prev.education.status || "Currently Studying",
+                }] : []);
+
+            const updatedDegrees = [...currentDegrees, newDegree];
+            return {
+                ...prev,
+                education: {
+                    ...prev?.education,
+                    degrees: updatedDegrees,
+                    degree: updatedDegrees[0]?.degree || "",
+                    institution: updatedDegrees[0]?.institution || "",
+                    cgpa: updatedDegrees[0]?.cgpa || "",
+                    timeline: updatedDegrees[0]?.timeline || "",
+                    location: updatedDegrees[0]?.location || "",
+                },
+            };
+        });
+        setActiveTab("education");
+        toast.success("New academic degree added! You can now edit the university and degree details.");
+    };
+
+    const handleDeleteDegree = (index: number) => {
+        const currentDegrees = Array.isArray(data?.education?.degrees) && data.education.degrees.length > 0
+            ? data.education.degrees
+            : (data?.education?.degree ? [{
+                degree: data.education.degree,
+                institution: data.education.institution || "",
+                cgpa: data.education.cgpa || "",
+                timeline: data.education.timeline || "",
+                location: data.education.location || "Dhaka, Bangladesh",
+                status: data.education.status || "Currently Studying",
+            }] : []);
+
+        const deg = currentDegrees[index];
+        if (!deg) return;
+        const confirmDelete = window.confirm(`Delete academic degree "${deg.degree || "Degree"} from ${deg.institution || "University"}"?`);
+        if (!confirmDelete) return;
+
+        const updatedDegrees = currentDegrees.filter((_: any, i: number) => i !== index);
+        setData((prev: any) => ({
+            ...prev,
+            education: {
+                ...prev?.education,
+                degrees: updatedDegrees,
+                degree: updatedDegrees[0]?.degree || "",
+                institution: updatedDegrees[0]?.institution || "",
+                cgpa: updatedDegrees[0]?.cgpa || "",
+                timeline: updatedDegrees[0]?.timeline || "",
+                location: updatedDegrees[0]?.location || "",
+            },
+        }));
+        toast.success("Academic degree removed.");
+    };
+
     const handleAddNewCourse = () => {
         const newCourse = {
             title: "Institution / Academy Name",
@@ -831,66 +903,68 @@ export default function AdminDashboardPage() {
     return (
         <div className="min-h-screen bg-muted/20 text-foreground flex flex-col">
             {/* Top Command Bar */}
-            <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-md border-b border-border/80 px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                    <Link
-                        href="/"
-                        className="p-2 rounded-xl bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                        title="Back to Portfolio">
-                        <ArrowLeft size={18} />
-                    </Link>
-                    <div className="flex items-center gap-2.5">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground font-black text-[11px] tracking-tight">
-                            KBN
-                        </div>
-                        <div>
-                            <div className="flex items-center gap-2">
-                                <h1 className="text-sm font-bold tracking-tight">WebZen Control Center</h1>
-                                <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                    Founder Session
-                                </span>
+            <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-md border-b border-border/80 w-full">
+                <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                        <Link
+                            href="/"
+                            className="p-2 rounded-xl bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                            title="Back to Portfolio">
+                            <ArrowLeft size={18} />
+                        </Link>
+                        <div className="flex items-center gap-2.5">
+                            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground font-black text-[11px] tracking-tight">
+                                KBN
                             </div>
-                            <p className="text-[10px] text-muted-foreground">Portfolio Content Management Studio</p>
+                            <div>
+                                <div className="flex items-center gap-2">
+                                    <h1 className="text-sm font-bold tracking-tight">K Naeeim Content Studio</h1>
+                                    <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                        Founder Session
+                                    </span>
+                                </div>
+                                <p className="text-[10px] text-muted-foreground">Portfolio Content Management Studio</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="flex items-center gap-2 sm:gap-3">
-                    <Button asChild variant="outline" size="sm" className="rounded-xl text-xs font-semibold gap-1.5">
-                        <a href="/" target="_blank" rel="noreferrer noopener">
-                            <Eye size={14} />
-                            <span className="hidden sm:inline">View Live Site</span>
-                            <ExternalLink size={12} className="opacity-70" />
-                        </a>
-                    </Button>
-                    <Button
-                        type="button"
-                        onClick={handleExportJson}
-                        variant="outline"
-                        size="sm"
-                        className="rounded-xl text-xs font-semibold gap-1.5"
-                        title="Download portfolio-content.json backup">
-                        <Download size={14} />
-                        <span className="hidden md:inline">Export JSON</span>
-                    </Button>
-                    <Button
-                        onClick={handleSave}
-                        disabled={isSaving}
-                        size="sm"
-                        className="rounded-xl px-4 sm:px-5 text-xs font-bold gap-1.5 shadow-md shadow-primary/20 hover:shadow-lg">
-                        <Save size={14} />
-                        <span>{isSaving ? "Publishing..." : "Save Changes"}</span>
-                    </Button>
-                    <Button
-                        onClick={handleLogout}
-                        variant="ghost"
-                        size="sm"
-                        className="rounded-xl text-xs font-semibold text-muted-foreground hover:text-destructive hover:bg-destructive/10 gap-1.5 px-3"
-                        title="Lock Dashboard & Sign Out">
-                        <LogOut size={14} />
-                        <span className="hidden md:inline">Lock Studio</span>
-                    </Button>
+                    <div className="flex items-center gap-2 sm:gap-3">
+                        <Button asChild variant="outline" size="sm" className="rounded-xl text-xs font-semibold gap-1.5">
+                            <a href="/" target="_blank" rel="noreferrer noopener">
+                                <Eye size={14} />
+                                <span className="hidden sm:inline">View Live Site</span>
+                                <ExternalLink size={12} className="opacity-70" />
+                            </a>
+                        </Button>
+                        <Button
+                            type="button"
+                            onClick={handleExportJson}
+                            variant="outline"
+                            size="sm"
+                            className="rounded-xl text-xs font-semibold gap-1.5"
+                            title="Download portfolio-content.json backup">
+                            <Download size={14} />
+                            <span className="hidden md:inline">Export JSON</span>
+                        </Button>
+                        <Button
+                            onClick={handleSave}
+                            disabled={isSaving}
+                            size="sm"
+                            className="rounded-xl px-4 sm:px-5 text-xs font-bold gap-1.5 shadow-md shadow-primary/20 hover:shadow-lg">
+                            <Save size={14} />
+                            <span>{isSaving ? "Publishing..." : "Save Changes"}</span>
+                        </Button>
+                        <Button
+                            onClick={handleLogout}
+                            variant="ghost"
+                            size="sm"
+                            className="rounded-xl text-xs font-semibold text-muted-foreground hover:text-destructive hover:bg-destructive/10 gap-1.5 px-3"
+                            title="Lock Dashboard & Sign Out">
+                            <LogOut size={14} />
+                            <span className="hidden md:inline">Lock Studio</span>
+                        </Button>
+                    </div>
                 </div>
             </header>
 
@@ -1040,6 +1114,19 @@ export default function AdminDashboardPage() {
                                         <div>
                                             <div className="text-xs font-bold text-foreground">+ Skill Domain</div>
                                             <div className="text-[10px] text-muted-foreground">Tech Stack</div>
+                                        </div>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewDegree}
+                                        className="p-3.5 rounded-2xl bg-muted/40 hover:bg-primary/10 border border-border hover:border-primary/40 transition-all text-left group cursor-pointer space-y-2">
+                                        <div className="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <GraduationCap size={16} />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold text-foreground">+ Degree</div>
+                                            <div className="text-[10px] text-muted-foreground">University / Academic</div>
                                         </div>
                                     </button>
 
@@ -3213,56 +3300,260 @@ export default function AdminDashboardPage() {
                                         University degree, CGPA, and online certifications/specializations.
                                     </p>
                                 </div>
-                                <Button
-                                    type="button"
-                                    onClick={handleAddNewCourse}
-                                    size="sm"
-                                    className="rounded-xl font-bold gap-1.5 shadow-sm">
-                                    <Plus size={15} />
-                                    <span>Add Certification</span>
-                                </Button>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <Button
+                                        type="button"
+                                        onClick={handleAddNewDegree}
+                                        size="sm"
+                                        className="rounded-xl font-bold gap-1.5 shadow-sm">
+                                        <Plus size={15} />
+                                        <span>Add Academic Degree</span>
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        onClick={handleAddNewCourse}
+                                        size="sm"
+                                        variant="outline"
+                                        className="rounded-xl font-bold gap-1.5 shadow-sm">
+                                        <Plus size={15} />
+                                        <span>Add Certification</span>
+                                    </Button>
+                                </div>
                             </div>
 
-                            {/* Section 1: Academic Degree */}
+                            {/* Section 1: University Academic Degrees */}
                             <div className="space-y-4">
-                                <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">University Academic Degree</h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-1">
-                                        <label className="text-xs font-bold text-muted-foreground">Degree Title</label>
-                                        <input
-                                            type="text"
-                                            value={data.education?.degree || ""}
-                                            onChange={(e) => setData({ ...data, education: { ...data.education, degree: e.target.value } })}
-                                            className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm"
-                                        />
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">University Academic Degrees</h3>
+                                        <p className="text-[11px] text-muted-foreground mt-0.5">Higher academic education, university institutions, and CGPA records.</p>
                                     </div>
-                                    <div className="space-y-1">
-                                        <label className="text-xs font-bold text-muted-foreground">University / Institution</label>
-                                        <input
-                                            type="text"
-                                            value={data.education?.institution || ""}
-                                            onChange={(e) => setData({ ...data, education: { ...data.education, institution: e.target.value } })}
-                                            className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm"
-                                        />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <label className="text-xs font-bold text-muted-foreground">CGPA</label>
-                                        <input
-                                            type="text"
-                                            value={data.education?.cgpa || ""}
-                                            onChange={(e) => setData({ ...data, education: { ...data.education, cgpa: e.target.value } })}
-                                            className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm font-bold"
-                                        />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <label className="text-xs font-bold text-muted-foreground">Timeline</label>
-                                        <input
-                                            type="text"
-                                            value={data.education?.timeline || ""}
-                                            onChange={(e) => setData({ ...data, education: { ...data.education, timeline: e.target.value } })}
-                                            className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-sm"
-                                        />
-                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={handleAddNewDegree}
+                                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors cursor-pointer">
+                                        <Plus size={14} /> Add Degree
+                                    </button>
+                                </div>
+
+                                <div className="space-y-4">
+                                    {((Array.isArray(data.education?.degrees) && data.education.degrees.length > 0)
+                                        ? data.education.degrees
+                                        : (data.education?.degree ? [{
+                                            degree: data.education.degree,
+                                            institution: data.education.institution || "",
+                                            cgpa: data.education.cgpa || "",
+                                            timeline: data.education.timeline || "",
+                                            location: data.education.location || "Dhaka, Bangladesh",
+                                            status: data.education.status || "Currently Studying",
+                                        }] : [
+                                            {
+                                                degree: "BSc in Computer Science Engineering (CSE)",
+                                                institution: "Sonargaon University",
+                                                cgpa: "3.59 / 4.00",
+                                                timeline: "2025 — Present",
+                                                location: "Dhaka, Bangladesh",
+                                                status: "Currently Studying",
+                                            }
+                                        ])
+                                    ).map((deg: any, dIdx: number) => (
+                                        <div key={dIdx} className="p-4 sm:p-5 rounded-2xl bg-muted/30 border border-border space-y-4 relative group">
+                                            <div className="flex items-center justify-between pb-2 border-b border-border/40">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-xs font-bold text-foreground">
+                                                        Degree #{dIdx + 1}
+                                                    </span>
+                                                    <input
+                                                        type="text"
+                                                        value={deg.status || (dIdx === 0 ? "Currently Studying" : "Academic Degree")}
+                                                        onChange={(e) => {
+                                                            const currentDegrees = Array.isArray(data.education?.degrees) && data.education.degrees.length > 0
+                                                                ? [...data.education.degrees]
+                                                                : [{
+                                                                    degree: data.education?.degree || "",
+                                                                    institution: data.education?.institution || "",
+                                                                    cgpa: data.education?.cgpa || "",
+                                                                    timeline: data.education?.timeline || "",
+                                                                    location: data.education?.location || "Dhaka, Bangladesh",
+                                                                    status: "Currently Studying",
+                                                                }];
+                                                            currentDegrees[dIdx] = { ...currentDegrees[dIdx], status: e.target.value };
+                                                            setData({
+                                                                ...data,
+                                                                education: {
+                                                                    ...data.education,
+                                                                    degrees: currentDegrees,
+                                                                    status: currentDegrees[0]?.status || "",
+                                                                },
+                                                            });
+                                                        }}
+                                                        placeholder="Status Badge (e.g. Currently Studying / Graduated)"
+                                                        className="px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-bold text-primary max-w-[180px]"
+                                                    />
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleDeleteDegree(dIdx)}
+                                                    className="text-muted-foreground hover:text-destructive p-1 rounded transition-colors cursor-pointer"
+                                                    title="Delete this academic degree">
+                                                    <Trash2 size={14} />
+                                                </button>
+                                            </div>
+
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <div className="space-y-1">
+                                                    <label className="text-xs font-bold text-muted-foreground">Degree Title</label>
+                                                    <input
+                                                        type="text"
+                                                        value={deg.degree || ""}
+                                                        onChange={(e) => {
+                                                            const currentDegrees = Array.isArray(data.education?.degrees) && data.education.degrees.length > 0
+                                                                ? [...data.education.degrees]
+                                                                : [{
+                                                                    degree: data.education?.degree || "",
+                                                                    institution: data.education?.institution || "",
+                                                                    cgpa: data.education?.cgpa || "",
+                                                                    timeline: data.education?.timeline || "",
+                                                                    location: data.education?.location || "Dhaka, Bangladesh",
+                                                                    status: "Currently Studying",
+                                                                }];
+                                                            currentDegrees[dIdx] = { ...currentDegrees[dIdx], degree: e.target.value };
+                                                            setData({
+                                                                ...data,
+                                                                education: {
+                                                                    ...data.education,
+                                                                    degrees: currentDegrees,
+                                                                    degree: currentDegrees[0]?.degree || "",
+                                                                },
+                                                            });
+                                                        }}
+                                                        placeholder="e.g. BSc in Computer Science Engineering (CSE)"
+                                                        className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm font-semibold"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-xs font-bold text-muted-foreground">University / Institution</label>
+                                                    <input
+                                                        type="text"
+                                                        value={deg.institution || ""}
+                                                        onChange={(e) => {
+                                                            const currentDegrees = Array.isArray(data.education?.degrees) && data.education.degrees.length > 0
+                                                                ? [...data.education.degrees]
+                                                                : [{
+                                                                    degree: data.education?.degree || "",
+                                                                    institution: data.education?.institution || "",
+                                                                    cgpa: data.education?.cgpa || "",
+                                                                    timeline: data.education?.timeline || "",
+                                                                    location: data.education?.location || "Dhaka, Bangladesh",
+                                                                    status: "Currently Studying",
+                                                                }];
+                                                            currentDegrees[dIdx] = { ...currentDegrees[dIdx], institution: e.target.value };
+                                                            setData({
+                                                                ...data,
+                                                                education: {
+                                                                    ...data.education,
+                                                                    degrees: currentDegrees,
+                                                                    institution: currentDegrees[0]?.institution || "",
+                                                                },
+                                                            });
+                                                        }}
+                                                        placeholder="e.g. Sonargaon University / Dhaka University"
+                                                        className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-xs font-bold text-muted-foreground">CGPA / Grade</label>
+                                                    <input
+                                                        type="text"
+                                                        value={deg.cgpa || ""}
+                                                        onChange={(e) => {
+                                                            const currentDegrees = Array.isArray(data.education?.degrees) && data.education.degrees.length > 0
+                                                                ? [...data.education.degrees]
+                                                                : [{
+                                                                    degree: data.education?.degree || "",
+                                                                    institution: data.education?.institution || "",
+                                                                    cgpa: data.education?.cgpa || "",
+                                                                    timeline: data.education?.timeline || "",
+                                                                    location: data.education?.location || "Dhaka, Bangladesh",
+                                                                    status: "Currently Studying",
+                                                                }];
+                                                            currentDegrees[dIdx] = { ...currentDegrees[dIdx], cgpa: e.target.value };
+                                                            setData({
+                                                                ...data,
+                                                                education: {
+                                                                    ...data.education,
+                                                                    degrees: currentDegrees,
+                                                                    cgpa: currentDegrees[0]?.cgpa || "",
+                                                                },
+                                                            });
+                                                        }}
+                                                        placeholder="e.g. 3.59 / 4.00"
+                                                        className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm font-bold text-primary"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-xs font-bold text-muted-foreground">Timeline / Academic Session</label>
+                                                    <input
+                                                        type="text"
+                                                        value={deg.timeline || ""}
+                                                        onChange={(e) => {
+                                                            const currentDegrees = Array.isArray(data.education?.degrees) && data.education.degrees.length > 0
+                                                                ? [...data.education.degrees]
+                                                                : [{
+                                                                    degree: data.education?.degree || "",
+                                                                    institution: data.education?.institution || "",
+                                                                    cgpa: data.education?.cgpa || "",
+                                                                    timeline: data.education?.timeline || "",
+                                                                    location: data.education?.location || "Dhaka, Bangladesh",
+                                                                    status: "Currently Studying",
+                                                                }];
+                                                            currentDegrees[dIdx] = { ...currentDegrees[dIdx], timeline: e.target.value };
+                                                            setData({
+                                                                ...data,
+                                                                education: {
+                                                                    ...data.education,
+                                                                    degrees: currentDegrees,
+                                                                    timeline: currentDegrees[0]?.timeline || "",
+                                                                },
+                                                            });
+                                                        }}
+                                                        placeholder="e.g. 2025 — Present"
+                                                        className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1 sm:col-span-2">
+                                                    <label className="text-xs font-bold text-muted-foreground">Campus Location</label>
+                                                    <input
+                                                        type="text"
+                                                        value={deg.location || ""}
+                                                        onChange={(e) => {
+                                                            const currentDegrees = Array.isArray(data.education?.degrees) && data.education.degrees.length > 0
+                                                                ? [...data.education.degrees]
+                                                                : [{
+                                                                    degree: data.education?.degree || "",
+                                                                    institution: data.education?.institution || "",
+                                                                    cgpa: data.education?.cgpa || "",
+                                                                    timeline: data.education?.timeline || "",
+                                                                    location: data.education?.location || "Dhaka, Bangladesh",
+                                                                    status: "Currently Studying",
+                                                                }];
+                                                            currentDegrees[dIdx] = { ...currentDegrees[dIdx], location: e.target.value };
+                                                            setData({
+                                                                ...data,
+                                                                education: {
+                                                                    ...data.education,
+                                                                    degrees: currentDegrees,
+                                                                    location: currentDegrees[0]?.location || "",
+                                                                },
+                                                            });
+                                                        }}
+                                                        placeholder="e.g. Dhaka, Bangladesh"
+                                                        className="w-full px-3 py-2 rounded-xl bg-background border border-border text-sm"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
 

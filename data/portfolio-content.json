@@ -639,6 +639,16 @@
     "timeline": "2025 — Present",
     "cgpa": "3.59 / 4.00",
     "location": "Dhaka, Bangladesh",
+    "degrees": [
+      {
+        "degree": "BSc in Computer Science Engineering (CSE)",
+        "institution": "Sonargaon University",
+        "timeline": "2025 — Present",
+        "cgpa": "3.59 / 4.00",
+        "location": "Dhaka, Bangladesh",
+        "status": "Currently Studying"
+      }
+    ],
     "courses": [
       {
         "title": "Programming Hero",
