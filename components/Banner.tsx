@@ -42,6 +42,7 @@ const defaultExecutiveMetrics = [
 
 const domainPhrases = [
     "Digital Ventures",
+    "Deep Tech & Medical AI",
     "HealthTech Platforms",
     "Scalable SaaS Engines",
     "Enterprise Architecture",
@@ -218,9 +219,20 @@ const PortfolioBanner = ({ data }: BannerProps) => {
                                             Clinical Booking Platform
                                         </span>
                                     </div>
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                        <span className="text-primary font-bold">AI RESEARCH:</span>
+                                        <a
+                                            href="#research"
+                                            className="text-cyan-500 font-semibold hover:underline inline-flex items-center gap-1">
+                                            Hybrid CNN-ViT Brain Tumor Detection &amp; XAI
+                                            <ArrowUpRight size={13} />
+                                        </a>
+                                        <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-sans font-medium">
+                                            Ongoing Research
+                                        </span>
+                                    </div>
                                     <div className="pt-1 text-muted-foreground text-xs leading-relaxed font-sans">
-                                        Proven track record in high-concurrency systems, Next.js 15 enterprise architecture, 
-                                        and mentoring over 100+ engineers into industry-ready roles.
+                                        Steering enterprise architecture, Next.js 15 platforms, and deep-learning vision models with high availability and verified clinical accuracy.
                                     </div>
                                 </div>
                             ) : (

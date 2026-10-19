@@ -594,21 +594,44 @@
     ]
   },
   "research": {
-    "badge": "DEEP TECH & MEDICAL IMAGE PROCESSING",
-    "title": "Hybrid-CNN-ViT Architecture for Early Brain Tumor Detection",
-    "subtitle": "Synergizing Deep Convolutional Feature Extraction with Vision Transformer Self-Attention for Multi-Sequence MRI Diagnosis",
-    "status": "Active Research • Manuscript in Peer-Review",
+    "badge": "ONGOING RESEARCH INITIATIVE • MEDICAL AI & CV",
+    "title": "Brain Tumor Classification & Segmentation",
+    "subtitle": "Pioneering Hybrid CNN-Vision Transformer (ViT) & Explainable AI (XAI) for Medical Image Processing",
+    "status": "Ongoing Research • Active Model Benchmarking",
     "leadResearcher": "Khairul Bashar Naeeim",
-    "institution": "Sonargaon University — Department of Computer Science & Engineering",
-    "abstract": "Brain tumors present severe diagnostic challenges due to morphological heterogeneity and ambiguous tissue boundaries in magnetic resonance imaging (MRI). This research develops a novel Hybrid-CNN-ViT deep learning architecture that combines deep convolutional stems for granular edge/texture extraction with Vision Transformer multi-head self-attention mechanisms for global contextual dependency mapping across axial, coronal, and sagittal MRI brain slices.",
-    "dataset": "Figshare & BraTS Multi-sequence MRI Benchmark (3,064+ T1-weighted, T2, FLAIR Scans)",
-    "targetTumors": "Glioma, Meningioma, Pituitary Tumors & Healthy Control Tissue",
+    "institution": "Sonargaon University — Dept. of Computer Science & Engineering",
+    "abstract": "Active research developing a synergistic Hybrid CNN-ViT deep learning framework with Explainable AI (Grad-CAM) for high-precision classification and boundary segmentation of brain tumors across multi-sequence MRI scans.",
+    "dataset": "Figshare & BraTS MRI Benchmark (3,064+ Multi-sequence Scans)",
+    "targetTumors": "Glioma, Meningioma, Pituitary & Healthy Control Tissue",
     "paperUrl": "https://github.com/knaeeim",
+    "pillars": [
+      {
+        "id": "segmentation",
+        "title": "Brain Tumor Classification & Segmentation",
+        "desc": "Sub-pixel boundary segmentation & multi-class diagnosis across Glioma, Meningioma, Pituitary tumors and healthy tissue.",
+        "tag": "Clinical Objective",
+        "highlight": "3,064+ MRI Benchmark"
+      },
+      {
+        "id": "hybrid-vit",
+        "title": "Hybrid CNN-Vision Transformer (ViT)",
+        "desc": "High-res CNN convolutional stem paired with 12-head Vision Transformer self-attention for global anatomical context.",
+        "tag": "Model Architecture",
+        "highlight": "Dual-Path Feature Fusion"
+      },
+      {
+        "id": "xai",
+        "title": "Explainable AI (XAI) & Grad-CAM",
+        "desc": "Transparent activation heatmaps and attention rollout mapping eliminating black-box opacity for clinical trust.",
+        "tag": "Interpretability",
+        "highlight": "Interpretable Saliency"
+      }
+    ],
     "metrics": [
       {
         "label": "Diagnostic Accuracy",
         "value": "98.7%",
-        "subtext": "Tested on validation holdout"
+        "subtext": "Holdout benchmark"
       },
       {
         "label": "Sensitivity / Recall",
@@ -629,22 +652,22 @@
     "architectureSteps": [
       {
         "step": "Phase 1: Multi-Sequence MRI Preprocessing",
-        "description": "Automated skull-stripping, intensity normalization (Z-score), contrast-limited adaptive histogram equalization (CLAHE), and spatial augmentations to mitigate scanner variability.",
+        "description": "Automated skull-stripping, intensity normalization (Z-score), and CLAHE contrast enhancement.",
         "icon": "Layers"
       },
       {
         "step": "Phase 2: Deep CNN Spatial Feature Extractor",
-        "description": "High-resolution convolutional stem extracting granular low-level visual representations: subtle hyper-intensities, edema margins, and microscopic tumor boundaries.",
+        "description": "High-res convolutional stem isolating microscopic tumor boundaries and edema tissue margins.",
         "icon": "Cpu"
       },
       {
-        "step": "Phase 3: Vision Transformer (ViT) Context Engine",
-        "description": "Linear projection into patch embeddings with 12-layer multi-head self-attention blocks, capturing global structural relationships across disparate brain regions.",
+        "step": "Phase 3: Vision Transformer (ViT) Engine",
+        "description": "12-layer multi-head self-attention modeling long-range anatomical dependencies across brain slices.",
         "icon": "Eye"
       },
       {
-        "step": "Phase 4: Bottleneck Cross-Attention Fusion & Classification",
-        "description": "Dual-path cross-attention fusion layer synthesizing local and global embeddings, passing through MLP head for 4-class multi-label diagnosis with Grad-CAM explainability.",
+        "step": "Phase 4: Cross-Attention Fusion & Explainable XAI",
+        "description": "Dual-path bottleneck fusion producing 4-class multi-label diagnosis with Grad-CAM activation heatmaps.",
         "icon": "Activity"
       }
     ],
