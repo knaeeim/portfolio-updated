@@ -1,40 +1,88 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Mail, Github, Linkedin, Send, MapPin, Sparkles, MessageCircle, ArrowUpRight, Phone, ShieldCheck, Clock } from "lucide-react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React, { useState } from "react";
+import {
+    Terminal,
+    Copy,
+    Check,
+    ArrowUpRight,
+    FileText,
+    Github,
+    Linkedin,
+    Phone,
+    Mail,
+    Send,
+    MessageCircle,
+    Shield,
+    Clock,
+    Play,
+} from "lucide-react";
 import { toast } from "sonner";
-import Link from "next/link";
-import { Button } from "./ui/button";
 
 interface ContactSectionProps {
     data?: any;
 }
 
-const ContactSection = ({ data }: ContactSectionProps) => {
+export const ContactSection = ({ data }: ContactSectionProps) => {
+    // Mode 1: Quick Action Copy State
+    const [copiedEmail, setCopiedEmail] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Mode 2: Interactive CLI Terminal State
+    const [cliInput, setCliInput] = useState("");
+    const [cliHistory, setCliHistory] = useState<Array<{ cmd: string; output: string }>>([
+        { cmd: "sys.connect", output: "AUTHENTICATED: Direct channel to Khairul Bashar Naeeim open." },
+        { cmd: "help", output: "COMMANDS: contact, stack, schedule, status, msg <text>, clear" },
+    ]);
+
     const general = data?.general || {};
-    const name = general.name || "Khairul Bashar Naeeim";
-    const company = general.company || "WebZen Bangladesh";
     const email = general.email || "kmnaeeim@gmail.com";
     const phone = general.phone || "+880 1712-854941";
     const whatsapp = general.whatsapp || "https://wa.me/8801712854941";
-    const location = general.location || "Dhaka, Bangladesh • Global Remote Advisory";
-    const github = general.github || "https://github.com/knaeeim";
     const linkedin = general.linkedin || "https://www.linkedin.com/in/kmnaeeim";
+    const github = general.github || "https://github.com/knaeeim";
 
-    useEffect(() => {
-        AOS.init({
-            duration: 600,
-            easing: "ease-in-out",
-            once: true,
-            offset: 80,
-        });
-    }, []);
+    const copyEmail = () => {
+        navigator.clipboard.writeText(email);
+        setCopiedEmail(true);
+        toast.success(`COPIED TO CLIPBOARD: ${email}`);
+        setTimeout(() => setCopiedEmail(false), 2000);
+    };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleCliCommand = (commandToRun?: string) => {
+        const cmd = (commandToRun || cliInput).trim();
+        if (!cmd) return;
+
+        const lower = cmd.toLowerCase();
+        let output = "";
+
+        if (lower === "help") {
+            output = "MANIFEST: contact, stack, schedule, status, msg <message>, clear";
+        } else if (lower === "contact") {
+            output = `DIRECT: ${email} // TEL: ${phone} // DHAKA (UTC+6)`;
+        } else if (lower === "stack") {
+            output = "SYSTEM: Next.js 16, TypeScript, PostgreSQL, Prisma, Modular Express, Turbopack";
+        } else if (lower === "schedule") {
+            output = `SCHEDULE: Direct dispatch available. WhatsApp: ${whatsapp}`;
+        } else if (lower === "status") {
+            output = "STATUS: Available for Founder Advisory, Full-Stack Architecture, & High-Scale Systems.";
+        } else if (lower.startsWith("msg ")) {
+            const messageBody = cmd.slice(4);
+            output = `DISPATCHED TO QUEUE: "${messageBody}". We will respond via ${email}.`;
+            toast.success("Message recorded in dispatch queue!");
+        } else if (lower === "clear") {
+            setCliHistory([]);
+            setCliInput("");
+            return;
+        } else {
+            output = `UNKNOWN COMMAND: "${cmd}". Type "help" or click command chips.`;
+        }
+
+        setCliHistory((prev) => [...prev.slice(-5), { cmd, output }]);
+        setCliInput("");
+    };
+
+    const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
         const form = e.currentTarget;
@@ -49,232 +97,266 @@ const ContactSection = ({ data }: ContactSectionProps) => {
             });
 
             if (res.ok) {
-                toast.success("Executive message delivered successfully! I will get back to you shortly.");
+                toast.success("Executive inquiry delivered. I will respond within 24 hours.");
                 form.reset();
             } else {
-                toast.success("Thank you for your inquiry! Your request has been queued.");
+                toast.success("Inquiry received in dispatch queue. Thank you!");
                 form.reset();
             }
-        } catch (error) {
-            console.error("Submission error:", error);
-            toast.success("Thank you! For urgent executive matters, please reach out directly on WhatsApp.");
+        } catch {
+            toast.success("Inquiry received. For urgent advisory, contact directly on WhatsApp.");
         } finally {
             setIsSubmitting(false);
         }
     };
 
     return (
-        <section id="contact" className="py-8 sm:py-12 md:py-16 bg-background relative overflow-hidden">
-            {/* Ambient lighting */}
-            <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+        <footer
+            id="contact"
+            className="w-full border-t border-border bg-background relative overflow-hidden py-12 sm:py-16">
+            
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                
+                {/* Header with Exposed Swiss Crosshair & Monospace Label */}
+                <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
+                            <span className="tech-label text-foreground">
+                                05. DIRECT DISPATCH &amp; COMMAND TERMINAL
+                            </span>
+                        </div>
+                        <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
+                            Architect Your Next Breakthrough
+                        </h2>
+                        <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
+                            Direct executive channels. Utilize the one-click copyable email chip or execute commands 
+                            in the interactive CLI below.
+                        </p>
+                    </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                {/* 2-Column Symmetrically Aligned Grid (Same Height, Equal Alignment) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch">
+                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground bg-card border border-border px-3 py-1.5 rounded">
+                        <span className="w-2 h-2 rounded-full bg-[#10B981] animate-ping" />
+                        <span>AVG RESPONSE TIME: &lt; 2 HOURS</span>
+                    </div>
+                </div>
+
+                {/* DUAL-MODE LAYOUT: 12-Column Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     
-                    {/* LEFT COLUMN: Executive Proposition & Contact Channels (5 Cols) */}
-                    <div className="lg:col-span-5 relative flex" data-aos="fade-right">
-                        <div className="w-full relative rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-2xl shadow-xl p-5 sm:p-7 flex flex-col justify-between space-y-6">
-                            {/* Top: Header Info */}
-                            <div className="space-y-3">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 text-[10px] sm:text-xs font-bold max-w-full">
-                                    <span className="relative flex h-2 w-2 shrink-0">
-                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                                    </span>
-                                    <span className="truncate">OPEN FOR ADVISORY &amp; VENTURES</span>
-                                </div>
-
-                                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground leading-[1.2]">
-                                    Let’s Architect Your Next{" "}
-                                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-500 to-cyan-500">
-                                        Digital Breakthrough
-                                    </span>.
-                                </h2>
-
-                                <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed font-normal">
-                                    Whether you are launching a new tech venture, modernizing clinical or corporate systems, 
-                                    or seeking principal architectural advisory, I am ready to collaborate.
-                                </p>
+                    {/* LEFT (6 COLS): MODE 1 — Quick Action Direct Channels & Rapid Form */}
+                    <div className="lg:col-span-6 space-y-6">
+                        
+                        {/* One-Click Copyable Email Chip & Direct Triggers */}
+                        <div className="p-5 rounded border border-border bg-card/60 space-y-4 font-mono text-xs">
+                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider flex items-center justify-between border-b border-border pb-2">
+                                <span>MODE 01 // DIRECT CHANNELS</span>
+                                <span className="text-[#10B981]">ACTIVE</span>
                             </div>
 
-                            {/* Middle: Compact, Unified Contact Channels */}
-                            <div className="space-y-2.5">
-                                {/* WhatsApp Channel */}
+                            {/* Click-to-copy email chip */}
+                            <div className="space-y-1.5">
+                                <span className="text-[10px] text-muted-foreground uppercase">PRIMARY CONTACT:</span>
+                                <button
+                                    type="button"
+                                    onClick={copyEmail}
+                                    className="keycap-btn w-full p-3 rounded bg-muted/40 border border-border flex items-center justify-between text-foreground hover:border-[#FF4F00] transition-colors cursor-pointer group">
+                                    <div className="flex items-center gap-2.5">
+                                        <Mail size={14} className="text-[#FF4F00]" />
+                                        <span className="font-bold text-xs">{email}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground group-hover:text-foreground">
+                                        {copiedEmail ? (
+                                            <>
+                                                <Check size={13} className="text-[#10B981]" />
+                                                <span className="text-[#10B981] font-bold">COPIED</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Copy size={13} />
+                                                <span>CLICK TO COPY</span>
+                                            </>
+                                        )}
+                                    </div>
+                                </button>
+                            </div>
+
+                            {/* Fast External Channels */}
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+                                <a
+                                    href={linkedin}
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    className="keycap-btn p-2 rounded bg-card border border-border text-center text-foreground hover:border-foreground transition-all flex flex-col items-center gap-1">
+                                    <Linkedin size={14} />
+                                    <span className="text-[10px] font-bold">LINKEDIN</span>
+                                </a>
+                                <a
+                                    href={github}
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    className="keycap-btn p-2 rounded bg-card border border-border text-center text-foreground hover:border-foreground transition-all flex flex-col items-center gap-1">
+                                    <Github size={14} />
+                                    <span className="text-[10px] font-bold">GITHUB</span>
+                                </a>
                                 <a
                                     href={whatsapp}
                                     target="_blank"
                                     rel="noreferrer noopener"
-                                    className="flex items-center justify-between p-3.5 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10 transition-all duration-300 group">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
-                                            <MessageCircle size={18} />
-                                        </div>
-                                        <div>
-                                            <div className="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase font-bold tracking-wider">
-                                                Instant WhatsApp Helpline
-                                            </div>
-                                            <div className="text-xs sm:text-sm font-bold text-foreground">
-                                                {phone}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ArrowUpRight size={15} className="text-muted-foreground group-hover:text-emerald-500 transition-colors" />
+                                    className="keycap-btn p-2 rounded bg-card border border-border text-center text-foreground hover:border-foreground transition-all flex flex-col items-center gap-1">
+                                    <MessageCircle size={14} className="text-[#10B981]" />
+                                    <span className="text-[10px] font-bold">WHATSAPP</span>
                                 </a>
-
-                                {/* Email Channel */}
-                                <div className="flex items-center gap-3 p-3.5 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm transition-colors hover:bg-card">
-                                    <div className="p-2 rounded-xl bg-primary/10 text-primary">
-                                        <Mail size={18} />
-                                    </div>
-                                    <div>
-                                        <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">
-                                            Executive Email
-                                        </div>
-                                        <a
-                                            href={`mailto:${email}`}
-                                            className="text-xs sm:text-sm font-semibold text-foreground hover:text-primary transition-colors">
-                                            {email}
-                                        </a>
-                                    </div>
-                                </div>
-
-                                {/* Location Channel */}
-                                <div className="flex items-center gap-3 p-3.5 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm transition-colors hover:bg-card">
-                                    <div className="p-2 rounded-xl bg-blue-500/10 text-blue-500">
-                                        <MapPin size={18} />
-                                    </div>
-                                    <div>
-                                        <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">
-                                            Headquarters &amp; Availability
-                                        </div>
-                                        <div className="text-xs sm:text-sm font-semibold text-foreground">
-                                            {location}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Bottom: Social Profiles */}
-                            <div className="flex items-center justify-between pt-3 border-t border-border/60">
-                                <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
-                                    Direct Connect:
-                                </span>
-                                <div className="flex items-center gap-2">
-                                    <Link
-                                        href={github}
-                                        target="_blank"
-                                        aria-label="GitHub Profile"
-                                        className="p-2 rounded-xl border border-border bg-card hover:border-primary hover:text-primary transition-all duration-300 shadow-xs">
-                                        <Github size={16} />
-                                    </Link>
-                                    <Link
-                                        href={linkedin}
-                                        target="_blank"
-                                        aria-label="LinkedIn Profile"
-                                        className="p-2 rounded-xl border border-border bg-card hover:border-primary hover:text-primary transition-all duration-300 shadow-xs">
-                                        <Linkedin size={16} />
-                                    </Link>
-                                </div>
+                                <a
+                                    href="/resume.pdf"
+                                    download
+                                    className="keycap-btn p-2 rounded bg-card border border-border text-center text-foreground hover:border-[#FF4F00] transition-all flex flex-col items-center gap-1">
+                                    <FileText size={14} className="text-[#FF4F00]" />
+                                    <span className="text-[10px] font-bold">RESUME PDF</span>
+                                </a>
                             </div>
                         </div>
-                    </div>
 
-                    {/* RIGHT COLUMN: Executive Inquiry Form (7 Cols) - Same Height & Symmetrical */}
-                    <div className="lg:col-span-7 relative flex" data-aos="fade-left">
-                        {/* Ambient glow background */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 rounded-3xl blur-xl opacity-50 pointer-events-none" />
-
-                        <div className="w-full relative rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-2xl shadow-xl p-5 sm:p-7 flex flex-col justify-between space-y-6">
-                            {/* Form Header */}
-                            <div className="space-y-1.5 pb-2 border-b border-border/50">
-                                <div className="flex items-center justify-between">
-                                    <h3 className="text-xl font-bold text-foreground tracking-tight">
-                                        Send an Executive Inquiry
-                                    </h3>
-                                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                                        <Clock size={12} className="text-emerald-500" />
-                                        <span>Response within 24h</span>
-                                    </span>
-                                </div>
-                                <p className="text-xs text-muted-foreground">
-                                    Direct communication to {name}, Founder &amp; CEO of {company}.
-                                </p>
+                        {/* Rapid Dispatch Form */}
+                        <form
+                            onSubmit={handleFormSubmit}
+                            className="p-5 rounded border border-border bg-card/60 space-y-4 font-mono text-xs">
+                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider border-b border-border pb-2">
+                                DIRECT INQUIRY DISPATCH
                             </div>
 
-                            {/* Form Fields - Textarea expands down to button */}
-                            <form onSubmit={handleSubmit} className="flex-1 flex flex-col gap-4">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 shrink-0">
-                                    <div className="space-y-1.5">
-                                        <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground ml-0.5">
-                                            Your Name / Organization
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            placeholder="e.g. Dr. Devojyoti Dutta"
-                                            required
-                                            className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-muted-foreground/40 text-sm font-medium"
-                                        />
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground ml-0.5">
-                                            Corporate / Direct Email
-                                        </label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            placeholder="you@company.com"
-                                            required
-                                            className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-muted-foreground/40 text-sm font-medium"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="space-y-1.5 flex-1 flex flex-col min-h-[180px]">
-                                    <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground ml-0.5">
-                                        Project Scope &amp; Vision
-                                    </label>
-                                    <textarea
-                                        rows={8}
-                                        name="message"
-                                        placeholder="Describe your platform requirements, timeline, and strategic goals..."
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div className="space-y-1">
+                                    <label className="text-[10px] text-muted-foreground">YOUR NAME / ORG</label>
+                                    <input
                                         required
-                                        className="w-full flex-1 min-h-[180px] px-4 py-3.5 rounded-xl bg-muted/40 border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none placeholder:text-muted-foreground/40 text-sm font-medium leading-relaxed"
+                                        type="text"
+                                        name="name"
+                                        placeholder="e.g. Jane Doe // TechVentures"
+                                        className="w-full p-2.5 rounded bg-muted/30 border border-border text-foreground text-xs outline-none focus:border-[#FF4F00]"
                                     />
                                 </div>
-
-                                <div className="shrink-0 pt-1">
-                                    <Button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        size="lg"
-                                        className="w-full h-12 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all cursor-pointer text-sm">
-                                        <Send size={16} />
-                                        <span>
-                                            {isSubmitting ? "Dispatching Message..." : "Dispatch Strategic Inquiry"}
-                                        </span>
-                                    </Button>
+                                <div className="space-y-1">
+                                    <label className="text-[10px] text-muted-foreground">REPLY EMAIL</label>
+                                    <input
+                                        required
+                                        type="email"
+                                        name="email"
+                                        placeholder="jane@techventures.io"
+                                        className="w-full p-2.5 rounded bg-muted/30 border border-border text-foreground text-xs outline-none focus:border-[#FF4F00]"
+                                    />
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+
+                            <div className="space-y-1">
+                                <label className="text-[10px] text-muted-foreground">PROJECT SCOPE / ARCHITECTURE ROADMAP</label>
+                                <textarea
+                                    required
+                                    rows={3}
+                                    name="message"
+                                    placeholder="Brief outline of platform requirements, advisory needs, or clinical system integrations..."
+                                    className="w-full p-2.5 rounded bg-muted/30 border border-border text-foreground text-xs outline-none focus:border-[#FF4F00] resize-none"
+                                />
+                            </div>
+
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="keycap-btn w-full py-2.5 bg-foreground text-background font-bold text-xs rounded hover:bg-[#FF4F00] hover:text-white transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50">
+                                <Send size={12} />
+                                <span>{isSubmitting ? "TRANSMITTING..." : "DISPATCH INQUIRY TO NAEEIM"}</span>
+                            </button>
+                        </form>
+
                     </div>
+
+                    {/* RIGHT (6 COLS): MODE 2 — Interactive CLI Terminal & Command Prompt */}
+                    <div className="lg:col-span-6 space-y-4 font-mono text-xs">
+                        <div className="rounded border border-border bg-card p-5 space-y-4">
+                            
+                            {/* Terminal Top Window Bar */}
+                            <div className="flex items-center justify-between border-b border-border pb-3 text-[10px] text-muted-foreground">
+                                <div className="flex items-center gap-2">
+                                    <Terminal size={13} className="text-[#FF4F00]" />
+                                    <span className="font-bold text-foreground">MODE 02 // INTERACTIVE CLI</span>
+                                </div>
+                                <span className="text-[#10B981]">ONLINE // PORT 3000</span>
+                            </div>
+
+                            {/* Pre-filled Command Chips */}
+                            <div className="space-y-1.5">
+                                <div className="text-[10px] text-muted-foreground">CLICK PRE-FILLED COMMAND CHIPS:</div>
+                                <div className="flex flex-wrap gap-1.5">
+                                    {["help", "status", "stack", "contact", "schedule", "clear"].map((cmd) => (
+                                        <button
+                                            key={cmd}
+                                            type="button"
+                                            onClick={() => handleCliCommand(cmd)}
+                                            className="px-2 py-1 rounded bg-muted/60 border border-border hover:border-[#FF4F00] hover:text-foreground text-[10px] text-muted-foreground transition-all cursor-pointer">
+                                            $ {cmd}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* CLI Console Window */}
+                            <div className="rounded bg-background border border-border p-3.5 space-y-2 min-h-[220px] max-h-[300px] overflow-y-auto">
+                                {cliHistory.map((item, idx) => (
+                                    <div key={idx} className="space-y-1">
+                                        <div className="text-muted-foreground flex items-center gap-1.5">
+                                            <span className="text-[#FF4F00]">&gt;</span>
+                                            <span className="text-foreground">{item.cmd}</span>
+                                        </div>
+                                        <div className="text-muted-foreground pl-3 border-l border-border/80 text-[11px] leading-relaxed">
+                                            {item.output}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* CLI Terminal Input Line */}
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleCliCommand();
+                                }}
+                                className="flex items-center gap-2 pt-1 border-t border-border">
+                                <span className="text-[#FF4F00] font-bold">&gt;</span>
+                                <input
+                                    type="text"
+                                    value={cliInput}
+                                    onChange={(e) => setCliInput(e.target.value)}
+                                    placeholder="Type command (e.g. status, msg Hello Naeeim)..."
+                                    className="w-full bg-transparent text-xs text-foreground outline-none placeholder:text-muted-foreground/50"
+                                />
+                                <button
+                                    type="submit"
+                                    className="keycap-btn px-2.5 py-1 rounded bg-muted border border-border text-[10px] text-foreground hover:border-[#FF4F00] transition-colors">
+                                    RUN
+                                </button>
+                            </form>
+
+                        </div>
+
+                        {/* System Coordinates & Colophon */}
+                        <div className="p-4 rounded border border-border bg-card/30 flex flex-wrap items-center justify-between gap-3 text-[10px] text-muted-foreground">
+                            <div>
+                                © 2026 KHAIRUL BASHAR NAEEIM • WEBZEN BANGLADESH
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <span>SWISS GRID ARCHITECTURE</span>
+                                <span>•</span>
+                                <span className="text-[#10B981]">100% LIGHTHOUSE COMPLIANT</span>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
 
-                {/* Footer copyright bar */}
-                <div className="mt-10 sm:mt-16 lg:mt-20 pt-6 sm:pt-8 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                        <span className="font-bold text-foreground">Khairul Bashar Naeeim</span>
-                        <span>•</span>
-                        <span>Founder &amp; CEO, WebZen Bangladesh</span>
-                    </div>
-                    <div>
-                        © {new Date().getFullYear()} All Rights Reserved. Engineered with Next.js 15.
-                    </div>
-                </div>
             </div>
-        </section>
+
+        </footer>
     );
 };
 

@@ -1,63 +1,156 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-    Code2,
-    LayoutTemplate,
+    Layers,
     Server,
-    Database as DbIcon,
-    Wrench,
-    BrainCircuit,
-    Cloud,
+    Database,
+    Cpu,
+    ArrowRight,
+    CheckCircle2,
+    Code2,
     Shield,
-    Users,
-    Sparkles,
+    Workflow,
+    Zap,
 } from "lucide-react";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
-const skillCategories = [
+interface TechNode {
+    id: string;
+    name: string;
+    tag: string;
+    layer: "client" | "api" | "data";
+    connectedTo: string[];
+    productionUsage: string;
+    invariants: string[];
+    slaMetric: string;
+}
+
+const techMatrix: TechNode[] = [
+    // Layer 1: Client & Presentation Layer
     {
-        title: "Enterprise Architecture & Cloud",
-        icon: Cloud,
-        description: "Designing resilient, high-availability distributed systems and cloud platforms.",
-        skills: ["Next.js 15 (Turbopack)", "Server Actions", "Vercel Cloud", "Microservices Design", "REST APIs", "WebSocket Telemetry"],
-        color: "text-blue-500 bg-blue-500/10 border-blue-500/20",
+        id: "nextjs",
+        name: "Next.js 16 (Turbopack)",
+        tag: "FRAMEWORK",
+        layer: "client",
+        connectedTo: ["typescript", "serveractions", "postgres", "modular-express"],
+        productionUsage: "Hybrid SSR/SSG rendering pipeline, dynamic server components, and route interceptors with sub-40ms edge response times.",
+        invariants: ["Turbopack Zero-HMR Drift", "React 19 Server Actions", "Edge Caching"],
+        slaMetric: "<38ms TTFB on Vercel Edge",
     },
     {
-        title: "Full-Stack Frontend & UX",
-        icon: LayoutTemplate,
-        description: "Crafting fluid, high-conversion interfaces with sub-second performance.",
-        skills: ["React 19", "TypeScript", "Tailwind CSS 4", "Responsive Architecture", "Shadcn UI", "Accessibility (a11y)"],
-        color: "text-pink-500 bg-pink-500/10 border-pink-500/20",
+        id: "typescript",
+        name: "TypeScript 5.8",
+        tag: "LANGUAGE",
+        layer: "client",
+        connectedTo: ["nextjs", "react", "modular-express", "prisma"],
+        productionUsage: "End-to-end type safety spanning client forms, API contract validation (Zod schemas), and Prisma database models.",
+        invariants: ["Strict Null Checks", "Zero Any Invariants", "Inferred Schema Types"],
+        slaMetric: "100% Type-Coverage Guarantee",
     },
     {
-        title: "Backend Engines & Scalable Services",
-        icon: Server,
-        description: "Rock-solid backend logic, authentication security, and transactional reliability.",
-        skills: ["Node.js", "Express.js", "Prisma ORM", "RBAC Security", "JWT Authentication", "API Gateway Logic"],
-        color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
+        id: "react",
+        name: "React 19 & Framer",
+        tag: "UI LIBRARY",
+        layer: "client",
+        connectedTo: ["nextjs", "typescript", "tailwind"],
+        productionUsage: "Concurrent rendering, physics-based spring transitions (stiffness 300, damping 30), and zero-layout-shift micro-interactions.",
+        invariants: ["Zero CLS Layout Invariance", "Spring Physics Kinetics", "Memoized Virtual Tree"],
+        slaMetric: "60 FPS Fluid Interactions",
     },
     {
-        title: "Databases & Data Integrity",
-        icon: DbIcon,
-        description: "Optimized relational and document datastores with zero redundancy.",
-        skills: ["PostgreSQL", "MongoDB", "MySQL", "Firebase", "Schema Normalization", "Query Tuning"],
-        color: "text-amber-500 bg-amber-500/10 border-amber-500/20",
+        id: "tailwind",
+        name: "Tailwind CSS 4",
+        tag: "DESIGN TOKENS",
+        layer: "client",
+        connectedTo: ["react", "nextjs"],
+        productionUsage: "Swiss typographic grid execution, mechanical keycap tactile styling, and hairline 1px structural border architecture.",
+        invariants: ["CSS Custom Property Tokens", "Zero Bloat Utility Engine", "Dark/Light Dynamic Mapping"],
+        slaMetric: "Under 12KB Output Bundle",
+    },
+
+    // Layer 2: API & Orchestration Layer
+    {
+        id: "modular-express",
+        name: "Modular Express Architecture",
+        tag: "BACKEND ENGINE",
+        layer: "api",
+        connectedTo: ["typescript", "prisma", "postgres", "rbac-jwt"],
+        productionUsage: "Domain-driven module isolation (routes, controllers, services, interfaces) with centralized error middleware and request sanitization.",
+        invariants: ["Separation of Concerns", "Decoupled Business Logic", "Async Error Interceptors"],
+        slaMetric: "P99 < 45ms Across REST Endpoints",
     },
     {
-        title: "Algorithmic Precision & Languages",
-        icon: BrainCircuit,
-        description: "Deep mathematical rigor rooted in 600+ solved algorithmic challenges.",
-        skills: ["C++", "C", "C#", "Python", "JavaScript (ES6+)", "Data Structures & Algorithms"],
-        color: "text-cyan-500 bg-cyan-500/10 border-cyan-500/20",
+        id: "prisma",
+        name: "Prisma ORM",
+        tag: "DATA MAPPING",
+        layer: "api",
+        connectedTo: ["postgres", "typescript", "modular-express"],
+        productionUsage: "Declarative schema modeling, automated migrations, relational joins, and atomic transactions ($transaction API) preventing dirty reads.",
+        invariants: ["Relational Foreign Key Integrity", "Auto-Generated Typed Client", "Zero SQL Injection Vulnerability"],
+        slaMetric: "Sub-millisecond ORM Overhead",
     },
     {
-        title: "Engineering Leadership & Governance",
-        icon: Users,
-        description: "Cultivating engineering excellence, technical roadmaps, and mentoring teams.",
-        skills: ["Agile Sprint Leadership", "Technical Architecture Roadmaps", "Code Review Governance", "Talent Mentorship", "Client Advisory"],
-        color: "text-violet-500 bg-violet-500/10 border-violet-500/20",
+        id: "serveractions",
+        name: "Next.js Server Actions",
+        tag: "ORCHESTRATION",
+        layer: "api",
+        connectedTo: ["nextjs", "postgres", "mongodb"],
+        productionUsage: "RPC-style server mutations without manual boilerplate routes, coupled with optimistic UI updates and automated revalidation.",
+        invariants: ["CSRF Protection Inherent", "Server-Only Execution Boundaries", "Atomic Cache Invalidation"],
+        slaMetric: "Instant Cache Mutation",
+    },
+    {
+        id: "rbac-jwt",
+        name: "RBAC & JWT Security",
+        tag: "GOVERNANCE",
+        layer: "api",
+        connectedTo: ["modular-express", "postgres", "nextjs"],
+        productionUsage: "Multi-tenant role-based access control protecting physician command centers, student portals, and administrative endpoints.",
+        invariants: ["Cryptographic Token Signature", "HTTP-Only Secure Cookie Storage", "Granular Permission Guardrails"],
+        slaMetric: "Zero-Trust Enforcement",
+    },
+
+    // Layer 3: Data, Persistence & Intelligence Layer
+    {
+        id: "postgres",
+        name: "PostgreSQL",
+        tag: "PRIMARY RDBMS",
+        layer: "data",
+        connectedTo: ["prisma", "modular-express", "typescript"],
+        productionUsage: "ACID-compliant relational persistence, composite indexing on high-frequency lookups, and normalized third-normal-form (3NF) tables.",
+        invariants: ["Strict Referential Integrity", "B-Tree Indexing Optimization", "Atomic Rollback Support"],
+        slaMetric: "99.99% Data Consistency",
+    },
+    {
+        id: "mongodb",
+        name: "MongoDB Atlas",
+        tag: "DOCUMENT STORE",
+        layer: "data",
+        connectedTo: ["serveractions", "nextjs"],
+        productionUsage: "Flexible schema storage for polymorphic venture content, telemetry event streams, and real-time medical consultation logs.",
+        invariants: ["Global Distributed Sharding", "Document Level Concurrency", "Dynamic Content Schema"],
+        slaMetric: "High-Throughput Write Handling",
+    },
+    {
+        id: "redis",
+        name: "Redis Key-Value Cache",
+        tag: "MEMORY ACCELERATION",
+        layer: "data",
+        connectedTo: ["modular-express", "postgres"],
+        productionUsage: "In-memory query result caching, API rate-limiting token buckets, and distributed slot reservation locks preventing double-booking.",
+        invariants: ["Atomic Lock Mutexes", "TTL Expire Invariants", "Sub-Millisecond Read Latency"],
+        slaMetric: "<2ms Retrieval Latency",
+    },
+    {
+        id: "pytorch",
+        name: "PyTorch (ViT + CNN)",
+        tag: "DEEP LEARNING",
+        layer: "data",
+        connectedTo: ["nextjs", "modular-express"],
+        productionUsage: "Active medical AI model for brain tumor classification and boundary segmentation across 3,064+ MRI scans with Explainable Grad-CAM.",
+        invariants: ["12-Head Self-Attention Stem", "Dual-Path Feature Bottleneck", "Saliency Interpretability"],
+        slaMetric: "98.7% Diagnostic Precision",
     },
 ];
 
@@ -65,96 +158,268 @@ interface SkillsSectionProps {
     data?: any;
 }
 
-const SkillsSection = ({ data }: SkillsSectionProps) => {
-    const categories = data?.skills && data.skills.length > 0 ? data.skills : skillCategories;
+export const SkillSection = ({ data }: SkillsSectionProps) => {
+    const [selectedNodeId, setSelectedNodeId] = useState<string>("prisma");
 
-    useEffect(() => {
-        AOS.init({
-            duration: 600,
-            easing: "ease-in-out",
-            once: true,
-            offset: 80,
-        });
-    }, []);
+    const selectedNode = techMatrix.find((node) => node.id === selectedNodeId) || techMatrix[5];
+
+    const isConnected = (nodeId: string) => {
+        if (nodeId === selectedNodeId) return true;
+        if (selectedNode.connectedTo.includes(nodeId)) return true;
+        const targetNode = techMatrix.find((n) => n.id === nodeId);
+        if (targetNode?.connectedTo.includes(selectedNodeId)) return true;
+        return false;
+    };
+
+    const clientNodes = techMatrix.filter((n) => n.layer === "client");
+    const apiNodes = techMatrix.filter((n) => n.layer === "api");
+    const dataNodes = techMatrix.filter((n) => n.layer === "data");
 
     return (
-        <section id="skills" className="py-8 sm:py-12 md:py-16 bg-background relative overflow-hidden">
-            {/* Ambient lighting */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[20rem] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="max-w-3xl mb-6 sm:mb-8" data-aos="fade-up">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-3">
-                        <Code2 size={13} />
-                        <span>EXECUTIVE CAPABILITIES</span>
+        <section
+            id="architecture"
+            className="w-full border-b border-border bg-background relative overflow-hidden py-12 sm:py-16">
+            
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                
+                {/* Section Header with Swiss Architectural Tagging */}
+                <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
+                            <span className="tech-label text-foreground">
+                                01. ARCHITECTURAL LAYER MATRIX
+                            </span>
+                        </div>
+                        <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
+                            Interactive 3-Tier System Architecture
+                        </h2>
+                        <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
+                            Hover or click any node to trace relational dependencies across the Client Layer, 
+                            API Orchestration Layer, and Data Persistence Store.
+                        </p>
                     </div>
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
-                        Technical Arsenal &amp; Architecture Standards
-                    </h2>
-                    <p className="text-muted-foreground text-sm sm:text-base mt-2">
-                        A curated suite of enterprise technologies, frameworks, and methodologies deployed to engineer mission-critical platforms.
-                    </p>
+
+                    <div className="flex items-center gap-3 text-xs font-mono text-muted-foreground bg-card border border-border px-3 py-1.5 rounded">
+                        <span className="inline-block w-2 h-2 rounded-full bg-[#10B981] animate-ping" />
+                        <span>ACTIVE NODE: {selectedNode.name.toUpperCase()}</span>
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
-                    {categories.map((category: any, index: number) => {
-                        const fallbackIcons = [Cloud, Server, DbIcon, Code2, LayoutTemplate, BrainCircuit];
-                        const fallbackColors = [
-                            "text-blue-500 bg-blue-500/10 border-blue-500/20",
-                            "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
-                            "text-cyan-500 bg-cyan-500/10 border-cyan-500/20",
-                            "text-amber-500 bg-amber-500/10 border-amber-500/20",
-                            "text-pink-500 bg-pink-500/10 border-pink-500/20",
-                            "text-violet-500 bg-violet-500/10 border-violet-500/20",
-                        ];
-                        const Icon = typeof category.icon === "function" || typeof category.icon === "object"
-                            ? category.icon
-                            : fallbackIcons[index % fallbackIcons.length] || Code2;
-                        const cardColor = category.color || fallbackColors[index % fallbackColors.length];
+                {/* 12-Column Layout: 8 Cols Interactive Diagram / 4 Cols Monospace Production Inspector */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    {/* LEFT (8 COLS): 3-Tier System Architecture Diagram */}
+                    <div className="lg:col-span-8 space-y-6">
+                        
+                        {/* TIER 1: CLIENT & PRESENTATION LAYER */}
+                        <div className="p-4 sm:p-5 rounded border border-border bg-card/60 space-y-3">
+                            <div className="flex items-center justify-between text-xs font-mono text-muted-foreground border-b border-border pb-2">
+                                <span className="font-bold text-foreground flex items-center gap-2">
+                                    <Layers size={13} className="text-[#FF4F00]" />
+                                    <span>TIER 01: CLIENT &amp; PRESENTATION LAYER</span>
+                                </span>
+                                <span className="text-[10px]">SSR • REACT 19 • TURBOPACK</span>
+                            </div>
 
-                        return (
-                            <div
-                                key={index}
-                                className="group relative p-5 sm:p-6 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl hover:bg-card hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between"
-                                data-aos="fade-up"
-                                data-aos-delay={index * 100}>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
+                                {clientNodes.map((node) => {
+                                    const active = isConnected(node.id);
+                                    const isCurrent = node.id === selectedNodeId;
+                                    return (
+                                        <button
+                                            key={node.id}
+                                            type="button"
+                                            onClick={() => setSelectedNodeId(node.id)}
+                                            onMouseEnter={() => setSelectedNodeId(node.id)}
+                                            className={`p-3 rounded text-left font-mono transition-all border cursor-pointer ${
+                                                isCurrent
+                                                    ? "bg-[#FF4F00] text-white border-[#FF4F00] shadow-md"
+                                                    : active
+                                                    ? "bg-card border-[#FF4F00]/60 text-foreground"
+                                                    : "bg-muted/30 border-border/80 text-muted-foreground hover:text-foreground hover:border-foreground/40"
+                                            }`}>
+                                            <div className="text-[9px] uppercase tracking-wider opacity-80">{node.tag}</div>
+                                            <div className="text-xs font-bold truncate mt-0.5">{node.name}</div>
+                                            <div className="text-[10px] mt-1 opacity-70 flex items-center gap-1">
+                                                <span>{active ? "• Connected" : "— Standby"}</span>
+                                            </div>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        {/* Visual Connector Hairline */}
+                        <div className="flex justify-center items-center py-0.5">
+                            <div className="h-4 w-px bg-border relative">
+                                <div className="absolute top-1/2 -left-1 w-2 h-2 rounded-full bg-[#FF4F00]" />
+                            </div>
+                        </div>
+
+                        {/* TIER 2: API & ORCHESTRATION LAYER */}
+                        <div className="p-4 sm:p-5 rounded border border-border bg-card/60 space-y-3">
+                            <div className="flex items-center justify-between text-xs font-mono text-muted-foreground border-b border-border pb-2">
+                                <span className="font-bold text-foreground flex items-center gap-2">
+                                    <Server size={13} className="text-[#FF4F00]" />
+                                    <span>TIER 02: API &amp; ORCHESTRATION LAYER</span>
+                                </span>
+                                <span className="text-[10px]">MODULAR EXPRESS • PRISMA • RBAC</span>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
+                                {apiNodes.map((node) => {
+                                    const active = isConnected(node.id);
+                                    const isCurrent = node.id === selectedNodeId;
+                                    return (
+                                        <button
+                                            key={node.id}
+                                            type="button"
+                                            onClick={() => setSelectedNodeId(node.id)}
+                                            onMouseEnter={() => setSelectedNodeId(node.id)}
+                                            className={`p-3 rounded text-left font-mono transition-all border cursor-pointer ${
+                                                isCurrent
+                                                    ? "bg-[#FF4F00] text-white border-[#FF4F00] shadow-md"
+                                                    : active
+                                                    ? "bg-card border-[#FF4F00]/60 text-foreground"
+                                                    : "bg-muted/30 border-border/80 text-muted-foreground hover:text-foreground hover:border-foreground/40"
+                                            }`}>
+                                            <div className="text-[9px] uppercase tracking-wider opacity-80">{node.tag}</div>
+                                            <div className="text-xs font-bold truncate mt-0.5">{node.name}</div>
+                                            <div className="text-[10px] mt-1 opacity-70 flex items-center gap-1">
+                                                <span>{active ? "• Connected" : "— Standby"}</span>
+                                            </div>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        {/* Visual Connector Hairline */}
+                        <div className="flex justify-center items-center py-0.5">
+                            <div className="h-4 w-px bg-border relative">
+                                <div className="absolute top-1/2 -left-1 w-2 h-2 rounded-full bg-[#10B981]" />
+                            </div>
+                        </div>
+
+                        {/* TIER 3: DATA, PERSISTENCE & INTELLIGENCE LAYER */}
+                        <div className="p-4 sm:p-5 rounded border border-border bg-card/60 space-y-3">
+                            <div className="flex items-center justify-between text-xs font-mono text-muted-foreground border-b border-border pb-2">
+                                <span className="font-bold text-foreground flex items-center gap-2">
+                                    <Database size={13} className="text-[#10B981]" />
+                                    <span>TIER 03: DATA, PERSISTENCE &amp; INTELLIGENCE</span>
+                                </span>
+                                <span className="text-[10px]">POSTGRESQL • REDIS • PYTORCH</span>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
+                                {dataNodes.map((node) => {
+                                    const active = isConnected(node.id);
+                                    const isCurrent = node.id === selectedNodeId;
+                                    return (
+                                        <button
+                                            key={node.id}
+                                            type="button"
+                                            onClick={() => setSelectedNodeId(node.id)}
+                                            onMouseEnter={() => setSelectedNodeId(node.id)}
+                                            className={`p-3 rounded text-left font-mono transition-all border cursor-pointer ${
+                                                isCurrent
+                                                    ? "bg-[#10B981] text-white border-[#10B981] shadow-md"
+                                                    : active
+                                                    ? "bg-card border-[#10B981]/60 text-foreground"
+                                                    : "bg-muted/30 border-border/80 text-muted-foreground hover:text-foreground hover:border-foreground/40"
+                                            }`}>
+                                            <div className="text-[9px] uppercase tracking-wider opacity-80">{node.tag}</div>
+                                            <div className="text-xs font-bold truncate mt-0.5">{node.name}</div>
+                                            <div className="text-[10px] mt-1 opacity-70 flex items-center gap-1">
+                                                <span>{active ? "• Connected" : "— Standby"}</span>
+                                            </div>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {/* RIGHT (4 COLS): Monospace Production Usage Side-Panel */}
+                    <div className="lg:col-span-4 sticky top-20">
+                        <div className="rounded border border-border bg-card p-5 space-y-4 font-mono text-xs">
+                            
+                            <div className="flex items-center justify-between border-b border-border pb-3">
                                 <div>
-                                    {/* Header */}
-                                    <div className="flex items-center gap-4 mb-4">
-                                        <div
-                                            className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${cardColor} group-hover:scale-110 transition-transform duration-500 shadow-sm`}>
-                                            <Icon size={22} />
-                                        </div>
-                                        <h3 className="text-lg font-bold text-foreground tracking-tight leading-snug">
-                                            {category.title}
-                                        </h3>
-                                    </div>
+                                    <span className="text-[10px] text-muted-foreground uppercase tracking-widest">
+                                        NODE INSPECTION
+                                    </span>
+                                    <h3 className="text-sm font-bold text-foreground mt-0.5">
+                                        {selectedNode.name}
+                                    </h3>
+                                </div>
+                                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#FF4F00]/10 text-[#FF4F00] border border-[#FF4F00]/20">
+                                    {selectedNode.tag}
+                                </span>
+                            </div>
 
-                                <p className="text-xs text-muted-foreground leading-relaxed mb-6">
-                                    {category.description}
+                            {/* Production Architecture Usage Callout */}
+                            <div className="space-y-1.5">
+                                <div className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                                    PRODUCTION IMPLEMENTATION
+                                </div>
+                                <p className="text-xs text-foreground leading-relaxed p-3 rounded bg-muted/40 border border-border/70">
+                                    {selectedNode.productionUsage}
                                 </p>
+                            </div>
 
-                                {/* Skill Tags */}
-                                <div className="flex flex-wrap gap-2">
-                                    {category.skills?.map((skill: string, sIndex: number) => (
-                                        <span
-                                            key={sIndex}
-                                            className="px-3 py-1.5 rounded-xl bg-muted/60 border border-border/60 text-xs font-semibold text-muted-foreground group-hover:text-foreground group-hover:border-primary/20 transition-colors">
-                                            {skill}
-                                        </span>
+                            {/* Architectural Invariants */}
+                            <div className="space-y-2">
+                                <div className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                                    ARCHITECTURAL INVARIANTS
+                                </div>
+                                <div className="space-y-1">
+                                    {selectedNode.invariants.map((item, i) => (
+                                        <div key={i} className="flex items-center gap-2 text-[11px] text-foreground">
+                                            <CheckCircle2 size={12} className="text-[#10B981] shrink-0" />
+                                            <span>{item}</span>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
 
-                            {/* Decorative background glow for card */}
-                            <div className="absolute -z-10 inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                            {/* SLA Telemetry Benchmark */}
+                            <div className="pt-2 border-t border-border flex items-center justify-between">
+                                <span className="text-[10px] text-muted-foreground">SLA BENCHMARK:</span>
+                                <span className="text-xs font-bold text-[#10B981]">{selectedNode.slaMetric}</span>
+                            </div>
+
+                            {/* Active Trace Graph */}
+                            <div className="pt-2 border-t border-border space-y-1 text-[10px] text-muted-foreground">
+                                <div className="flex items-center justify-between">
+                                    <span>CONNECTED DEPENDENCIES:</span>
+                                    <span className="text-foreground font-bold">{selectedNode.connectedTo.length} NODES</span>
+                                </div>
+                                <div className="flex flex-wrap gap-1 pt-1">
+                                    {selectedNode.connectedTo.map((depId) => {
+                                        const depNode = techMatrix.find((n) => n.id === depId);
+                                        return (
+                                            <span
+                                                key={depId}
+                                                className="px-1.5 py-0.5 rounded bg-muted text-[10px] text-foreground">
+                                                {depNode?.name.split(" ")[0] || depId}
+                                            </span>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
                         </div>
-                    );
-                })}
+                    </div>
+
                 </div>
+
             </div>
+
         </section>
     );
 };
 
-export default SkillsSection;
+export default SkillSection;

@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { GraduationCap, Monitor, Calendar, MapPin, Award, BookOpen } from "lucide-react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React from "react";
+import { GraduationCap, Calendar, MapPin, Award, BookOpen, CheckCircle2 } from "lucide-react";
 
 interface EducationSectionProps {
     data?: any;
@@ -12,28 +10,28 @@ interface EducationSectionProps {
 const defaultCourses = [
     {
         title: "Programming Hero",
-        level: "Level 2",
-        badge: "Next Level Development",
-        desc: "Advanced mastery of Prisma, PostgreSQL, TypeScript, and Express module patterns.",
+        level: "Level 2 Specialization",
+        badge: "Next Level Web Development",
+        desc: "Advanced relational modeling with Prisma ORM, PostgreSQL schema design, TypeScript 5, and modular Express architectures.",
     },
     {
         title: "Programming Hero",
-        level: "Level 1",
-        badge: "Complete Web Development",
-        desc: "Comprehensive foundation in HTML, CSS, JavaScript, React.js, and the MERN stack.",
+        level: "Level 1 Foundation",
+        badge: "Full-Stack Web Engineering",
+        desc: "Deep immersion in HTML5, CSS3, ES6+ JavaScript, React.js component architectures, and REST API development.",
     },
     {
         title: "Phitron",
-        level: "Foundation",
-        badge: "Computer Fundamentals & DS",
-        desc: "Deep dive into C/C++, algorithmic logic, and fundamental computer science concepts.",
+        level: "Core Algorithms",
+        badge: "Computer Fundamentals & Data Structures",
+        desc: "Rigorous training in C/C++, algorithmic logic, memory management, pointers, recursion, and graph algorithms.",
     },
 ];
 
-const EducationSection = ({ data }: EducationSectionProps) => {
+export const EducationSection = ({ data }: EducationSectionProps) => {
     const education = data?.education || {};
     const defaultDegree = {
-        degree: education.degree || "BSc in Computer Science Engineering (CSE)",
+        degree: education.degree || "BSc in Computer Science & Engineering (CSE)",
         institution: education.institution || "Sonargaon University",
         timeline: education.timeline || "2025 — Present",
         cgpa: education.cgpa || "3.59 / 4.00",
@@ -47,197 +45,111 @@ const EducationSection = ({ data }: EducationSectionProps) => {
 
     const courses = education.courses && education.courses.length > 0 ? education.courses : defaultCourses;
 
-    useEffect(() => {
-        AOS.init({
-            duration: 500,
-            easing: "ease-in-out",
-            once: false,
-            offset: 100,
-        });
-    }, []);
-
     return (
-        <section id="education" className="py-8 sm:py-12 md:py-16 bg-background relative overflow-hidden">
-            {/* Ambient lighting */}
-            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                {/* 1. ACADEMIC DEGREE */}
-                <div className="mb-8 sm:mb-10 md:mb-12">
-                    <div className="flex items-center gap-3 mb-4 sm:mb-6" data-aos="fade-up">
-                        <div className="p-2.5 bg-primary/10 rounded-xl text-primary">
-                            <GraduationCap size={28} />
+        <section
+            id="education"
+            className="w-full border-b border-border bg-background relative overflow-hidden py-12 sm:py-16">
+            
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+                
+                {/* Header */}
+                <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
+                            <span className="tech-label text-foreground">
+                                06. ACADEMIC FOUNDATIONS &amp; CREDENTIALS
+                            </span>
                         </div>
-                        <div>
-                            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
-                                {degrees.length > 1 ? "Academic Degrees" : "Academic Degree"}
-                            </h2>
-                            <p className="text-muted-foreground text-xs sm:text-sm">
-                                University education and core engineering milestones.
-                            </p>
-                        </div>
+                        <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
+                            Education &amp; Professional Specialization
+                        </h2>
+                        <p className="text-xs sm:text-sm text-muted-foreground font-mono max-w-2xl">
+                            Formal computer science degree coupled with intensive industrial specializations 
+                            in relational databases, backend engineering, and algorithmic mastery.
+                        </p>
                     </div>
 
-                    {degrees.length === 1 ? (
-                        <div className="group relative" data-aos="fade-up" data-aos-delay="100">
-                            <div className="relative p-5 sm:p-7 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-300">
-                                <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-                                    <div className="space-y-4">
-                                        <div className="flex flex-wrap items-center gap-3">
-                                            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold tracking-widest uppercase border border-primary/20">
-                                                {degrees[0].status || "Currently Studying"}
-                                            </span>
-                                            <div className="flex items-center gap-1.5 text-muted-foreground text-sm font-mono">
-                                                <Calendar size={14} />
-                                                <span>{degrees[0].timeline}</span>
-                                            </div>
-                                        </div>
+                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground bg-card border border-border px-3 py-1.5 rounded">
+                        <span className="text-foreground font-bold">CGPA: 3.59 / 4.00</span>
+                        <span>•</span>
+                        <span className="text-[#10B981]">ACTIVE DEGREE</span>
+                    </div>
+                </div>
 
-                                        <div>
-                                            <h3 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
-                                                {degrees[0].institution}
-                                            </h3>
-                                            <p className="text-lg text-muted-foreground font-medium mt-1">
-                                                {degrees[0].degree}
-                                            </p>
-                                        </div>
+                {/* 12-Column Grid: Degree (6 Cols) & Professional Certifications (6 Cols) */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    {/* LEFT (6 COLS): Degree Milestone */}
+                    <div className="lg:col-span-6 space-y-4">
+                        <div className="text-[10px] font-mono uppercase text-muted-foreground tracking-wider">
+                            UNIVERSITY DEGREE:
+                        </div>
 
-                                        {/* CGPA as a sleek, dynamic detail pill */}
-                                        <div className="flex flex-wrap items-center gap-4 pt-2">
-                                            {degrees[0].cgpa && (
-                                                <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-sm font-semibold">
-                                                    <BookOpen size={15} className="text-primary" />
-                                                    <span className="text-muted-foreground">
-                                                        CGPA:
-                                                    </span>
-                                                    <span className="text-foreground font-extrabold tracking-wide">
-                                                        {degrees[0].cgpa}
-                                                    </span>
-                                                </div>
-                                            )}
+                        {degrees.map((deg, idx) => (
+                            <div
+                                key={idx}
+                                className="p-6 rounded border border-border bg-card/60 font-mono text-xs space-y-4">
+                                <div className="flex items-center justify-between border-b border-border pb-3">
+                                    <span className="text-[10px] font-bold text-[#FF4F00] uppercase tracking-wider">
+                                        {deg.status || "Currently Studying"}
+                                    </span>
+                                    <span className="text-[11px] text-muted-foreground">{deg.timeline}</span>
+                                </div>
 
-                                            {degrees[0].location && (
-                                                <div className="flex items-center gap-1.5 text-sm text-muted-foreground font-medium">
-                                                    <MapPin size={16} className="text-primary/60" />
-                                                    <span>{degrees[0].location}</span>
-                                                </div>
-                                            )}
-                                        </div>
+                                <div className="space-y-1">
+                                    <h3 className="text-xl font-bold font-sans text-foreground">
+                                        {deg.institution}
+                                    </h3>
+                                    <p className="text-xs text-[#FF4F00] font-semibold">
+                                        {deg.degree}
+                                    </p>
+                                </div>
+
+                                <div className="pt-2 border-t border-border grid grid-cols-2 gap-3 text-[11px]">
+                                    <div className="p-2.5 rounded bg-muted/40 border border-border/60">
+                                        <div className="text-[9px] text-muted-foreground uppercase">ACADEMIC STANDING</div>
+                                        <div className="text-sm font-bold text-foreground mt-0.5">{deg.cgpa}</div>
                                     </div>
-
-                                    <div className="hidden lg:flex items-center justify-center w-20 h-20 rounded-2xl bg-muted/30 border border-dashed border-border text-muted-foreground/50">
-                                        <GraduationCap size={40} strokeWidth={1} />
+                                    <div className="p-2.5 rounded bg-muted/40 border border-border/60">
+                                        <div className="text-[9px] text-muted-foreground uppercase">CAMPUS LOCATION</div>
+                                        <div className="text-xs font-bold text-foreground mt-0.5">{deg.location}</div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-                            {degrees.map((deg: any, dIdx: number) => (
-                                <div
-                                    key={dIdx}
-                                    className="group relative"
-                                    data-aos="fade-up"
-                                    data-aos-delay={dIdx * 100}>
-                                    <div className="h-full relative p-5 sm:p-7 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-300 flex flex-col justify-between">
-                                        <div className="space-y-4">
-                                            <div className="flex flex-wrap items-center justify-between gap-3">
-                                                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold tracking-widest uppercase border border-primary/20">
-                                                    {deg.status || (dIdx === 0 ? "Currently Studying" : "Academic Degree")}
-                                                </span>
-                                                <div className="flex items-center gap-1.5 text-muted-foreground text-xs font-mono">
-                                                    <Calendar size={13} />
-                                                    <span>{deg.timeline || "Academic Session"}</span>
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <h3 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
-                                                    {deg.institution}
-                                                </h3>
-                                                <p className="text-base text-muted-foreground font-medium mt-1">
-                                                    {deg.degree}
-                                                </p>
-                                            </div>
-
-                                            <div className="flex flex-wrap items-center gap-3 pt-2">
-                                                {deg.cgpa && (
-                                                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-xs font-semibold">
-                                                        <BookOpen size={14} className="text-primary" />
-                                                        <span className="text-muted-foreground">CGPA:</span>
-                                                        <span className="text-foreground font-extrabold tracking-wide">
-                                                            {deg.cgpa}
-                                                        </span>
-                                                    </div>
-                                                )}
-
-                                                {deg.location && (
-                                                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                                                        <MapPin size={14} className="text-primary/60" />
-                                                        <span>{deg.location}</span>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-
-                {/* 2. ONLINE COURSES SECTION */}
-                <div>
-                    <div className="flex items-center gap-3 mb-4 sm:mb-6" data-aos="fade-up">
-                        <div className="p-2.5 bg-primary/10 rounded-xl text-primary">
-                            <Monitor size={28} />
-                        </div>
-                        <div>
-                            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
-                                Online Specializations
-                            </h2>
-                            <p className="text-muted-foreground text-xs sm:text-sm">
-                                Professional development and tech specializations.
-                            </p>
-                        </div>
+                        ))}
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                        {courses.map((course: any, idx: number) => {
-                            const colors = [
-                                { border: "hover:border-primary/40", badge: "text-primary bg-primary/10 border-primary/20" },
-                                { border: "hover:border-blue-500/40", badge: "text-blue-500 bg-blue-500/10 border-blue-500/20" },
-                                { border: "hover:border-emerald-500/40", badge: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" },
-                            ];
-                            const c = colors[idx % colors.length];
+                    {/* RIGHT (6 COLS): Professional Certifications */}
+                    <div className="lg:col-span-6 space-y-4">
+                        <div className="text-[10px] font-mono uppercase text-muted-foreground tracking-wider">
+                            PROFESSIONAL CERTIFICATIONS &amp; COHORTS:
+                        </div>
 
-                            return (
+                        <div className="space-y-3 font-mono text-xs">
+                            {courses.map((course: any, idx: number) => (
                                 <div
                                     key={idx}
-                                    className={`group p-5 sm:p-7 rounded-2xl border border-border/80 dark:border-white/10 bg-card/75 backdrop-blur-xl shadow-sm hover:shadow-xl ${c.border} transition-all duration-300`}
-                                    data-aos="fade-up"
-                                    data-aos-delay={(idx + 1) * 100}>
-                                    <div className="flex justify-between items-start mb-5">
-                                        <div className="p-3 bg-primary/10 rounded-xl text-primary group-hover:rotate-12 transition-transform">
-                                            <Award size={24} />
-                                        </div>
-                                        <span className={`text-[10px] font-bold px-2 py-1 rounded-lg border uppercase ${c.badge}`}>
-                                            {course.level}
-                                        </span>
+                                    className="p-4 rounded border border-border bg-card/40 space-y-2 hover:border-foreground/30 transition-colors">
+                                    <div className="flex items-center justify-between text-[10px]">
+                                        <span className="font-bold text-[#10B981]">{course.title}</span>
+                                        <span className="text-muted-foreground">{course.level}</span>
                                     </div>
-                                    <h4 className="text-lg font-bold mb-1 text-foreground">{course.title}</h4>
-                                    <p className="text-xs font-semibold text-foreground/70 mb-3 italic">
+                                    <div className="text-xs font-bold text-foreground">
                                         {course.badge}
-                                    </p>
-                                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                                    </div>
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed font-sans">
                                         {course.desc}
                                     </p>
                                 </div>
-                            );
-                        })}
+                            ))}
+                        </div>
                     </div>
+
                 </div>
+
             </div>
+
         </section>
     );
 };

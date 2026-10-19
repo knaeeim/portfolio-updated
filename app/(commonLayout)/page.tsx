@@ -16,20 +16,22 @@ export const dynamic = "force-dynamic";
 const CommonLayoutHomePage = async () => {
     const portfolioData = await getPortfolioData();
 
-    const companyName = portfolioData?.general?.company || "WebZen";
+    const companyName = portfolioData?.general?.company || "WebZen Bangladesh";
     const userName = portfolioData?.general?.name || "Khairul Bashar Naeeim";
 
     return (
-        <div>
+        <div className="w-full min-h-screen bg-background text-foreground flex flex-col">
             <Navbar1 companyName={companyName} userName={userName} />
-            <TerminalHero data={portfolioData} />
-            <AboutMe data={portfolioData} />
-            <ExperienceSection data={portfolioData} />
-            <SkillSection data={portfolioData} />
-            <ProjectsSection data={portfolioData} />
-            <ResearchSection data={portfolioData} />
-            <EducationSection data={portfolioData} />
-            <ContactSection data={portfolioData} />
+            <main className="flex-1 w-full">
+                <TerminalHero data={portfolioData} />
+                <AboutMe data={portfolioData} />
+                <SkillSection data={portfolioData} />
+                <ProjectsSection data={portfolioData} />
+                <ExperienceSection data={portfolioData} />
+                <ResearchSection data={portfolioData} />
+                <EducationSection data={portfolioData} />
+                <ContactSection data={portfolioData} />
+            </main>
         </div>
     );
 };

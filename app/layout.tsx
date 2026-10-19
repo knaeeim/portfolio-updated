@@ -49,7 +49,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden min-h-screen`}>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden min-h-screen bg-background text-foreground`}>
+                <div className="film-grain-bg" aria-hidden="true" />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
