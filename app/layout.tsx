@@ -43,8 +43,8 @@ export const metadata: Metadata = {
         images: [
             {
                 url: "/og-image.png",
-                width: 1200,
-                height: 630,
+                width: 1477,
+                height: 825,
                 alt: "Khairul Bashar Naeeim — Software Architect & Founder",
             },
         ],
