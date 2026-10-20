@@ -204,11 +204,11 @@ export const TerminalHero = ({ data }: BannerProps) => {
                                     <ArrowUpRight size={13} />
                                 </a>
                                 <a
-                                    href="/resume.pdf"
-                                    download
+                                    href={data?.general?.resumeUrl || "/resume.pdf"}
+                                    download={data?.general?.resumeFileName || true}
                                     className="px-3 xs:px-4 py-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900/60 text-neutral-800 dark:text-neutral-200 font-semibold uppercase tracking-wider rounded hover:border-neutral-900 dark:hover:border-white transition-colors inline-flex items-center gap-1.5 xs:gap-2 text-[11px] xs:text-xs">
                                     <FileText size={13} className="text-[#E64A11]" />
-                                    <span>EXECUTIVE CV</span>
+                                    <span>{(data?.general?.resumeTitle || "EXECUTIVE CV").toUpperCase()}</span>
                                 </a>
                                 <a
                                     href={whatsappUrl}

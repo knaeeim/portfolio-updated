@@ -62,6 +62,14 @@ const leadershipTimeline = [
 export const AboutMe = ({ data }: AboutMeProps) => {
     const { handleMouseMove, handleMouseLeave, l0 } = usePosterParallax();
 
+    const pillars = Array.isArray(data?.about?.pillars) && data.about.pillars.length > 0
+        ? data.about.pillars
+        : strategicPillars;
+
+    const timeline = Array.isArray(data?.about?.timeline) && data.about.timeline.length > 0
+        ? data.about.timeline
+        : leadershipTimeline;
+
     return (
         <section
             id="about"
@@ -122,7 +130,7 @@ export const AboutMe = ({ data }: AboutMeProps) => {
 
                 {/* 4 Strategic Pillars */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                    {strategicPillars.map((pillar, idx) => (
+                    {pillars.map((pillar: any, idx: number) => (
                         <motion.div
                             key={idx}
                             initial={{ opacity: 0, y: 30 }}
@@ -157,7 +165,7 @@ export const AboutMe = ({ data }: AboutMeProps) => {
                     </div>
 
                     <div className="border border-neutral-200 dark:border-neutral-800 rounded-xs overflow-hidden divide-y divide-neutral-200 dark:divide-neutral-800 bg-white dark:bg-[#0A0A09] shadow-sm dark:shadow-none">
-                        {leadershipTimeline.map((item, idx) => (
+                        {timeline.map((item: any, idx: number) => (
                             <motion.div
                                 key={idx}
                                 initial={{ opacity: 0, x: -15 }}

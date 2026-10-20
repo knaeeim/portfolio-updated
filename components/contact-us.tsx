@@ -219,12 +219,12 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
 
                         {/* 4. Resume */}
                         <a
-                            href="/resume.pdf"
-                            download
+                            href={general.resumeUrl || "/resume.pdf"}
+                            download={general.resumeFileName || true}
                             className="p-3.5 rounded-xs bg-black text-white hover:bg-white hover:text-black transition-colors flex items-center justify-between group shadow">
                             <div className="flex items-center gap-2.5">
                                 <FileText size={16} className="text-[#E64A11]" />
-                                <span className="font-bold">Executive CV</span>
+                                <span className="font-bold">{general.resumeTitle || "Executive CV"}</span>
                             </div>
                             <Download size={13} className="text-[#E64A11]" />
                         </a>

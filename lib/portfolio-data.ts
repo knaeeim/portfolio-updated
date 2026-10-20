@@ -51,8 +51,32 @@ export async function getPortfolioData(): Promise<any> {
                         ...cleanDoc,
                         general: { ...(localData?.general || {}), ...(cleanDoc?.general || {}) },
                         hero: { ...(localData?.hero || {}), ...(cleanDoc?.hero || {}) },
-                        research: { ...(localData?.research || {}), ...(cleanDoc?.research || {}) },
-                        about: { ...(localData?.about || {}), ...(cleanDoc?.about || {}) },
+                        research: {
+                            ...(localData?.research || {}),
+                            ...(cleanDoc?.research || {}),
+                            pillars: Array.isArray(cleanDoc?.research?.pillars) && cleanDoc.research.pillars.length > 0
+                                ? cleanDoc.research.pillars
+                                : (localData?.research?.pillars || []),
+                            architectureSteps: Array.isArray(cleanDoc?.research?.architectureSteps) && cleanDoc.research.architectureSteps.length > 0
+                                ? cleanDoc.research.architectureSteps
+                                : (localData?.research?.architectureSteps || []),
+                            techStack: Array.isArray(cleanDoc?.research?.techStack) && cleanDoc.research.techStack.length > 0
+                                ? cleanDoc.research.techStack
+                                : (localData?.research?.techStack || []),
+                            metrics: Array.isArray(cleanDoc?.research?.metrics) && cleanDoc.research.metrics.length > 0
+                                ? cleanDoc.research.metrics
+                                : (localData?.research?.metrics || []),
+                        },
+                        about: {
+                            ...(localData?.about || {}),
+                            ...(cleanDoc?.about || {}),
+                            pillars: Array.isArray(cleanDoc?.about?.pillars) && cleanDoc.about.pillars.length > 0
+                                ? cleanDoc.about.pillars
+                                : (localData?.about?.pillars || []),
+                            timeline: Array.isArray(cleanDoc?.about?.timeline) && cleanDoc.about.timeline.length > 0
+                                ? cleanDoc.about.timeline
+                                : (localData?.about?.timeline || []),
+                        },
                         education: {
                             ...(localData?.education || {}),
                             ...(cleanDoc?.education || {}),

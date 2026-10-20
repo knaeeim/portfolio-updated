@@ -94,9 +94,10 @@ export default function AdminDashboardPage() {
     const [manualImageUrl, setManualImageUrl] = useState<string>("");
     const [manualImageLabel, setManualImageLabel] = useState<string>("");
 
-    // Research Tab New Tech Input State
+    // Research & CV Document Upload States
     const [newResearchTech, setNewResearchTech] = useState<string>("");
     const [uploadingResearchDoc, setUploadingResearchDoc] = useState<boolean>(false);
+    const [uploadingResumeDoc, setUploadingResumeDoc] = useState<boolean>(false);
 
     // Verify session on mount
     useEffect(() => {
@@ -789,6 +790,47 @@ export default function AdminDashboardPage() {
         }
     };
 
+    // Handle Executive CV / Resume Document Upload (PDF, DOCX)
+    const handleResumeFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        try {
+            setUploadingResumeDoc(true);
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const res = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (res.ok) {
+                const resJson = await res.json();
+                const uploadedUrl = resJson.url;
+
+                setData((prev: any) => ({
+                    ...prev,
+                    general: {
+                        ...prev.general,
+                        resumeUrl: uploadedUrl,
+                        resumeFileName: file.name,
+                    },
+                }));
+
+                toast.success(`Executive CV "${file.name}" uploaded successfully! Click "Save Changes" to publish.`);
+            } else {
+                toast.error("Failed to upload CV document.");
+            }
+        } catch (error) {
+            console.error("Resume document upload error:", error);
+            toast.error("Network error uploading CV document.");
+        } finally {
+            setUploadingResumeDoc(false);
+            e.target.value = "";
+        }
+    };
+
     if (isCheckingAuth) {
         return (
             <div className="min-h-screen bg-background flex flex-col items-center justify-center space-y-4">
@@ -1370,6 +1412,122 @@ export default function AdminDashboardPage() {
                                         onChange={(e) => updateGeneral("linkedin", e.target.value)}
                                         className="w-full px-4 py-2.5 rounded-xl bg-muted/40 border border-border text-sm focus:border-primary outline-none"
                                     />
+                                </div>
+                            </div>
+
+                            {/* Executive CV & Resume Management Card */}
+                            <div className="space-y-4 pt-6 border-t border-border/60">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div>
+                                        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-foreground">
+                                            <FileText size={15} className="text-[#E64A11]" />
+                                            <span>Executive CV &amp; Resume Management</span>
+                                        </div>
+                                        <p className="text-[11px] text-muted-foreground mt-0.5">
+                                            Upload your latest CV (PDF/DOCX) and customize the button title displayed across the Hero, Navigation, and Contact sections.
+                                        </p>
+                                    </div>
+                                    {data.general?.resumeUrl && (
+                                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 self-start sm:self-auto">
+                                            Active CV Attached
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {/* CV Title Input */}
+                                    <div className="p-4 rounded-2xl bg-muted/30 border border-border space-y-2">
+                                        <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                                            1. CV Button Title / Label
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={data.general?.resumeTitle || ""}
+                                            onChange={(e) => updateGeneral("resumeTitle", e.target.value)}
+                                            placeholder="e.g. Executive CV / Principal Architect CV"
+                                            className="w-full px-3 py-2 rounded-xl bg-background border border-border text-xs font-semibold focus:outline-none focus:border-[#E64A11]"
+                                        />
+                                        <p className="text-[10px] text-muted-foreground">
+                                            This title appears on buttons across the Hero banner, Navbar command palette &amp; mobile menu, and Contact section.
+                                        </p>
+                                    </div>
+
+                                    {/* CV Document Upload */}
+                                    <div className="p-4 rounded-2xl bg-muted/30 border border-border space-y-2">
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                                                2. Upload CV Document (PDF, DOCX)
+                                            </label>
+                                        </div>
+
+                                        {data.general?.resumeUrl ? (
+                                            <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#E64A11]/10 border border-[#E64A11]/30">
+                                                <div className="flex items-center gap-2 overflow-hidden">
+                                                    <FileText size={16} className="text-[#E64A11] shrink-0" />
+                                                    <span className="text-xs font-semibold text-foreground truncate max-w-[180px]">
+                                                        {data.general?.resumeFileName || data.general?.resumeUrl}
+                                                    </span>
+                                                </div>
+                                                <div className="flex items-center gap-1.5 shrink-0">
+                                                    <a
+                                                        href={data.general.resumeUrl}
+                                                        target="_blank"
+                                                        rel="noreferrer noopener"
+                                                        className="px-2.5 py-1 rounded-lg bg-[#E64A11] text-white text-[11px] font-bold hover:bg-[#d0400c] transition-colors inline-flex items-center gap-1">
+                                                        <span>View</span>
+                                                        <ExternalLink size={10} />
+                                                    </a>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setData({
+                                                                ...data,
+                                                                general: {
+                                                                    ...data.general,
+                                                                    resumeUrl: "",
+                                                                    resumeFileName: "",
+                                                                },
+                                                            });
+                                                            toast.info("Removed uploaded CV. Click 'Save Changes' to update.");
+                                                        }}
+                                                        className="p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
+                                                        title="Remove CV">
+                                                        <Trash2 size={13} />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <label className="block cursor-pointer">
+                                                <input
+                                                    type="file"
+                                                    accept=".pdf,.doc,.docx,application/pdf"
+                                                    onChange={handleResumeFileUpload}
+                                                    disabled={uploadingResumeDoc}
+                                                    className="hidden"
+                                                />
+                                                <div className="w-full px-3 py-2.5 rounded-xl border border-dashed border-border hover:border-[#E64A11] text-xs font-semibold text-muted-foreground hover:text-[#E64A11] flex items-center justify-center gap-2 transition-colors">
+                                                    {uploadingResumeDoc ? (
+                                                        <div className="w-3.5 h-3.5 border-2 border-[#E64A11] border-t-transparent rounded-full animate-spin" />
+                                                    ) : (
+                                                        <Upload size={14} />
+                                                    )}
+                                                    <span>
+                                                        {uploadingResumeDoc ? "Uploading CV..." : "Upload New CV (PDF / DOCX)"}
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        )}
+
+                                        <div className="pt-1">
+                                            <input
+                                                type="text"
+                                                value={data.general?.resumeUrl || ""}
+                                                onChange={(e) => updateGeneral("resumeUrl", e.target.value)}
+                                                placeholder="Or direct URL: /resume.pdf or https://drive.google.com/..."
+                                                className="w-full px-2.5 py-1.5 rounded-lg bg-background border border-border text-[11px] font-mono focus:outline-none focus:border-[#E64A11]"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

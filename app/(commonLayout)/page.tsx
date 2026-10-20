@@ -18,10 +18,17 @@ const CommonLayoutHomePage = async () => {
 
     const companyName = portfolioData?.general?.company || "WebZen Bangladesh";
     const userName = portfolioData?.general?.name || "Khairul Bashar Naeeim";
+    const resumeUrl = portfolioData?.general?.resumeUrl || "/resume.pdf";
+    const resumeTitle = portfolioData?.general?.resumeTitle || "Executive CV";
 
     return (
         <div className="w-full min-h-screen bg-background text-foreground flex flex-col">
-            <Navbar1 companyName={companyName} userName={userName} />
+            <Navbar1
+                companyName={companyName}
+                userName={userName}
+                resumeUrl={resumeUrl}
+                resumeTitle={resumeTitle}
+            />
             <main className="flex-1 w-full">
                 <TerminalHero data={portfolioData} />
                 <AboutMe data={portfolioData} />

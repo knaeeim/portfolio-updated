@@ -26,6 +26,8 @@ interface Navbar1Props {
     className?: string;
     companyName?: string;
     userName?: string;
+    resumeUrl?: string;
+    resumeTitle?: string;
 }
 
 const navLinks = [
@@ -39,6 +41,8 @@ const navLinks = [
 export const Navbar1 = ({
     companyName = "WebZen Bangladesh",
     userName = "Khairul Bashar Naeeim",
+    resumeUrl = "/resume.pdf",
+    resumeTitle = "Executive CV",
 }: Navbar1Props) => {
     const [currentTime, setCurrentTime] = useState("");
     const [isCommandOpen, setIsCommandOpen] = useState(false);
@@ -92,7 +96,7 @@ export const Navbar1 = ({
         { label: "Navigate: 04. Mentorship & Polytechnic Syllabus", href: "#mentorship", icon: GraduationCap },
         { label: "Navigate: 05. Brain Tumor Hybrid CNN-ViT AI", href: "#research", icon: FlaskConical },
         { label: "Action: Copy Direct Email (kmnaeeim@gmail.com)", action: copyEmail, icon: Mail },
-        { label: "Action: Download Executive CV (PDF)", href: "/resume.pdf", icon: FileText, download: true },
+        { label: `Action: Download ${resumeTitle} (PDF)`, href: resumeUrl, icon: FileText, download: true },
         { label: "External: Devojyoti Medical Production (Live)", href: "https://www.devojyotidutta.com/", icon: ExternalLink, external: true },
         { label: "External: WebZen Studio (webzenbd.com)", href: "https://webzenbd.com/", icon: ExternalLink, external: true },
     ];
@@ -214,11 +218,11 @@ export const Navbar1 = ({
                                             {copiedEmail ? <Check size={14} className="text-[#10B981]" /> : <Copy size={14} />}
                                         </button>
                                         <a
-                                            href="/resume.pdf"
+                                            href={resumeUrl}
                                             download
                                             className="w-full flex items-center justify-center gap-1.5 p-2 bg-[#FF4F00] text-white rounded text-xs font-bold tracking-wider">
                                             <FileText size={14} />
-                                            <span>DOWNLOAD CV (PDF)</span>
+                                            <span>DOWNLOAD {resumeTitle.toUpperCase()}</span>
                                         </a>
                                     </div>
                                 </SheetContent>
