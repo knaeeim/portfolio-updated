@@ -2,12 +2,56 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { Terminal, Layers, GraduationCap, Briefcase } from "lucide-react";
 import { usePosterParallax } from "@/components/poster/usePosterParallax";
 import { FloatingPixel } from "@/components/poster/FloatingPixel";
 
 interface AboutMeProps {
     data?: any;
 }
+
+const getTimelineIcon = (item: any, idx: number) => {
+    const text = `${item.badge || ""} ${item.role || ""} ${item.title || ""}`.toLowerCase();
+    if (
+        text.includes("algorithm") ||
+        text.includes("cs") ||
+        text.includes("phitron") ||
+        text.includes("code") ||
+        text.includes("competitive")
+    ) {
+        return Terminal;
+    }
+    if (
+        text.includes("cloud") ||
+        text.includes("mern") ||
+        text.includes("system") ||
+        text.includes("architecture") ||
+        text.includes("backend")
+    ) {
+        return Layers;
+    }
+    if (
+        text.includes("instructor") ||
+        text.includes("academy") ||
+        text.includes("mentor") ||
+        text.includes("teaching") ||
+        text.includes("calling")
+    ) {
+        return GraduationCap;
+    }
+    if (
+        text.includes("founder") ||
+        text.includes("ceo") ||
+        text.includes("executive") ||
+        text.includes("webzen") ||
+        text.includes("venture")
+    ) {
+        return Briefcase;
+    }
+
+    const fallbacks = [Terminal, Layers, GraduationCap, Briefcase];
+    return fallbacks[idx % fallbacks.length];
+};
 
 const strategicPillars = [
     {
@@ -34,24 +78,28 @@ const strategicPillars = [
 
 const leadershipTimeline = [
     {
+        date: "2023",
         year: "2023",
         role: "Algorithms & Foundations",
         desc: "Core C/C++, advanced Data Structures, and 600+ competitive programming challenges.",
         badge: "ALGORITHMS",
     },
     {
+        date: "2024",
         year: "2024",
         role: "Full-Stack Engineering",
         desc: "Next.js, TypeScript, PostgreSQL/Prisma, and distributed web architectures.",
         badge: "SYSTEMS",
     },
     {
+        date: "2025",
         year: "2025",
         role: "Instructor @ BD Calling",
         desc: "Mentored 100+ polytechnic students in React, Next.js, and debugging.",
         badge: "MENTORSHIP",
     },
     {
+        date: "2026",
         year: "2026",
         role: "Founder & CEO @ WebZen",
         desc: "Architecting high-stakes platforms, healthcare portals, and high-uptime systems.",
@@ -165,30 +213,56 @@ export const AboutMe = ({ data }: AboutMeProps) => {
                     </div>
 
                     <div className="border border-neutral-200 dark:border-neutral-800 rounded-xs overflow-hidden divide-y divide-neutral-200 dark:divide-neutral-800 bg-white dark:bg-[#0A0A09] shadow-sm dark:shadow-none">
-                        {timeline.map((item: any, idx: number) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, x: -15 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                                className="p-3.5 sm:p-5 grid grid-cols-1 md:grid-cols-12 gap-2.5 sm:gap-3 items-start md:items-center hover:bg-neutral-50 dark:hover:bg-white/5 transition-colors">
-                                <div className="md:col-span-2 text-sm font-black text-[#E64A11]">
-                                    {item.year}
-                                </div>
-                                <div className="md:col-span-4 space-y-0.5">
-                                    <div className="text-xs font-bold text-neutral-900 dark:text-white font-sans">
-                                        {item.role}
+                        {timeline.map((item: any, idx: number) => {
+                            const IconComponent = getTimelineIcon(item, idx);
+                            const yearDisplay = item.date || item.year || `202${3 + idx}`;
+
+                            return (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, x: -15 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{ duration: 0.5, delay: idx * 0.08 }}
+                                    className="p-3.5 sm:p-5 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-start md:items-center hover:bg-neutral-50 dark:hover:bg-white/5 transition-colors group">
+                                    {/* Beginning: Serial Number, Milestone Icon & Timeline Year */}
+                                    <div className="md:col-span-3 flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-xs border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900/80 flex flex-col items-center justify-center shrink-0 group-hover:border-[#E64A11] group-hover:bg-[#E64A11]/10 transition-all shadow-xs">
+                                            <IconComponent size={14} className="text-[#E64A11]" />
+                                            <span className="text-[9px] font-mono font-bold text-neutral-500 dark:text-neutral-400 mt-0.5">
+                                                0{idx + 1}
+                                            </span>
+                                        </div>
+
+                                        <div className="space-y-0.5">
+                                            <div className="text-sm sm:text-base font-black text-[#E64A11] font-mono tracking-tight leading-none">
+                                                {yearDisplay}
+                                            </div>
+                                            <span className="text-[9px] font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-widest block">
+                                                // MILESTONE
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="text-[10px] text-neutral-500">
-                                        {item.badge}
+
+                                    {/* Middle: Role Title & Badge */}
+                                    <div className="md:col-span-4 space-y-1">
+                                        <div className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white font-sans group-hover:text-[#E64A11] transition-colors leading-snug">
+                                            {item.role || item.title}
+                                        </div>
+                                        {item.badge && (
+                                            <span className="inline-block text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+                                                {item.badge}
+                                            </span>
+                                        )}
                                     </div>
-                                </div>
-                                <div className="md:col-span-6 text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed font-sans font-light">
-                                    {item.desc}
-                                </div>
-                            </motion.div>
-                        ))}
+
+                                    {/* End: Detailed Description */}
+                                    <div className="md:col-span-5 text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed font-sans font-light">
+                                        {item.desc}
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </motion.div>
 
