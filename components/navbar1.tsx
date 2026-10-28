@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import {
     Terminal,
     Search,
@@ -31,11 +32,11 @@ interface Navbar1Props {
 }
 
 const navLinks = [
-    { number: "01", title: "ARCHITECTURE", href: "#architecture" },
-    { number: "02", title: "SELECTED WORKS", href: "#projects" },
-    { number: "03", title: "PROBLEM SOLVING", href: "#problem-solving" },
-    { number: "04", title: "MENTORSHIP", href: "#mentorship" },
-    { number: "05", title: "RESEARCH", href: "#research" },
+    { number: "01", title: "ARCHITECTURE", href: "/#architecture" },
+    { number: "02", title: "SELECTED WORKS", href: "/#projects" },
+    { number: "03", title: "PROBLEM SOLVING", href: "/#problem-solving" },
+    { number: "04", title: "MENTORSHIP", href: "/#mentorship" },
+    { number: "05", title: "RESEARCH", href: "/#research" },
 ];
 
 export const Navbar1 = ({
@@ -90,11 +91,11 @@ export const Navbar1 = ({
     };
 
     const commandPaletteItems = [
-        { label: "Navigate: 01. Architecture & Layer Matrix", href: "#architecture", icon: Code2 },
-        { label: "Navigate: 02. Selected Works & Engineering Dossiers", href: "#projects", icon: Briefcase },
-        { label: "Navigate: 03. 600+ Algorithmic Proof-of-Work", href: "#problem-solving", icon: Terminal },
-        { label: "Navigate: 04. Mentorship & Polytechnic Syllabus", href: "#mentorship", icon: GraduationCap },
-        { label: "Navigate: 05. Brain Tumor Hybrid CNN-ViT AI", href: "#research", icon: FlaskConical },
+        { label: "Navigate: 01. Architecture & Layer Matrix", href: "/#architecture", icon: Code2 },
+        { label: "Navigate: 02. Selected Works & Engineering Dossiers", href: "/#projects", icon: Briefcase },
+        { label: "Navigate: 03. 600+ Algorithmic Proof-of-Work", href: "/#problem-solving", icon: Terminal },
+        { label: "Navigate: 04. Mentorship & Polytechnic Syllabus", href: "/#mentorship", icon: GraduationCap },
+        { label: "Navigate: 05. Brain Tumor Hybrid CNN-ViT AI", href: "/#research", icon: FlaskConical },
         { label: "Action: Copy Direct Email (kmnaeeim@gmail.com)", action: copyEmail, icon: Mail },
         { label: `Action: Download ${resumeTitle} (PDF)`, href: resumeUrl, icon: FileText, download: true },
         { label: "External: Devojyoti Medical Production (Live)", href: "https://www.devojyotidutta.com/", icon: ExternalLink, external: true },
@@ -113,7 +114,7 @@ export const Navbar1 = ({
                     
                     {/* CELL 1: Coordinates & Live Ticking Clock (3 Columns) */}
                     <div className="col-span-6 lg:col-span-3 px-3 sm:px-4 py-2.5 sm:py-3 border-r border-border flex items-center justify-between gap-2 overflow-hidden">
-                        <a href="#home" className="flex items-center gap-2 group truncate">
+                        <Link href="/" prefetch={true} className="flex items-center gap-2 group truncate cursor-pointer">
                             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shrink-0" />
                             <div className="flex flex-col truncate">
                                 <span className="font-bold text-foreground tracking-tight text-[11px] group-hover:text-[#E64A11] transition-colors truncate">
@@ -123,7 +124,7 @@ export const Navbar1 = ({
                                     23.8103° N, 90.4125° E // DHAKA
                                 </span>
                             </div>
-                        </a>
+                        </Link>
                         <div className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-muted/60 border border-border text-[10px] text-muted-foreground font-mono shrink-0">
                             {currentTime ? `${currentTime} UTC+6` : "DHAKA LIVE"}
                         </div>
@@ -132,9 +133,10 @@ export const Navbar1 = ({
                     {/* CELL 2: Numbered Blueprint Index Links (6 Columns) */}
                     <nav className="hidden lg:flex col-span-6 items-stretch justify-center divide-x divide-border">
                         {navLinks.map((link) => (
-                            <a
+                            <Link
                                 key={link.number}
                                 href={link.href}
+                                prefetch={true}
                                 className="flex-1 flex items-center justify-center gap-1.5 px-2 py-3 text-[11px] tracking-wider text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-all group">
                                 <span className="text-[9px] text-[#E64A11] font-bold">
                                     {link.number}.
@@ -142,7 +144,7 @@ export const Navbar1 = ({
                                 <span className="font-semibold group-hover:translate-x-0.5 transition-transform">
                                     {link.title}
                                 </span>
-                            </a>
+                            </Link>
                         ))}
                     </nav>
 
@@ -163,12 +165,13 @@ export const Navbar1 = ({
                         <ModeToggle />
 
                         {/* Dispatch CTA */}
-                        <a
-                            href="#contact"
+                        <Link
+                            href="/#contact"
+                            prefetch={true}
                             className="hidden sm:inline-flex items-center gap-1 px-3 py-1 bg-foreground text-background rounded text-[11px] font-bold tracking-wider hover:bg-[#FF4F00] hover:text-white transition-colors">
                             <span>DISPATCH</span>
                             <ArrowUpRight size={12} />
-                        </a>
+                        </Link>
 
                         {/* Mobile Menu Trigger */}
                         <div className="lg:hidden">
@@ -193,16 +196,17 @@ export const Navbar1 = ({
 
                                     <div className="space-y-1">
                                         {navLinks.map((link) => (
-                                            <a
+                                            <Link
                                                 key={link.number}
                                                 href={link.href}
+                                                prefetch={true}
                                                 className="flex items-center justify-between p-2.5 rounded border border-border/60 hover:border-[#FF4F00] hover:bg-muted/40 transition-all text-xs font-semibold text-foreground">
                                                 <div className="flex items-center gap-2">
                                                     <span className="text-[#FF4F00] font-bold">{link.number}.</span>
                                                     <span>{link.title}</span>
                                                 </div>
                                                 <ArrowUpRight size={13} className="text-muted-foreground" />
-                                            </a>
+                                            </Link>
                                         ))}
                                     </div>
 

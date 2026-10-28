@@ -10,8 +10,8 @@ import SkillSection from "@/components/Skills";
 import { getPortfolioData } from "@/lib/portfolio-data";
 import React from "react";
 
-// Always re-evaluate on request so admin edits appear instantly
-export const dynamic = "force-dynamic";
+// Enable Incremental Static Regeneration (ISR) with Edge CDN caching
+export const revalidate = 60;
 
 const CommonLayoutHomePage = async () => {
     const portfolioData = await getPortfolioData();

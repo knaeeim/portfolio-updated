@@ -23,6 +23,7 @@ import { getPortfolioData } from "@/lib/portfolio-data";
 import { Navbar1 } from "@/components/navbar1";
 import ContactSection from "@/components/contact-us";
 import ProjectGallery from "@/components/ProjectGallery";
+import ProjectBackButton from "@/components/ProjectBackButton";
 import { Button } from "@/components/ui/button";
 
 // Enable Incremental Static Regeneration (ISR) with Edge CDN caching
@@ -96,12 +97,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 {/* Top Sticky Breadcrumb Bar */}
                 <div className="border-b border-border/60 bg-background/80 backdrop-blur-md sticky top-16 z-30">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
-                        <Link
-                            href="/#projects"
-                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors group">
-                            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
-                            <span>Back to Projects</span>
-                        </Link>
+                        <ProjectBackButton fallbackHref="/#projects" label="Back to Projects" />
 
                         <div className="hidden sm:flex items-center gap-2 text-xs text-muted-foreground font-medium">
                             <span>Portfolio</span>
@@ -381,12 +377,12 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                         </p>
                         <div className="pt-2 flex flex-wrap justify-center gap-3">
                             <Button asChild size="lg" className="rounded-xl font-bold px-6">
-                                <Link href="/#contact">
+                                <Link href="/#contact" prefetch={true}>
                                     Schedule Strategic Discussion
                                 </Link>
                             </Button>
                             <Button asChild variant="outline" size="lg" className="rounded-xl font-semibold">
-                                <Link href="/#projects">
+                                <Link href="/#projects" prefetch={true}>
                                     Explore Other Case Studies
                                 </Link>
                             </Button>
