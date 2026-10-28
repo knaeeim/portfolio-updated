@@ -95,7 +95,9 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
             <main className="flex-1">
                 {/* Top Sticky Breadcrumb Bar */}
-                <div className="border-b border-border/60 bg-background/80 backdrop-blur-md sticky top-12 sm:top-13 z-30">
+                <div
+                    className="border-b border-border/60 bg-background/80 backdrop-blur-md sticky top-12 sm:top-13 z-30"
+                    style={{ position: "sticky", zIndex: 30 }}>
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
                         <ProjectBackButton fallbackHref="/#projects" label="Back to Projects" />
 

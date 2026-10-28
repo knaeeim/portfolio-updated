@@ -108,7 +108,9 @@ export const Navbar1 = ({
 
     return (
         <>
-            <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-md border-b border-border transition-colors">
+            <header
+                className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-md border-b border-border shadow-xs transition-colors"
+                style={{ position: "sticky", top: 0, zIndex: 50 }}>
                 {/* Responsive Blueprint Bar with Exposed 1px Hairlines */}
                 <div className="w-full max-w-[1440px] mx-auto flex items-stretch justify-between text-xs font-mono h-12 sm:h-13">
                     

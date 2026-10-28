@@ -127,7 +127,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${geistSans.variable} ${geistMono.variable} ${hindSiliguri.variable} ${notoSansBengali.variable} ${notoSerifBengali.variable} ${anekBangla.variable} ${tiroBangla.variable} ${galada.variable} antialiased overflow-x-hidden min-h-screen bg-background text-foreground font-sans`}>
+            <body className={`${geistSans.variable} ${geistMono.variable} ${hindSiliguri.variable} ${notoSansBengali.variable} ${notoSerifBengali.variable} ${anekBangla.variable} ${tiroBangla.variable} ${galada.variable} antialiased overflow-x-clip min-h-screen bg-background text-foreground font-sans`}>
                 <div className="film-grain-bg" aria-hidden="true" />
                 <ThemeProvider
                     attribute="class"
