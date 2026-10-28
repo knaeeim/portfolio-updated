@@ -109,52 +109,52 @@ export const Navbar1 = ({
     return (
         <>
             <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-md border-b border-border transition-colors">
-                {/* 12-Column Blueprint Grid with Exposed 1px Hairlines */}
-                <div className="w-full max-w-[1440px] mx-auto grid grid-cols-12 text-xs font-mono">
+                {/* Responsive Blueprint Bar with Exposed 1px Hairlines */}
+                <div className="w-full max-w-[1440px] mx-auto flex items-stretch justify-between text-xs font-mono h-12 sm:h-13">
                     
-                    {/* CELL 1: Coordinates & Live Ticking Clock (3 Columns) */}
-                    <div className="col-span-6 lg:col-span-3 px-3 sm:px-4 py-2.5 sm:py-3 border-r border-border flex items-center justify-between gap-2 overflow-hidden">
+                    {/* CELL 1: Coordinates & Live Ticking Clock */}
+                    <div className="px-3 sm:px-4 py-2 border-r border-border flex items-center justify-between gap-3 shrink-0">
                         <Link href="/" prefetch={true} className="flex items-center gap-2 group truncate cursor-pointer">
                             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shrink-0" />
                             <div className="flex flex-col truncate">
                                 <span className="font-bold text-foreground tracking-tight text-[11px] group-hover:text-[#E64A11] transition-colors truncate">
                                     {userName}
                                 </span>
-                                <span className="text-[10px] text-muted-foreground tracking-widest uppercase truncate">
+                                <span className="text-[10px] text-muted-foreground tracking-widest uppercase truncate hidden sm:inline">
                                     23.8103° N, 90.4125° E // DHAKA
                                 </span>
                             </div>
                         </Link>
-                        <div className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-muted/60 border border-border text-[10px] text-muted-foreground font-mono shrink-0">
+                        <div className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded bg-muted/60 border border-border text-[10px] text-muted-foreground font-mono shrink-0">
                             {currentTime ? `${currentTime} UTC+6` : "DHAKA LIVE"}
                         </div>
                     </div>
 
-                    {/* CELL 2: Numbered Blueprint Index Links (6 Columns) */}
-                    <nav className="hidden lg:flex col-span-6 items-stretch justify-center divide-x divide-border">
+                    {/* CELL 2: Numbered Blueprint Index Links (All Strictly 1 Single Line) */}
+                    <nav className="hidden lg:flex flex-1 items-stretch justify-center divide-x divide-border min-w-0">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.number}
                                 href={link.href}
                                 prefetch={true}
-                                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-3 text-[11px] tracking-wider text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-all group">
-                                <span className="text-[9px] text-[#E64A11] font-bold">
+                                className="flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-3.5 py-2 text-[10.5px] xl:text-[11px] tracking-wider text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-all group whitespace-nowrap shrink-0">
+                                <span className="text-[9px] text-[#E64A11] font-bold shrink-0">
                                     {link.number}.
                                 </span>
-                                <span className="font-semibold group-hover:translate-x-0.5 transition-transform">
+                                <span className="font-semibold whitespace-nowrap group-hover:translate-x-0.5 transition-transform">
                                     {link.title}
                                 </span>
                             </Link>
                         ))}
                     </nav>
 
-                    {/* CELL 3: Command Trigger (⌘K) & Telemetry (3 Columns) */}
-                    <div className="col-span-6 lg:col-span-3 px-2 xs:px-4 py-2.5 sm:py-3 border-l border-border flex items-center justify-end gap-1.5 xs:gap-2.5">
+                    {/* CELL 3: Command Trigger (⌘K) & Telemetry */}
+                    <div className="px-2 xs:px-4 py-2 border-l border-border flex items-center justify-end gap-1.5 xs:gap-2.5 shrink-0 ml-auto lg:ml-0">
                         {/* Mechanical Keycap ⌘K Trigger */}
                         <button
                             type="button"
                             onClick={() => setIsCommandOpen(true)}
-                            className="keycap-btn inline-flex items-center gap-1 xs:gap-1.5 px-2 xs:px-2.5 py-1 rounded bg-card border border-border text-[10px] xs:text-[11px] text-muted-foreground hover:text-foreground transition-all cursor-pointer"
+                            className="keycap-btn inline-flex items-center gap-1 xs:gap-1.5 px-2 xs:px-2.5 py-1 rounded bg-card border border-border text-[10px] xs:text-[11px] text-muted-foreground hover:text-foreground transition-all cursor-pointer whitespace-nowrap"
                             title="Open Command Palette (⌘K)">
                             <Command size={11} className="text-[#E64A11]" />
                             <span className="font-mono text-[10px] font-bold">⌘K</span>
@@ -168,7 +168,7 @@ export const Navbar1 = ({
                         <Link
                             href="/#contact"
                             prefetch={true}
-                            className="hidden sm:inline-flex items-center gap-1 px-3 py-1 bg-foreground text-background rounded text-[11px] font-bold tracking-wider hover:bg-[#FF4F00] hover:text-white transition-colors">
+                            className="hidden sm:inline-flex items-center gap-1 px-3 py-1 bg-foreground text-background rounded text-[11px] font-bold tracking-wider hover:bg-[#FF4F00] hover:text-white transition-colors whitespace-nowrap">
                             <span>DISPATCH</span>
                             <ArrowUpRight size={12} />
                         </Link>
