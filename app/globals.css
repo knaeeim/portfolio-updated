@@ -7,8 +7,14 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-geist-sans), var(--font-hind-siliguri), var(--font-noto-sans-bengali), var(--font-anek-bangla), "Kalpurush", "SolaimanLipi", sans-serif;
   --font-mono: var(--font-geist-mono);
+  --font-bangla: var(--font-hind-siliguri), var(--font-noto-sans-bengali), sans-serif;
+  --font-bangla-sans: var(--font-hind-siliguri), var(--font-noto-sans-bengali), sans-serif;
+  --font-bangla-serif: var(--font-noto-serif-bengali), var(--font-tiro-bangla), "Siyam Rupali", serif;
+  --font-bangla-display: var(--font-anek-bangla), var(--font-hind-siliguri), sans-serif;
+  --font-bangla-classic: var(--font-tiro-bangla), "Kalpurush", serif;
+  --font-bangla-script: var(--font-galada), cursive;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -291,4 +297,34 @@
 
 .dark .poster-perimeter-border {
   border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================================================
+   Bengali Typography System (বাংলা ফন্ট কালেকশন)
+   ========================================================================== */
+.font-bangla,
+.font-bengali,
+.font-bangla-sans {
+  font-family: var(--font-hind-siliguri), var(--font-noto-sans-bengali), var(--font-anek-bangla), "Kalpurush", "SolaimanLipi", sans-serif;
+}
+
+.font-bangla-serif,
+.font-bengali-serif {
+  font-family: var(--font-noto-serif-bengali), var(--font-tiro-bangla), "Siyam Rupali", serif;
+}
+
+.font-bangla-display,
+.font-bengali-display {
+  font-family: var(--font-anek-bangla), var(--font-hind-siliguri), sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.font-bangla-classic,
+.font-bengali-classic {
+  font-family: var(--font-tiro-bangla), "Kalpurush", serif;
+}
+
+.font-bangla-script,
+.font-bengali-script {
+  font-family: var(--font-galada), cursive;
 }

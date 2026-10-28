@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+    Geist,
+    Geist_Mono,
+    Hind_Siliguri,
+    Noto_Sans_Bengali,
+    Noto_Serif_Bengali,
+    Anek_Bangla,
+    Tiro_Bangla,
+    Galada,
+} from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/Theme-Provider";
 import { Toaster } from "sonner";
@@ -12,6 +21,48 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
     variable: "--font-geist-mono",
     subsets: ["latin"],
+});
+
+const hindSiliguri = Hind_Siliguri({
+    weight: ["300", "400", "500", "600", "700"],
+    subsets: ["bengali", "latin"],
+    variable: "--font-hind-siliguri",
+    display: "swap",
+});
+
+const notoSansBengali = Noto_Sans_Bengali({
+    weight: ["300", "400", "500", "600", "700", "800"],
+    subsets: ["bengali", "latin"],
+    variable: "--font-noto-sans-bengali",
+    display: "swap",
+});
+
+const notoSerifBengali = Noto_Serif_Bengali({
+    weight: ["400", "600", "700", "900"],
+    subsets: ["bengali", "latin"],
+    variable: "--font-noto-serif-bengali",
+    display: "swap",
+});
+
+const anekBangla = Anek_Bangla({
+    weight: ["300", "400", "500", "600", "700", "800"],
+    subsets: ["bengali", "latin"],
+    variable: "--font-anek-bangla",
+    display: "swap",
+});
+
+const tiroBangla = Tiro_Bangla({
+    weight: ["400"],
+    subsets: ["bengali", "latin"],
+    variable: "--font-tiro-bangla",
+    display: "swap",
+});
+
+const galada = Galada({
+    weight: ["400"],
+    subsets: ["bengali", "latin"],
+    variable: "--font-galada",
+    display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -76,7 +127,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden min-h-screen bg-background text-foreground`}>
+            <body className={`${geistSans.variable} ${geistMono.variable} ${hindSiliguri.variable} ${notoSansBengali.variable} ${notoSerifBengali.variable} ${anekBangla.variable} ${tiroBangla.variable} ${galada.variable} antialiased overflow-x-hidden min-h-screen bg-background text-foreground font-sans`}>
                 <div className="film-grain-bg" aria-hidden="true" />
                 <ThemeProvider
                     attribute="class"
