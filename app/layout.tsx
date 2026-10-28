@@ -24,43 +24,40 @@ const geistMono = Geist_Mono({
 });
 
 const hindSiliguri = Hind_Siliguri({
-    weight: ["300", "400", "500", "600", "700"],
-    subsets: ["bengali", "latin"],
+    weight: ["400", "600", "700"],
+    subsets: ["bengali"],
     variable: "--font-hind-siliguri",
     display: "swap",
 });
 
 const notoSansBengali = Noto_Sans_Bengali({
-    weight: ["300", "400", "500", "600", "700", "800"],
-    subsets: ["bengali", "latin"],
+    subsets: ["bengali"],
     variable: "--font-noto-sans-bengali",
     display: "swap",
 });
 
 const notoSerifBengali = Noto_Serif_Bengali({
-    weight: ["400", "600", "700", "900"],
-    subsets: ["bengali", "latin"],
+    subsets: ["bengali"],
     variable: "--font-noto-serif-bengali",
     display: "swap",
 });
 
 const anekBangla = Anek_Bangla({
-    weight: ["300", "400", "500", "600", "700", "800"],
-    subsets: ["bengali", "latin"],
+    subsets: ["bengali"],
     variable: "--font-anek-bangla",
     display: "swap",
 });
 
 const tiroBangla = Tiro_Bangla({
     weight: ["400"],
-    subsets: ["bengali", "latin"],
+    subsets: ["bengali"],
     variable: "--font-tiro-bangla",
     display: "swap",
 });
 
 const galada = Galada({
     weight: ["400"],
-    subsets: ["bengali", "latin"],
+    subsets: ["bengali"],
     variable: "--font-galada",
     display: "swap",
 });
