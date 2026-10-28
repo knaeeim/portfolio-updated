@@ -98,7 +98,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 <div
                     className="border-b border-border/60 bg-background/80 backdrop-blur-md sticky top-12 sm:top-13 z-30"
                     style={{ position: "sticky", zIndex: 30 }}>
-                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+                    <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-3 flex items-center justify-between gap-4">
                         <ProjectBackButton fallbackHref="/#projects" label="Back to Projects" />
 
                         <div className="hidden sm:flex items-center gap-2 text-xs text-muted-foreground font-medium">
@@ -129,7 +129,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                     <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
                     <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
+                    <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 relative z-10 space-y-8">
                         {/* Status & Category Pills */}
                         <div className="flex flex-wrap items-center gap-2.5">
                             <span className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary">
@@ -257,7 +257,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 {/* Key Metrics Grid */}
                 {project.metrics && project.metrics.length > 0 && (
                     <section className="py-8 sm:py-10 border-y border-border/60 bg-muted/20">
-                        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10">
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {project.metrics.map((m: any, idx: number) => (
                                     <div
@@ -279,7 +279,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 {/* Interactive Multi-Screen Showcase */}
                 {project.images && project.images.length > 0 && (
                     <section className="py-12 sm:py-16">
-                        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+                        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 space-y-6">
                             <div className="space-y-1">
                                 <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-primary">
                                     <Sparkles size={13} />
@@ -301,7 +301,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 {/* Core Architectural Features & Engineering Deliverables */}
                 {project.features && project.features.length > 0 && (
                     <section className="py-12 sm:py-16 bg-muted/15 border-t border-border/60">
-                        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 space-y-8">
                             <div className="space-y-1">
                                 <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                                     <Layers size={13} />
@@ -341,7 +341,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                 {/* Technology Stack & Tooling */}
                 {project.tech && project.tech.length > 0 && (
                     <section className="py-12 sm:py-16 border-t border-border/60">
-                        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+                        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 space-y-6">
                             <div className="space-y-1">
                                 <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                                     <span>Infrastructure &amp; Stack</span>

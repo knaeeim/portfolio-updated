@@ -115,7 +115,7 @@ export const Navbar1 = ({
                 <div className="w-full max-w-[1440px] mx-auto flex items-stretch justify-between text-xs font-mono h-12 sm:h-13">
                     
                     {/* CELL 1: Coordinates & Live Ticking Clock */}
-                    <div className="px-3 sm:px-4 py-2 border-r border-border flex items-center justify-between gap-3 shrink-0">
+                    <div className="pl-4 sm:pl-8 lg:pl-10 pr-3 sm:pr-4 py-2 border-r border-border flex items-center justify-between gap-3 shrink-0">
                         <Link href="/" prefetch={true} className="flex items-center gap-2 group truncate cursor-pointer">
                             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shrink-0" />
                             <div className="flex flex-col truncate">
@@ -151,7 +151,7 @@ export const Navbar1 = ({
                     </nav>
 
                     {/* CELL 3: Command Trigger (⌘K) & Telemetry */}
-                    <div className="px-2 xs:px-4 py-2 border-l border-border flex items-center justify-end gap-1.5 xs:gap-2.5 shrink-0 ml-auto lg:ml-0">
+                    <div className="pl-2 xs:pl-3 pr-4 sm:pr-8 lg:pr-10 py-2 border-l border-border flex items-center justify-end gap-1.5 xs:gap-2.5 shrink-0 ml-auto lg:ml-0">
                         {/* Mechanical Keycap ⌘K Trigger */}
                         <button
                             type="button"
