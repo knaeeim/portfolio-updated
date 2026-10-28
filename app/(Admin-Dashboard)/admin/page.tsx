@@ -196,7 +196,10 @@ export default function AdminDashboardPage() {
     const fetchData = async () => {
         try {
             setIsLoading(true);
-            const res = await fetch("/api/portfolio");
+            const res = await fetch(`/api/portfolio?t=${Date.now()}`, {
+                cache: "no-store",
+                headers: { "Cache-Control": "no-cache" },
+            });
             if (res.ok) {
                 const json = await res.json();
                 setData(json);

@@ -192,8 +192,15 @@ export const TerminalHero = ({ data }: BannerProps) => {
                             transition={{ duration: 0.8, delay: 0.65, ease: "easeOut" }}
                             className="space-y-4 max-w-lg pt-2 text-left">
                             <p className="font-light text-neutral-600 dark:text-neutral-300 text-sm sm:text-base leading-relaxed">
-                                Founder &amp; CEO at <strong className="text-neutral-900 dark:text-white font-medium">WebZen Bangladesh</strong>. 
-                                Shipping mission-critical web applications, clinical zero-queue portals, and high-uptime platforms.
+                                {data?.hero?.bio || (
+                                    <>
+                                        Founder &amp; CEO at{" "}
+                                        <strong className="text-neutral-900 dark:text-white font-medium">
+                                            {data?.general?.company || "WebZen Bangladesh"}
+                                        </strong>
+                                        . Shipping mission-critical web applications, clinical zero-queue portals, and high-uptime platforms.
+                                    </>
+                                )}
                             </p>
 
                             <div className="flex flex-wrap items-center gap-2 xs:gap-3 pt-1 font-mono text-xs">

@@ -9,7 +9,20 @@ const TMP_PATH = path.join("/tmp", "portfolio-content.json");
 // In-memory cache across serverless warm invocations
 let inMemoryCache: any = null;
 
+export function clearPortfolioCache(): void {
+    inMemoryCache = null;
+}
+
 function getLocalFilePortfolioData(): any {
+    try {
+        if (fs.existsSync(DATA_PATH)) {
+            const raw = fs.readFileSync(DATA_PATH, "utf-8");
+            return JSON.parse(raw);
+        }
+    } catch (err) {
+        console.error("Error reading local portfolio data from DATA_PATH:", err);
+    }
+
     try {
         if (fs.existsSync(TMP_PATH)) {
             const rawTmp = fs.readFileSync(TMP_PATH, "utf-8");
@@ -17,15 +30,6 @@ function getLocalFilePortfolioData(): any {
         }
     } catch {
         // continue
-    }
-
-    try {
-        if (fs.existsSync(DATA_PATH)) {
-            const raw = fs.readFileSync(DATA_PATH, "utf-8");
-            return JSON.parse(raw);
-        }
-    } catch (err) {
-        console.error("Error reading local portfolio data:", err);
     }
 
     return null;
@@ -55,21 +59,14 @@ export const getPortfolioData = cache(async function getPortfolioData(): Promise
                         const updatedDbProjects = dbProjects.map((p: any) => {
                             const localMatch = localProjects.find((lp: any) => lp.id === p.id);
                             if (!localMatch) return p;
-                            if (p.id === "shankhapushpi-ecommerce" || p.id === "devojyoti-dutta") {
-                                return {
-                                    ...p,
-                                    ...localMatch,
-                                    liveLink: p.liveLink || localMatch.liveLink,
-                                    adminLink: p.adminLink || localMatch.adminLink,
-                                };
-                            }
+                            // User edits from MongoDB 'p' ALWAYS take precedence over local static file
                             return {
                                 ...localMatch,
                                 ...p,
                             };
                         });
 
-                        // Add any missing local projects (e.g. shankhapushpi-ecommerce at the front)
+                        // Add any missing local projects (e.g. shankhapushpi-ecommerce at the front if not present)
                         for (const lp of localProjects) {
                             if (!dbProjectIds.has(lp.id)) {
                                 if (lp.isFlagship) {
@@ -96,6 +93,19 @@ export const getPortfolioData = cache(async function getPortfolioData(): Promise
                         ...cleanDoc,
                         general: { ...(localData?.general || {}), ...(cleanDoc?.general || {}) },
                         hero: { ...(localData?.hero || {}), ...(cleanDoc?.hero || {}) },
+                        about: {
+                            ...(localData?.about || {}),
+                            ...(cleanDoc?.about || {}),
+                            pillars: Array.isArray(cleanDoc?.about?.pillars) && cleanDoc.about.pillars.length > 0
+                                ? cleanDoc.about.pillars
+                                : (localData?.about?.pillars || []),
+                            timeline: Array.isArray(cleanDoc?.about?.timeline) && cleanDoc.about.timeline.length > 0
+                                ? cleanDoc.about.timeline
+                                : (localData?.about?.timeline || []),
+                            traits: Array.isArray(cleanDoc?.about?.traits) && cleanDoc.about.traits.length > 0
+                                ? cleanDoc.about.traits
+                                : (localData?.about?.traits || []),
+                        },
                         research: {
                             ...(localData?.research || {}),
                             ...(cleanDoc?.research || {}),
@@ -111,16 +121,6 @@ export const getPortfolioData = cache(async function getPortfolioData(): Promise
                             metrics: Array.isArray(cleanDoc?.research?.metrics) && cleanDoc.research.metrics.length > 0
                                 ? cleanDoc.research.metrics
                                 : (localData?.research?.metrics || []),
-                        },
-                        about: {
-                            ...(localData?.about || {}),
-                            ...(cleanDoc?.about || {}),
-                            pillars: Array.isArray(cleanDoc?.about?.pillars) && cleanDoc.about.pillars.length > 0
-                                ? cleanDoc.about.pillars
-                                : (localData?.about?.pillars || []),
-                            timeline: Array.isArray(cleanDoc?.about?.timeline) && cleanDoc.about.timeline.length > 0
-                                ? cleanDoc.about.timeline
-                                : (localData?.about?.timeline || []),
                         },
                         education: {
                             ...(localData?.education || {}),

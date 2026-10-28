@@ -51,11 +51,26 @@ const architecturalPillars = [
 ];
 
 export const SkillSection = ({ data }: SkillsSectionProps) => {
-    const [activePillarId, setActivePillarId] = useState("frontend");
+    const rawSkills = Array.isArray(data?.skills) && data.skills.length > 0 ? data.skills : null;
+    const pillarsToRender = rawSkills
+        ? rawSkills.slice(0, 3).map((s: any, idx: number) => ({
+              id: s.id || `pillar-${idx}`,
+              pillarNumber: `0${idx + 1}`,
+              title: s.title || `PILLAR 0${idx + 1}`,
+              leadIn: s.leadIn || s.tagline || "system engineering",
+              coreHighlight: s.coreHighlight || `${(s.skills || []).length} SKILLS`,
+              description: s.description || "Production system architecture and domain services.",
+              stack: Array.isArray(s.skills) ? s.skills : (Array.isArray(s.stack) ? s.stack : ["Architecture"]),
+              sla: s.sla || "<38ms TTFB",
+              icon: idx === 0 ? Layers : (idx === 1 ? Server : Cpu),
+          }))
+        : architecturalPillars;
+
+    const [activePillarId, setActivePillarId] = useState(pillarsToRender[0]?.id || "frontend");
     const { handleMouseMove, handleMouseLeave, l0 } = usePosterParallax();
 
     const activePillar =
-        architecturalPillars.find((p) => p.id === activePillarId) || architecturalPillars[0];
+        pillarsToRender.find((p: any) => p.id === activePillarId) || pillarsToRender[0];
 
     return (
         <section
@@ -121,7 +136,7 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
 
                 {/* 3 Asymmetric Poster Cards with Sliding Burnt Orange Anchor */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-                    {architecturalPillars.map((pillar, idx) => {
+                    {pillarsToRender.map((pillar: any, idx: number) => {
                         const isActive = pillar.id === activePillarId;
                         const IconComponent = pillar.icon;
 
@@ -206,7 +221,7 @@ export const SkillSection = ({ data }: SkillsSectionProps) => {
                                     {/* Tech Stack Chips */}
                                     <div className="space-y-3 pt-2">
                                         <div className="flex flex-wrap gap-1.5">
-                                            {pillar.stack.map((tech) => (
+                                            {pillar.stack.map((tech: string) => (
                                                 <span
                                                     key={tech}
                                                     className="px-2 py-0.5 rounded-xs bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-[10px] font-mono text-neutral-800 dark:text-neutral-200">
