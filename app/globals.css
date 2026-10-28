@@ -274,8 +274,17 @@ body {
   font-family: var(--font-sans);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.05em;
-  line-height: 0.88;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+/* Ensure Bengali text in titles/headings is not squished or clipped */
+.editorial-display:lang(bn),
+[lang="bn"] .editorial-display,
+.bangla-title {
+  letter-spacing: 0;
+  line-height: 1.25;
+  text-transform: none;
 }
 
 /* Adaptive Poster Utility Classes */

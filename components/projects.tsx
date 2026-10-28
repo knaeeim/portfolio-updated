@@ -405,45 +405,51 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                     </div>
 
                                     {/* Overlapping Heavy Title + ( > ) Drawer Trigger */}
-                                    <div className="flex flex-wrap items-end justify-between gap-4 pt-2">
-                                        <div className="space-y-1">
-                                            <Link
-                                                href={`/projects/${project.id}`}
-                                                prefetch={true}
-                                                className="block group/title cursor-pointer">
-                                                <h3 className="editorial-display text-2xl sm:text-4xl lg:text-5xl xl:text-6xl text-neutral-900 dark:text-white group-hover/title:text-[#E64A11] transition-colors inline-flex items-center gap-2">
-                                                    <span>{project.title}</span>
-                                                    <ArrowUpRight size={26} className="opacity-0 group-hover/title:opacity-100 transition-all text-[#E64A11] -translate-x-2 group-hover/title:translate-x-0" />
-                                                </h3>
-                                            </Link>
-                                            <p className="font-light text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm max-w-xl">
-                                                {project.description}
-                                            </p>
+                                    <div className="space-y-3 pt-2">
+                                        <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
+                                            <div className="space-y-1 max-w-2xl">
+                                                <Link
+                                                    href={`/projects/${project.id}`}
+                                                    prefetch={true}
+                                                    className="block group/title cursor-pointer">
+                                                    <h3 className="editorial-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-neutral-900 dark:text-white group-hover/title:text-[#E64A11] transition-colors inline-flex items-center gap-2 leading-[1.15] tracking-tight">
+                                                        <span>{project.title}</span>
+                                                        <ArrowUpRight size={22} className="opacity-0 group-hover/title:opacity-100 transition-all text-[#E64A11] -translate-x-2 group-hover/title:translate-x-0" />
+                                                    </h3>
+                                                </Link>
+                                            </div>
+
+                                            <div className="flex flex-wrap items-center gap-2 sm:gap-3 shrink-0">
+                                                <Link
+                                                    href={`/projects/${project.id}`}
+                                                    prefetch={true}
+                                                    className="px-3.5 py-1.5 rounded-xs bg-[#E64A11] text-white font-mono text-xs font-bold hover:bg-[#FF5100] transition-all inline-flex items-center gap-1.5 shadow-md">
+                                                    <span>CASE STUDY</span>
+                                                    <ArrowUpRight size={13} />
+                                                </Link>
+
+                                                {project.liveUrl && (
+                                                    <a
+                                                        href={project.liveUrl}
+                                                        target="_blank"
+                                                        rel="noreferrer noopener"
+                                                        className="px-3 py-1.5 rounded-xs border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900/80 text-xs font-mono text-neutral-800 dark:text-neutral-200 hover:text-[#E64A11] dark:hover:text-white hover:border-[#E64A11] transition-all inline-flex items-center gap-1.5">
+                                                        <span>LIVE</span>
+                                                        <ExternalLink size={12} />
+                                                    </a>
+                                                )}
+                                                <CircularChevronBtn
+                                                    onClick={() => toggleDrawer(project.id)}
+                                                    label={isDrawerOpen ? "CLOSE" : "INSPECT"}
+                                                />
+                                            </div>
                                         </div>
 
-                                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                                            <Link
-                                                href={`/projects/${project.id}`}
-                                                prefetch={true}
-                                                className="px-3.5 py-1.5 rounded-xs bg-[#E64A11] text-white font-mono text-xs font-bold hover:bg-[#FF5100] transition-all inline-flex items-center gap-1.5 shadow-md">
-                                                <span>CASE STUDY</span>
-                                                <ArrowUpRight size={13} />
-                                            </Link>
-
-                                            {project.liveUrl && (
-                                                <a
-                                                    href={project.liveUrl}
-                                                    target="_blank"
-                                                    rel="noreferrer noopener"
-                                                    className="px-3 py-1.5 rounded-xs border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900/80 text-xs font-mono text-neutral-800 dark:text-neutral-200 hover:text-[#E64A11] dark:hover:text-white hover:border-[#E64A11] transition-all inline-flex items-center gap-1.5">
-                                                    <span>LIVE</span>
-                                                    <ExternalLink size={12} />
-                                                </a>
-                                            )}
-                                            <CircularChevronBtn
-                                                onClick={() => toggleDrawer(project.id)}
-                                                label={isDrawerOpen ? "CLOSE" : "INSPECT"}
-                                            />
+                                        {/* High-Visibility Readable Description Card */}
+                                        <div className="p-3.5 sm:p-4 rounded-xs bg-neutral-100/90 dark:bg-neutral-900/90 border-l-3 border-[#E64A11] border-y border-r border-neutral-200 dark:border-white/10 backdrop-blur-md max-w-3xl shadow-sm">
+                                            <p className="font-normal text-neutral-800 dark:text-neutral-100 text-xs sm:text-sm lg:text-[14.5px] leading-relaxed sm:leading-6">
+                                                {project.description}
+                                            </p>
                                         </div>
                                     </div>
 

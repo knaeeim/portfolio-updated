@@ -151,7 +151,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground leading-[1.15]">
                                 {project.title}
                             </h1>
-                            <p className="text-base sm:text-lg text-muted-foreground font-medium leading-relaxed max-w-3xl">
+                            <p className="text-base sm:text-lg text-neutral-700 dark:text-neutral-200 font-medium leading-relaxed max-w-3xl">
                                 {project.subtitle}
                             </p>
                         </div>
@@ -189,9 +189,9 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                             </div>
                         </div>
 
-                        {/* Executive Overview Paragraph */}
-                        <div className="prose prose-sm dark:prose-invert max-w-none">
-                            <p className="text-sm sm:text-base text-foreground/90 leading-relaxed font-normal">
+                        {/* Executive Overview Paragraph with High Contrast */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-card/90 border-l-4 border-primary border-y border-r border-border/80 backdrop-blur-md shadow-sm max-w-4xl">
+                            <p className="text-sm sm:text-base lg:text-[15.5px] text-foreground font-normal leading-relaxed sm:leading-7">
                                 {project.description}
                             </p>
                         </div>
@@ -293,7 +293,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                                 </p>
                             </div>
 
-                            <ProjectGallery images={project.images} projectTitle={project.title} />
+                            <ProjectGallery images={project.images} projectTitle={project.title} liveUrl={project.liveLink} />
                         </div>
                     </section>
                 )}
