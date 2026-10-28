@@ -42,9 +42,10 @@ export const getPortfolioData = cache(async function getPortfolioData(): Promise
                     const { _id, updatedAt, ...cleanDoc } = doc as any;
                     const localData = getLocalFilePortfolioData();
 
-                    // Reconcile MongoDB projects with local projects
-                    const localProjects: any[] = localData?.projects || [];
-                    const dbProjects: any[] = Array.isArray(cleanDoc?.projects) ? cleanDoc.projects : [];
+                    // Reconcile MongoDB projects with local projects (filter out deprecated projects)
+                    const localProjects: any[] = (localData?.projects || []).filter((p: any) => p.id !== "house-manager");
+                    const rawDbProjects: any[] = Array.isArray(cleanDoc?.projects) ? cleanDoc.projects : [];
+                    const dbProjects: any[] = rawDbProjects.filter((p: any) => p.id !== "house-manager");
 
                     let userProjects: any[] = [];
                     if (dbProjects.length === 0) {
@@ -78,10 +79,11 @@ export const getPortfolioData = cache(async function getPortfolioData(): Promise
                                 }
                             }
                         }
-                        userProjects = updatedDbProjects;
+                        userProjects = updatedDbProjects.filter((p: any) => p.id !== "house-manager");
 
-                        // Asynchronously persist new flagship projects to MongoDB Atlas
-                        if (!dbProjectIds.has("shankhapushpi-ecommerce")) {
+                        // Asynchronously persist new flagship projects and cleanup deprecated projects in MongoDB Atlas
+                        const hadHouseManager = rawDbProjects.some((p: any) => p.id === "house-manager");
+                        if (!dbProjectIds.has("shankhapushpi-ecommerce") || hadHouseManager) {
                             db.collection("content").updateOne(
                                 { _id: "portfolio_main" as any },
                                 { $set: { projects: userProjects, updatedAt: new Date() } }
