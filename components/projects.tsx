@@ -34,6 +34,62 @@ interface ArchitecturalSpec {
 }
 
 const defaultArchitecturalData: Record<string, ArchitecturalSpec> = {
+    "shankhapushpi-ecommerce": {
+        schemaDiagram: {
+            layer1: "Next.js 15 Bilingual Client + Mobile POS",
+            layer2: "Custom In-House Auth Engine (Zero Recurring Fee)",
+            layer3: "Real-Time Stock Mutex Lock & Steadfast API Worker",
+            layer4: "PostgreSQL ACID Central Pool + Encrypted Ledgers",
+        },
+        hardestProblem: {
+            title: "Omnichannel Real-Time Stock Collision",
+            challenge: "Simultaneous online checkouts and physical store barcode scans drawing from the same SKU risked overselling the last remaining unit.",
+            resolution: "Implemented atomic database reservation mutex locks on order initiation with 10-min TTL; guarantees 100% unified inventory with zero double-selling.",
+        },
+        apiSimulator: {
+            method: "POST",
+            endpoint: "/api/pos/checkout-and-sync",
+            simulatedLatency: "26ms",
+            responsePayload: {
+                status: "TRANSACTION_COMPLETED",
+                invoiceNumber: "SHANKHA-POS-2026-419",
+                itemDeducted: "ORGANIC_HONEY_500G (x1)",
+                centralStockRemaining: 48,
+                splitPayment: { cash: 250, bKash: 100 },
+                smsReceipt: "SENT_TO_+88017XXXXXXXX",
+                steadfastSync: "AUTO_MANIFEST_READY",
+                recurringAuthCost: "0_USD",
+            },
+        },
+    },
+    "devojyoti-dutta": {
+        schemaDiagram: {
+            layer1: "Patient Web Client (Bengali/English) + Doctor Admin",
+            layer2: "Next.js 15 Server Actions + 31-Question Clinical Form",
+            layer3: "Slot Concurrency Guard (Atomic Slot Lock) + SMS Gateway",
+            layer4: "Self-Hosted Coolify VPS + PostgreSQL + Backblaze B2",
+        },
+        hardestProblem: {
+            title: "Simultaneous Slot Collisions & Concurrency",
+            challenge: "Concurrent bookings during morning quota releases risked duplicate reservations for the exact same 15-minute slot.",
+            resolution: "Distributed atomic slot reservation locks with 5-minute unconfirmed hold expiry; mathematically eliminates double-booking.",
+        },
+        apiSimulator: {
+            method: "POST",
+            endpoint: "/api/clinical/reserve-slot",
+            simulatedLatency: "31ms",
+            responsePayload: {
+                status: "CONFIRMED",
+                serialNumber: "AYUR-2026-DH-042",
+                chamberSlot: "DHAKA_CHAMBER // 11:30 AM (15 Min)",
+                patientClassification: "FOLLOW_UP_RECOGNIZED",
+                dynamicFee: "600 BDT (Automatic Follow-Up Discount)",
+                intakeFormLink: "https://devojyotidutta.com/form/tok_98234",
+                rememberedDevice: "TRUSTED_1_CLICK",
+                vpsBackupStatus: "DAILY_BACKBLAZE_B2_SYNCED",
+            },
+        },
+    },
     "webzen-technologies": {
         schemaDiagram: {
             layer1: "Edge CDN (Vercel Ingestion)",
@@ -58,32 +114,6 @@ const defaultArchitecturalData: Record<string, ArchitecturalSpec> = {
                 activeVentures: 15,
                 engineersMentored: "100+",
                 clusterHealth: "OPTIMAL",
-            },
-        },
-    },
-    "devojyoti-dutta": {
-        schemaDiagram: {
-            layer1: "Patient Web Client (Bengali/English)",
-            layer2: "Next.js 15 Server Actions",
-            layer3: "Redis Mutex (Atomic Slot Guard)",
-            layer4: "PostgreSQL Registry + WhatsApp Cloud API",
-        },
-        hardestProblem: {
-            title: "Simultaneous Slot Collisions",
-            challenge: "Concurrent bookings during morning quota releases risked duplicate reservations.",
-            resolution: "Distributed Redis mutex locks with serializable transactions; guarantees exactly one booking per slot.",
-        },
-        apiSimulator: {
-            method: "POST",
-            endpoint: "/api/clinical/reserve-slot",
-            simulatedLatency: "38ms",
-            responsePayload: {
-                status: "CONFIRMED",
-                bookingReference: "AYUR-2026-089",
-                patientSlot: "CHAMBER_1 // 11:30 AM",
-                quotaLock: "ATOMIC_ACQUIRED",
-                telemedicineWhatsApp: "DISPATCHED",
-                latency: "38ms",
             },
         },
     },
@@ -193,9 +223,9 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
             year: proj.year || "2026",
             leadIn: proj.client || proj.impact || "Enterprise Architecture",
             description: proj.description || proj.challenge || "Mission-critical production platform.",
-            techStack: Array.isArray(proj.techStack) ? proj.techStack : ["Next.js", "TypeScript", "PostgreSQL"],
-            liveUrl: proj.liveUrl,
-            githubUrl: proj.githubUrl,
+            techStack: Array.isArray(proj.tech) ? proj.tech : (Array.isArray(proj.techStack) ? proj.techStack : ["Next.js", "TypeScript", "PostgreSQL"]),
+            liveUrl: proj.liveLink || proj.liveUrl,
+            githubUrl: proj.clientLink || proj.githubUrl,
             images,
             ...spec,
         };
@@ -324,14 +354,26 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                     
                                     {/* Breakout Screen Viewer */}
                                     <div className="relative aspect-16/9 sm:aspect-21/9 rounded-sm border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-[#0A0A09] overflow-hidden shadow-2xl group/screen">
-                                        <Image
-                                            src={activeImg.src}
-                                            alt={project.title}
-                                            fill
-                                            sizes="(max-width: 1024px) 100vw, 900px"
-                                            className="object-cover object-top filter grayscale-20 group-hover/screen:grayscale-0 transition-all duration-500"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                                        <Link
+                                            href={`/projects/${project.id}`}
+                                            prefetch={true}
+                                            className="block w-full h-full relative cursor-pointer"
+                                            aria-label={`Open Architectural Case Study: ${project.title}`}>
+                                            <Image
+                                                src={activeImg.src}
+                                                alt={project.title}
+                                                fill
+                                                sizes="(max-width: 1024px) 100vw, 900px"
+                                                className="object-cover object-top filter grayscale-20 group-hover/screen:grayscale-0 group-hover/screen:scale-[1.02] transition-all duration-500"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+
+                                            {/* Hover Prompt */}
+                                            <div className="absolute bottom-3 left-3 flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-black/85 backdrop-blur-md border border-white/20 text-white font-mono text-[10px] uppercase tracking-wider opacity-0 group-hover/screen:opacity-100 transition-opacity">
+                                                <span>EXPLORE CASE STUDY ROUTE</span>
+                                                <ArrowUpRight size={12} className="text-[#E64A11]" />
+                                            </div>
+                                        </Link>
 
                                         {/* Multi-Screen Switcher Tabs */}
                                         {project.images.length > 1 && (
@@ -342,12 +384,13 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                                         <button
                                                             key={iIdx}
                                                             type="button"
-                                                            onClick={() =>
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
                                                                 setActiveImageIndices((prev) => ({
                                                                     ...prev,
                                                                     [project.id]: iIdx,
-                                                                }))
-                                                            }
+                                                                }));
+                                                            }}
                                                             className={`px-2 py-1 rounded-xs transition-all cursor-pointer ${
                                                                 isSelected
                                                                     ? "bg-[#E64A11] text-white font-bold"
@@ -364,15 +407,29 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                     {/* Overlapping Heavy Title + ( > ) Drawer Trigger */}
                                     <div className="flex flex-wrap items-end justify-between gap-4 pt-2">
                                         <div className="space-y-1">
-                                            <h3 className="editorial-display text-2xl sm:text-4xl lg:text-5xl xl:text-6xl text-neutral-900 dark:text-white">
-                                                {project.title}
-                                            </h3>
+                                            <Link
+                                                href={`/projects/${project.id}`}
+                                                prefetch={true}
+                                                className="block group/title cursor-pointer">
+                                                <h3 className="editorial-display text-2xl sm:text-4xl lg:text-5xl xl:text-6xl text-neutral-900 dark:text-white group-hover/title:text-[#E64A11] transition-colors inline-flex items-center gap-2">
+                                                    <span>{project.title}</span>
+                                                    <ArrowUpRight size={26} className="opacity-0 group-hover/title:opacity-100 transition-all text-[#E64A11] -translate-x-2 group-hover/title:translate-x-0" />
+                                                </h3>
+                                            </Link>
                                             <p className="font-light text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm max-w-xl">
                                                 {project.description}
                                             </p>
                                         </div>
 
                                         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                                            <Link
+                                                href={`/projects/${project.id}`}
+                                                prefetch={true}
+                                                className="px-3.5 py-1.5 rounded-xs bg-[#E64A11] text-white font-mono text-xs font-bold hover:bg-[#FF5100] transition-all inline-flex items-center gap-1.5 shadow-md">
+                                                <span>CASE STUDY</span>
+                                                <ArrowUpRight size={13} />
+                                            </Link>
+
                                             {project.liveUrl && (
                                                 <a
                                                     href={project.liveUrl}
@@ -474,6 +531,7 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
                                         <div className="flex items-center justify-between pt-2 text-xs">
                                             <Link
                                                 href={`/projects/${project.id}`}
+                                                prefetch={true}
                                                 className="text-[#E64A11] hover:underline font-bold inline-flex items-center gap-1">
                                                 <span>READ COMPLETE CASE STUDY ROUTE</span>
                                                 <ArrowUpRight size={13} />

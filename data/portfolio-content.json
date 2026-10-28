@@ -239,6 +239,242 @@
   ],
   "projects": [
     {
+      "id": "shankhapushpi-ecommerce",
+      "title": "শঙ্খপুষ্পী (shankhapushpibd.com)",
+      "subtitle": "দ্বিভাষিক অর্গানিক ই-কমার্স ও ওমনিচ্যানেল ক্লাউড POS সফটওয়্যার",
+      "category": "ecommerce",
+      "categoryLabel": "E-Commerce & Omnichannel Cloud POS",
+      "role": "Lead System Architect & Full-Stack Engineer (WebZen Bangladesh)",
+      "status": "Production Live",
+      "client": "শঙ্খপুষ্পী (Shankhapushpi BD — Organic Food & Ayurvedic Care)",
+      "year": "2026 Production",
+      "isFlagship": true,
+      "description": "শঙ্খপুষ্পী (shankhapushpibd.com) একটি আধুনিক দ্বিভাষিক (বাংলা ও ইংরেজি) অর্গানিক ই-কমার্স ও ওমনিচ্যানেল ক্লাউড POS প্ল্যাটফর্ম। অনলাইন স্টোর ও দোকানের ফিজিক্যাল কাউন্টার উভয়েই একটি সিঙ্গেল সেন্ট্রাল ইনভেন্টরি পুল শেয়ার করে, ফলে ওভারসেলিং বা স্টক গরমিল সম্পূর্ণ অসম্ভব। এতে রয়েছে কাস্টম ইন-হাউস অথেনটিকেশন (জিরো সাবস্ক্রিপশন ফি), Steadfast কুরিয়ার অটোমেটেড API ডিসপ্যাচ, ডায়নামিক ওজন ও জেলাভিত্তিক শিপিং ক্যালকুলেশন, রিওয়ার্ড পয়েন্ট লয়ালটি, মাল্টি-সাইজ ভ্যারিয়েন্ট, স্প্লিট পেমেন্ট POS, থার্মাল ও SMS রসিদ এবং হার্ডেনড সিকিউরিটি আর্কিটেকচার।",
+      "images": [
+        {
+          "src": "/projects/shankhapushpi-og.jpg",
+          "label": "শঙ্খপুষ্পী ডিজিটাল স্টোরফ্রন্ট",
+          "caption": "Bilingual Ayurvedic Storefront with Organic Food & Wellness Products"
+        },
+        {
+          "src": "https://res.cloudinary.com/dxaivw4ip/image/upload/f_auto,q_auto/v1793163023/shankhapushpi/irfcgwtxffvysvjj1ry8.webp",
+          "label": "প্রোডাক্ট ক্যাটালগ ও মাল্টি-সাইজ ভ্যারিয়েন্ট",
+          "caption": "Dynamic multi-size product variants, benefits, usage guidelines & instant cart"
+        },
+        {
+          "src": "https://res.cloudinary.com/dxaivw4ip/image/upload/f_auto,q_auto/v1793085076/shankhapushpi/qclgzfp6tmwf0oieru7t.webp",
+          "label": "সমস্যা ও রোগভিত্তিক স্মার্ট ফিল্টারিং",
+          "caption": "Problem-oriented navigation (hair fall, dandruff, dry skin, immunity)"
+        },
+        {
+          "src": "https://res.cloudinary.com/dxaivw4ip/image/upload/f_auto,q_auto/v1793085277/shankhapushpi/x2ld2yirnyyvtnebc0hr.webp",
+          "label": "ভেষজ যত্ন ও কম্বো অফার ইঞ্জিন",
+          "caption": "Curated combos, bundle savings & verified buyer review validation"
+        }
+      ],
+      "liveLink": "https://shankhapushpibd.com/bn",
+      "adminLink": "https://shankhapushpibd.com/bn",
+      "tech": [
+        "Next.js 15",
+        "TypeScript",
+        "PostgreSQL",
+        "In-House Custom Auth",
+        "Omnichannel POS",
+        "Steadfast Courier API",
+        "SMS Gateway",
+        "Tailwind CSS",
+        "Turbopack",
+        "Bilingual UX"
+      ],
+      "features": [
+        {
+          "title": "🛍️ দ্বিভাষিক অনলাইন স্টোর ও স্মার্ট সার্চ (Bangla & English Search)",
+          "desc": "পুরো ওয়েবসাইট বাংলা ও ইংরেজি দুই ভাষায় পরিচালিত। বাংলা বা ইংরেজি যেকোনো হরফে প্রোডাক্ট সার্চ সুবিধা (যেমন: 'মধু' কিংবা 'honey' লিখলে সমান নির্ভুল রেজাল্ট)। মোবাইল-ফার্স্ট সুপারফাস্ট রেসপনসিভনেস।"
+        },
+        {
+          "title": "🎯 সমস্যাভিত্তিক ফিল্টারিং ও মাল্টি-সাইজ ভ্যারিয়েন্ট",
+          "desc": "ক্যাটাগরি, শারীরিক সমস্যা (চুল পড়া, খুশকি, ব্রণ, হজম ইত্যাদি) ও দাম দিয়ে সুনির্দিষ্ট বাছাই। প্রতিটি প্রোডাক্টে একাধিক সাইজ (৫০০ গ্রাম / ১ কেজি), ব্যবহারের নিয়ম ও আয়ুর্বেদিক উপকারিতার বিশদ বিবরণ।"
+        },
+        {
+          "title": "🏷️ কম্বো অফার, ক্যাশ অন ডেলিভারি ও ডায়নামিক শিপিং",
+          "desc": "কয়েকটি প্রোডাক্ট একসাথে ছাড়ে কম্বো অফার ইঞ্জিন। ক্যাশ অন ডেলিভারি (COD) ও কুপন কোড ছাড়। জেলা ও ওজনের ভিত্তিতে স্বয়ংক্রিয় ডেলিভারি চার্জ ক্যালকুলেশন (ঢাকা ও ঢাকার বাইরে)।"
+        },
+        {
+          "title": "💎 রিওয়ার্ড পয়েন্ট লয়ালটি ও ভেরিফাইড ক্রেতা রিভিউ",
+          "desc": "কেনাকাটায় পয়েন্ট জমে, যা পরবর্তীতে টাকার মতো ব্যবহারযোগ্য। ভুয়া রিভিউ রোধে শুধুমাত্র যারা পণ্য অর্ডার করে ডেলিভারি পেয়েছেন তারাই রিভিউ দিতে পারেন।"
+        },
+        {
+          "title": "📦 কাস্টমার সেলফ-সার্ভিস অ্যাকাউন্ট ও ট্র্যাকিং",
+          "desc": "কাস্টমারের নিজস্ব অ্যাকাউন্ট থেকে অর্ডারের অবস্থা, পুরোনো অর্ডারের হিস্ট্রি ও জমে থাকা পয়েন্ট দেখা। অর্ডার নম্বর দিয়ে ডেলিভারির লাইভ ট্র্যাকিং এবং স্বাস্থ্য ব্লগের ভেতর সরাসরি প্রোডাক্ট কার্ড।"
+        },
+        {
+          "title": "🏪 দোকানের কাউন্টার ও POS সফটওয়্যার",
+          "desc": "কম্পিউটার বা মোবাইল থেকে দ্রুত বিক্রি এবং ফিজিক্যাল বারকোড স্ক্যানার সাপোর্ট। ক্যাশ, বিকাশ, নগদ ও কার্ড একসাথে মিলিয়ে স্প্লিট পেমেন্ট গ্রহণ এবং বাকি (Due) লেজার ও বকেয়া আদায়ের খাতা।"
+        },
+        {
+          "title": "🧾 থার্মাল ও A4 রসিদ প্রিন্ট, SMS ইনভয়েস ও ফোন অর্ডার",
+          "desc": "ছোট থার্মাল প্রিন্টার বা A4 মেমো প্রিন্টিং। চেকআউট হতেই কাস্টমারের মোবাইলে SMS-এ রসিদ প্রেরণ। ফোনে অর্ডার দেওয়া কাস্টমারদের জন্য স্টাফ কর্তৃক সরাসরি ব্যাকঅফিস থেকে অর্ডার তৈরির ব্যবস্থা।"
+        },
+        {
+          "title": "🔄 সমন্বিত সেন্ট্রাল স্টক ও Steadfast কুরিয়ার অটোমেশন",
+          "desc": "অনলাইন ও দোকান একই কেন্দ্রীয় স্টক থেকে বিক্রি, হিসাব কখনো আলাদা হয় না। অনলাইনে অর্ডার আসামাত্র মাল বুক হয়ে যায় যাতে দোকানে বিক্রি না হয়। নষ্ট/ফেরত হিসাব খাতা, লো-স্টক এলার্ট এবং Steadfast কুরিয়ারে এক-ক্লিকে পার্সেল বুকিং ও অটো আপডেট।"
+        },
+        {
+          "title": "📱 অটোমেটেড SMS ইঞ্জিন ও ওটিপি লগইন",
+          "desc": "অর্ডারের প্রতিটা ধাপে (নতুন → কনফার্ম → প্যাক → পাঠানো → ডেলিভারি) কাস্টমার ও এডমিনের মোবাইলে স্বয়ংক্রিয় SMS। এডমিন থেকে টেমপ্লেট পরিবর্তন সুবিধা এবং মোবাইল নম্বরে পাসওয়ার্ডহীন কোড (OTP) দিয়ে এক ক্লিকে লগইন।"
+        },
+        {
+          "title": "⚙️ এক্সিকিউটিভ এডমিন ড্যাশবোর্ড ও স্টাফ পারমিশন (RBAC)",
+          "desc": "প্রোডাক্ট যোগ ও এডিট, ছবি আপলোড ও স্বয়ংক্রিয় ব্যাকগ্রাউন্ড রিমুভাল। ব্যানার, মেনু, ডেলিভারি চার্জ কন্ট্রোল। দৈনিক বিক্রি, মাধ্যমভিত্তিক টাকা, টপ প্রোডাক্ট, লাভ ও বাকির রিপোর্ট। কোন স্টাফ কী কী করতে পারবে তার আলাদা পারমিশন ও অডিট লগ।"
+        },
+        {
+          "title": "🔐 হার্ডেনড সিকিউরিটি ও কাস্টম ইন-হাউস অথ (Zero Recurring Cost)",
+          "desc": "দুই ধাপে লগইন (2FA), হ্যাকিং ও ভুয়া অর্ডার থেকে সুরক্ষা এবং ক্লায়েন্ট-সাইড প্রাইস ট্যাম্পারিং প্রতিরোধ। সম্পূর্ণ নিজস্ব কাস্টম-বিল্ট অথেনটিকেশন আর্কিটেকচার—ডাটা অন্য কারো হাতে নেই এবং অথ বাবদ কোনো মাসিক সাবস্ক্রিপশন ফি নেই।"
+        }
+      ],
+      "metrics": [
+        {
+          "value": "100%",
+          "label": "সমন্বিত স্টক সিঙ্ক (জিরো ওভারসেলিং)"
+        },
+        {
+          "value": "0 USD",
+          "label": "কাস্টম ইন-হাউস অথ খরচ (জিরো সাবস্ক্রিপশন)"
+        },
+        {
+          "value": "1-Click",
+          "label": "Steadfast কুরিয়ার API অটো-বুকিং"
+        },
+        {
+          "value": "দ্বিভাষিক",
+          "label": "বাংলা ও ইংরেজিতে স্মার্ট সার্চ"
+        }
+      ]
+    },
+    {
+      "id": "devojyoti-dutta",
+      "title": "ডা. দেবজ্যোতি দত্ত মেডিকেল পোর্টাল (devojyotidutta.com)",
+      "subtitle": "অটোমেটেড ক্লিনিক্যাল অ্যাপয়েন্টমেন্ট ইঞ্জিন, প্রকৃতি পরীক্ষা ও ডক্টর এডমিন OS",
+      "category": "healthtech",
+      "categoryLabel": "HealthTech & Clinical Telemedicine",
+      "role": "Founder & Lead System Architect (WebZen Bangladesh)",
+      "status": "Production Live",
+      "client": "Ayurvedacharya Devojyoti Dutta (B.A.M.S., NIA Jaipur & B.Sc in BGE, Khulna University)",
+      "year": "2026 Production",
+      "isFlagship": true,
+      "description": "ডা. দেবজ্যোতি দত্তের অফিশিয়াল মেডিকেল প্ল্যাটফর্ম (devojyotidutta.com) একটি এন্ড-টু-এন্ড অটোমেটেড ক্লিনিক্যাল অ্যাপয়েন্টমেন্ট শিডিউলিং ও প্র্যাকটিস ম্যানেজমেন্ট ইকোসিস্টেম। রোগী ও প্রবাসীদের জন্য অনলাইন ও সরাসরি চেম্বার বুকিং, ১৫ মিনিটের স্লট ভিত্তিক ডায়নামিক ক্যালেন্ডার, কঠোর কনকারেন্সি লক (ডাবল-বুকিং সম্পূর্ণ অসম্ভব), নতুন বনাম ফলো-আপ রোগী অটো-ডিটেকশন ও ফি ক্যালকুলেটর, গুগল ফর্মের বিকল্প হিসেবে কাস্টম ৩১-প্রশ্নের ইন্টেক ফর্ম, ডক্টর কমান্ড সেন্টার এবং সেলফ-হোস্টেড Coolify VPS ও Backblaze B2 অটো-ব্যাকআপ আর্কিটেকচার দিয়ে সুরক্ষিত।",
+      "images": [
+        {
+          "src": "/devojyoti/preview.png",
+          "label": "ডাক্তার পরিচিতি ও পাবলিক পোর্টাল",
+          "caption": "Ayurvedacharya Devojyoti Dutta — NIA Jaipur & Khulna University Genetics Graduate."
+        },
+        {
+          "src": "/uploads/1792203603681_Screenshot_2026-10-17_at_8.19.52_AM.png",
+          "label": "হোমপেজ ও প্রকৃতি পরীক্ষা (Prakriti Quiz)",
+          "caption": "Interactive 10-question Prakriti constitution assessment (Vata, Pitta, Kapha) & lifestyle recommendations."
+        },
+        {
+          "src": "/uploads/1792203678019_Screenshot_2026-10-17_at_8.21.10_AM.png",
+          "label": "চেম্বার বাছাই ও অনলাইন ভিডিও কনসালটেশন",
+          "caption": "Dhaka physical chamber vs Online video consultation (NRI / Domestic separate currencies)."
+        },
+        {
+          "src": "/uploads/1792203714181_Screenshot_2026-10-17_at_8.21.46_AM.png",
+          "label": "১৫ মিনিটের স্লট ক্যালেন্ডার ও ওটিপি যাচাই",
+          "caption": "Real-time calendar slot lockouts, SMS/Email OTP & 'Remember this device' 1-click booking without OTP."
+        },
+        {
+          "src": "/uploads/1792203743398_Screenshot_2026-10-17_at_8.22.13_AM.png",
+          "label": "ডায়নামিক ফি ও নিশ্চিতকরণ স্লিপ",
+          "caption": "Automated new patient vs follow-up detection (<3 months) with printable confirmation serial slips."
+        },
+        {
+          "src": "/uploads/1792203772004_Screenshot_2026-10-17_at_8.22.40_AM.png",
+          "label": "ডক্টর এডমিন প্যানেল ও পেশেন্ট ইনটেক ফর্ম",
+          "caption": "Doctor command center, custom 31-question clinical intake form, and 1-click SMS/WhatsApp messaging hub."
+        }
+      ],
+      "liveLink": "https://www.devojyotidutta.com/",
+      "adminLink": "https://www.devojyotidutta.com/admin",
+      "tech": [
+        "Next.js 15",
+        "TypeScript",
+        "PostgreSQL",
+        "Coolify VPS",
+        "Server Actions",
+        "SMS Gateway",
+        "WhatsApp Cloud API",
+        "Backblaze B2",
+        "Tailwind CSS",
+        "Bilingual UX"
+      ],
+      "features": [
+        {
+          "title": "🌐 পাবলিক পোর্টাল ও প্রকৃতি পরীক্ষা (Prakriti Quiz)",
+          "desc": "পরিচিতি, বিশেষজ্ঞতার ক্ষেত্র, FAQ, চেম্বার ঠিকানা ও ম্যাপ। ১০টি প্রশ্নের অ্যালগরিদমিক প্রকৃতি পরীক্ষা দিয়ে বাত/পিত্ত/কফ নির্ণয় ও লাইফস্টাইল পরামর্শ। রোগী রিভিউ (Google ও সাইট রিভিউ, 'আরও পড়ুন' অপশন, এডমিন অনুমোদনে প্রদর্শন) এবং 'স্বাস্থ্য দর্পণ' বইয়ের অধ্যায় ও অর্ডার লিংক। ডার্ক/লাইট মোড সহ পূর্ণাঙ্গ বাংলা ও মোবাইল-বান্ধব ইন্টারফেস।"
+        },
+        {
+          "title": "📅 অনলাইন সিরিয়াল বুকিং ও ১৫ মিনিটের স্লট",
+          "desc": "ঢাকা চেম্বার (সরাসরি) অথবা অনলাইন ভিডিও কনসালটেশন (প্রবাসী রোগীদের আলাদা কারেন্সি ও টাইমজোন)। ক্যালেন্ডার থেকে তারিখ বাছাই, ১৫ মিনিটের স্লট। বুক হয়ে যাওয়া স্লট, বিরতির সময় ও অতিক্রান্ত সময় নিজে থেকেই বন্ধ থাকে।"
+        },
+        {
+          "title": "🔑 OTP যাচাই ও 'এই ডিভাইস মনে রাখুন' প্রযুক্তি",
+          "desc": "বাংলাদেশি নম্বরে SMS OTP, প্রবাসীদের ইমেইলে। 'এই ডিভাইস মনে রাখুন' সুবিধায় দ্বিতীয়বার থেকে নাম বেছে এক ক্লিকে বুকিং (OTP ছাড়া)। তবে সন্দেহজনক রোগী বা বাতিলকৃত বুকিংয়ের ক্ষেত্রে OTP বাধ্যতামূলক।"
+        },
+        {
+          "title": "🛡️ ডাবল বুকিং অসম্ভব (কঠোর কনকারেন্সি লক)",
+          "desc": "একসাথে বহু রোগী একই স্লট বুকিং করার চেষ্টা করলেও ডিস্ট্রিবিউটেড রেস-কন্ডিশন গার্ড নিশ্চিত করে স্লটটি শুধুমাত্র একজন রোগীই পাবেন।"
+        },
+        {
+          "title": "💰 ডায়নামিক ফি ও রোগী ধরন স্বয়ংক্রিয় শনাক্তকরণ",
+          "desc": "আগের ভিজিটের ৩ মাসের মধ্যে এলে সিস্টেম স্বয়ংক্রিয়ভাবে রোগীকে 'ফলো-আপ' হিসেবে শনাক্ত করে। প্রযোজ্য ফি নিজে থেকেই বসে: ঢাকা চেম্বার ১,০০০ / ৬০০ টাকা, অনলাইন ৮০০ / ৪০০ টাকা, প্রবাসী $১০ / $৭ ডলার। স্লিপ, ইমেইল, SMS ও এডমিন সব জায়গায় দৃশ্যমান।"
+        },
+        {
+          "title": "📋 নিজস্ব ক্লিনিক্যাল পেশেন্ট ফর্ম (Google Form-এর বিকল্প)",
+          "desc": "গুগল ফর্মের বদলে মোবাইল-ফ্রেন্ডলি কাস্টম ৩১টি প্রশ্নের ক্লিনিক্যাল ইনটেক ফর্ম। SMS-এর গোপন লিংক (OTP ছাড়া) অথবা /form রুটে নম্বর ও OTP দিয়ে এক্সেস। বিশ্বস্ত ডিভাইসে পুরনো উত্তর অটো প্রি-ফিল্ড থাকে (৩০ দিন মেয়াদ)। একই রোগী পুনরায় এলে আগের ফর্ম স্বয়ংক্রিয়ভাবে নতুন সিরিয়ালের সাথে যুক্ত হয়।"
+        },
+        {
+          "title": "🩺 ডক্টর এডমিন কমান্ড সেন্টার (/admin)",
+          "desc": "তারিখ, চেম্বার ও স্ট্যাটাস ফিল্টার সহ সিরিয়াল তালিকা ও স্লট সর্টিং। নিশ্চিতকরণ, রিশিডিউল ও ক্যান্সেলেশনে স্লট তাৎক্ষণিক রিলিজ। ডাক্তার নিজে সরাসরি ম্যানুয়াল সিরিয়াল দিতে পারেন। রোগীর ব্যাজ ('নতুন রোগী • ১,০০০ টাকা', 'ফলোআপ • ৬০০ টাকা', 'সন্দেহজনক')।"
+        },
+        {
+          "title": "📝 ক্লিনিক্যাল ফর্ম ভিউয়ার ও ডায়নামিক প্রশ্ন এডিটর",
+          "desc": "রোগীর উত্তরগুলো বিষয় অনুযায়ী সাজানো হিস্ট্রি ও 'সন্দেহজনক চিহ্নিত করুন' বোতাম। রোগীর তথ্য ফর্মের প্রশ্ন, উত্তরের ধরন, অপশন, ক্রম ও বাধ্যতামূলক ফিল্ড এডমিন থেকেই সম্পাদন।"
+        },
+        {
+          "title": "💬 ১-ক্লিক মেসেজিং (SMS, WhatsApp, Email) ও ৬টি টেমপ্লেট",
+          "desc": "এক ক্লিকে SMS, WhatsApp বা ইমেইল প্রেরণ। 'মেসেজ প্রেরিত' চিহ্ন ও লাইভ SMS ব্যালেন্স ট্র্যাকার। চেম্বার ভেদে ৬ ধরনের SMS টেমপ্লেট, নতুন/ফলো-আপ লাইভ প্রিভিউ, ক্যারেক্টার কাউন্ট ও খরচের হিসাব।"
+        },
+        {
+          "title": "⏰ চেম্বার শিডিউলার, রিসেপশন প্রিন্ট ও সেশন সিকিউরিটি",
+          "desc": "দিন, সময়, বিরতি, স্লটের দৈর্ঘ্য ও নির্দিষ্ট দিনের জন্য আলাদা সময় কনফিগারেশন। রিসেপশনের প্রিন্ট তালিকা। পাসওয়ার্ড পরিবর্তন করলে সকল ডিভাইস থেকে স্বয়ংক্রিয় গ্লোবাল লগআউট।"
+        },
+        {
+          "title": "⚙️ সেলফ-হোস্টেড Coolify VPS, কম মেমোরি ও Backblaze B2",
+          "desc": "SQL Injection, XSS ও ক্ষতিকর ফাইল আপলোড প্রোটেকশন। লগইন ও ওটিপিতে ব্রুট-ফোর্স রেট লিমিটিং। কোনো সিক্রেট কোডে নেই। নিজস্ব VPS-এ Coolify ও ডেডিকেটেড কম মেমোরি PostgreSQL। অটোমেটিক দৈনিক ব্যাকআপ (VPS-এ ৭ দিন এবং Backblaze B2 ক্লাউডে ৩০ দিন)।"
+        }
+      ],
+      "metrics": [
+        {
+          "value": "15 Min",
+          "label": "স্লট ভিত্তিক ডিজিটাল ক্যালেন্ডার"
+        },
+        {
+          "value": "100%",
+          "label": "ডাবল বুকিং প্রতিরোধ (রেস-কন্ডিশন ফ্রি)"
+        },
+        {
+          "value": "৩১টি প্রশ্ন",
+          "label": "নিজস্ব ক্লিনিক্যাল পেশেন্ট ইনটেক ফর্ম"
+        },
+        {
+          "value": "Coolify",
+          "label": "সেলফ-হোস্টেড VPS ও Backblaze B2 ব্যাকআপ"
+        }
+      ]
+    },
+    {
       "id": "webzen-technologies",
       "title": "WebZen Bangladesh (webzenbd.com)",
       "subtitle": "Next-Gen Enterprise Architecture, SaaS Development & Digital Ventures Studio",
@@ -309,107 +545,6 @@
         {
           "value": "Global",
           "label": "Remote Engineering Advisory"
-        }
-      ]
-    },
-    {
-      "id": "devojyoti-dutta",
-      "title": "Dr. Devojyoti Dutta Medical Portal",
-      "subtitle": "Ayurvedic Medical Platform & Smart Slot Booking Engine",
-      "category": "healthtech",
-      "categoryLabel": "HealthTech & Clinical SaaS",
-      "role": "Founder & Lead Systems Architect (WebZen)",
-      "status": "Production Live",
-      "client": "Ayurvedacharya Devojyoti Dutta (B.A.M.S., NIA Jaipur & B.Sc in BGE)",
-      "year": "2026 Production",
-      "isFlagship": true,
-      "description": "Engineered an end-to-end clinical appointment booking and digital healthcare portal for Dr. Devojyoti Dutta. Replaced manual queue management with an automated 3-step slot reservation engine, bilingual patient portal, doctor admin dashboard, and direct WhatsApp telemedicine consultation integration.",
-      "images": [
-        {
-          "src": "/devojyoti/preview.png",
-          "label": "Physician Profile",
-          "caption": "Dr. Devojyoti Dutta — NIA Jaipur Alumnus & Khulna University Genetics Graduate."
-        },
-        {
-          "src": "/uploads/1792203603681_Screenshot_2026-10-17_at_8.19.52_AM.png",
-          "label": "Home Page",
-          "caption": "Project screenshot"
-        },
-        {
-          "src": "/uploads/1792203678019_Screenshot_2026-10-17_at_8.21.10_AM.png",
-          "label": "Appointment Booking System Part-1",
-          "caption": "Project screenshot"
-        },
-        {
-          "src": "/uploads/1792203714181_Screenshot_2026-10-17_at_8.21.46_AM.png",
-          "label": "Appointment Booking System Part-2",
-          "caption": "Project screenshot"
-        },
-        {
-          "src": "/uploads/1792203743398_Screenshot_2026-10-17_at_8.22.13_AM.png",
-          "label": "Appointment Booking System Part-3",
-          "caption": "Project screenshot"
-        },
-        {
-          "src": "/uploads/1792203772004_Screenshot_2026-10-17_at_8.22.40_AM.png",
-          "label": "Admin Dashboard",
-          "caption": "Project screenshot"
-        }
-      ],
-      "liveLink": "https://www.devojyotidutta.com/",
-      "adminLink": "https://www.devojyotidutta.com/admin",
-      "tech": [
-        "Next.js 15",
-        "TypeScript",
-        "Turbopack",
-        "Tailwind CSS",
-        "Server Actions",
-        "WhatsApp Cloud API",
-        "Lucide Icons",
-        "Bilingual UX"
-      ],
-      "features": [
-        {
-          "title": "3-Step Smart Slot Booking",
-          "desc": "Automated real-time appointment scheduling with dynamic daily capacity control and instant confirmation slips."
-        },
-        {
-          "title": "Doctor Admin Command Center",
-          "desc": "Secure practice management dashboard (/admin) to manage patient queues, chamber schedules, and patient intake."
-        },
-        {
-          "title": "One-Click WhatsApp Telemedicine",
-          "desc": "Direct integration with WhatsApp helpline (+880 1712-854941) for seamless doctor-patient communication."
-        },
-        {
-          "title": "Prakriti Diagnostic Assessment",
-          "desc": "Algorithmic constitutional test calculating Ayurvedic doshas (Vata, Pitta, Kapha) with tailored dietary advice."
-        },
-        {
-          "title": "Clinical Library & Publications",
-          "desc": "Integrated knowledge repository showcasing medical publications, research papers, and 'স্বাস্থ্য দর্পণ' book."
-        },
-        {
-          "title": "Sub-Second SSR & Medical SEO",
-          "desc": "High-speed Next.js SSR architecture with bilingual typography (Hind Siliguri) and Google-indexed medical schemas."
-        }
-      ],
-      "metrics": [
-        {
-          "value": "100%",
-          "label": "Automated Slot Scheduling"
-        },
-        {
-          "value": "5,000+",
-          "label": "Patient Inquiries Handled"
-        },
-        {
-          "value": "99.9%",
-          "label": "Platform Availability"
-        },
-        {
-          "value": "<0.8s",
-          "label": "Page Load Speed"
         }
       ]
     },

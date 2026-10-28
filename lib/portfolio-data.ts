@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { cache } from "react";
 import { getMongoDb, isMongoConfigured } from "./mongodb";
 
 const DATA_PATH = path.join(process.cwd(), "data", "portfolio-content.json");
@@ -30,7 +31,7 @@ function getLocalFilePortfolioData(): any {
     return null;
 }
 
-export async function getPortfolioData(): Promise<any> {
+export const getPortfolioData = cache(async function getPortfolioData(): Promise<any> {
     // 1. If MongoDB is configured, fetch live cloud data
     if (isMongoConfigured()) {
         try {
@@ -41,10 +42,52 @@ export async function getPortfolioData(): Promise<any> {
                     const { _id, updatedAt, ...cleanDoc } = doc as any;
                     const localData = getLocalFilePortfolioData();
 
-                    // If MongoDB has projects, respect them 100% as the source of truth
-                    const userProjects = Array.isArray(cleanDoc?.projects) && cleanDoc.projects.length > 0
-                        ? cleanDoc.projects
-                        : (localData?.projects || []);
+                    // Reconcile MongoDB projects with local projects
+                    const localProjects: any[] = localData?.projects || [];
+                    const dbProjects: any[] = Array.isArray(cleanDoc?.projects) ? cleanDoc.projects : [];
+
+                    let userProjects: any[] = [];
+                    if (dbProjects.length === 0) {
+                        userProjects = localProjects;
+                    } else {
+                        const dbProjectIds = new Set(dbProjects.map((p: any) => p.id));
+                        const updatedDbProjects = dbProjects.map((p: any) => {
+                            const localMatch = localProjects.find((lp: any) => lp.id === p.id);
+                            if (!localMatch) return p;
+                            if (p.id === "shankhapushpi-ecommerce" || p.id === "devojyoti-dutta") {
+                                return {
+                                    ...p,
+                                    ...localMatch,
+                                    liveLink: p.liveLink || localMatch.liveLink,
+                                    adminLink: p.adminLink || localMatch.adminLink,
+                                };
+                            }
+                            return {
+                                ...localMatch,
+                                ...p,
+                            };
+                        });
+
+                        // Add any missing local projects (e.g. shankhapushpi-ecommerce at the front)
+                        for (const lp of localProjects) {
+                            if (!dbProjectIds.has(lp.id)) {
+                                if (lp.isFlagship) {
+                                    updatedDbProjects.unshift(lp);
+                                } else {
+                                    updatedDbProjects.push(lp);
+                                }
+                            }
+                        }
+                        userProjects = updatedDbProjects;
+
+                        // Asynchronously persist new flagship projects to MongoDB Atlas
+                        if (!dbProjectIds.has("shankhapushpi-ecommerce")) {
+                            db.collection("content").updateOne(
+                                { _id: "portfolio_main" as any },
+                                { $set: { projects: userProjects, updatedAt: new Date() } }
+                            ).catch((syncErr) => console.error("Auto-syncing projects to MongoDB failed:", syncErr));
+                        }
+                    }
 
                     const mergedDoc = {
                         ...(localData || {}),
@@ -129,7 +172,7 @@ export async function getPortfolioData(): Promise<any> {
     }
 
     return null;
-}
+});
 
 export async function syncToGitHubRepo(
     jsonString: string,

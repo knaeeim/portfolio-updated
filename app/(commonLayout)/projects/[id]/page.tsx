@@ -25,7 +25,17 @@ import ContactSection from "@/components/contact-us";
 import ProjectGallery from "@/components/ProjectGallery";
 import { Button } from "@/components/ui/button";
 
-export const dynamic = "force-dynamic";
+// Enable Incremental Static Regeneration (ISR) with Edge CDN caching
+export const revalidate = 60;
+
+// Pre-render all project case studies at build time for instant 0ms route transitions
+export async function generateStaticParams() {
+    const portfolioData = await getPortfolioData();
+    const projects = portfolioData?.projects || [];
+    return projects.map((p: any) => ({
+        id: p.id,
+    }));
+}
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -211,7 +221,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
                                     className="rounded-xl border-border hover:bg-muted font-semibold">
                                     <a href={project.adminLink} target="_blank" rel="noreferrer noopener">
                                         <Shield className="mr-2 size-4 text-emerald-500" />
-                                        <span>Doctor / Admin Portal</span>
+                                        <span>{project.id === "devojyoti-dutta" ? "Doctor / Clinical Portal" : project.id === "shankhapushpi-ecommerce" ? "Cloud POS & Admin Portal" : "Admin Portal"}</span>
                                         <ExternalLink className="ml-1.5 size-3.5 opacity-60" />
                                     </a>
                                 </Button>
