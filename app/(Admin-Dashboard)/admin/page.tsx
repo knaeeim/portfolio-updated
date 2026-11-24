@@ -52,6 +52,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { SECTIONS, isSectionVisible, type SectionKey } from "@/lib/sections";
 
 type SectionTab =
     | "overview"
@@ -63,6 +64,7 @@ type SectionTab =
     | "skills"
     | "about"
     | "education"
+    | "visibility"
     | "security";
 
 export default function AdminDashboardPage() {
@@ -101,18 +103,23 @@ export default function AdminDashboardPage() {
 
     // Verify session on mount
     useEffect(() => {
-        const sessionToken = sessionStorage.getItem("wz_admin_session");
         const savedGithubToken = localStorage.getItem("wz_github_token");
         if (savedGithubToken) {
             setGithubToken(savedGithubToken);
         }
-        if (sessionToken) {
-            setIsAuthenticated(true);
-            fetchData();
-        } else {
-            setIsCheckingAuth(false);
-            setIsLoading(false);
-        }
+        // The session lives in an httpOnly cookie, so ask the server whether it is still valid
+        fetch("/api/admin/auth", { cache: "no-store" })
+            .then((res) => res.json())
+            .catch(() => ({ authenticated: false }))
+            .then(({ authenticated }) => {
+                if (authenticated) {
+                    setIsAuthenticated(true);
+                    fetchData();
+                } else {
+                    setIsCheckingAuth(false);
+                    setIsLoading(false);
+                }
+            });
     }, []);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -130,10 +137,9 @@ export default function AdminDashboardPage() {
 
             const json = await res.json();
             if (res.ok && json.success) {
-                sessionStorage.setItem("wz_admin_session", json.token);
                 setIsAuthenticated(true);
                 setIsCheckingAuth(false);
-                toast.success("Authentication successful! Welcome to WebZen Studio.");
+                toast.success("Authentication successful! Welcome to Naeeim Portfolio Studio.");
                 fetchData();
             } else {
                 setLoginError(json.error || "Incorrect master password. Access denied.");
@@ -148,7 +154,7 @@ export default function AdminDashboardPage() {
     };
 
     const handleLogout = () => {
-        sessionStorage.removeItem("wz_admin_session");
+        fetch("/api/admin/auth", { method: "DELETE" }).catch(() => {});
         setIsAuthenticated(false);
         setPasswordInput("");
         setLoginError(null);
@@ -269,6 +275,9 @@ export default function AdminDashboardPage() {
                 } else {
                     toast.success(resJson?.message || "Portfolio successfully saved and published!");
                 }
+            } else if (res.status === 401) {
+                // Logging in here would refetch and drop unsaved edits; a login in another tab renews the shared cookie instead
+                toast.error("Session expired. Open /admin in a new tab, log in, then press Save here again.");
             } else {
                 toast.error(resJson?.error || "Failed to save changes.");
             }
@@ -285,6 +294,16 @@ export default function AdminDashboardPage() {
         setData((prev: any) => ({
             ...prev,
             general: { ...prev.general, [field]: value },
+        }));
+    };
+
+    const setSectionVisibility = (keys: SectionKey[], visible: boolean) => {
+        setData((prev: any) => ({
+            ...prev,
+            sectionVisibility: {
+                ...prev.sectionVisibility,
+                ...Object.fromEntries(keys.map((k) => [k, visible])),
+            },
         }));
     };
 
@@ -864,7 +883,7 @@ export default function AdminDashboardPage() {
                                     <span>Restricted Founder Access</span>
                                 </div>
                                 <h1 className="text-2xl font-black text-foreground tracking-tight">
-                                    WebZen Admin Studio
+                                    Naeeim Portfolio Studio
                                 </h1>
                                 <p className="text-xs text-muted-foreground mt-1">
                                     Direct management console for Khairul Bashar Naeeim. Enter master password to proceed.
@@ -918,11 +937,6 @@ export default function AdminDashboardPage() {
 
                         {/* Helper info & return link */}
                         <div className="pt-2 border-t border-border/60 flex flex-col items-center gap-3 text-center">
-                            <div className="p-2.5 rounded-xl bg-muted/40 border border-border/50 text-[11px] text-muted-foreground w-full">
-                                <span className="font-semibold text-foreground">Default Password: </span>
-                                <code className="px-1.5 py-0.5 rounded bg-background font-mono text-primary font-bold">admin</code>
-                                <span className="ml-1 text-[10px] opacity-80">(can be changed inside studio)</span>
-                            </div>
                             <Link
                                 href="/"
                                 className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors font-medium">
@@ -940,7 +954,7 @@ export default function AdminDashboardPage() {
         return (
             <div className="min-h-screen bg-background flex flex-col items-center justify-center space-y-4">
                 <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-                <p className="text-sm text-muted-foreground font-mono">Loading WebZen Admin Studio...</p>
+                <p className="text-sm text-muted-foreground font-mono">Loading Naeeim Portfolio Studio...</p>
             </div>
         );
     }
@@ -1032,6 +1046,12 @@ export default function AdminDashboardPage() {
                         { id: "skills", label: "Technical Arsenal", icon: Layers },
                         { id: "about", label: "Vision & Pillars", icon: Sliders },
                         { id: "education", label: "Education & Degrees", icon: GraduationCap },
+                        {
+                            id: "visibility",
+                            label: "Section Visibility",
+                            icon: Eye,
+                            badge: `${SECTIONS.filter((s) => isSectionVisible(data, s.key)).length}/${SECTIONS.length}`,
+                        },
                         { id: "security", label: "Security & Passwords", icon: ShieldCheck },
                     ].map((tab) => {
                         const Icon = tab.icon;
@@ -3806,6 +3826,92 @@ export default function AdminDashboardPage() {
                     )}
 
                     {/* SECTION: SECURITY & MASTER PASSWORD */}
+                    {activeTab === "visibility" && (() => {
+                        const visibleCount = SECTIONS.filter((s) => isSectionVisible(data, s.key)).length;
+                        return (
+                            <div className="space-y-6">
+                                <div className="border-b border-border/60 pb-4">
+                                    <h2 className="text-xl font-bold flex items-center gap-2">
+                                        <Eye className="text-primary" size={22} />
+                                        <span>Section Visibility</span>
+                                    </h2>
+                                    <p className="text-xs text-muted-foreground mt-0.5">
+                                        Hidden sections disappear from the homepage and the navbar. Press Save to publish your changes.
+                                    </p>
+                                </div>
+
+                                {visibleCount === 0 && (
+                                    <div className="flex items-start gap-2.5 p-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs">
+                                        <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                                        <span>
+                                            Every section is off. After you save, visitors will see a &quot;We&apos;re working on it, everything will be live soon&quot; page.
+                                        </span>
+                                    </div>
+                                )}
+
+                                <div className="flex flex-wrap gap-2">
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        className="rounded-xl"
+                                        onClick={() => setSectionVisibility(SECTIONS.map((s) => s.key), true)}>
+                                        <Eye size={14} className="mr-1.5" /> Show all
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        className="rounded-xl"
+                                        onClick={() => setSectionVisibility(SECTIONS.map((s) => s.key), false)}>
+                                        <EyeOff size={14} className="mr-1.5" /> Hide all (maintenance)
+                                    </Button>
+                                </div>
+
+                                <div className="rounded-2xl border border-border/80 bg-card/60 divide-y divide-border/60">
+                                    {SECTIONS.map((section) => {
+                                        const on = isSectionVisible(data, section.key);
+                                        return (
+                                            <label
+                                                key={section.key}
+                                                className="flex items-center gap-3 px-4 py-3.5 cursor-pointer hover:bg-muted/30 transition-colors">
+                                                <div className="min-w-0">
+                                                    <div className="text-sm font-semibold text-foreground">{section.label}</div>
+                                                    <div className="text-[11px] text-muted-foreground font-mono truncate">
+                                                        {section.anchors.map((a) => `#${a}`).join("  ")}
+                                                    </div>
+                                                </div>
+                                                <span className={`ml-auto text-[11px] font-bold shrink-0 ${on ? "text-emerald-500" : "text-muted-foreground"}`}>
+                                                    {on ? "VISIBLE" : "HIDDEN"}
+                                                </span>
+                                                <input
+                                                    type="checkbox"
+                                                    role="switch"
+                                                    aria-checked={on}
+                                                    aria-label={`Show ${section.label}`}
+                                                    checked={on}
+                                                    onChange={(e) => setSectionVisibility([section.key], e.target.checked)}
+                                                    className="peer sr-only"
+                                                />
+                                                <span
+                                                    aria-hidden
+                                                    className={`relative inline-flex h-6 w-11 shrink-0 rounded-full transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-primary ${
+                                                        on ? "bg-primary" : "bg-muted-foreground/30"
+                                                    }`}>
+                                                    <span
+                                                        className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+                                                            on ? "translate-x-5.5" : "translate-x-0.5"
+                                                        }`}
+                                                    />
+                                                </span>
+                                            </label>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        );
+                    })()}
+
                     {activeTab === "security" && (
                         <div className="space-y-6">
                             <div className="border-b border-border/60 pb-4">
@@ -3867,7 +3973,7 @@ export default function AdminDashboardPage() {
                                             type="password"
                                             value={currentPassword}
                                             onChange={(e) => setCurrentPassword(e.target.value)}
-                                            placeholder="Enter existing password (e.g. admin)"
+                                            placeholder="Enter existing password"
                                             required
                                             className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border focus:border-primary focus:ring-1 focus:ring-primary text-sm font-medium outline-none"
                                         />

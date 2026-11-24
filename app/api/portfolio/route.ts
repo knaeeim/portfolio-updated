@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getPortfolioData, savePortfolioData, clearPortfolioCache } from "@/lib/portfolio-data";
+import { isAdminRequest, unauthorized } from "@/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -25,6 +26,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+    if (!(await isAdminRequest(request))) return unauthorized();
     try {
         const payload = await request.json();
         if (!payload) {

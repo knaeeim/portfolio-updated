@@ -1,139 +1,19 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-import { getMongoDb, isMongoConfigured } from "@/lib/mongodb";
+import {
+    getStoredPassword,
+    saveStoredPassword,
+    isValidAdminPassword,
+    setAdminSession,
+    clearAdminSession,
+    isAdminRequest,
+} from "@/lib/admin-auth";
 
-const SECRET_PATH = path.join(process.cwd(), "data", "admin-security.json");
-const TMP_SECRET_PATH = path.join("/tmp", "admin-security.json");
-const DEFAULT_PASSWORDS = ["admin", "admin123", "webzen2026"];
-
-let inMemoryPassword: string | null = null;
-
-async function getStoredPassword(): Promise<string> {
-    // 1. Environment variable priority (production / local .env.local)
-    if (process.env.ADMIN_PASSWORD) {
-        return process.env.ADMIN_PASSWORD.trim();
-    }
-
-    // 2. In-memory runtime priority
-    if (inMemoryPassword) {
-        return inMemoryPassword;
-    }
-
-    // 3. MongoDB priority if configured
-    if (isMongoConfigured()) {
-        try {
-            const db = await getMongoDb();
-            if (db) {
-                const doc = await db.collection("auth").findOne({ _id: "admin_password" as any });
-                if (doc?.adminPassword) {
-                    const pass = (doc.adminPassword as string).trim();
-                    inMemoryPassword = pass;
-                    return pass;
-                }
-            }
-        } catch (mongoErr) {
-            console.error("MongoDB auth read error:", mongoErr);
-        }
-    }
-
-    // 4. /tmp fallback priority
-    try {
-        if (fs.existsSync(TMP_SECRET_PATH)) {
-            const raw = fs.readFileSync(TMP_SECRET_PATH, "utf-8");
-            const data = JSON.parse(raw);
-            if (data?.adminPassword) {
-                const pass = data.adminPassword.trim();
-                inMemoryPassword = pass;
-                return pass;
-            }
-        }
-    } catch {
-        // continue
-    }
-
-    // 5. Local gitignored file priority
-    try {
-        if (fs.existsSync(SECRET_PATH)) {
-            const raw = fs.readFileSync(SECRET_PATH, "utf-8");
-            const data = JSON.parse(raw);
-            if (data?.adminPassword) {
-                return data.adminPassword.trim();
-            }
-        }
-    } catch (err) {
-        console.error("Error reading admin secret file:", err);
-    }
-
-    // 6. Fallback default
-    return "admin";
+export async function GET(request: Request) {
+    return NextResponse.json({ authenticated: await isAdminRequest(request) }, { headers: { "Cache-Control": "no-store" } });
 }
 
-async function saveStoredPassword(newPassword: string): Promise<boolean> {
-    const trimmed = newPassword.trim();
-    inMemoryPassword = trimmed;
-
-    // 1. If MongoDB configured, save to cloud
-    if (isMongoConfigured()) {
-        try {
-            const db = await getMongoDb();
-            if (db) {
-                await db.collection("auth").updateOne(
-                    { _id: "admin_password" as any },
-                    {
-                        $set: {
-                            adminPassword: trimmed,
-                            updatedAt: new Date(),
-                        },
-                    },
-                    { upsert: true }
-                );
-            }
-        } catch (mongoErr) {
-            console.error("MongoDB auth write error:", mongoErr);
-        }
-    }
-
-    // 2. Local disk write
-    try {
-        const dir = path.dirname(SECRET_PATH);
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
-        }
-        fs.writeFileSync(
-            SECRET_PATH,
-            JSON.stringify(
-                {
-                    adminPassword: trimmed,
-                    updatedAt: new Date().toISOString(),
-                },
-                null,
-                2
-            ),
-            "utf-8"
-        );
-        return true;
-    } catch (err) {
-        // Fallback for Vercel / read-only filesystem
-        try {
-            fs.writeFileSync(
-                TMP_SECRET_PATH,
-                JSON.stringify(
-                    {
-                        adminPassword: trimmed,
-                        updatedAt: new Date().toISOString(),
-                    },
-                    null,
-                    2
-                ),
-                "utf-8"
-            );
-            return true;
-        } catch (tmpErr) {
-            console.error("Error saving to /tmp secret:", tmpErr);
-            return true; // inMemoryPassword is already set, so runtime succeeds
-        }
-    }
+export async function DELETE() {
+    return clearAdminSession(NextResponse.json({ success: true }));
 }
 
 export async function POST(request: Request) {
@@ -144,28 +24,18 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Password is required" }, { status: 400 });
         }
 
-        const validMasterPassword = await getStoredPassword();
-
         // Check if entered password matches master password or default fallbacks
-        const isValid =
-            password === validMasterPassword ||
-            (validMasterPassword === "admin" && DEFAULT_PASSWORDS.includes(password.trim().toLowerCase()));
-
-        if (!isValid) {
+        if (!isValidAdminPassword(password, await getStoredPassword())) {
             return NextResponse.json(
                 { success: false, error: "Incorrect administrator password" },
                 { status: 401 }
             );
         }
 
-        // Return secure session token
-        const token = Buffer.from(`webzen_admin_${Date.now()}_auth`).toString("base64");
-
-        return NextResponse.json({
-            success: true,
-            token,
-            message: "Authentication successful",
-        });
+        return setAdminSession(
+            NextResponse.json({ success: true, message: "Authentication successful" }),
+            request
+        );
     } catch (error) {
         console.error("Admin auth error:", error);
         return NextResponse.json({ error: "Authentication service error" }, { status: 500 });
@@ -183,17 +53,22 @@ export async function PUT(request: Request) {
             );
         }
 
-        const validMasterPassword = await getStoredPassword();
-
         // Verify current password
-        const isCurrentValid =
-            currentPassword === validMasterPassword ||
-            (validMasterPassword === "admin" && DEFAULT_PASSWORDS.includes(currentPassword?.trim().toLowerCase()));
-
-        if (!isCurrentValid) {
+        if (!isValidAdminPassword(currentPassword, await getStoredPassword())) {
             return NextResponse.json(
                 { success: false, error: "Current password is incorrect" },
                 { status: 401 }
+            );
+        }
+
+        // ADMIN_PASSWORD always wins in getStoredPassword, so a stored change would silently do nothing
+        if (process.env.ADMIN_PASSWORD?.trim()) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    error: "This password is set by the ADMIN_PASSWORD environment variable on the server. Change it in Coolify (Environment Variables) and redeploy.",
+                },
+                { status: 409 }
             );
         }
 
@@ -203,10 +78,11 @@ export async function PUT(request: Request) {
             return NextResponse.json({ error: "Failed to persist new password" }, { status: 500 });
         }
 
-        return NextResponse.json({
-            success: true,
-            message: "Administrator password updated securely",
-        });
+        // Re-issue the session: the old cookie was signed with the previous password
+        return setAdminSession(
+            NextResponse.json({ success: true, message: "Administrator password updated securely" }),
+            request
+        );
     } catch (error) {
         console.error("Change password error:", error);
         return NextResponse.json({ error: "Failed to update password" }, { status: 500 });

@@ -406,7 +406,8 @@ export const ProjectsSection = ({ data }: ProjectsSectionProps) => {
 
                                     {/* Overlapping Heavy Title + ( > ) Drawer Trigger */}
                                     <div className="space-y-3 pt-2">
-                                        <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
+                                        {/* Padding matches the column's negative margin so the title never sits on the orange card */}
+                                        <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4 lg:pl-12 xl:pl-16">
                                             <div className="space-y-1 max-w-2xl">
                                                 <Link
                                                     href={`/projects/${project.id}`}

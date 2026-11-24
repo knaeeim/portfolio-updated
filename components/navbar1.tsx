@@ -29,6 +29,7 @@ interface Navbar1Props {
     userName?: string;
     resumeUrl?: string;
     resumeTitle?: string;
+    hiddenAnchors?: string[];
 }
 
 const navLinks = [
@@ -44,7 +45,13 @@ export const Navbar1 = ({
     userName = "Khairul Bashar Naeeim",
     resumeUrl = "/resume.pdf",
     resumeTitle = "Executive CV",
+    hiddenAnchors = [],
 }: Navbar1Props) => {
+    const isShown = (href: string) => !hiddenAnchors.includes(href.split("#")[1] ?? "");
+    // Renumber so hidden sections don't leave gaps like 01, 03, 04
+    const visibleNavLinks = navLinks
+        .filter((link) => isShown(link.href))
+        .map((link, i) => ({ ...link, number: String(i + 1).padStart(2, "0") }));
     const [currentTime, setCurrentTime] = useState("");
     const [isCommandOpen, setIsCommandOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -103,6 +110,7 @@ export const Navbar1 = ({
     ];
 
     const filteredCommands = commandPaletteItems.filter((item) =>
+        (!item.href || isShown(item.href)) &&
         item.label.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -134,7 +142,7 @@ export const Navbar1 = ({
 
                     {/* CELL 2: Numbered Blueprint Index Links (All Strictly 1 Single Line) */}
                     <nav className="hidden lg:flex flex-1 items-stretch justify-center divide-x divide-border min-w-0">
-                        {navLinks.map((link) => (
+                        {visibleNavLinks.map((link) => (
                             <Link
                                 key={link.number}
                                 href={link.href}
@@ -167,6 +175,7 @@ export const Navbar1 = ({
                         <ModeToggle />
 
                         {/* Dispatch CTA */}
+                        {isShown("/#contact") && (
                         <Link
                             href="/#contact"
                             prefetch={true}
@@ -174,6 +183,7 @@ export const Navbar1 = ({
                             <span>DISPATCH</span>
                             <ArrowUpRight size={12} />
                         </Link>
+                        )}
 
                         {/* Mobile Menu Trigger */}
                         <div className="lg:hidden">
@@ -197,7 +207,7 @@ export const Navbar1 = ({
                                     </SheetHeader>
 
                                     <div className="space-y-1">
-                                        {navLinks.map((link) => (
+                                        {visibleNavLinks.map((link) => (
                                             <Link
                                                 key={link.number}
                                                 href={link.href}

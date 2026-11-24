@@ -25,6 +25,8 @@ import ContactSection from "@/components/contact-us";
 import ProjectGallery from "@/components/ProjectGallery";
 import ProjectBackButton from "@/components/ProjectBackButton";
 import { Button } from "@/components/ui/button";
+import { UnderConstruction } from "@/components/SectionStatus";
+import { SECTIONS, isSectionVisible } from "@/lib/sections";
 
 // Enable Incremental Static Regeneration (ISR) with Edge CDN caching
 export const revalidate = 60;
@@ -68,6 +70,16 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
     const userName = portfolioData?.general?.name || "Khairul Bashar Naeeim";
 
     const project = portfolioData?.projects?.find((p: any) => p.id === id);
+
+    if (!isSectionVisible(portfolioData, "projects")) {
+        return (
+            <UnderConstruction
+                title="This case study is being updated"
+                message="The projects section is temporarily offline while it is being refreshed. Please check back soon."
+                showHomeLink={SECTIONS.some((s) => isSectionVisible(portfolioData, s.key))}
+            />
+        );
+    }
 
     if (!project) {
         return (
