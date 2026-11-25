@@ -177,8 +177,9 @@ export const Navbar1 = ({
                         {/* Dispatch CTA */}
                         {isShown("/#contact") && (
                         <Link
-                            href="/#contact"
+                            href="/#dispatch"
                             prefetch={true}
+                            onClick={() => window.dispatchEvent(new Event("open-dispatch"))}
                             className="hidden sm:inline-flex items-center gap-1 px-3 py-1 bg-foreground text-background rounded text-[11px] font-bold tracking-wider hover:bg-[#FF4F00] hover:text-white transition-colors whitespace-nowrap">
                             <span>DISPATCH</span>
                             <ArrowUpRight size={12} />

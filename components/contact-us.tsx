@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Mail,
@@ -42,6 +42,20 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
     const [messageText, setMessageText] = useState<string>("");
     const [emailInput, setEmailInput] = useState<string>("");
     const [nameInput, setNameInput] = useState<string>("");
+    const formRef = useRef<HTMLDivElement>(null);
+
+    // Navbar DISPATCH: event when already on this page, #dispatch hash when arriving from another page
+    useEffect(() => {
+        const open = () => setIsFormOpen(true);
+        if (window.location.hash === "#dispatch") open();
+        window.addEventListener("open-dispatch", open);
+        return () => window.removeEventListener("open-dispatch", open);
+    }, []);
+
+    // Bring the freshly opened form into view; it renders below the fold
+    useEffect(() => {
+        if (isFormOpen) formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, [isFormOpen]);
 
     const general = data?.general || {};
     const email = general.email || "kmnaeeim@gmail.com";
@@ -237,11 +251,13 @@ export const ContactSection = ({ data }: ContactSectionProps) => {
                 <AnimatePresence>
                     {isFormOpen && (
                         <motion.div
+                            ref={formRef}
+                            id="dispatch"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 20 }}
                             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                            className="rounded-sm border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E] shadow-xl dark:shadow-2xl p-4 sm:p-8 space-y-6">
+                            className="scroll-mt-24 rounded-sm border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0E0E0E] shadow-xl dark:shadow-2xl p-4 sm:p-8 space-y-6">
                             
                             <div className="flex items-center justify-between border-b border-neutral-200 dark:border-white/5 pb-3 font-mono text-xs">
                                 <span className="text-[#E64A11] font-bold uppercase tracking-wider">
